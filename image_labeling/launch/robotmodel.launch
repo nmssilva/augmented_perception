@@ -2,7 +2,7 @@
 <!-- -->
 <launch>
   <!-- upload urdf -->
-  <param name="ATLASCAR2" textfile="$(find free_space_detection)/urdf/atlas2.urdf" />
+  <param name="ATLASCAR2" textfile="$(find image_labeling)/urdf/atlas2.urdf" />
 
   <!-- robot state publisher -->
   <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" />
