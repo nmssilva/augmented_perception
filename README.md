@@ -1,4 +1,3 @@
-# image_labeling
 Image Labeling package for AtlasCarV2 project
 =============================================
 This package run under [ROS Kinetic](http://wiki.ros.org/kinetic) on Ubuntu 16.04.
