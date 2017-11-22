@@ -8,13 +8,13 @@
   <arg name="VLP16" default="true" />
   <!--Launch the drivers-->
   <node name="lms151_E" pkg="lms1xx" type="lms1xx" required="true" output="screen" if="$(arg lms151_E)">
-      <param name="host" value="192.168.0.231"/>
+      <param name="host" value="192.168.0.134"/>
       <param name="frame_id" value="lms151_E"/>
       <remap from="scan" to="lms151_E_scan"/>
   </node>
 
   <node name="lms151_D" pkg="lms1xx" type="lms1xx" required="true" output="screen" if="$(arg lms151_D)">
-      <param name="host" value="192.168.0.134"/>
+      <param name="host" value="192.168.0.231"/>
       <param name="frame_id" value="lms151_D"/>
       <remap from="scan" to="lms151_D_scan"/>
   </node>

@@ -17,8 +17,8 @@
   <include file="$(find image_labeling)/launch/robotmodel.launch"/>
 
   <!--Launch the frame publisher-->
-  <node pkg="image_labeling" type="device_frame_publisher_node" name="device_frame_publisher" required="true"/>
-  <param name = "ref_sensor" value="lms151_E" type="string"/>
+  <node pkg="image_labeling" type="image_labeling_device_frame_publisher_node" name="device_frame_publisher" required="true"/>
+  <param name = "ref_sensor" value="lms151_D" type="string"/>
 
   <node pkg="rosbag" type="play" name="rosbag_play" output="screen" args="$(arg bag) --clock -l"/>
 

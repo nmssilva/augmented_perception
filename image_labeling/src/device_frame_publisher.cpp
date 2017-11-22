@@ -31,7 +31,7 @@
    \date   June, 2017
  */
 
-#include "free_space_detection/device_frame_publisher.h"
+#include "image_labeling/device_frame_publisher.h"
 
 /**
 @brief Reads the contenst of a folder and lists the names of all the files present
@@ -130,12 +130,12 @@ Eigen::Matrix4f getTransformFromFile(string filePath)
           }
       fin.close();
   }
-/*--- DEBUG ---
+//--- DEBUG ---
   cout << transform(0,0) << " " << transform(0,1) << " " << transform(0,2) << " " << transform(0,3) << endl;
   cout << transform(1,0) << " " << transform(1,1) << " " << transform(1,2) << " " << transform(1,3) << endl;
   cout << transform(2,0) << " " << transform(2,1) << " " << transform(2,2) << " " << transform(2,3) << endl;
   cout << transform(3,0) << " " << transform(3,1) << " " << transform(3,2) << " " << transform(3,3) << endl;
-  --- DEBUG ---*/
+  //--- DEBUG ---
   return transform;
 }
 
@@ -254,10 +254,17 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
   tf::TransformBroadcaster br;
 
+  string calibFilesP;
+  if(!nh.getParam("calibFilesPath",calibFilesP)){
+    calibFilesP = ros::package::getPath("image_labeling")+"/calibration_data";
+  }
+  ROS_INFO("Calibration Files Path: %s",calibFilesP.c_str());
+
   vector<tf::Transform> deviceFrames;
   vector<string> deviceNames;
-  readCalibrationFiles("/home/mikael/catkin_ws/src/image_labeling/calibration_data",
+  readCalibrationFiles(calibFilesP.c_str(),
                        deviceFrames, deviceNames);
+
 
 
   tf::Transform LD_tf = deviceFrames[deviceFrames.size()-1]*getTf(0, 0, 0, 0, -1.6, 0);

@@ -32,7 +32,7 @@
  */
 
 
-#include "free_space_detection/free_space_detection.h"
+#include "image_labeling/free_space_detection.h"
 
 /**
 @brief Sums all the points of an array
@@ -964,7 +964,7 @@ using namespace lidar_data_analise;
  */
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "image_labeling");
+  ros::init(argc, argv, "free_space_detection");
 
   Publisher polygonPub;
   Publisher uNavLPolygonPub;
@@ -1089,8 +1089,8 @@ int main(int argc, char **argv)
     pcl::copyPointCloud(*unavAreaL, *unavAreaL_t);
     pcl::copyPointCloud(*unavAreaD, *unavAreaD_t);
 
-    laserDataAnalise::transformPCL(getTf(-1.5, -(0.65+radius), 0, 0, 0, 90),  unavAreaL_t);
-    laserDataAnalise::transformPCL(getTf(-1.5, 0.65+radius, 0, 0, 0, -90),  unavAreaD_t);
+    laserDataAnalise::transformPCL(getTf(-1.5, -(0.65+radius), 0, 0, 0, 0),  unavAreaL_t);
+    laserDataAnalise::transformPCL(getTf(-1.5, 0.65+radius, 0, 0, 0, 0),  unavAreaD_t);
 
     pclPtr unavArea(new PCL);
     *unavArea += *unavAreaD_t;

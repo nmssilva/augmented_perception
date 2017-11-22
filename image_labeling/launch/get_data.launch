@@ -12,7 +12,7 @@
   </include>
 
   <!--Launch the recorder-->
-  <node name="rosbag_record" pkg="rosbag" type="record" output="screen" if="$(arg record)" args=" /ld_rms/scan0 /ld_rms/scan1  /ld_rms/scan2 /ld_rms/scan3 /lms151_D_scan /lms151_E_scan  /camera/image_color  /velodyne_points -o /home/mikael/catkin_ws/src/image_labeling/bags/"/>
+  <node name="rosbag_record" pkg="rosbag" type="record" output="screen" if="$(arg record)" args=" /ld_rms/scan0 /ld_rms/scan1  /ld_rms/scan2 /ld_rms/scan3 /lms151_D_scan /lms151_E_scan  /camera/image_color  /velodyne_points -o $(find image_labeling)/bags/"/>
 
   <!--Launch the visualizer-->
   <node pkg="rviz" type="rviz" name="rviz" args="--display-config $(find image_labeling)/config/big_image.rviz" required="true"/>
@@ -21,6 +21,7 @@
   <include file="$(find image_labeling)/launch/robotmodel.launch"/>
 
   <!--Launch the frame publisher-->
-  <node pkg="image_labeling" type="device_frame_publisher_node" name="device_frame_publisher" required="true"/>
-  <param name = "ref_sensor" value="lms151_E" type="string"/>
+  <node pkg="image_labeling" type="image_labeling_device_frame_publisher_node" name="device_frame_publisher" required="true"/>
+  <param name = "ref_sensor" value="lms151_D" type="string"/>
+  <param name = "calibFilesPath" value="$(find image_labeling)/calibration_data" type="string"/>
 </launch>
