@@ -53,3 +53,4 @@ Acquire data on the car
 roslaunch image_labeling get_data.launch
 Usage: roslaunch image_labeling get_data.launch record:=<false default, true to record bagfile>
 ```
+- recorded bags will be saved to image_labeling/bags/
