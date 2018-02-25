@@ -1,6 +1,6 @@
 Augmented Perception package for AtlasCarV2 project
 =============================================
-This package run under [ROS Kinetic](http://wiki.ros.org/kinetic) on Ubuntu 16.04.
+This package was built under [ROS Kinetic](http://wiki.ros.org/kinetic) on Ubuntu 16.04.
 
 Setup
 =====
