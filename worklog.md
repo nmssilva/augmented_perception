@@ -1,8 +1,7 @@
 
-##########################################
-#### AtlasCar-V2 Augmented Perception ####
-# Tese de Mestrado - Nuno Silva, nº72708 #
-##########################################
+#### AtlasCar-V2 Augmented Perception
+#### Tese de Mestrado - Nuno Silva, nº72708
+# Worklog
 
 25/10/17 Quarta
 ===============
