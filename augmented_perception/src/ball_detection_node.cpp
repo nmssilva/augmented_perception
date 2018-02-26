@@ -211,17 +211,21 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     Mat sub = image - bg;
 
     //up half ignore
-    for(int y = 0;y < cv_ptr->image.rows/2;y++) {
-        for (int x = 0; x < cv_ptr->image.cols; x++) {
+    for(int y = 0;y < sub.rows/2;y++) {
+        for (int x = 0; x < sub.cols; x++) {
             sub.at<Vec3b>(Point(x, y))[0] = 0;
             sub.at<Vec3b>(Point(x, y))[1] = 0;
             sub.at<Vec3b>(Point(x, y))[2] = 0;
         }
     }
 
+    bool pointsToDelete[sub.rows/2*sub.cols] = { false };
+    int meanX = 0;
+    int meanY = 0;
+    int cntBallPoint = 0;
 
-    for(int y = cv_ptr->image.rows/2;y < cv_ptr->image.rows;y++) {
-        for (int x = 0; x < cv_ptr->image.cols; x++) {
+    for(int y = sub.rows/2;y < sub.rows;y++) {
+        for (int x = 0; x < sub.cols; x++) {
             unsigned char b = sub.at<Vec3b>(Point(x, y))[0];
             unsigned char g = sub.at<Vec3b>(Point(x, y))[1];
             unsigned char r = sub.at<Vec3b>(Point(x, y))[2];
@@ -245,11 +249,63 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
                     sub.at<Vec3b>(Point(x, y))[0] = 255;
                     sub.at<Vec3b>(Point(x, y))[1] = 255;
                     sub.at<Vec3b>(Point(x, y))[2] = 255;
+
+                    //detect if this points is to be black afterwards
+                    int cnt = 0;
+
+                    if(sub.at<Vec3b>(Point(x-1, y))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x-1, y-1))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x, y-1))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x+1, y-1))[0] == 255) cnt++;
+
+                    if(sub.at<Vec3b>(Point(x-2, y))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x-2, y-1))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x+2, y-1))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x-1, y-2))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x, y-2))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x+1, y-2))[0] == 255) cnt++;
+
+                    if(sub.at<Vec3b>(Point(x-3, y))[0] == 255) cnt++;
+                    if(sub.at<Vec3b>(Point(x, y-3))[0] == 255) cnt++;
+
+
+                    if(cnt < 12){
+                        pointsToDelete[ (y-sub.rows/2) * sub.cols + x ] = true;
+                    }
+                    else{ //probably ball
+                        cntBallPoint++;
+                        meanX += x;
+                        meanY += y;
+                    }
                 }
             }
-
         }
     }
+
+    // delete the points
+    for(int y = sub.rows/2;y < sub.rows;y++) {
+        for (int x = 0; x < sub.cols; x++) {
+            if(y == cv_ptr->image.rows/2){
+                sub.at<Vec3b>(Point(x, y))[0] = 0;
+                sub.at<Vec3b>(Point(x, y))[1] = 0;
+                sub.at<Vec3b>(Point(x, y))[2] = 0;
+            }
+            else if(pointsToDelete[ (y-sub.rows/2) * sub.cols + x ] == 1){
+                sub.at<Vec3b>(Point(x, y))[0] = 0;
+                sub.at<Vec3b>(Point(x, y))[1] = 0;
+                sub.at<Vec3b>(Point(x, y))[2] = 0;
+            }
+        }
+    }
+
+    //draw center
+    if(cntBallPoint > 100000){
+        meanX /= cntBallPoint;
+        meanY /= cntBallPoint;
+        int radius = sqrt(cntBallPoint)*0.59;
+        cv::circle(sub,Point(meanX,meanY),radius,cv::Scalar(0,0,255),2);
+    }
+
 
 
     // Publish the data.

@@ -27,8 +27,8 @@
       <file leaf-file-name="ball_detection_node.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="238" column="36" lean-forward="false" selection-start-line="238" selection-start-column="36" selection-end-line="238" selection-end-column="36" />
+            <state relative-caret-position="1515">
+              <caret line="305" column="48" lean-forward="false" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -72,10 +72,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="43" />
-    <option name="y" value="-28" />
-    <option name="width" value="1397" />
-    <option name="height" value="928" />
+    <option name="x" value="1629" />
+    <option name="y" value="-4" />
+    <option name="width" value="1395" />
+    <option name="height" value="927" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -144,15 +144,15 @@
       <workItem from="1519145013458" duration="7365000" />
       <workItem from="1519223724779" duration="8616000" />
       <workItem from="1519308019165" duration="597000" />
-      <workItem from="1519513001680" duration="16941000" />
+      <workItem from="1519513001680" duration="24460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42988000" />
+    <option name="totallyTimeSpent" value="50507000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="43" y="-28" width="1865" height="1092" extended-state="6" />
+    <frame x="1337" y="-4" width="1863" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1540526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -271,8 +271,8 @@
     <entry file="file://$PROJECT_DIR$/src/backup.cpp" />
     <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="238" column="36" lean-forward="false" selection-start-line="238" selection-start-column="36" selection-end-line="238" selection-end-column="36" />
+        <state relative-caret-position="1515">
+          <caret line="305" column="48" lean-forward="false" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
           <folding />
         </state>
       </provider>
