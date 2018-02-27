@@ -116,6 +116,12 @@
 - Redução do rúido na imagem
 - Bounding circle à volta da bola
 
+28/02/18 Terça
+==============
+
+- Bounding Box à volta da bola
+- Início do desenvolvimento de click and detect
+
 ### TODO
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
