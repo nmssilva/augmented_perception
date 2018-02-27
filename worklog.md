@@ -110,11 +110,21 @@
 	- Bola detectada quase na totalidade
 	- Algum ruído á volta na imagem mas fácil de remover
 
-#### TODO
+27/02/18 Segunda
+================
+
+- Redução do rúido na imagem
+- Bounding circle à volta da bola
+
+####
+TODO
+####
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
+
 - Começar o start of art
 	- deteção de bolas/objetos/carros/pessoas
 	- algoritmos usados
 	- ferramenta semi-auto de labeling para deep-learning
+
 - Ler sobre SIFT e SURF
