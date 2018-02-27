@@ -27,8 +27,8 @@
       <file leaf-file-name="ball_detection_node.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1515">
-              <caret line="305" column="48" lean-forward="false" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
+            <state relative-caret-position="594">
+              <caret line="319" column="72" lean-forward="false" selection-start-line="319" selection-start-column="72" selection-end-line="319" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -72,10 +72,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1629" />
-    <option name="y" value="-4" />
-    <option name="width" value="1395" />
-    <option name="height" value="927" />
+    <option name="x" value="-1" />
+    <option name="y" value="-35" />
+    <option name="width" value="1922" />
+    <option name="height" value="1116" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -145,14 +145,15 @@
       <workItem from="1519223724779" duration="8616000" />
       <workItem from="1519308019165" duration="597000" />
       <workItem from="1519513001680" duration="24460000" />
+      <workItem from="1519732211357" duration="1503000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50507000" />
+    <option name="totallyTimeSpent" value="52010000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1337" y="-4" width="1863" height="1084" extended-state="6" />
+    <frame x="56" y="-11" width="1865" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1540526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -187,6 +188,30 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="29" lean-forward="false" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../atlascar_camera_calibration/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3078">
+          <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -271,8 +296,8 @@
     <entry file="file://$PROJECT_DIR$/src/backup.cpp" />
     <entry file="file://$PROJECT_DIR$/src/ball_detection_node.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1515">
-          <caret line="305" column="48" lean-forward="false" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
+        <state relative-caret-position="594">
+          <caret line="319" column="72" lean-forward="false" selection-start-line="319" selection-start-column="72" selection-end-line="319" selection-end-column="72" />
           <folding />
         </state>
       </provider>

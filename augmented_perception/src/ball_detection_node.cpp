@@ -222,6 +222,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
     bool pointsToDelete[sub.rows/2*sub.cols] = { false };
     int meanX = 0;
     int meanY = 0;
+    int boundX = 0;
+    int boundY = 0;
     int cntBallPoint = 0;
 
     for(int y = sub.rows/2;y < sub.rows;y++) {
@@ -273,9 +275,20 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
                         pointsToDelete[ (y-sub.rows/2) * sub.cols + x ] = true;
                     }
                     else{ //probably ball
+                        boundX *= cntBallPoint;
+                        boundY *= cntBallPoint;
+
                         cntBallPoint++;
+
                         meanX += x;
                         meanY += y;
+
+
+                        boundX += x;
+                        boundY += y;
+
+                        boundX /= cntBallPoint;
+                        boundY /= cntBallPoint;
                     }
                 }
             }
@@ -298,13 +311,18 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
         }
     }
 
-    //draw center
-    if(cntBallPoint > 100000){
+    //draw bounding circle
+    // or bounding box
+    if(cntBallPoint > 100000){ //if ball detected
         meanX /= cntBallPoint;
         meanY /= cntBallPoint;
         int radius = sqrt(cntBallPoint)*0.59;
-        cv::circle(sub,Point(meanX,meanY),radius,cv::Scalar(0,0,255),2);
+        //cv::circle(sub,Point(meanX,meanY),radius,cv::Scalar(0,0,255),3);
+        int pointx = (meanX-boundX)*2+boundX;
+        int pointy = (meanY-boundY)*2+boundY;
+        cv::rectangle(sub, Point(boundX,boundY), Point(pointx,pointy), Scalar(0,255,0), 3);
     }
+
 
 
 
