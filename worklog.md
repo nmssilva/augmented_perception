@@ -116,7 +116,7 @@
 - Redução do rúido na imagem
 - Bounding circle à volta da bola
 
-###TODO
+### TODO
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
 
