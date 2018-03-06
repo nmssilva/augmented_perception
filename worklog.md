@@ -122,6 +122,21 @@
 - Bounding Box à volta da bola
 - Início do desenvolvimento de click and detect
 
+01/03/18 Quinta & 02/03/18 Sexta
+================================
+
+- Formação de ROS com prof. Miguel
+- Preparação da Apresentação para o dia 09/02/18
+
+05/03/18 Segunda
+================
+
+- Tarde no AtlasCar
+	- Após um debugging intensivo, descobri (finalmente) porque é que o pacote de calibração não funcionava
+	- Problema: faltava um pacote "pointgrey_fl3_ge_28s4_c"
+	- Nunca ninguém me disse que este pacote era necessário. O pacote que o Diogo me deu para as PointGrey era outro e sempre funcionou. O pacote de calibração usa outro pacote diferente para as câmeras.
+	- Solução: Pacote encontrado [aqui](http://lars.mec.ua.pt/public/LAR%20Projects/Humanoid/2017_JorgeSousa/Code/src/pointgrey_fl3_ge_28s4_c/)
+
 ### TODO
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
