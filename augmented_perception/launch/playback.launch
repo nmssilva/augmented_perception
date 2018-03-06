@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- usage roslaunch augmented_perception playback.launch bag:="path_to_bagfile"
+ -->
+<launch>
+  <arg name="bag" default="$(find augmented_perception)/bags/test.bag"/>
+  <arg name = "record" default = "false"/>
+
+  <!--Parameters-->
+  <param name="/use_sim_time" value="true"/>
+  <param name="/using_rviz" value="true"/>
+
+  <!--Launch the visualizer-->
+  <node pkg="rviz" type="rviz" name="rviz" args="--display-config $(find augmented_perception)/config/rviz.rviz" required="true"/>
+
+  <!--Launch the ball detector-->
+  <node pkg="augmented_perception" type="ball_detection_node" name="ball_detection_node" required="true"/>
+
+  <!--Launch the frame publisher-->
+  <include file="$(find augmented_perception)/launch/static_transform_publisher.launch"/>
+
+  <node pkg="rosbag" type="play" name="rosbag_play" output="screen" args="$(arg bag) --clock -l"/>
+
+</launch>

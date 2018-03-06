@@ -1,7 +1,7 @@
 <launch>
   <node pkg="tf" type="static_transform_publisher" name="root_broadcaster" args="0 0 0 0 0 0 1 world root 100" />
-  <node pkg="tf" type="static_transform_publisher" name="lms151_D_broadcaster" args="0 -0.8 0 0 0 -0.43 1 root lms151_D 100" />
-  <node pkg="tf" type="static_transform_publisher" name="lms151_E_broadcaster" args="0 0.8 0 0 0 0.43 1 root lms151_E 100" />
+  <node pkg="tf" type="static_transform_publisher" name="lms151_D_broadcaster" args="0 -0.76 0 0 0 -0.43 1 root lms151_D 100" />
+  <node pkg="tf" type="static_transform_publisher" name="lms151_E_broadcaster" args="0 0.76 0 0 0 0.43 1 root lms151_E 100" />
   <node pkg="tf" type="static_transform_publisher" name="ldmrs0_broadcaster" args="0 0 0 0 0 0 1 root ldmrs0 100" />
   <node pkg="tf" type="static_transform_publisher" name="ldmrs1_broadcaster" args="0 0 0 0 0 0 1 root ldmrs1 100" />
   <node pkg="tf" type="static_transform_publisher" name="ldmrs2_broadcaster" args="0 0 0 0 0 0 1 root ldmrs2 100" />
