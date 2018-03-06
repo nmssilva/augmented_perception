@@ -25,7 +25,7 @@ cv::Mat bg;
 cv::Mat click;
 cv_bridge::CvImagePtr cv_ptr;
 
-int hue = 0;
+uchar hue = 2;
 int vibrance = 110;
 bool firstframe = true;
 bool paused = false;
@@ -177,8 +177,8 @@ void mouseHandler(int event, int x, int y, int flags, void* param)
       uchar b = pixel[0];
       uchar g = pixel[1];
       uchar r = pixel[2];
-      hue = getH((int)r, (int)g, (int)b);
-      cout << "H: " << hue << endl;
+      hue = getH((int)r, (int)g, (int)b) - 2;
+      ROS_INFO("Selected Hue: %d", (int)hue);
     }
   }
 }
@@ -198,7 +198,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
 
     click = image.clone();
 
-    if (!paused && !using_rviz)
+    if (!paused)
     {
       cvSetMouseCallback("camera", mouseHandler, &click);
       cv::imshow("camera", image);
@@ -244,17 +244,16 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   int boundY = 0;
   int cntBallPoint = 0;
 
-  int Hthreshold = 9;
-  int hmax = hue + Hthreshold;
-  int hmin = hue - Hthreshold;
+  uchar Hthreshold = 8;
+  uchar hmax = hue + Hthreshold;
+  uchar hmin = hue - Hthreshold;
 
-  if (hmax > 255)
+  cout << "hmax: " << (int)hmax << ", hmin " << (int)hmin << endl;
+
+  bool more_is_less = false;
+  if (hmax < hmin)
   {
-    hmax = hmax - 256;
-  }
-  if (hmin < 0)
-  {
-    hmin = 256 - hmin;
+    more_is_less = true;
   }
 
   for (int y = sub.rows / 2; y < sub.rows; y++)
@@ -276,7 +275,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
       }
       else
       {
-        if (h > 10 && h < 251)
+        if (((h > (int)hmax && h < (int)hmin) && more_is_less) || ((h > (int)hmax || h < (int)hmin) && !more_is_less))
         {
           sub.at<Vec3b>(Point(x, y))[0] = 0;
           sub.at<Vec3b>(Point(x, y))[1] = 0;
@@ -401,16 +400,15 @@ int main(int argc, char** argv)
   {
     using_rviz = false;
   }
-  cout << using_rviz << endl;
 
   cv::namedWindow("bg", CV_WINDOW_NORMAL);
   cv::startWindowThread();
 
+  cv::namedWindow("camera", CV_WINDOW_NORMAL);
+  cv::startWindowThread();
+
   if (!using_rviz)
   {
-    cv::namedWindow("camera", CV_WINDOW_NORMAL);
-    cv::startWindowThread();
-
     cv::namedWindow("binary", CV_WINDOW_NORMAL);
     cv::startWindowThread();
   }
