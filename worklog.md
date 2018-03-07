@@ -147,6 +147,11 @@
 	- Necessário para fazer testes no pacote de calibração fora do carro
 - Estrutura base do relatório preliminar
 
+07/03/18 Quarta
+===============
+
+- Conclusão e entrega do relatório preliminar (estive o dia fora de Aveiro, foi o máximo que pude fazer hoje)
+
 ### TODO
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
