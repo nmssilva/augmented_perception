@@ -152,6 +152,11 @@
 
 - Conclusão e entrega do relatório preliminar (estive o dia fora de Aveiro, foi o máximo que pude fazer hoje)
 
+08/03/18 Quinta
+===============
+
+- Workshop de ROS
+
 ### TODO
 
 - Desenvolver relatório preliminar (apresentação a 9 de Março)
