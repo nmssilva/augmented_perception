@@ -157,11 +157,15 @@
 
 - Workshop de ROS
 
+09/03/18 Sexta
+===============
+
+- Reunião com prof. Paulo
+- Avanço no nó da calibração da camera
+
 ### TODO
 
-- Desenvolver relatório preliminar (apresentação a 9 de Março)
-
-- Começar o start of art
+- Desenvolver o state of the art
 	- deteção de bolas/objetos/carros/pessoas
 	- algoritmos usados
 	- ferramenta semi-auto de labeling para deep-learning
