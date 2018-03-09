@@ -162,6 +162,8 @@
 
 - Reunião com prof. Paulo
 - Avanço no nó da calibração da camera
+    - detecção da bola feita
+    - falta publicação do centro da bola
 
 ### TODO
 
