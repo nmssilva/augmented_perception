@@ -162,8 +162,16 @@
 
 - Reunião com prof. Paulo
 - Avanço no nó da calibração da camera
-    - detecção da bola feita
-    - falta publicação do centro da bola
+	- detecção da bola feita
+	- falta publicação do centro da bola
+	
+12/03/18 Segunda
+================
+
+- Avanço no nó de calibração
+	- Centro da bola a ser publicado
+	- Ficheiros .pcd gerados a partir dos centros detetados
+		- Parece existir alguma incoerência nos dados do pcd
 
 ### TODO
 
