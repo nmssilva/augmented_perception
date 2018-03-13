@@ -172,6 +172,12 @@
 	- Centro da bola a ser publicado
 	- Ficheiros .pcd gerados a partir dos centros detetados
 		- Parece existir alguma incoerência nos dados do pcd
+		
+13/03/18 Terça
+==============
+
+- Ficheiro pcd gerado a partir da imagem da camera
+- Pointcloud é gerada com o pacote de calibração
 
 ### TODO
 
