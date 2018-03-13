@@ -136,12 +136,52 @@
 	- Problema: faltava um pacote "pointgrey_fl3_ge_28s4_c"
 	- Nunca ninguém me disse que este pacote era necessário. O pacote que o Diogo me deu para as PointGrey era outro e sempre funcionou. O pacote de calibração usa outro pacote diferente para as câmeras.
 	- Solução: Pacote encontrado [aqui](http://lars.mec.ua.pt/public/LAR%20Projects/Humanoid/2017_JorgeSousa/Code/src/pointgrey_fl3_ge_28s4_c/)
+	
+06/03/18 Terça
+==============
+
+- Desenvolvido launchfile para lançar rviz configurado com as janelas para deteção da bola
+- Nó de deteção da bola agora deteta a bola a partir dum clique que determina a cor
+	- Desta forma é possivel calibrar a partir duma bola com uma cor arbitrária
+- Gravação de rosbag de imagens da camera com a driver do pacote de calibração
+	- Necessário para fazer testes no pacote de calibração fora do carro
+- Estrutura base do relatório preliminar
+
+07/03/18 Quarta
+===============
+
+- Conclusão e entrega do relatório preliminar (estive o dia fora de Aveiro, foi o máximo que pude fazer hoje)
+
+08/03/18 Quinta
+===============
+
+- Workshop de ROS
+
+09/03/18 Sexta
+===============
+
+- Reunião com prof. Paulo
+- Avanço no nó da calibração da camera
+	- detecção da bola feita
+	- falta publicação do centro da bola
+	
+12/03/18 Segunda
+================
+
+- Avanço no nó de calibração
+	- Centro da bola a ser publicado
+	- Ficheiros .pcd gerados a partir dos centros detetados
+		- Parece existir alguma incoerência nos dados do pcd
+		
+13/03/18 Terça
+==============
+
+- Ficheiro pcd gerado a partir da imagem da camera
+- Pointcloud é gerada com o pacote de calibração
 
 ### TODO
 
-- Desenvolver relatório preliminar (apresentação a 9 de Março)
-
-- Começar o start of art
+- Desenvolver o state of the art
 	- deteção de bolas/objetos/carros/pessoas
 	- algoritmos usados
 	- ferramenta semi-auto de labeling para deep-learning
