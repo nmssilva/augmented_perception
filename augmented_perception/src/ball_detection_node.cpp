@@ -215,8 +215,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   {  // define bg
     firstframe = false;
     bg = image.clone();
-    blur(bg, bg, cv::Size(20, 20));
     cv::imshow("bg", bg);
+    blur(bg, bg, cv::Size(20, 20));
     cv::waitKey(30);
   }
 
@@ -247,8 +247,6 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
   uchar Hthreshold = 8;
   uchar hmax = hue + Hthreshold;
   uchar hmin = hue - Hthreshold;
-
-  cout << "hmax: " << (int)hmax << ", hmin " << (int)hmin << endl;
 
   bool more_is_less = false;
   if (hmax < hmin)
