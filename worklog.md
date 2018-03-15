@@ -195,6 +195,7 @@
 	- O problema do Sick LD-MRS400001 era ter partes fundamentais comentadas no launchfile da sua driver no pacote de calibração (por alguma razão)
 		- Alteração desse mesmo launchfile para funcionar corretamente
 	- Gravação de um vídeo para mostrar na apresentação de amanhã
+- Conclusão da preparação da apresentação
 
 ### TODO
 
