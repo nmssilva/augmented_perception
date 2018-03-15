@@ -179,6 +179,23 @@
 - Ficheiro pcd gerado a partir da imagem da camera
 - Pointcloud é gerada com o pacote de calibração
 
+
+14/03/18 Quarta
+===============
+
+- Reunião com prof. Paulo e prof. Vitor
+- Teste no carro com os sensores para calibração
+	- Por alguma razão o Sick LD-MRS400001 não funciona no package	
+
+15/03/18 Quinta
+===============
+
+- Teste no carro com os sensores para calibração
+	- Calibração com sensores e camera efetuada com sucesso
+	- O problema do Sick LD-MRS400001 era ter partes fundamentais comentadas no launchfile da sua driver no pacote de calibração (por alguma razão)
+		- Alteração desse mesmo launchfile para funcionar corretamente
+	- Gravação de um vídeo para mostrar na apresentação de amanhã
+
 ### TODO
 
 - Desenvolver o state of the art
