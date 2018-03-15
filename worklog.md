@@ -196,6 +196,7 @@
 		- Alteração desse mesmo launchfile para funcionar corretamente
 	- Gravação de um vídeo para mostrar na apresentação de amanhã
 - Conclusão da preparação da apresentação
+- Início do desenvolvimento do nó de detecção de carros 
 
 ### TODO
 
