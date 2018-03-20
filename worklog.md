@@ -196,7 +196,18 @@
 		- Alteração desse mesmo launchfile para funcionar corretamente
 	- Gravação de um vídeo para mostrar na apresentação de amanhã
 - Conclusão da preparação da apresentação
+
+16/03/18 Sexta
+==============
+
+- Apresentações / LAR Meeting
 - Início do desenvolvimento do nó de detecção de carros 
+
+
+19/03/18 Segunda
+================
+
+- Experiências com LaserScans para deteção de carros
 
 ### TODO
 
