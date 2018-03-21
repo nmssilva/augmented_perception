@@ -209,6 +209,18 @@
 
 - Experiências com LaserScans para deteção de carros
 
+20/03/18 Terça
+==============
+
+- Experiências com Imagem da camera para deteço de carros
+
+21/03/18 Quarta
+===============
+
+- Primeira abordagem para deteção de carros
+	- Implementação do método de Optical Flow Lucas-Kanade nas imagens de camera
+	
+
 ### TODO
 
 - Desenvolver o state of the art
