@@ -2,7 +2,7 @@
 <!-- usage roslaunch augmented_perception playback.launch bag:="path_to_bagfile"
  -->
 <launch>
-  <arg name="bag" default="$(find augmented_perception)/bags/test.bag"/>
+  <arg name="bag" default="/home/mikael/catkin_ws/test2.bag"/>
   <arg name = "record" default = "false"/>
 
   <!--Parameters-->

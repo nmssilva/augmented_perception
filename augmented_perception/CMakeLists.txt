@@ -151,6 +151,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/augmented_perception_node.cpp)
 add_executable(ball_detection_node src/ball_detection_node.cpp)
+add_executable(car_detection_node src/car_detection_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -162,9 +163,15 @@ add_executable(ball_detection_node src/ball_detection_node.cpp)
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(ball_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(car_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ball_detection_node
+    ${catkin_LIBRARIES}
+    # ${PCL_LIBRARIES}
+    ${OpenCV_LIBS}
+)
+target_link_libraries(car_detection_node
     ${catkin_LIBRARIES}
     # ${PCL_LIBRARIES}
     ${OpenCV_LIBS}
