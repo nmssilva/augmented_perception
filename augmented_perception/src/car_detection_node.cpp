@@ -15,23 +15,29 @@
 using namespace std;
 using namespace cv;
 
+// Publishers
 ros::Publisher pub_scan_E;
 image_transport::Publisher pub_image;
+
+// Images
 cv_bridge::CvImagePtr cv_ptr;
+Mat image_input, imToShow, sub;
 
-Mat gray, prevGray, image, frame;
-
+// Optical-flow related variables
+Mat gray, prevGray, frame;
 TermCriteria termcrit(TermCriteria::COUNT | TermCriteria::EPS, 20, 0.03);
 vector<Point2f> points[2];
 Point2f point;
-
-bool paused = false;
 bool needToInit = false;
 bool addRemovePt = false;
-
 const int MAX_COUNT = 500;
-
 Size subPixWinSize(10, 10), winSize(31, 31);
+
+// Template-Matching related variables
+Mat patch;
+Point2f pointdown, pointup, pointbox;
+bool capture = false;
+bool drawRect = false;
 
 void scan_E_cb(const sensor_msgs::LaserScan::ConstPtr& input)
 {
@@ -77,7 +83,7 @@ void scan_E_cb(const sensor_msgs::LaserScan::ConstPtr& input)
   pub_scan_E.publish(output);
 }
 
-static void onMouse(int event, int x, int y, int /*flags*/, void* /*param*/)
+static void onMouse_OF(int event, int x, int y, int /*flags*/, void* /*param*/)
 {
   if (event == EVENT_LBUTTONDOWN)
   {
@@ -86,7 +92,7 @@ static void onMouse(int event, int x, int y, int /*flags*/, void* /*param*/)
   }
 }
 
-void image_cb(const sensor_msgs::ImageConstPtr& msg)
+void image_cb_OpticalFlow(const sensor_msgs::ImageConstPtr& msg)
 {
   try
   {
@@ -105,13 +111,10 @@ void image_cb(const sensor_msgs::ImageConstPtr& msg)
         break;
     }
 
-    // Show image
-    image = cv_ptr->image;
+    // Show image_input
+    image_input = cv_ptr->image;
 
-    if (!paused)
-    {
-      cvSetMouseCallback("camera", onMouse, 0);
-    }
+    cvSetMouseCallback("camera", onMouse_OF, 0);
   }
   catch (cv_bridge::Exception& e)
   {
@@ -119,17 +122,17 @@ void image_cb(const sensor_msgs::ImageConstPtr& msg)
   }
 
   // up half ignore
-  for (int y = 0; y < image.rows / 3; y++)
+  for (int y = 0; y < image_input.rows / 3; y++)
   {
-    for (int x = 0; x < image.cols; x++)
+    for (int x = 0; x < image_input.cols; x++)
     {
-      image.at<Vec3b>(Point(x, y))[0] = 0;
-      image.at<Vec3b>(Point(x, y))[1] = 0;
-      image.at<Vec3b>(Point(x, y))[2] = 0;
+      image_input.at<Vec3b>(Point(x, y))[0] = 0;
+      image_input.at<Vec3b>(Point(x, y))[1] = 0;
+      image_input.at<Vec3b>(Point(x, y))[2] = 0;
     }
   }
 
-  cvtColor(image, gray, COLOR_BGR2GRAY);
+  cvtColor(image_input, gray, COLOR_BGR2GRAY);
 
   if (needToInit)
   {
@@ -163,7 +166,7 @@ void image_cb(const sensor_msgs::ImageConstPtr& msg)
         continue;
 
       points[1][k++] = points[1][i];
-      circle(image, points[1][i], 20, Scalar(0, 255, 0), -1, 8);
+      circle(image_input, points[1][i], 10, Scalar(0, 255, 0), -1, 8);
     }
     points[1].resize(k);
   }
@@ -181,14 +184,131 @@ void image_cb(const sensor_msgs::ImageConstPtr& msg)
   needToInit = false;
 
   // Publish data
-  cv::imshow("camera", image);
+  cv::imshow("camera", image_input);
 
   cv_bridge::CvImage out_msg;
-  out_msg.header = msg->header;                           // Same timestamp and tf frame as input image
+  out_msg.header = msg->header;                           // Same timestamp and tf frame as input image_input
   out_msg.encoding = sensor_msgs::image_encodings::BGR8;  // Or whatever
-  out_msg.image = image;                                  // Your cv::Mat
+  out_msg.image = image_input;                            // Your cv::Mat
 
   pub_image.publish(out_msg.toImageMsg());
+}
+
+static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
+{
+  if (event == EVENT_LBUTTONDOWN)
+  {
+    pointdown = Point2f((float)x, (float)y);
+    drawRect = true;
+  }
+  if (event == EVENT_LBUTTONUP)
+  {
+    pointup = Point2f((float)x, (float)y);
+
+    if (x < 0)
+      pointup.x = 0;
+
+    if (y < 0)
+      pointup.y = 0;
+
+    capture = true;
+  }
+
+  pointbox = Point2f((float)x, (float)y);
+}
+
+void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
+{
+  try
+  {
+    cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+
+    char c = (char)waitKey(10);
+
+    // Show image_input
+    image_input = cv_ptr->image;
+    imToShow = image_input.clone();
+    sub = image_input.clone();
+
+    if (drawRect)
+    {
+      // Draw area-to-crop rectangle
+      float max_x, min_x, max_y, min_y;
+      if (pointbox.x > pointdown.x)
+      {
+        min_x = pointdown.x;
+        max_x = pointbox.x;
+      }
+      else
+      {
+        max_x = pointdown.x;
+        min_x = pointbox.x;
+      }
+      if (pointbox.y > pointdown.y)
+      {
+        min_y = pointdown.y;
+        max_y = pointbox.y;
+      }
+      else
+      {
+        max_y = pointdown.y;
+        min_y = pointbox.y;
+      }
+
+      cv::rectangle(imToShow, Point((int)min_x, (int)min_y), Point((int)max_x, (int)max_y), Scalar(0, 255, 0), 3);
+    }
+
+    cv::imshow("camera", imToShow);
+    cvSetMouseCallback("camera", onMouse_TM, 0);
+  }
+  catch (cv_bridge::Exception& e)
+  {
+    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+  }
+
+  float max_x, min_x, max_y, min_y;
+  if (pointup.x > pointdown.x)
+  {
+    min_x = pointdown.x;
+    max_x = pointup.x;
+  }
+  else
+  {
+    max_x = pointdown.x;
+    min_x = pointup.x;
+  }
+  if (pointup.y > pointdown.y)
+  {
+    min_y = pointdown.y;
+    max_y = pointup.y;
+  }
+  else
+  {
+    max_y = pointdown.y;
+    min_y = pointup.y;
+  }
+
+  if (max_x - min_x > 0 && max_y - min_y > 0 && capture)
+  {
+    cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
+    patch = image_input(myROI);
+    capture = false;
+    drawRect = false;
+  }
+
+  if (!patch.empty())
+    imshow("crop", patch);
+
+  // up half ignore
+  for (int y = 0; y < sub.rows / 3; y++)
+  {
+    for (int x = 0; x < sub.cols; x++)
+    {
+      sub.at<Vec3b>(Point(x, y))[0] = 0;
+      sub.at<Vec3b>(Point(x, y))[1] = 0;
+      sub.at<Vec3b>(Point(x, y))[2] = 0;
+    }
+  }
 }
 
 int main(int argc, char** argv)
@@ -202,12 +322,15 @@ int main(int argc, char** argv)
   cv::namedWindow("camera", CV_WINDOW_NORMAL);
   cv::startWindowThread();
 
+  cv::namedWindow("crop", CV_WINDOW_NORMAL);
+  cv::startWindowThread();
+
   // Create a ROS subscriber for the inputs
-  image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb);
+  image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
   ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, scan_E_cb);
 
   // Create a ROS publisher for the output point cloud
-  pub_image = it.advertise("output/image", 1);
+  pub_image = it.advertise("output/image_input", 1);
   pub_scan_E = nh.advertise<sensor_msgs::LaserScan>("/output/scan_E", 1);
 
   // Spin
