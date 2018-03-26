@@ -225,7 +225,7 @@
 
 - Implementação de Template de Matching nas imagens da camera
 	- Tracking a ser feito a partir deste método
-	- Primeiro prótipo de tracking semi-automático
+	- Primeiro protótipo de tracking semi-automático
 	
 23/03/18 Sexta ~ 26/03/18 Segunda
 =================================
