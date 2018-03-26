@@ -220,6 +220,20 @@
 - Primeira abordagem para deteção de carros
 	- Implementação do método de Optical Flow Lucas-Kanade nas imagens de camera
 	
+22/03/18 Quinta
+===============
+
+- Implementação de Template de Matching nas imagens da camera
+	- Tracking a ser feito a partir deste método
+	- Primeiro prótipo de tracking semi-automático
+	
+23/03/18 Sexta ~ 26/03/18 Segunda
+=================================
+
+- ENEI
+
+
+	
 
 ### TODO
 
