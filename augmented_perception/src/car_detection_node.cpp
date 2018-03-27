@@ -1,3 +1,4 @@
+#include <ros/package.h>
 #include "laser_geometry/laser_geometry.h"
 #include "message_filters/subscriber.h"
 #include "ros/ros.h"
@@ -10,7 +11,10 @@
 
 #include <opencv2/opencv.hpp>
 
+#include <sys/stat.h>
+#include <ctime>
 #include <iostream>
+#include <string>
 
 using namespace std;
 using namespace cv;
@@ -34,10 +38,23 @@ const int MAX_COUNT = 500;
 Size subPixWinSize(10, 10), winSize(31, 31);
 
 // Template-Matching related variables
-Mat patch;
+Mat patch, result;
 Point2f pointdown, pointup, pointbox;
+
+/* 0: Squared Difference
+ * 1: Normalized Squared Difference
+ * 2: Cross Correlation
+ * 3: Normalized Cross Correlation
+ * 4: Cross Correlation Coefficient
+ * 5: Normalized Cross Correlation Coefficient
+ */
+int match_method = CV_TM_SQDIFF;  // 0: CV_TM_SQDIFF 1: CV_TM_SQDIFF_NORMED 2: CV_TM_CCORR
+                                  // 3: CV_TM_CCORR_NORMED 4: CV_TM_CCOEFF 5: CV_TM_CCOEFF_NORMED
+int max_Trackbar = 5;
+int nframes = 0;
 bool capture = false;
 bool drawRect = false;
+Mat frame_array[100];
 
 void scan_E_cb(const sensor_msgs::LaserScan::ConstPtr& input)
 {
@@ -211,10 +228,58 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
     if (y < 0)
       pointup.y = 0;
 
+    if (x > image_input.cols)
+      pointup.x = image_input.cols;
+
+    if (y > image_input.rows)
+      pointup.y = image_input.rows;
+
     capture = true;
   }
 
   pointbox = Point2f((float)x, (float)y);
+}
+
+void MatchingMethod(int, void*)
+{
+  Mat img_display;
+  sub.copyTo(img_display);
+  int result_cols = sub.cols - patch.cols + 1;
+  int result_rows = sub.rows - patch.rows + 1;
+  result.create(result_rows, result_cols, CV_32FC1);
+  bool method_accepts_mask = (CV_TM_SQDIFF == match_method || match_method == CV_TM_CCORR_NORMED);
+
+  matchTemplate(sub, patch, result, match_method);
+
+  normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
+
+  double minVal;
+  double maxVal;
+  Point minLoc;
+  Point maxLoc;
+  Point matchLoc;
+
+  minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+
+  if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED)
+  {
+    matchLoc = minLoc;
+  }
+  else
+  {
+    matchLoc = maxLoc;
+  }
+
+  cv::Rect myROI(matchLoc.x, matchLoc.y, patch.cols, patch.rows);
+  patch = img_display(myROI);
+
+  frame_array[nframes % 100] = patch.clone();
+
+  nframes++;
+  rectangle(imToShow, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar(0, 0, 255), 2, 8, 0);
+  rectangle(result, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar::all(0), 2, 8, 0);
+  imshow("camera", imToShow);
+  return;
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
@@ -224,6 +289,52 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
     cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 
     char c = (char)waitKey(10);
+
+    if (c == 's')
+    {
+      int gotframes = nframes;
+      if (gotframes > 100)
+        gotframes = 100;
+
+      nframes = 0;
+
+      if (gotframes == 0)
+      {
+        ROS_INFO("Can't save 0 frames.");
+      }
+      else
+      {
+        ROS_INFO("Saving %d frames. Please enter object label: (type 'exit' to discard frames)", gotframes);
+
+        string path;
+        path = ros::package::getPath("augmented_perception") + "/labelling/";
+        mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+        cin >> path;
+
+        if (path.find("exit"))
+        {
+          path = ros::package::getPath("augmented_perception") + "/labelling/" + path;
+          mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+          path += "/" + boost::lexical_cast<std::string>(std::time(NULL));
+          mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+          for (int i = 0; i < gotframes; i++)
+          {
+            string impath;
+            impath = path + "/" + boost::lexical_cast<std::string>(i + 1) + ".bmp";
+            imwrite(impath, frame_array[i]);
+          }
+
+          cout << "Saved " << gotframes << " frames to " << path << endl;
+        }
+        else
+        {
+          cout << "Exitting\n";
+        }
+      }
+    }
 
     // Show image_input
     image_input = cv_ptr->image;
@@ -291,13 +402,10 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
   if (max_x - min_x > 0 && max_y - min_y > 0 && capture)
   {
     cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
-    patch = image_input(myROI);
+    patch = imToShow(myROI);
     capture = false;
     drawRect = false;
   }
-
-  if (!patch.empty())
-    imshow("crop", patch);
 
   // up half ignore
   for (int y = 0; y < sub.rows / 3; y++)
@@ -308,6 +416,12 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
       sub.at<Vec3b>(Point(x, y))[1] = 0;
       sub.at<Vec3b>(Point(x, y))[2] = 0;
     }
+  }
+
+  if (!patch.empty())
+  {
+    imshow("crop", patch);
+    MatchingMethod(0, 0);
   }
 }
 
