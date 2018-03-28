@@ -54,7 +54,10 @@ int max_Trackbar = 5;
 int nframes = 0;
 bool capture = false;
 bool drawRect = false;
-Mat frame_array[100];
+bool got_last_patches = false;
+std::queue<Mat> frame_array;
+std::queue<Mat> previous_frames;
+std::queue<Mat> previous_patches;
 
 void scan_E_cb(const sensor_msgs::LaserScan::ConstPtr& input)
 {
@@ -211,33 +214,40 @@ void image_cb_OpticalFlow(const sensor_msgs::ImageConstPtr& msg)
   pub_image.publish(out_msg.toImageMsg());
 }
 
-static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
+Mat MatchingMethod(int, void*, Mat patch_frame, Mat previous_frame)
 {
-  if (event == EVENT_LBUTTONDOWN)
+  Mat img_display;
+  previous_frame.copyTo(img_display);
+  int result_cols = previous_frame.cols - patch_frame.cols + 1;
+  int result_rows = previous_frame.rows - patch_frame.rows + 1;
+  result.create(result_rows, result_cols, CV_32FC1);
+
+  matchTemplate(previous_frame, patch_frame, result, match_method);
+
+  normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
+
+  double minVal;
+  double maxVal;
+  Point minLoc;
+  Point maxLoc;
+  Point matchLoc;
+
+  minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+
+  if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED)
   {
-    pointdown = Point2f((float)x, (float)y);
-    drawRect = true;
+    matchLoc = minLoc;
   }
-  if (event == EVENT_LBUTTONUP)
+  else
   {
-    pointup = Point2f((float)x, (float)y);
-
-    if (x < 0)
-      pointup.x = 0;
-
-    if (y < 0)
-      pointup.y = 0;
-
-    if (x > image_input.cols)
-      pointup.x = image_input.cols;
-
-    if (y > image_input.rows)
-      pointup.y = image_input.rows;
-
-    capture = true;
+    matchLoc = maxLoc;
   }
 
-  pointbox = Point2f((float)x, (float)y);
+  cv::Rect myROI(matchLoc.x, matchLoc.y, patch_frame.cols, patch_frame.rows);
+
+  patch_frame = img_display(myROI);
+
+  return patch_frame;
 }
 
 void MatchingMethod(int, void*)
@@ -247,7 +257,6 @@ void MatchingMethod(int, void*)
   int result_cols = sub.cols - patch.cols + 1;
   int result_rows = sub.rows - patch.rows + 1;
   result.create(result_rows, result_cols, CV_32FC1);
-  bool method_accepts_mask = (CV_TM_SQDIFF == match_method || match_method == CV_TM_CCORR_NORMED);
 
   matchTemplate(sub, patch, result, match_method);
 
@@ -273,13 +282,55 @@ void MatchingMethod(int, void*)
   cv::Rect myROI(matchLoc.x, matchLoc.y, patch.cols, patch.rows);
   patch = img_display(myROI);
 
-  frame_array[nframes % 100] = patch.clone();
+  // limit 100
+  if (frame_array.size() >= 100)
+  {
+    frame_array.pop();
+  }
+
+  frame_array.push(patch.clone());
 
   nframes++;
   rectangle(imToShow, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar(0, 0, 255), 2, 8, 0);
   rectangle(result, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar::all(0), 2, 8, 0);
   imshow("camera", imToShow);
   return;
+}
+
+static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
+{
+  if (event == EVENT_LBUTTONDOWN)
+  {
+    pointdown = Point2f((float)x, (float)y);
+    drawRect = true;
+  }
+  if (event == EVENT_LBUTTONUP)
+  {
+    pointup = Point2f((float)x, (float)y);
+
+    if (x < 0)
+      pointup.x = 0;
+
+    if (y < 0)
+      pointup.y = 0;
+
+    if (x > image_input.cols)
+      pointup.x = image_input.cols;
+
+    if (y > image_input.rows)
+      pointup.y = image_input.rows;
+
+    capture = true;
+    got_last_patches = false;
+    nframes = 0;
+
+    while (frame_array.size() > 0)
+    {
+      frame_array.pop();
+    }
+  }
+
+  pointbox = Point2f((float)x, (float)y);
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
@@ -304,7 +355,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
       }
       else
       {
-        ROS_INFO("Saving %d frames. Please enter object label: (type 'exit' to discard frames)", gotframes);
+        ROS_INFO("Saving %s frames. Please enter object label: (type 'exit' to discard frames)",
+                 boost::lexical_cast<std::string>(gotframes + 5).c_str());
 
         string path;
         path = ros::package::getPath("augmented_perception") + "/labelling/";
@@ -324,10 +376,20 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
           {
             string impath;
             impath = path + "/" + boost::lexical_cast<std::string>(i + 1) + ".bmp";
-            imwrite(impath, frame_array[i]);
+            imwrite(impath, frame_array.front());
+            frame_array.pop();
           }
 
-          cout << "Saved " << gotframes << " frames to " << path << endl;
+          for (int i = 5; i > 0; i--)
+          {
+            string impath;
+            impath = path + "/previous_" + boost::lexical_cast<std::string>(i) + ".bmp";
+            imwrite(impath, previous_patches.front());
+            previous_patches.pop();
+            previous_frames.pop();
+          }
+
+          ROS_INFO("Saved %s frames to %s", boost::lexical_cast<std::string>(gotframes + 5).c_str(), path.c_str());
         }
         else
         {
@@ -340,6 +402,14 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
     image_input = cv_ptr->image;
     imToShow = image_input.clone();
     sub = image_input.clone();
+
+    // previous 5 frames
+    if (previous_frames.size() >= 5)
+    {
+      previous_frames.pop();
+    }
+
+    previous_frames.push(image_input);
 
     if (drawRect)
     {
@@ -420,6 +490,19 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
 
   if (!patch.empty())
   {
+    // get 5 last patches
+    if (!got_last_patches)
+    {
+      Mat previous_patch = patch;
+      for (int i = 0; i < 5; i++)
+      {
+        previous_patch = MatchingMethod(0, 0, previous_patch, previous_frames.front());
+        previous_frames.pop();
+        previous_patches.push(previous_patch);
+      }
+      got_last_patches = true;
+    }
+
     imshow("crop", patch);
     MatchingMethod(0, 0);
   }
