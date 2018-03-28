@@ -232,7 +232,20 @@
 
 - ENEI
 
+27/03/18 Terça
+==============
 
+- Template matching guarda os templates adquiridos com uma label dada por input do utilizador
+
+
+28/03/18 Quarta
+===============
+
+- Reunião com prof. Paulo e Vitor
+	- Ver MTT do Jorge Almeida
+	- Projetar os laserScans na imagem
+	- Escrever um ficheiro com uma estrutura de dados do género KITTI
+- Implementação do template matching para as frames anteriores
 	
 
 ### TODO
