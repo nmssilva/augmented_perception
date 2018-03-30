@@ -38,7 +38,7 @@ const int MAX_COUNT = 500;
 Size subPixWinSize(10, 10), winSize(31, 31);
 
 // Template-Matching related variables
-Mat patch, result;
+Mat patch, first_patch, result;
 Point2f pointdown, pointup, pointbox;
 
 /* 0: Squared Difference
@@ -57,162 +57,8 @@ bool drawRect = false;
 bool got_last_patches = false;
 std::queue<Mat> frame_array;
 std::queue<Mat> previous_frames;
+std::queue<Mat> first_previous_frames;
 std::queue<Mat> previous_patches;
-
-void scan_E_cb(const sensor_msgs::LaserScan::ConstPtr& input)
-{
-  laser_geometry::LaserProjection projector;
-  tf::TransformListener listener;
-
-  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
-
-  // Create a container for the data.
-  sensor_msgs::LaserScan output;
-  output = *input;
-
-  // Do something with cloud.
-
-  int lb_front_pos = 275;
-  int lb_rear_pos = 400;
-  int rb_front_pos = 100;
-  int rb_rear_pos = 60;
-
-  float b_threshold = 2;
-  float lb_front = output.ranges[lb_front_pos] - b_threshold;
-  float lb_rear = output.ranges[lb_rear_pos] - b_threshold;
-  float rb_front = output.ranges[rb_front_pos] - b_threshold;
-  float rb_rear = output.ranges[rb_rear_pos] - b_threshold;
-
-  float lb_increment = (lb_front - lb_rear) / (lb_rear_pos - lb_front_pos);
-  float rb_increment = (rb_front - rb_rear) / (rb_rear_pos - rb_front_pos);
-
-  for (int i = 0; i <= n_pos; i++)
-  {
-    if (i >= lb_front_pos && i <= lb_rear_pos)
-    {
-      float max_range = lb_rear + (lb_increment * (i - lb_front_pos));
-      output.ranges[i] = max_range;
-    }
-    else
-    {
-      output.ranges[i] = 0;
-    }
-  }
-
-  // Publish the data.
-  pub_scan_E.publish(output);
-}
-
-static void onMouse_OF(int event, int x, int y, int /*flags*/, void* /*param*/)
-{
-  if (event == EVENT_LBUTTONDOWN)
-  {
-    point = Point2f((float)x, (float)y);
-    addRemovePt = true;
-  }
-}
-
-void image_cb_OpticalFlow(const sensor_msgs::ImageConstPtr& msg)
-{
-  try
-  {
-    cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
-
-    char c = (char)waitKey(10);
-
-    switch (c)
-    {
-      case 'r':
-        needToInit = true;
-        break;
-      case 'c':
-        points[0].clear();
-        points[1].clear();
-        break;
-    }
-
-    // Show image_input
-    image_input = cv_ptr->image;
-
-    cvSetMouseCallback("camera", onMouse_OF, 0);
-  }
-  catch (cv_bridge::Exception& e)
-  {
-    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
-  }
-
-  // up half ignore
-  for (int y = 0; y < image_input.rows / 3; y++)
-  {
-    for (int x = 0; x < image_input.cols; x++)
-    {
-      image_input.at<Vec3b>(Point(x, y))[0] = 0;
-      image_input.at<Vec3b>(Point(x, y))[1] = 0;
-      image_input.at<Vec3b>(Point(x, y))[2] = 0;
-    }
-  }
-
-  cvtColor(image_input, gray, COLOR_BGR2GRAY);
-
-  if (needToInit)
-  {
-    // automatic initialization
-    goodFeaturesToTrack(gray, points[1], MAX_COUNT, 0.01, 10, Mat(), 3, 3, 0, 0.04);
-    cornerSubPix(gray, points[1], subPixWinSize, Size(-1, -1), termcrit);
-    addRemovePt = false;
-  }
-  else if (!points[0].empty())
-  {
-    vector<uchar> status;
-    vector<float> err;
-    if (prevGray.empty())
-      gray.copyTo(prevGray);
-
-    calcOpticalFlowPyrLK(prevGray, gray, points[0], points[1], status, err, winSize, 3, termcrit, 0, 0.001);
-
-    size_t i, k;
-    for (i = k = 0; i < points[1].size(); i++)
-    {
-      if (addRemovePt)
-      {
-        if (norm(point - points[1][i]) <= 5)
-        {
-          addRemovePt = false;
-          continue;
-        }
-      }
-
-      if (!status[i])
-        continue;
-
-      points[1][k++] = points[1][i];
-      circle(image_input, points[1][i], 10, Scalar(0, 255, 0), -1, 8);
-    }
-    points[1].resize(k);
-  }
-  if (addRemovePt && points[1].size() < (size_t)MAX_COUNT)
-  {
-    vector<Point2f> tmp;
-    tmp.push_back(point);
-    cornerSubPix(gray, tmp, winSize, Size(-1, -1), termcrit);
-    points[1].push_back(tmp[0]);
-    addRemovePt = false;
-  }
-
-  std::swap(points[1], points[0]);
-  cv::swap(prevGray, gray);
-  needToInit = false;
-
-  // Publish data
-  cv::imshow("camera", image_input);
-
-  cv_bridge::CvImage out_msg;
-  out_msg.header = msg->header;                           // Same timestamp and tf frame as input image_input
-  out_msg.encoding = sensor_msgs::image_encodings::BGR8;  // Or whatever
-  out_msg.image = image_input;                            // Your cv::Mat
-
-  pub_image.publish(out_msg.toImageMsg());
-}
 
 Mat MatchingMethod(int, void*, Mat patch_frame, Mat previous_frame)
 {
@@ -355,6 +201,21 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
       }
       else
       {
+        ROS_INFO("Loading templates to save...");
+
+        // get 5 last patches
+        if (!got_last_patches)
+        {
+          Mat previous_patch = first_patch;
+          for (int i = 0; i < 5; i++)
+          {
+            previous_patch = MatchingMethod(0, 0, previous_patch, first_previous_frames.front());
+            first_previous_frames.pop();
+            previous_patches.push(previous_patch);
+          }
+          got_last_patches = true;
+        }
+
         ROS_INFO("Saving %s frames. Please enter object label: (type 'exit' to discard frames)",
                  boost::lexical_cast<std::string>(gotframes + 5).c_str());
 
@@ -380,8 +241,10 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
             frame_array.pop();
           }
 
-          for (int i = 5; i > 0; i--)
+          int i = 0;
+          while (!previous_patches.empty())
           {
+            i++;
             string impath;
             impath = path + "/previous_" + boost::lexical_cast<std::string>(i) + ".bmp";
             imwrite(impath, previous_patches.front());
@@ -472,7 +335,14 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
   if (max_x - min_x > 0 && max_y - min_y > 0 && capture)
   {
     cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
-    patch = imToShow(myROI);
+    patch = image_input(myROI);
+    first_patch = patch.clone();
+    while (!previous_frames.empty())
+    {
+      first_previous_frames.push(previous_frames.front());
+      previous_frames.pop();
+    }
+    imshow("first_patch", first_patch);
     capture = false;
     drawRect = false;
   }
@@ -490,19 +360,6 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
 
   if (!patch.empty())
   {
-    // get 5 last patches
-    if (!got_last_patches)
-    {
-      Mat previous_patch = patch;
-      for (int i = 0; i < 5; i++)
-      {
-        previous_patch = MatchingMethod(0, 0, previous_patch, previous_frames.front());
-        previous_frames.pop();
-        previous_patches.push(previous_patch);
-      }
-      got_last_patches = true;
-    }
-
     imshow("crop", patch);
     MatchingMethod(0, 0);
   }
@@ -524,11 +381,11 @@ int main(int argc, char** argv)
 
   // Create a ROS subscriber for the inputs
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
-  ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, scan_E_cb);
+  // ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, scan_E_cb);
 
   // Create a ROS publisher for the output point cloud
   pub_image = it.advertise("output/image_input", 1);
-  pub_scan_E = nh.advertise<sensor_msgs::LaserScan>("/output/scan_E", 1);
+  // pub_scan_E = nh.advertise<sensor_msgs::LaserScan>("/output/scan_E", 1);
 
   // Spin
   ros::spin();
