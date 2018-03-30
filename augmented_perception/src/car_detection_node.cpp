@@ -195,9 +195,9 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
 
       nframes = 0;
 
-      if (gotframes == 0)
+      if (gotframes == 0 || patch.empty())
       {
-        ROS_INFO("Can't save 0 frames.");
+        ROS_INFO("There are no frames to save.");
       }
       else
       {
@@ -256,9 +256,14 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
         }
         else
         {
-          cout << "Exitting\n";
+          cout << "Did not save\n";
         }
       }
+    }
+    if (c == 'c')
+    {
+      patch = Mat();
+      ROS_INFO("Image cleared");
     }
 
     // Show image_input
