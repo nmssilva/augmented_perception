@@ -20,7 +20,7 @@ using namespace std;
 using namespace cv;
 
 // Publishers
-ros::Publisher pub_scan_E;
+ros::Publisher pub_scan_0;
 image_transport::Publisher pub_image;
 
 // Images
@@ -370,6 +370,23 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
   }
 }
 
+void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr& input)
+{
+  laser_geometry::LaserProjection projector;
+  tf::TransformListener listener;
+
+  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
+
+  // Create a container for the data.
+  sensor_msgs::LaserScan output;
+  output = *input;
+
+  // Do something with cloud.
+
+  // Publish the data.
+  pub_scan_0.publish(output);
+}
+
 int main(int argc, char** argv)
 {
   // Initialize ROS
@@ -386,11 +403,11 @@ int main(int argc, char** argv)
 
   // Create a ROS subscriber for the inputs
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
-  // ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, scan_E_cb);
+  ros::Subscriber sub_scan_E = nh.subscribe("/ld_rms/scan0", 1, scan_0_cb);
 
   // Create a ROS publisher for the output point cloud
   pub_image = it.advertise("output/image_input", 1);
-  // pub_scan_E = nh.advertise<sensor_msgs::LaserScan>("/output/scan_E", 1);
+  pub_scan_0 = nh.advertise<sensor_msgs::LaserScan>("/output/scan_0", 1);
 
   // Spin
   ros::spin();
