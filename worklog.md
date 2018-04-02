@@ -246,13 +246,17 @@
 	- Projetar os laserScans na imagem
 	- Escrever um ficheiro com uma estrutura de dados do género KITTI
 - Implementação do template matching para as frames anteriores
-	
 
-### TODO
+30/03/18 Sexta
+==============
 
-- Desenvolver o state of the art
-	- deteção de bolas/objetos/carros/pessoas
-	- algoritmos usados
-	- ferramenta semi-auto de labeling para deep-learning
+- Otimização do algoritmo de template matching
+	- Substituição de arrays por queues
+	- Backtracking só é feito no ato de salvaguarda
+		- Impede que o video pare devido ao processamento destes dados no momento de aquisiço da bounding box
+- Implementação de funcionalidade para remover o template / desistir do tracking
 
-- Ler sobre SIFT e SURF
+02/04/18 Segunda
+================
+
+- Experiências com laserScans com a library [MTT](http://lars.mec.ua.pt/lartk/doc/mtt/html/)
