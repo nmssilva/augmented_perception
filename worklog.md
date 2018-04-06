@@ -256,7 +256,25 @@
 		- Impede que o video pare devido ao processamento destes dados no momento de aquisiço da bounding box
 - Implementação de funcionalidade para remover o template / desistir do tracking
 
-02/04/18 Segunda
-================
+02/04/18 Segunda ~ 04/04/18 Quarta
+==================================
 
 - Experiências com laserScans com a library [MTT](http://lars.mec.ua.pt/lartk/doc/mtt/html/)
+
+05/04/18 Quinta
+===============
+
+- Reunião com prof. Paulo Dias
+	- Descoberta do ponto fulcral do problema do MTT: Conversão da pointCloud para Targets
+- Início do desenvolvimento do nó de deteção de objetos nos laser scans usando MTT
+
+
+06/04/18 Sexta
+==============
+
+- Objetos a serem encontrados com MTT
+	- Os objetos são representados pela ligação dos vários pontos da pointcloud
+	- Cada objeto tem um ID (numérico) e este é detetado automaticamente
+	- O feito o tracking do objeto
+		- o ID no se perde na próxima mensagem, este é seguido
+
