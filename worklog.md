@@ -276,5 +276,5 @@
 	- Os objetos são representados pela ligação dos vários pontos da pointcloud
 	- Cada objeto tem um ID (numérico) e este é detetado automaticamente
 	- O feito o tracking do objeto
-		- o ID no se perde na próxima mensagem, este é seguido
+		- o ID não se perde na próxima mensagem, este é seguido à medida que o objeto se move
 
