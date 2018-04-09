@@ -25,6 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   velodyne_pointcloud
+  mtt
 )
 
 ## System dependencies are found with CMake's conventions
@@ -117,7 +118,7 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES augmented_perception
 #  CATKIN_DEPENDS cmake_modules colormap laser_geometry lidar_segmentation message_runtime pcl_ros roscpp rospy std_msgs tf velodyne_pointcloud
 #  DEPENDS system_lib
@@ -130,16 +131,16 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/augmented_perception.cpp
-# )
+add_library(${PROJECT_NAME}
+   src/common.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -151,7 +152,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/augmented_perception_node.cpp)
 add_executable(ball_detection_node src/ball_detection_node.cpp)
-add_executable(car_detection_node src/car_detection_node.cpp)
+add_executable(labelling_node src/labelling_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -163,7 +164,7 @@ add_executable(car_detection_node src/car_detection_node.cpp)
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(ball_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(car_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(labelling_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} mtt_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ball_detection_node
@@ -171,7 +172,7 @@ target_link_libraries(ball_detection_node
     # ${PCL_LIBRARIES}
     ${OpenCV_LIBS}
 )
-target_link_libraries(car_detection_node
+target_link_libraries(labelling_node
     ${catkin_LIBRARIES}
     # ${PCL_LIBRARIES}
     ${OpenCV_LIBS}

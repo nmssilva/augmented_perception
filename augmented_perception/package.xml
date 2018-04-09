@@ -60,6 +60,7 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>velodyne_pointcloud</build_depend>
+  <build_depend>mtt</build_depend>
   <build_export_depend>cmake_modules</build_export_depend>
   <build_export_depend>colormap</build_export_depend>
   <build_export_depend>cv_bridge</build_export_depend>
@@ -71,6 +72,7 @@
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>tf</build_export_depend>
   <build_export_depend>velodyne_pointcloud</build_export_depend>
+  <build_export_depend>mtt</build_export_depend>
   <exec_depend>cmake_modules</exec_depend>
   <exec_depend>colormap</exec_depend>
   <exec_depend>cv_bridge</exec_depend>
@@ -83,6 +85,7 @@
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
   <exec_depend>velodyne_pointcloud</exec_depend>
+  <exec_depend>mtt</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

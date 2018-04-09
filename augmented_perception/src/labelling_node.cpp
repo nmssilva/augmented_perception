@@ -6,6 +6,9 @@
 #include "tf/message_filter.h"
 #include "tf/transform_listener.h"
 
+#include "mtt/TargetList.h"
+#include "mtt/mtt.h"
+
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 
@@ -16,26 +19,20 @@
 #include <iostream>
 #include <string>
 
+#include "common.cpp"
+
 using namespace std;
 using namespace cv;
 
 // Publishers
 ros::Publisher pub_scan_0;
 image_transport::Publisher pub_image;
+ros::Publisher markers_publisher;
+ros::Publisher marker_publisher;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
 Mat image_input, imToShow, sub;
-
-// Optical-flow related variables
-Mat gray, prevGray, frame;
-TermCriteria termcrit(TermCriteria::COUNT | TermCriteria::EPS, 20, 0.03);
-vector<Point2f> points[2];
-Point2f point;
-bool needToInit = false;
-bool addRemovePt = false;
-const int MAX_COUNT = 500;
-Size subPixWinSize(10, 10), winSize(31, 31);
 
 // Template-Matching related variables
 Mat patch, first_patch, result;
@@ -60,7 +57,22 @@ std::queue<Mat> previous_frames;
 std::queue<Mat> first_previous_frames;
 std::queue<Mat> previous_patches;
 
-Mat MatchingMethod(int, void*, Mat patch_frame, Mat previous_frame)
+// Scanner MTT related variables
+sensor_msgs::PointCloud2 pointData;
+
+mtt::TargetListPC targetList;
+
+t_config config;
+t_data full_data;
+t_flag flags;
+
+vector<t_clustersPtr> clusters;
+vector<t_objectPtr> object;
+vector<t_listPtr> list_vector;
+
+visualization_msgs::MarkerArray markersMsg;
+
+Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame)
 {
   Mat img_display;
   previous_frame.copyTo(img_display);
@@ -96,7 +108,7 @@ Mat MatchingMethod(int, void*, Mat patch_frame, Mat previous_frame)
   return patch_frame;
 }
 
-void MatchingMethod(int, void*)
+void MatchingMethod(int, void *)
 {
   Mat img_display;
   sub.copyTo(img_display);
@@ -143,7 +155,7 @@ void MatchingMethod(int, void*)
   return;
 }
 
-static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
+static void onMouse_TM(int event, int x, int y, int /*flags*/, void * /*param*/)
 {
   if (event == EVENT_LBUTTONDOWN)
   {
@@ -179,7 +191,7 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/, void* /*param*/)
   pointbox = Point2f((float)x, (float)y);
 }
 
-void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
+void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 {
   try
   {
@@ -310,7 +322,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
     cv::imshow("camera", imToShow);
     cvSetMouseCallback("camera", onMouse_TM, 0);
   }
-  catch (cv_bridge::Exception& e)
+  catch (cv_bridge::Exception &e)
   {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
@@ -347,7 +359,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
       first_previous_frames.push(previous_frames.front());
       previous_frames.pop();
     }
-    imshow("first_patch", first_patch);
+
     capture = false;
     drawRect = false;
   }
@@ -370,24 +382,121 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr& msg)
   }
 }
 
-void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr& input)
+void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr &msg)
 {
   laser_geometry::LaserProjection projector;
-  tf::TransformListener listener;
+  /*tf::TransformListener listener;
 
-  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
+  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;*/
 
   // Create a container for the data.
-  sensor_msgs::LaserScan output;
-  output = *input;
+  /*sensor_msgs::LaserScan laser_data;
+  laser_data = *input;*/
+
+  projector.projectLaser(*msg, pointData);
 
   // Do something with cloud.
 
   // Publish the data.
-  pub_scan_0.publish(output);
+  // pub_scan_0.publish(output);
+
+  // Get data from PointCloud2 to full_data
+  PointCloud2ToData(pointData, full_data);
+
+  // clustering
+  clustering(full_data, clusters, &config, &flags);
+
+  // calc_cluster_props
+  calc_cluster_props(clusters, full_data);
+
+  // clusters2objects
+  clusters2objects(object, clusters, full_data, config);
+
+  calc_object_props(object);
+
+  // AssociateObjects
+  AssociateObjects(list_vector, object, config, flags);
+
+  // MotionModelsIteration
+  MotionModelsIteration(list_vector, config);
+
+  // cout<<"Number of targets "<<list_vector.size() << endl;
+
+  free_lines(object);  // clean current objects
+
+  targetList.id.clear();
+  targetList.obstacle_lines.clear();  // clear all lines
+
+  pcl::PointCloud<pcl::PointXYZ> target_positions;
+  pcl::PointCloud<pcl::PointXYZ> velocity;
+
+  target_positions.header.frame_id = pointData.header.frame_id;
+
+  velocity.header.frame_id = pointData.header.frame_id;
+
+  targetList.header.stamp = ros::Time::now();
+  targetList.header.frame_id = pointData.header.frame_id;
+
+  // cout << "list size: " << list_vector.size() << endl;
+
+  for (uint i = 0; i < list_vector.size(); i++)
+  {
+    targetList.id.push_back(list_vector[i]->id);
+
+    pcl::PointXYZ position;
+
+    position.x = list_vector[i]->position.estimated_x;
+    position.y = list_vector[i]->position.estimated_y;
+    position.z = 0;
+
+    target_positions.points.push_back(position);
+
+    pcl::PointXYZ vel;
+
+    vel.x = list_vector[i]->velocity.velocity_x;
+    vel.y = list_vector[i]->velocity.velocity_y;
+    vel.z = 0;
+
+    velocity.points.push_back(vel);
+
+    pcl::PointCloud<pcl::PointXYZ> shape;
+    pcl::PointXYZ line_point;
+
+    uint j;
+    for (j = 0; j < list_vector[i]->shape.lines.size(); j++)
+    {
+      line_point.x = list_vector[i]->shape.lines[j]->xi;
+      line_point.y = list_vector[i]->shape.lines[j]->yi;
+
+      shape.points.push_back(line_point);
+    }
+
+    line_point.x = list_vector[i]->shape.lines[j - 1]->xf;
+    line_point.y = list_vector[i]->shape.lines[j - 1]->yf;
+
+    sensor_msgs::PointCloud2 shape_cloud;
+    pcl::toROSMsg(shape, shape_cloud);
+    targetList.obstacle_lines.push_back(shape_cloud);
+  }
+
+  pcl::toROSMsg(target_positions, targetList.position);
+  pcl::toROSMsg(velocity, targetList.velocity);
+
+  pub_scan_0.publish(targetList);
+
+  CreateMarkers(markersMsg.markers, targetList, list_vector);
+
+  markers_publisher.publish(markersMsg);
+
+  flags.fi = false;
 }
 
-int main(int argc, char** argv)
+void laserGather(const mtt::TargetList &msg)
+{
+  cout << "asdasd" << endl;
+}
+
+int main(int argc, char **argv)
 {
   // Initialize ROS
   ros::init(argc, argv, "car_detection_node");
@@ -402,12 +511,17 @@ int main(int argc, char** argv)
   cv::startWindowThread();
 
   // Create a ROS subscriber for the inputs
+  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, scan_0_cb);
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
-  ros::Subscriber sub_scan_E = nh.subscribe("/ld_rms/scan0", 1, scan_0_cb);
 
   // Create a ROS publisher for the output point cloud
   pub_image = it.advertise("output/image_input", 1);
-  pub_scan_0 = nh.advertise<sensor_msgs::LaserScan>("/output/scan_0", 1);
+  pub_scan_0 = nh.advertise<mtt::TargetListPC>("/targets", 1000);
+  markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
+  marker_publisher = nh.advertise<visualization_msgs::Marker>("/marker", 1000);
+
+  init_flags(&flags);    // Inits flags values
+  init_config(&config);  // Inits configuration values
 
   // Spin
   ros::spin();
