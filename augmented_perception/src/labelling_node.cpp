@@ -26,6 +26,7 @@ using namespace cv;
 
 // Publishers
 ros::Publisher pub_scan_0;
+ros::Publisher pub_scan_0_filtered;
 image_transport::Publisher pub_image;
 ros::Publisher markers_publisher;
 ros::Publisher marker_publisher;
@@ -71,6 +72,18 @@ vector<t_objectPtr> object;
 vector<t_listPtr> list_vector;
 
 visualization_msgs::MarkerArray markersMsg;
+
+// File writing related variables
+
+struct BBox
+{
+  int x;
+  int y;
+  int width;
+  int height;
+};
+
+std::map<unsigned int, std::vector<BBox> > file_map;
 
 Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame)
 {
@@ -137,8 +150,19 @@ void MatchingMethod(int, void *)
     matchLoc = maxLoc;
   }
 
+  // update patch
   cv::Rect myROI(matchLoc.x, matchLoc.y, patch.cols, patch.rows);
   patch = img_display(myROI);
+
+  unsigned int frame_seq = cv_ptr->header.seq;
+
+  BBox box;
+  box.x = matchLoc.x;
+  box.y = matchLoc.y;
+  box.width = patch.cols;
+  box.height = patch.rows;
+
+  file_map[frame_seq].push_back(box);
 
   // limit 100
   if (frame_array.size() >= 100)
@@ -149,6 +173,7 @@ void MatchingMethod(int, void *)
   frame_array.push(patch.clone());
 
   nframes++;
+
   rectangle(imToShow, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar(0, 0, 255), 2, 8, 0);
   rectangle(result, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar::all(0), 2, 8, 0);
   imshow("camera", imToShow);
@@ -198,6 +223,34 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 
     char c = (char)waitKey(10);
+
+    if (c == 'q')
+    {
+      exit(0);
+    }
+
+    if (c == 'p')
+    {
+      string path = ros::package::getPath("augmented_perception") + "/datasets/";
+      mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+      ofstream myfile;
+      string filename = path + boost::lexical_cast<std::string>(std::time(NULL)) + ".txt";
+      myfile.open(filename.c_str());
+      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT\n";
+
+      for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin(); it != file_map.end(); ++it)
+      {
+        myfile << it->first << endl;
+        for (int i = 0; i < (it->second).size(); i++)
+        {
+          myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
+                 << it->second[i].height << endl;
+        }
+      }
+      myfile.close();
+      ROS_INFO("Saved frames dataset to %s", filename.c_str());
+    }
 
     if (c == 's')
     {
@@ -349,6 +402,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     min_y = pointup.y;
   }
 
+  // get first patch and previous frames
   if (max_x - min_x > 0 && max_y - min_y > 0 && capture)
   {
     cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
@@ -385,20 +439,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr &msg)
 {
   laser_geometry::LaserProjection projector;
-  /*tf::TransformListener listener;
-
-  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;*/
-
-  // Create a container for the data.
-  /*sensor_msgs::LaserScan laser_data;
-  laser_data = *input;*/
 
   projector.projectLaser(*msg, pointData);
-
-  // Do something with cloud.
-
-  // Publish the data.
-  // pub_scan_0.publish(output);
 
   // Get data from PointCloud2 to full_data
   PointCloud2ToData(pointData, full_data);
@@ -491,15 +533,62 @@ void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr &msg)
   flags.fi = false;
 }
 
-void laserGather(const mtt::TargetList &msg)
+void laserFilter(const sensor_msgs::LaserScan::ConstPtr &input)
 {
-  cout << "asdasd" << endl;
+  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
+
+  // Create a container for the data.
+  sensor_msgs::LaserScan output;
+  output = *input;
+
+  // Do something with cloud.
+
+  // left half
+  float left_limit[100] = { 6.1,    6.1,   6.1,    6.1,    6.1,    6.1,    6.1,    6.1,    6.1,   6.1,    6.1,
+                            6.2,    6.3,   6.385,  6.47,   6.505,  6.54,   6.625,  6.71,   6.765, 6.82,   6.905,
+                            6.99,   7.065, 7.14,   7.225,  7.31,   7.39,   7.47,   7.57,   7.67,  7.79,   7.91,
+                            7.99,   8.07,  8.19,   8.31,   8.45,   8.59,   8.705,  8.82,   8.965, 9.11,   9.245,
+                            9.38,   9.545, 9.71,   9.885,  10.06,  10.225, 10.39,  10.585, 10.78, 10.965, 11.15,
+                            11.405, 11.66, 11.905, 12.15,  12.425, 12.7,   13,     13.3,   13.6,  13.9,   14.22,
+                            14.5,   14.9,  15.38,  15.8,   16.22,  16.7,   17.18,  17.76,  18.34, 18.94,  19.54,
+                            20.26,  20.98, 21.8,   22.62,  23.58,  24.54,  25.68,  26.82,  28.18, 29.54,  31.135,
+                            32.73,  34.81, 36.89,  40.215, 43.54,  91.91,  140.28, 170.14, 200,   200,    200 };
+
+  for (int i = 0; i < n_pos / 2; i++)
+  {
+    if (output.ranges[i] > left_limit[i])
+    {
+      output.ranges[i] = 0.0;
+    }
+  }
+
+  // right half
+  float right_limit[100] = { 200,  200,  200,  200,  85,   73,    60,   53,    48,   40,   35,   30,   28,   26,   25,
+                             23.5, 22,   20,   18,   17,   16,    15,   14.5,  14,   13.5, 13,   12.8, 12.6, 12.3, 12,
+                             11.7, 11.4, 11.1, 10.8, 10.5, 10.2,  9.9,  9.6,   9.3,  9,    8.7,  8.4,  8.1,  7.9,  7.75,
+                             7.6,  7.5,  7.35, 7.25, 7.15, 7.05,  6.95, 6.8,   6.7,  6.6,  6.5,  6.4,  6.3,  6.2,  6.1,
+                             6,    5.9,  5.8,  5.7,  5.6,  5.5,   5.4,  5.345, 5.3,  5.2,  5.1,  5.15, 5.1,  5,    4.95,
+                             4.9,  4.85, 4.8,  4.7,  4.68, 4.6,   4.57, 4.53,  4.5,  4.47, 4.43, 4.4,  4.35, 4.3,  4.25,
+                             4.20, 4.18, 4.15, 4.12, 4.08, 4.025, 3.98, 3.96,  3.93, 3.89 };
+
+  for (int i = 0; i < n_pos / 2; i++)
+  {
+    // output.ranges[i + n_pos / 2] = right_limit[i];
+
+    if (output.ranges[i + n_pos / 2] > right_limit[i])
+    {
+      output.ranges[i + n_pos / 2] = 0.0;
+    }
+  }
+
+  // Publish the data.
+  pub_scan_0_filtered.publish(output);
 }
 
 int main(int argc, char **argv)
 {
   // Initialize ROS
-  ros::init(argc, argv, "car_detection_node");
+  ros::init(argc, argv, "labelling_node");
   ros::NodeHandle nh;
   image_transport::ImageTransport it(nh);
 
@@ -511,17 +600,22 @@ int main(int argc, char **argv)
   cv::startWindowThread();
 
   // Create a ROS subscriber for the inputs
-  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, scan_0_cb);
+  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserFilter);
+  ros::Subscriber sub_scan_0_mtt = nh.subscribe("/filter/scan0", 1, scan_0_cb);
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
 
   // Create a ROS publisher for the output point cloud
   pub_image = it.advertise("output/image_input", 1);
+  pub_scan_0_filtered = nh.advertise<sensor_msgs::LaserScan>("/filter/scan0", 1000);
   pub_scan_0 = nh.advertise<mtt::TargetListPC>("/targets", 1000);
   markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
   marker_publisher = nh.advertise<visualization_msgs::Marker>("/marker", 1000);
 
   init_flags(&flags);    // Inits flags values
   init_config(&config);  // Inits configuration values
+
+  cout << "Keyboard Controls:\n";
+  cout << "[Q]uit\n[C]lear image\n[S]ave templates\n[P]rint File\n";
 
   // Spin
   ros::spin();
