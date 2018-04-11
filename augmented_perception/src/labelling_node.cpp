@@ -231,6 +231,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 
     if (c == 'p')
     {
+      int last_frame_id = -1;
+      int actual_frame_id;
       string path = ros::package::getPath("augmented_perception") + "/datasets/";
       mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
@@ -241,12 +243,31 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 
       for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin(); it != file_map.end(); ++it)
       {
-        myfile << it->first << endl;
-        for (int i = 0; i < (it->second).size(); i++)
+        // Skipped frames part
+        actual_frame_id = it->first;
+        if (it->first - last_frame_id > 1 && it->first - last_frame_id < 5 && last_frame_id > -1)
+        {                                                              // frames were skipped, need to replicate them...
+          --it;                                                        // go back
+          for (int i = 1; i < (actual_frame_id - last_frame_id); i++)  // for each skipped frame
+          {
+            myfile << ((it->first) + i) << endl;           // write frame id to file
+            for (int i = 0; i < (it->second).size(); i++)  // write skipped boxes
+            {
+              myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
+                     << it->second[i].height << endl;
+            }
+          }
+          ++it;  // return to actual state
+        }
+
+        // Actual frames part
+        myfile << it->first << endl;                   // write frame id to file
+        for (int i = 0; i < (it->second).size(); i++)  // write actual boxes
         {
           myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
                  << it->second[i].height << endl;
         }
+        last_frame_id = it->first;
       }
       myfile.close();
       ROS_INFO("Saved frames dataset to %s", filename.c_str());
@@ -605,7 +626,7 @@ int main(int argc, char **argv)
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
 
   // Create a ROS publisher for the output point cloud
-  pub_image = it.advertise("output/image_input", 1);
+  pub_image = it.advertise("output/image", 1);
   pub_scan_0_filtered = nh.advertise<sensor_msgs::LaserScan>("/filter/scan0", 1000);
   pub_scan_0 = nh.advertise<mtt::TargetListPC>("/targets", 1000);
   markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
