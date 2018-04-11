@@ -28,6 +28,8 @@ struct BBox
   int y;
   int width;
   int height;
+  int id;
+  string label;
 };
 
 string filename;
@@ -47,7 +49,8 @@ void initializeFileMap()
     if (line.find(" ") != std::string::npos)  // BBox
     {
       BBox box;
-      int x, y, width, height;
+      int x, y, width, height, id;
+      string label;
 
       sscanf(line.substr(0, line.find(" ")).c_str(), "%d", &x);
       line = line.substr(line.find(" ") + 1, line.length());
@@ -55,12 +58,18 @@ void initializeFileMap()
       line = line.substr(line.find(" ") + 1, line.length());
       sscanf(line.substr(0, line.find(" ")).c_str(), "%d", &width);
       line = line.substr(line.find(" ") + 1, line.length());
-      sscanf(line.c_str(), "%d", &height);
+      sscanf(line.substr(0, line.find(" ")).c_str(), "%d", &height);
+      line = line.substr(line.find(" ") + 1, line.length());
+      label = line.substr(0, line.find(" "));
+      line = line.substr(line.find(" ") + 1, line.length());
+      sscanf(line.substr(0, line.find(" ")).c_str(), "%d", &id);
 
       box.x = x;
       box.y = y;
       box.width = width;
       box.height = height;
+      box.id = id;
+      box.label = label;
 
       file_map[frame_id].push_back(box);
     }

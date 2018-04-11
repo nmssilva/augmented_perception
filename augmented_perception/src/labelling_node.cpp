@@ -81,9 +81,13 @@ struct BBox
   int y;
   int width;
   int height;
+  int id;
+  string label;
 };
 
 std::map<unsigned int, std::vector<BBox> > file_map;
+unsigned int object_id = 0;
+unsigned int first_frame_id;
 
 Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame)
 {
@@ -161,6 +165,7 @@ void MatchingMethod(int, void *)
   box.y = matchLoc.y;
   box.width = patch.cols;
   box.height = patch.rows;
+  box.id = object_id;
 
   file_map[frame_seq].push_back(box);
 
@@ -207,6 +212,9 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/, void * /*param*/)
     got_last_patches = false;
     nframes = 0;
 
+    first_frame_id = cv_ptr->header.seq;
+    object_id++;
+
     while (frame_array.size() > 0)
     {
       frame_array.pop();
@@ -239,7 +247,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
       ofstream myfile;
       string filename = path + boost::lexical_cast<std::string>(std::time(NULL)) + ".txt";
       myfile.open(filename.c_str());
-      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT\n";
+      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT LABEL ID\n";
 
       for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin(); it != file_map.end(); ++it)
       {
@@ -254,7 +262,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
             for (int i = 0; i < (it->second).size(); i++)  // write skipped boxes
             {
               myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
-                     << it->second[i].height << endl;
+                     << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << endl;
             }
           }
           ++it;  // return to actual state
@@ -265,7 +273,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
         for (int i = 0; i < (it->second).size(); i++)  // write actual boxes
         {
           myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
-                 << it->second[i].height << endl;
+                 << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << endl;
         }
         last_frame_id = it->first;
       }
@@ -349,7 +357,29 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     if (c == 'c')
     {
       patch = Mat();
-      ROS_INFO("Image cleared");
+      ROS_INFO("Image cleared.");
+    }
+    if (c == 'l')
+    {
+      patch = Mat();
+      ROS_INFO("Object Label (enter to quit): ");
+      string label;
+      cin >> label;
+      unsigned int actual_frame_id = cv_ptr->header.seq;
+
+      if (actual_frame_id < first_frame_id)
+      {
+        actual_frame_id = first_frame_id + 99999;
+      }
+
+      for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin(); it != file_map.end(); ++it)
+      {
+        if (it->first >= first_frame_id && it->first <= actual_frame_id)
+          for (int i = 0; i < (it->second).size(); i++)
+          {
+            (it->second)[i].label = label;
+          }
+      }
     }
 
     // Show image_input
