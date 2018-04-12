@@ -267,6 +267,7 @@
 - Reunião com prof. Paulo Dias
 	- Descoberta do ponto fulcral do problema do MTT: Conversão da pointCloud para Targets
 - Início do desenvolvimento do nó de deteção de objetos nos laser scans usando MTT
+- Resolvi um problema com este [link](https://github.com/strands-project/strands_3d_mapping/issues/67). Já não me lembro ao certo qual era o problema mas era algo relacionado com pointclouds. Fica aí o link para se no futuro aparecer isso outra vez...
 
 
 06/04/18 Sexta
@@ -302,4 +303,7 @@
 			- Secção da calibração com as melhorias e dados
 			- Secção a falar sobre MTT, Template Matching, ...
 - Datasets incluem agora a label do objeto e um ID
+- Melhoria no playback do dataset
+	- Bounding boxes mudam cor consoante o label
+	- Aparece uma "tag" em cima da bouning box com a Label e o ID do objeto
 
