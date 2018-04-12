@@ -1447,13 +1447,13 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
 
   marker.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
 
-  marker.scale.x = 0.2;
-  marker.scale.y = 0.2;
-  marker.scale.z = 0.2;
+  marker.scale.x = 1;
+  marker.scale.y = 1;
+  marker.scale.z = 1;
 
-  marker.color.r = 0;
-  marker.color.g = 0;
-  marker.color.b = 0;
+  marker.color.r = 1;
+  marker.color.g = 1;
+  marker.color.b = 1;
   marker.color.a = 1;
 
   marker.id = 0;
@@ -1480,6 +1480,9 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
   marker.text = "origin";
 
   marker.id++;
+
+  // end of text markers
+  // begin line objects
 
   marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no map
 
@@ -1521,6 +1524,38 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
     marker.id++;
 
     marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no map
+  }
+
+  // begin 3D BBox markers
+
+  marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no map
+
+  // Markers for Line objects
+  marker.type = visualization_msgs::Marker::CUBE;
+  marker.ns = "boxes";
+
+  marker.pose.position.z = 0.5;
+
+  marker.scale.x = 3;
+  marker.scale.y = 2;
+  marker.scale.z = 1;
+
+  for (uint i = 0; i < list.size(); i++)
+  {
+    if (list[i]->shape.lines.size() != 0)
+    {
+      marker.pose.position.x = list[i]->position.estimated_x;
+      marker.pose.position.y = list[i]->position.estimated_y;
+      marker.color.a = 0.5;
+      marker.color.r = 0;
+      marker.color.g = 1;
+      marker.color.b = 0;
+
+      marker.id++;
+
+      marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no
+                                                                           // map
+    }
   }
 
   // para o map todo envio tudo, e meto tudo a false

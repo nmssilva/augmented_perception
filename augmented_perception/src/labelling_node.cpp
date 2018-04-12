@@ -666,7 +666,7 @@ int main(int argc, char **argv)
   init_config(&config);  // Inits configuration values
 
   cout << "Keyboard Controls:\n";
-  cout << "[Q]uit\n[C]lear image\n[S]ave templates\n[P]rint File\n";
+  cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint File\n";
 
   // Spin
   ros::spin();
