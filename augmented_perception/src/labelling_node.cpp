@@ -83,6 +83,8 @@ struct BBox
   int height;
   int id;
   string label;
+  // 3D position
+  double x3d, y3d, z3d;
 };
 
 std::map<unsigned int, std::vector<BBox> > file_map;
@@ -166,6 +168,10 @@ void MatchingMethod(int, void *)
   box.width = patch.cols;
   box.height = patch.rows;
   box.id = object_id;
+  box.label = "unknown";
+  box.x3d = box_x;
+  box.y3d = box_y;
+  box.z3d = box_z;
 
   file_map[frame_seq].push_back(box);
 
@@ -247,7 +253,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
       ofstream myfile;
       string filename = path + boost::lexical_cast<std::string>(std::time(NULL)) + ".txt";
       myfile.open(filename.c_str());
-      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT LABEL ID\n";
+      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT LABEL ID 3D_X 3D_Y 3D_Z\n";
 
       for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin(); it != file_map.end(); ++it)
       {
@@ -262,7 +268,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
             for (int i = 0; i < (it->second).size(); i++)  // write skipped boxes
             {
               myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
-                     << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << endl;
+                     << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << " "
+                     << it->second[i].x3d << " " << it->second[i].y3d << " " << it->second[i].z3d << endl;
             }
           }
           ++it;  // return to actual state
@@ -273,7 +280,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
         for (int i = 0; i < (it->second).size(); i++)  // write actual boxes
         {
           myfile << it->second[i].x << " " << it->second[i].y << " " << it->second[i].width << " "
-                 << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << endl;
+                 << it->second[i].height << " " << it->second[i].label << " " << it->second[i].id << " "
+                 << it->second[i].x3d << " " << it->second[i].y3d << " " << it->second[i].z3d << endl;
         }
         last_frame_id = it->first;
       }
@@ -354,17 +362,49 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
         }
       }
     }
+
+    string label = "";
     if (c == 'c')
     {
       patch = Mat();
       ROS_INFO("Image cleared.");
+      label = "unknown";
+      c = 'l';
     }
+
+    if (lost && patch.cols > 0)
+    {
+      ROS_INFO("Lost Track of object.");
+      c = 'l';
+    }
+
     if (c == 'l')
     {
       patch = Mat();
-      ROS_INFO("Object Label (enter to quit): ");
-      string label;
-      cin >> label;
+      if (label == "")
+      {
+        bool success = false;
+        while (!success)
+        {
+          ROS_INFO("Object Label (enter '-' to pass): ");
+          cin >> label;
+
+          if (label == "-")
+          {
+            label = "unknown";
+          }
+
+          if (label.find(' ') != std::string::npos)
+          {
+            ROS_INFO("Invalid label name. Labels must be a single word.");
+            success = false;
+          }
+          else
+          {
+            success = true;
+          }
+        }
+      }
       unsigned int actual_frame_id = cv_ptr->header.seq;
 
       if (actual_frame_id < first_frame_id)
@@ -592,43 +632,27 @@ void laserFilter(const sensor_msgs::LaserScan::ConstPtr &input)
   sensor_msgs::LaserScan output;
   output = *input;
 
-  // Do something with cloud.
+  // Filter scan
 
-  // left half
-  float left_limit[100] = { 6.1,    6.1,   6.1,    6.1,    6.1,    6.1,    6.1,    6.1,    6.1,   6.1,    6.1,
-                            6.2,    6.3,   6.385,  6.47,   6.505,  6.54,   6.625,  6.71,   6.765, 6.82,   6.905,
-                            6.99,   7.065, 7.14,   7.225,  7.31,   7.39,   7.47,   7.57,   7.67,  7.79,   7.91,
-                            7.99,   8.07,  8.19,   8.31,   8.45,   8.59,   8.705,  8.82,   8.965, 9.11,   9.245,
-                            9.38,   9.545, 9.71,   9.885,  10.06,  10.225, 10.39,  10.585, 10.78, 10.965, 11.15,
-                            11.405, 11.66, 11.905, 12.15,  12.425, 12.7,   13,     13.3,   13.6,  13.9,   14.22,
-                            14.5,   14.9,  15.38,  15.8,   16.22,  16.7,   17.18,  17.76,  18.34, 18.94,  19.54,
-                            20.26,  20.98, 21.8,   22.62,  23.58,  24.54,  25.68,  26.82,  28.18, 29.54,  31.135,
-                            32.73,  34.81, 36.89,  40.215, 43.54,  91.91,  140.28, 170.14, 200,   200,    200 };
-
+  // left side (left to right)
+  float left_limit = 5.0;
   for (int i = 0; i < n_pos / 2; i++)
   {
-    if (output.ranges[i] > left_limit[i])
+    double limit = left_limit / cos(0.610865 - i * output.angle_increment * 1.1);
+    if (output.ranges[i] > limit)
     {
       output.ranges[i] = 0.0;
     }
   }
 
-  // right half
-  float right_limit[100] = { 200,  200,  200,  200,  85,   73,    60,   53,    48,   40,   35,   30,   28,   26,   25,
-                             23.5, 22,   20,   18,   17,   16,    15,   14.5,  14,   13.5, 13,   12.8, 12.6, 12.3, 12,
-                             11.7, 11.4, 11.1, 10.8, 10.5, 10.2,  9.9,  9.6,   9.3,  9,    8.7,  8.4,  8.1,  7.9,  7.75,
-                             7.6,  7.5,  7.35, 7.25, 7.15, 7.05,  6.95, 6.8,   6.7,  6.6,  6.5,  6.4,  6.3,  6.2,  6.1,
-                             6,    5.9,  5.8,  5.7,  5.6,  5.5,   5.4,  5.345, 5.3,  5.2,  5.1,  5.15, 5.1,  5,    4.95,
-                             4.9,  4.85, 4.8,  4.7,  4.68, 4.6,   4.57, 4.53,  4.5,  4.47, 4.43, 4.4,  4.35, 4.3,  4.25,
-                             4.20, 4.18, 4.15, 4.12, 4.08, 4.025, 3.98, 3.96,  3.93, 3.89 };
-
-  for (int i = 0; i < n_pos / 2; i++)
+  // right side (right to left)
+  float right_limit = 2.0;
+  for (int i = n_pos; i >= n_pos / 2; i--)
   {
-    // output.ranges[i + n_pos / 2] = right_limit[i];
-
-    if (output.ranges[i + n_pos / 2] > right_limit[i])
+    double limit = right_limit / cos(0.610865 - (n_pos - i) * output.angle_increment * 1.1);
+    if (output.ranges[i] > limit)
     {
-      output.ranges[i + n_pos / 2] = 0.0;
+      output.ranges[i] = 0;
     }
   }
 
@@ -644,7 +668,8 @@ int main(int argc, char **argv)
   image_transport::ImageTransport it(nh);
 
   // Create Camera Windows
-  cv::namedWindow("camera", CV_WINDOW_NORMAL);
+  cv::namedWindow("camera", CV_WINDOW_KEEPRATIO);
+  cv::resizeWindow("camera", 800, 666);
   cv::startWindowThread();
 
   cv::namedWindow("crop", CV_WINDOW_NORMAL);

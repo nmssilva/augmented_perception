@@ -197,7 +197,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg)
       HSVtoRGB(r, g, b, hue, max, max);
 
       cv::rectangle(image, Point(box.x, box.y), Point(box.x + box.width, box.y + box.height), Scalar(b, g, r), 3);
-      cv::rectangle(image, Point(box.x, box.y), Point(box.x + box.label.length() * 10 + 60, box.y - 15),
+      cv::rectangle(image, Point(box.x, box.y), Point(box.x + box.label.length() * 12 + 60, box.y - 15),
                     Scalar(b, g, r), CV_FILLED);
       string text = box.label + " ID:" + boost::lexical_cast<std::string>(box.id);
       putText(image, text, cvPoint(box.x + 1, box.y - 1), FONT_HERSHEY_COMPLEX_SMALL, 0.8, cvScalar(255, 255, 255), 1,

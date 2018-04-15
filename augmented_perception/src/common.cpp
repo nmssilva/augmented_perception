@@ -1419,6 +1419,11 @@ void init_config(t_config *config)
   config->ezB = 1.0;
 }
 
+double prev_box_x, prev_box_y, prev_box_z;
+double box_x = 0, box_y = 0, box_z = 0;
+unsigned int box_id;
+bool lost = false;
+
 void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
                    vector<t_listPtr> &list)
 {
@@ -1458,6 +1463,19 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
 
   marker.id = 0;
 
+  if (list.size() > 0)
+  {
+    box_id = list[list.size() - 1]->id;
+  }
+  else
+  {
+    lost = true;
+  }
+
+  prev_box_x = box_x;
+  prev_box_y = box_y;
+  prev_box_z = box_z;
+
   for (uint i = 0; i < list.size(); i++)
   {
     if (list[i]->shape.lines.size() != 0)
@@ -1470,9 +1488,24 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
       marker.id++;
 
       marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no
-                                                                           // map
+                                                                           // maplist
+
+      if (list[i]->id <= box_id)
+      {
+        lost = false;
+        box_id = list[i]->id;
+        box_x = list[i]->position.estimated_x;
+        box_y = list[i]->position.estimated_y;
+        box_z = 0.5;
+      }
     }
   }
+
+  if (box_x == prev_box_x && box_y == prev_box_y)
+  {
+    lost = true;
+  }
+  cout << box_id << ":(" << box_x << ", " << box_y << ", 0.5)\n";
 
   marker.pose.position.x = 0;
   marker.pose.position.y = 0;
