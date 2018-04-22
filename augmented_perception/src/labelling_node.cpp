@@ -73,6 +73,8 @@ vector<t_listPtr> list_vector;
 
 visualization_msgs::MarkerArray markersMsg;
 
+unsigned int tracking_bbox_id;
+
 // File writing related variables
 
 struct BBox
@@ -157,7 +159,14 @@ void MatchingMethod(int, void *)
   }
 
   // update patch
-  cv::Rect myROI(matchLoc.x, matchLoc.y, patch.cols, patch.rows);
+  int patch_size = (50 - box_x) * 6;
+
+  if (patch_size < 9)
+  {
+    patch_size = 9;
+  }
+
+  cv::Rect myROI(matchLoc.x, matchLoc.y, patch_size, patch_size);
   patch = img_display(myROI);
 
   unsigned int frame_seq = cv_ptr->header.seq;
@@ -168,7 +177,7 @@ void MatchingMethod(int, void *)
   box.width = patch.cols;
   box.height = patch.rows;
   box.id = object_id;
-  box.label = "unknown";
+  box.label = "DontCare";
   box.x3d = box_x;
   box.y3d = box_y;
   box.z3d = box_z;
@@ -186,48 +195,75 @@ void MatchingMethod(int, void *)
   nframes++;
 
   rectangle(imToShow, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar(0, 0, 255), 2, 8, 0);
-  rectangle(result, matchLoc, Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows), Scalar::all(0), 2, 8, 0);
+  /*rectangle(result, matchLoc, Point(matchLoc.x + (50 - box_x) * 6,
+  matchLoc.y + (50 - box_x) * 6), Scalar::all(0), 2, 8, 0);*/
   imshow("camera", imToShow);
   return;
 }
 
 static void onMouse_TM(int event, int x, int y, int /*flags*/, void * /*param*/)
 {
-  if (event == EVENT_LBUTTONDOWN)
-  {
-    pointdown = Point2f((float)x, (float)y);
-    drawRect = true;
-  }
   if (event == EVENT_LBUTTONUP)
   {
-    pointup = Point2f((float)x, (float)y);
-
-    if (x < 0)
-      pointup.x = 0;
-
-    if (y < 0)
-      pointup.y = 0;
-
-    if (x > image_input.cols)
-      pointup.x = image_input.cols;
-
-    if (y > image_input.rows)
-      pointup.y = image_input.rows;
-
-    capture = true;
-    got_last_patches = false;
-    nframes = 0;
-
-    first_frame_id = cv_ptr->header.seq;
-    object_id++;
-
-    while (frame_array.size() > 0)
+    if (box_x > 60)
     {
-      frame_array.pop();
+      ROS_INFO("Target not found.");
     }
-  }
+    else
+    {
+      tracking_bbox_id = box_id;
+      lost = false;
 
-  pointbox = Point2f((float)x, (float)y);
+      float bbox_size = (50 - box_x) * 3;
+
+      if (bbox_size < 9.)
+      {
+        bbox_size = 9.;
+      }
+
+      pointdown = Point2f((float)x - bbox_size, (float)y - bbox_size);
+      pointup = Point2f((float)x + bbox_size, (float)y + bbox_size);
+
+      // Point verification
+      if (pointup.x < 0)
+        pointup.x = 0;
+
+      if (pointup.y < 0)
+        pointup.y = 0;
+
+      if (pointdown.x < 0)
+        pointdown.x = 0;
+
+      if (pointdown.y < 0)
+        pointdown.y = 0;
+
+      if (pointdown.x > image_input.cols)
+        pointdown.x = image_input.cols;
+
+      if (pointdown.y > image_input.rows)
+        pointdown.y = image_input.rows;
+
+      if (pointup.x > image_input.cols)
+        pointup.x = image_input.cols;
+
+      if (pointup.y > image_input.rows)
+        pointup.y = image_input.rows;
+
+      capture = true;
+      got_last_patches = false;
+      nframes = 0;
+
+      first_frame_id = cv_ptr->header.seq;
+      object_id++;
+
+      while (frame_array.size() > 0)
+      {
+        frame_array.pop();
+      }
+    }
+
+    pointbox = Point2f((float)x, (float)y);
+  }
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
@@ -368,7 +404,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     {
       patch = Mat();
       ROS_INFO("Image cleared.");
-      label = "unknown";
+      label = "DontCare";
       c = 'l';
     }
 
@@ -391,7 +427,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 
           if (label == "-")
           {
-            label = "unknown";
+            label = "DontCare";
           }
 
           if (label.find(' ') != std::string::npos)
@@ -437,7 +473,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
 
     if (drawRect)
     {
-      // Draw area-to-crop rectangle
+      // Draw area-to-crop rectangle (green)
       float max_x, min_x, max_y, min_y;
       if (pointbox.x > pointdown.x)
       {
@@ -471,6 +507,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
 
+  // Draw red rectangle (tracker) positions
   float max_x, min_x, max_y, min_y;
   if (pointup.x > pointdown.x)
   {
@@ -523,7 +560,15 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
   if (!patch.empty())
   {
     imshow("crop", patch);
-    MatchingMethod(0, 0);
+    if (tracking_bbox_id == box_id)
+    {
+      lost = false;
+      MatchingMethod(0, 0);
+    }
+    else
+    {
+      lost = true;
+    }
   }
 }
 
