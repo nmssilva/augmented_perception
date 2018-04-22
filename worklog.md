@@ -306,4 +306,27 @@
 - Melhoria no playback do dataset
 	- Bounding boxes mudam cor consoante o label
 	- Aparece uma "tag" em cima da bouning box com a Label e o ID do objeto
+	
+12/04/18 Quinta
+===============
+
+- Bounding Box 3D a aparecer no Rviz
+
+13/04/18 Sexta
+==============
+
+- Melhoria na filtragem do scanner
+	- Desenvolvimento de função para extrair limites da estrada
+	
+
+14/04/18 Sábado
+===============
+
+- Dataset suporta dados da posição 3D
+
+15/04/18 Domingo
+================
+
+- Bounding Box a partir de um clique
+- Buonding Box na imagem reajusta o tamanho conforme a distancia obtida pelo MTT
 
