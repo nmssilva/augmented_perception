@@ -328,5 +328,25 @@
 ================
 
 - Bounding Box a partir de um clique
-- Buonding Box na imagem reajusta o tamanho conforme a distancia obtida pelo MTT
+- Bounding Box na imagem reajusta o tamanho conforme a distancia obtida pelo MTT
+
+16/04/18 Segunda ~ 20/04/18 Sexta
+==================================
+
+- Desenvolvimento da introdução
+- Desenvolvimento do state of art
+- Desenvolvimento das especificaçes do hardware
+- Proposta de Indice
+
+19/04/18 Sábado ~ 20/04/18 Domingo
+==================================
+
+- Bug encontrado no MTT: ao selecionar o objeto na imagem, o marker e os valores das posições ficam lentos (os valores não correspondem à realidade...)
+- Início da fusão dos laser scans (já que este bug vai demorar algum tempo até o perceber/resolver)
+
+
+
+
+
+
 
