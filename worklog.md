@@ -328,5 +328,36 @@
 ================
 
 - Bounding Box a partir de um clique
-- Buonding Box na imagem reajusta o tamanho conforme a distancia obtida pelo MTT
+- Bounding Box na imagem reajusta o tamanho conforme a distancia obtida pelo MTT
 
+16/04/18 Segunda ~ 20/04/18 Sexta
+==================================
+
+- Desenvolvimento da introdução
+- Desenvolvimento do state of art
+- Desenvolvimento das especificaçes do hardware
+- Proposta de Indice
+
+21/04/18 Sábado ~ 22/04/18 Domingo
+==================================
+
+- Bug encontrado no MTT: ao selecionar o objeto na imagem, o marker e os valores das posições ficam lentos (os valores não correspondem à realidade...)
+- Início da fusão dos laser scans (já que este bug vai demorar algum tempo até o perceber/resolver)
+
+23/04/18 Segunda
+================
+
+- Fusão dos laser scans numa única pointcloud
+
+
+24/04/18 Terça
+==============
+
+- Transformação dos laserscans laterais para calibrar a pointcloud
+
+26/04/18 Quinta
+===============
+
+- Integração dos laserScans com MTT
+- Re-ajuste do algoritmo e tracking para a nova pointcloud
+- Tamanho da bounding box fixed
