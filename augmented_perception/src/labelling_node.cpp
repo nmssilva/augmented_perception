@@ -9,6 +9,10 @@
 #include "mtt/TargetList.h"
 #include "mtt/mtt.h"
 
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include "pcl_ros/transforms.h"
+
 #include <cv_bridge/cv_bridge.h>
 #include <image_transport/image_transport.h>
 
@@ -25,8 +29,9 @@ using namespace std;
 using namespace cv;
 
 // Publishers
-ros::Publisher pub_scan_0;
-ros::Publisher pub_scan_0_filtered;
+ros::Publisher pub_targets;
+ros::Publisher pub_scans;
+ros::Publisher pub_scans_filtered;
 image_transport::Publisher pub_image;
 ros::Publisher markers_publisher;
 ros::Publisher marker_publisher;
@@ -59,7 +64,12 @@ std::queue<Mat> first_previous_frames;
 std::queue<Mat> previous_patches;
 
 // Scanner MTT related variables
-sensor_msgs::PointCloud2 pointData;
+pcl::PointCloud<pcl::PointXYZ> pointDatapcl, pointData0pcl, pointData1pcl, pointData2pcl, pointData3pcl, pointDataEpcl,
+    pointDataDpcl;
+sensor_msgs::PointCloud2 pointData, pointData0, pointData1, pointData2, pointData3, pointDataE, pointDataD;
+
+tf::StampedTransform transformD, transformE;
+bool init_transforms = true;
 
 mtt::TargetListPC targetList;
 
@@ -264,6 +274,165 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/, void * /*param*/)
 
     pointbox = Point2f((float)x, (float)y);
   }
+}
+
+void filter_pc()
+{
+  float left_limit = 4;
+  float right_limit = 2.5;
+  float back_limit = 0.1;
+
+  for (int i = 0; i < pointDatapcl.points.size(); i++)
+  {
+    if (pointDatapcl.points[i].y > left_limit || pointDatapcl.points[i].y < -right_limit ||
+        pointDatapcl.points[i].x < back_limit)
+    {
+      pointDatapcl.points[i].x = 9999;
+      pointDatapcl.points[i].y = 9999;
+      pointDatapcl.points[i].z = 9999;
+    }
+  }
+}
+
+void initMTT()
+{
+  pcl::fromROSMsg(pointData0, pointData0pcl);
+  pcl::fromROSMsg(pointData1, pointData1pcl);
+  pcl::fromROSMsg(pointData2, pointData2pcl);
+  pcl::fromROSMsg(pointData3, pointData3pcl);
+  pcl::fromROSMsg(pointDataE, pointDataEpcl);
+  pcl::fromROSMsg(pointDataD, pointDataDpcl);
+
+  if (init_transforms)
+  {
+    init_transforms = false;
+    tf::TransformListener listener;
+
+    try
+    {
+      ros::Time now = ros::Time(0);
+
+      listener.waitForTransform("/ldmrs0", "/lms151_D", now, ros::Duration(3.0));
+      listener.lookupTransform("/ldmrs0", "/lms151_D", now, transformD);
+
+      listener.waitForTransform("/ldmrs0", "/lms151_E", now, ros::Duration(3.0));
+      listener.lookupTransform("/ldmrs0", "/lms151_E", now, transformE);
+    }
+    catch (tf::TransformException ex)
+    {
+      ROS_ERROR("%s", ex.what());
+    }
+  }
+
+  pcl_ros::transformPointCloud(pointDataDpcl, pointDataDpcl, transformD);
+  pcl_ros::transformPointCloud(pointDataEpcl, pointDataEpcl, transformE);
+
+  pointDatapcl = pointData0pcl;
+  pointDatapcl += pointData1pcl;
+  pointDatapcl += pointData2pcl;
+  pointDatapcl += pointData3pcl;
+  pointDatapcl += pointDataEpcl;
+  pointDatapcl += pointDataDpcl;
+
+  pcl::toROSMsg(pointDatapcl, pointData);
+
+  pub_scans.publish(pointData);
+
+  filter_pc();
+
+  pcl::toROSMsg(pointDatapcl, pointData);
+
+  pub_scans_filtered.publish(pointData);
+
+  // Get data from PointCloud2 to full_data
+  PointCloud2ToData(pointData, full_data);
+
+  // clustering
+  clustering(full_data, clusters, &config, &flags);
+
+  // calc_cluster_props
+  calc_cluster_props(clusters, full_data);
+
+  // clusters2objects
+  clusters2objects(object, clusters, full_data, config);
+
+  calc_object_props(object);
+
+  // AssociateObjects
+  AssociateObjects(list_vector, object, config, flags);
+
+  // MotionModelsIteration
+  MotionModelsIteration(list_vector, config);
+
+  // cout<<"Number of targets "<<list_vector.size() << endl;
+
+  free_lines(object);  // clean current objects
+
+  targetList.id.clear();
+  targetList.obstacle_lines.clear();  // clear all lines
+
+  pcl::PointCloud<pcl::PointXYZ> target_positions;
+  pcl::PointCloud<pcl::PointXYZ> velocity;
+
+  target_positions.header.frame_id = pointData.header.frame_id;
+
+  velocity.header.frame_id = pointData.header.frame_id;
+
+  targetList.header.stamp = ros::Time::now();
+  targetList.header.frame_id = pointData.header.frame_id;
+
+  // cout << "list size: " << list_vector.size() << endl;
+
+  for (uint i = 0; i < list_vector.size(); i++)
+  {
+    targetList.id.push_back(list_vector[i]->id);
+
+    pcl::PointXYZ position;
+
+    position.x = list_vector[i]->position.estimated_x;
+    position.y = list_vector[i]->position.estimated_y;
+    position.z = 0;
+
+    target_positions.points.push_back(position);
+
+    pcl::PointXYZ vel;
+
+    vel.x = list_vector[i]->velocity.velocity_x;
+    vel.y = list_vector[i]->velocity.velocity_y;
+    vel.z = 0;
+
+    velocity.points.push_back(vel);
+
+    pcl::PointCloud<pcl::PointXYZ> shape;
+    pcl::PointXYZ line_point;
+
+    uint j;
+    for (j = 0; j < list_vector[i]->shape.lines.size(); j++)
+    {
+      line_point.x = list_vector[i]->shape.lines[j]->xi;
+      line_point.y = list_vector[i]->shape.lines[j]->yi;
+
+      shape.points.push_back(line_point);
+    }
+
+    line_point.x = list_vector[i]->shape.lines[j - 1]->xf;
+    line_point.y = list_vector[i]->shape.lines[j - 1]->yf;
+
+    sensor_msgs::PointCloud2 shape_cloud;
+    pcl::toROSMsg(shape, shape_cloud);
+    targetList.obstacle_lines.push_back(shape_cloud);
+  }
+
+  pcl::toROSMsg(target_positions, targetList.position);
+  pcl::toROSMsg(velocity, targetList.velocity);
+
+  pub_targets.publish(targetList);
+
+  CreateMarkers(markersMsg.markers, targetList, list_vector);
+
+  markers_publisher.publish(markersMsg);
+
+  flags.fi = false;
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
@@ -507,6 +676,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
 
+  initMTT();
+
   // Draw red rectangle (tracker) positions
   float max_x, min_x, max_y, min_y;
   if (pointup.x > pointdown.x)
@@ -572,137 +743,38 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
   }
 }
 
-void scan_0_cb(const sensor_msgs::LaserScan::ConstPtr &msg)
+void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input)
 {
+  // int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
+
+  // cout << input->header.frame_id << endl;
+
   laser_geometry::LaserProjection projector;
 
-  projector.projectLaser(*msg, pointData);
-
-  // Get data from PointCloud2 to full_data
-  PointCloud2ToData(pointData, full_data);
-
-  // clustering
-  clustering(full_data, clusters, &config, &flags);
-
-  // calc_cluster_props
-  calc_cluster_props(clusters, full_data);
-
-  // clusters2objects
-  clusters2objects(object, clusters, full_data, config);
-
-  calc_object_props(object);
-
-  // AssociateObjects
-  AssociateObjects(list_vector, object, config, flags);
-
-  // MotionModelsIteration
-  MotionModelsIteration(list_vector, config);
-
-  // cout<<"Number of targets "<<list_vector.size() << endl;
-
-  free_lines(object);  // clean current objects
-
-  targetList.id.clear();
-  targetList.obstacle_lines.clear();  // clear all lines
-
-  pcl::PointCloud<pcl::PointXYZ> target_positions;
-  pcl::PointCloud<pcl::PointXYZ> velocity;
-
-  target_positions.header.frame_id = pointData.header.frame_id;
-
-  velocity.header.frame_id = pointData.header.frame_id;
-
-  targetList.header.stamp = ros::Time::now();
-  targetList.header.frame_id = pointData.header.frame_id;
-
-  // cout << "list size: " << list_vector.size() << endl;
-
-  for (uint i = 0; i < list_vector.size(); i++)
+  if (input->header.frame_id == "/ldmrs0")
   {
-    targetList.id.push_back(list_vector[i]->id);
-
-    pcl::PointXYZ position;
-
-    position.x = list_vector[i]->position.estimated_x;
-    position.y = list_vector[i]->position.estimated_y;
-    position.z = 0;
-
-    target_positions.points.push_back(position);
-
-    pcl::PointXYZ vel;
-
-    vel.x = list_vector[i]->velocity.velocity_x;
-    vel.y = list_vector[i]->velocity.velocity_y;
-    vel.z = 0;
-
-    velocity.points.push_back(vel);
-
-    pcl::PointCloud<pcl::PointXYZ> shape;
-    pcl::PointXYZ line_point;
-
-    uint j;
-    for (j = 0; j < list_vector[i]->shape.lines.size(); j++)
-    {
-      line_point.x = list_vector[i]->shape.lines[j]->xi;
-      line_point.y = list_vector[i]->shape.lines[j]->yi;
-
-      shape.points.push_back(line_point);
-    }
-
-    line_point.x = list_vector[i]->shape.lines[j - 1]->xf;
-    line_point.y = list_vector[i]->shape.lines[j - 1]->yf;
-
-    sensor_msgs::PointCloud2 shape_cloud;
-    pcl::toROSMsg(shape, shape_cloud);
-    targetList.obstacle_lines.push_back(shape_cloud);
+    projector.projectLaser(*input, pointData0);
   }
-
-  pcl::toROSMsg(target_positions, targetList.position);
-  pcl::toROSMsg(velocity, targetList.velocity);
-
-  pub_scan_0.publish(targetList);
-
-  CreateMarkers(markersMsg.markers, targetList, list_vector);
-
-  markers_publisher.publish(markersMsg);
-
-  flags.fi = false;
-}
-
-void laserFilter(const sensor_msgs::LaserScan::ConstPtr &input)
-{
-  int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
-
-  // Create a container for the data.
-  sensor_msgs::LaserScan output;
-  output = *input;
-
-  // Filter scan
-
-  // left side (left to right)
-  float left_limit = 5.0;
-  for (int i = 0; i < n_pos / 2; i++)
+  if (input->header.frame_id == "/ldmrs1")
   {
-    double limit = left_limit / cos(0.610865 - i * output.angle_increment * 1.1);
-    if (output.ranges[i] > limit)
-    {
-      output.ranges[i] = 0.0;
-    }
+    projector.projectLaser(*input, pointData1);
   }
-
-  // right side (right to left)
-  float right_limit = 2.0;
-  for (int i = n_pos; i >= n_pos / 2; i--)
+  if (input->header.frame_id == "/ldmrs2")
   {
-    double limit = right_limit / cos(0.610865 - (n_pos - i) * output.angle_increment * 1.1);
-    if (output.ranges[i] > limit)
-    {
-      output.ranges[i] = 0;
-    }
+    projector.projectLaser(*input, pointData2);
   }
-
-  // Publish the data.
-  pub_scan_0_filtered.publish(output);
+  if (input->header.frame_id == "/ldmrs3")
+  {
+    projector.projectLaser(*input, pointData3);
+  }
+  if (input->header.frame_id == "lms151_E")
+  {
+    projector.projectLaser(*input, pointDataE);
+  }
+  if (input->header.frame_id == "lms151_D")
+  {
+    projector.projectLaser(*input, pointDataD);
+  }
 }
 
 int main(int argc, char **argv)
@@ -721,14 +793,20 @@ int main(int argc, char **argv)
   cv::startWindowThread();
 
   // Create a ROS subscriber for the inputs
-  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserFilter);
-  ros::Subscriber sub_scan_0_mtt = nh.subscribe("/filter/scan0", 1, scan_0_cb);
+  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
+  ros::Subscriber sub_scan_1 = nh.subscribe("/ld_rms/scan1", 1, laserToPC2);
+  ros::Subscriber sub_scan_2 = nh.subscribe("/ld_rms/scan2", 1, laserToPC2);
+  ros::Subscriber sub_scan_3 = nh.subscribe("/ld_rms/scan3", 1, laserToPC2);
+  ros::Subscriber sub_scan_D = nh.subscribe("/lms151_D_scan", 1, laserToPC2);
+  ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, laserToPC2);
+  // ros::Subscriber sub_scan_0_mtt = nh.subscribe("/filter/scan0", 1, scan_0_cb);
   image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
 
   // Create a ROS publisher for the output point cloud
   pub_image = it.advertise("output/image", 1);
-  pub_scan_0_filtered = nh.advertise<sensor_msgs::LaserScan>("/filter/scan0", 1000);
-  pub_scan_0 = nh.advertise<mtt::TargetListPC>("/targets", 1000);
+  pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
+  pub_scans_filtered = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
+  pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
   markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
   marker_publisher = nh.advertise<visualization_msgs::Marker>("/marker", 1000);
 

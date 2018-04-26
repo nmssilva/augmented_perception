@@ -1465,7 +1465,6 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
 
   if (list.size() > 0)
   {
-    cout << "EEEEEEEEEEEEH\n";
     lost = false;
     int distance = 3000;
     for (uint i = 0; i < list.size(); i++)
