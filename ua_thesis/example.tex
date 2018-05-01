@@ -1,0 +1,284 @@
+% arara: pdflatex: { synctex: true, shell: true}   
+% arara: bibtex
+% arara: pdflatex: { synctex: true, shell: true}
+
+%
+% uaThesis example (for a thesis written in Portuguese)
+%
+% the complete list of options and commands can be found in uaThesis.sty
+%
+%
+
+\documentclass[11pt,twoside,a4paper]{report}
+\usepackage[DETI,newLogo]{uaThesis}
+
+\def\ThesisYear{2018}
+
+% optional packages
+\usepackage[UKenglish]{babel}
+\usepackage{hyperref}
+\usepackage{epsfig}     
+\usepackage{subfig} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{ifthen}
+\usepackage{texments}
+\usepackage{fancyhdr}
+\usepackage{xspace}% used by \sigla
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{ %
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\fontfamily{sbc}\selectfont,        % the size of the fonts that are used for the code
+	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                 % sets automatic line breaking
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	deletekeywords={...},            % if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	%frame=single,	                   % adds a frame around the code
+	keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{blue},       % keyword style
+	%  language=XML,                 % the language of the code
+	morekeywords={*,...},            % if you want to add more keywords to the set
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,          % underline spaces within strings only
+	showtabs=false,                  % show tabs within strings adding particular underscores
+	stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+	stringstyle=\color{mymauve},     % string literal style
+	tabsize=2,	                   % sets default tabsize to 2 spaces
+}
+
+\lstdefinestyle{xml}{
+	belowcaptionskip=1\baselineskip,
+	breaklines=true,
+	%  frame=L,
+	%  xleftmargin=\parindent,
+	language=XML,
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\bfseries\color{green!40!black},
+	commentstyle=\itshape\color{purple!40!black},
+	identifierstyle=\color{blue},
+	stringstyle=\color{orange},
+}
+
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\lstdefinelanguage{XML}
+{
+	basicstyle=\ttfamily,
+	morestring=[s]{"}{"},
+	morecomment=[s]{?}{?},
+	morecomment=[s]{!--}{--},
+	commentstyle=\color{darkgreen},
+	moredelim=[s][\color{black}]{>}{<},
+	moredelim=[s][\color{red}]{\ }{=},
+	stringstyle=\color{blue},
+	identifierstyle=\color{maroon}
+}
+
+\usepackage[acronym,automake]{glossaries}
+\makeglossaries
+\glstoctrue
+
+\newacronym{ad}{AD}{Autonomous Driving}
+\newacronym{adas}{ADAS}{Advanced Driver Assistance Systems}
+\newacronym{ros}{ROS}{Robot Operating System}
+\newacronym{gui}{GUI}{Graphical User Interface}
+\newacronym{pcl}{PCL}{Point Cloud Library}
+\newacronym{opencv}{OpenCV}{Open Source Computer Vision Library}
+
+% optional (comment to use default)s
+%   depth of the table of contents
+%     1 ... chapther and sections
+%     2 ... chapters, sections, and subsections
+%     3 ... chapters, sections, subsections, and subsubsections
+\setcounter{tocdepth}{3}
+
+% optional (comment to used default)
+%   horizontal line to separate floats (figures and tables) from text
+\def\topfigrule{\kern 7.8pt \hrule width\textwidth\kern -8.2pt\relax}
+\def\dblfigrule{\kern 7.8pt \hrule width\textwidth\kern -8.2pt\relax}
+\def\botfigrule{\kern -7.8pt \hrule width\textwidth\kern 8.2pt\relax}
+
+% custom macros (could also be defined using \newcommand)
+\def\I{\mathtt{i}}         % one possible way to represent $\sqrt{-1}$
+\def\Exp#1{e^{2\pi\I #1}}  % argument inside braces, i.e., "{}"
+\def\EXP#1.{e^{2\pi\I #1}} % argument finishes when a full stop is encountered, i.e., "."
+\def\sigla{\LaTeX\xspace}  % use as "blabla \sigla blabla (no need to do "blabla \sigla\ blabla"
+
+\def\AddVMargin#1{\setbox0=\hbox{#1}%
+                  \dimen0=\ht0\advance\dimen0 by 2pt\ht0=\dimen0%
+                  \dimen0=\dp0\advance\dimen0 by 2pt\dp0=\dimen0%
+                  \box0}   % add extra vertical space above and below the argument (#1)
+\def\Header#1#2{\setbox1=\hbox{#1}\setbox2=\hbox{#2}%
+           \ifdim\wd1>\wd2\dimen0=\wd1\else\dimen0=\wd2\fi%
+           \AddVMargin{\parbox{\dimen0}{\centering #1\\#2}}} % put #1 on top #2
+
+
+
+\begin{document}
+
+%
+% Cover page (use only one of the first two \TitlePage)
+%
+
+% First alternative, with a figure
+\TitlePage
+  %\GRID  % for debugging ONLY
+  \HEADER{\BAR\FIG{\includegraphics[height=60mm]{uaLogoOld}}} % the \FIG{} is optional
+         {\ThesisYear}
+  \TITLE{Nuno Miguel \newline Soares Silva}
+        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for AtlasCar}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+%
+% Initial thesis pages
+%
+
+\TitlePage
+  \HEADER{}{\ThesisYear}
+  \TITLE{Nuno Miguel \newline Soares Silva}
+        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for AtlasCar}
+  \vspace*{15mm}
+  \TEXT{}
+       {Disserta\c c\~ao apresentada \`a Universidade de Aveiro para cumprimento dos requesitos
+        necess\'arios \`a obten\c c\~ao do grau de Mestre em Engenharia de Computadores e Telem\'atica , realizada sob a orienta\c c\~ao
+        cient\'\i fica de Paulo Miguel de Jesus Dias, Professor Auxiliar do Departamento de Electr\'onica, Telecomunica\c c\~oes e Inform\'atica da Universidade de Aveiro, de Vitor Manuel Ferreira dos Santos, Professor Associado do Departamento de Engenharia Mec\^ anica e de Miguel Armando Riem de Oliveira, Professor Auxiliar do Departamento de Engenharia Mec\^ anica.}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{o j\'uri~/~the jury\newline}}
+       {}
+  \TEXT{presidente~/~president}
+       {\textbf{Prof. Doutor A}\newline {\small
+        Professor Catedr\'atico da Universidade de Aveiro (por delega\c c\~ao da Reitora da
+        Universidade de Aveiro)}}
+  \vspace*{5mm}
+  \TEXT{vogais~/~examiners committee}
+       {\textbf{Prof. Doutor B}\newline {\small
+        Professor Catedr\'atico da Universidade de Aveiro (orientador)}}
+  \vspace*{5mm}
+  \TEXT{}
+       {\textbf{Prof. Doutor C}\newline {\small
+        Professor associado da Universidade J (co-orientador)}}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{agradecimentos~/\newline acknowledgements}}
+       {\'E com muito gosto que aproveito esta oportunidade para agradecer a todos os que me
+        ajudaram durante este longos e penosos anos, cheios de altos e baixos (mais baixos que
+        altos)\ldots}
+  \TEXT{}
+       {Desejo tamb\'em pedir desculpa a todos que tiveram de suportar o meu desinteresse pelas
+        tarefas mundanas do dia-a-dia, \ldots}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{Palavras-chave}}
+  {Navega{\c c}\~ao aut\'onoma; ATLASCAR; Agrupamento de dados; Calibra{\c c}\~ao; Etiqueta\c c\~ao de dados; Dete\c c\~ao de Objetos; ADAS.}
+  \vspace*{5mm}
+  \TEXT{\textbf{Resumo}}
+       {Este trabalho baseia-se no desenvolvimento de um pacote ROS para o ATLASCAR 2. O ATLASCAR 2 consiste em um Mitsubishi i-MiEV usado exclusivamente para investiga\c c\~ao de sistemas avan\c cados de assist\^encia \`a condu\c c\~ao no Departamento de Engenharia Mec\^anica da Universidade de Aveiro. O ATLASCAR 2 est\'a equipado com uma c\^amera PointGrey que foi usada para aquisi\c c\~ao de imagens, dois scanners planares LIDAR e um laser de quatro feixes frontais. Este pacote ROS implementa n\'os para dete\c c\~ao semi-autom\'atica de objetos. Estes n\'os s\~ao ut\'eis para etiquetar os dados ligados aos objetos detetados. Estes objetos, na pr\'atica, ser\~ao por exemplo ve\'iculos e pe\~oes na estrada. A manipula\c c\~ao dos dados na imagem foi realizada atrav\'es das bibliotecas de OpenCV. Em paralelo, foi desenvolvido e melhorado a dete\c c\~ao da bola para o pacote de calibra\c c\~ao multi-sensorial.
+       	}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{Keywords}}
+  {Autonomous driving; ATLASCAR; Data Clustering; ; Calibration; Data Labelling; Object Detection; ADAS.}
+  \vspace*{5mm}
+  \TEXT{\textbf{Abstract}}
+       {This thesis is based on the development of a ROS package for the ATLASCAR 2. The ATLASCAR 2 consists in a Mitsubishi i-MiEV used exclusively for research of Advanced driver assistance systems (or ADAS) in the Mechanical Engineering Department at University of Aveiro. The ALTASCAR 2 is equipped with a PointGrey camera used to acquire images, two planar LIDAR scanners and a four-beam frontal scanner. This ROS package implements nodes for semi-automatic object detection. This nodes are useful to label data to the detected objects. This objects, in practice, are for example vehicles or pedestrians on the street. The handling of the image data was done through OpenCV libraries. In parallel, it was developed and improved the ball detection for the multi-sensorial calibration package.
+       	}
+\EndTitlePage
+\titlepage\ \endtitlepage % empty page
+
+
+%
+% Tables of contents, of figures, ...
+%
+
+\pagenumbering{roman}
+\tableofcontents
+
+\cleardoublepage
+\listoffigures
+
+\cleardoublepage
+\listoftables
+
+\printglossary[type=\acronymtype, title=Acronyms]
+
+
+% The chapters (usually written using the isolatin font encoding ...)
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+
+% ----------------------------------------------------------------
+% Definicao de headers e footers
+% ----------------------------------------------------------------
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.#1}{}} % Capítulos em minúsculas
+\fancyhf{}                                                  % Reset aos headers e footers
+\fancyhead[LE,RO]{\thepage}                               % Header Left-Even (LE), Right-Odd (RO)
+\fancyhead[LO]{\leftmark}                                 % Header Left-Odd (LO)
+\fancyhead[RE]{\leftmark}                                 % Header Right-Even (RE)
+\fancyfoot[LE]{Nuno Miguel Soares Silva}                               % Footer Left-Even (LE)
+\fancyfoot[LO]{Nuno Miguel Soares Silva}                               % Footer Left-Odd (LO)
+\fancyfoot[RE]{\textit{Master's thesis }}     % Footer Right-Even (RE)
+\fancyfoot[RO]{\textit{Master's thesis }}     % Footer Right-Odd (RO)
+\renewcommand{\headrulewidth}{0.25pt}                     % Espessura da linha de header
+\renewcommand{\footrulewidth}{0.25pt}                     % Espessura da linha de footer
+\addtolength{\headheight}{0.5pt}                          % Espaçamento para a linha
+
+\include{capintro/capintro}
+\include{capstate/capstate}
+\include{capexp/capexp}
+\include{capcalib/capcalib}
+\include{caplabel/caplabel}
+\include{capresults/capresults}
+
+
+\cleardoublepage
+\include{capxconcl/capxconcl}  
+
+
+%
+% The bibliography
+%
+\cleardoublepage
+  % Use this is the final version
+  %  unsrt produces numbered entries, sorted by order of citation
+  %  plain produces numbered entries, sorted alphabetically
+  %  other styles are possible (I recommend the harvard package)
+  \bibliographystyle{unsrt}
+  %\bibliographystyle{plain}
+  \bibliography{library}% replace by the name of name of your .bib file
+\cleardoublepage
+
+\end{document}

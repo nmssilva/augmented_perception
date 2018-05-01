@@ -1,0 +1,28 @@
+\chapter{Object Detection, Tracking and Labelling}
+
+The main task of this dissertation is focused on the detection, tracking and labeling of objects in motion found in the field of view of the several sensors equipped in ATLASCAR 2. In this chapter it will be succinctly explained how these features were implemented. 
+
+Firstly, it will be described how the detection and tracking in the image is performed. In the image tracking phase happens also the labelling phase and the creation of dataset files and image templates. 
+
+Secondly, the implementation of the tracking of multiple targets with ranged based sensors will be explained. To make this step possible, the MTT library designed by Almeida \cite{SoaresDeAlmeida2016a} was used. The MTT library contains methods of perception and planar object detection. 
+
+Lastly, the multi-modal approach will be used where both data from the images and the LIDARs will be assembled and a single perception unit will be created. With this conceptualization, it is possible to detect, track and label objects easily in the ATLASCAR 2.
+
+The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has. The rosbags were recorded in October 17, 2017, in the afternoon. Two rosbags were recorded:
+
+\begin{itemize}
+	\item The first rosbag was recorded while leaving Departamento de Engenharia Mec\^anica at Universidade de Aveiro. The car travelled around the campus and visited the Alboi neighbourhood.
+	\subitem In this bag there are cars, vans, cyclist and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
+	\item The second rosbag starts at Alboi where the last rosbag stopped. The car follows a path into the A25 highway until the first exit.
+	\subitem There are mostly cars in this one and it was a good rosbag to start with some tests in tracking objects.
+\end{itemize} 
+
+\section{Image Tracking}
+
+The development of object detection, tracking and labelling starts by processing and analyzing the image sequences. A labelling node was created in ROS where the features in this chapter were implemented. This node subscribes to the camera images through its rostopic. In resemblance to the calibration, the image comes encapsulated in a ROS message to be processed in a callback function. In this function the image is analyzed.
+
+The image is converted from the ROS message format into an OpenCV format so it can be easily manipulated. As the image sequences arrive, they are stored into a queue. This queue will be used later to look back to the previous frames and back-track the object. 
+
+\subsection{Image Labelling}
+
+\section{Multi Target Tracking}

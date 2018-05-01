@@ -1,0 +1,131 @@
+\begin{thebibliography}{10}
+
+\bibitem{LARlabs}
+LARlabs.
+\newblock {ATLAS project}.
+
+\bibitem{VieiradaSilva2016}
+David~Tiago {Vieira da Silva}.
+\newblock {Multisensor Calibration and Data Fusion Using LIDAR and Vision}.
+\newblock page 107, 2016.
+
+\bibitem{Correia2017}
+Jos{\'{e}} Correia.
+\newblock {Unidade de Perce{\c{c}}{\~{a}}o Visual e de profundidade para o
+  ATLASCAR2}.
+\newblock pages 1--98, 2017.
+
+\bibitem{SoaresDeAlmeida2016a}
+Jorge~Manuel {Soares De Almeida}.
+\newblock {Seguimento ativo de agentes din{\^{a}}micos multivariados usando
+  informa{\c{c}}{\~{a}}o vectorial Active Tracking of Dynamic Multivariate
+  Agents using Vectorial Range Data}.
+\newblock 2016.
+
+\bibitem{Kroger2016}
+Fabian Kr{\"{o}}ger.
+\newblock {Automated Driving in Its Social, Historical and Cultural Contexts}.
+\newblock In {\em Autonomous Driving}, pages 41--68. Springer Berlin
+  Heidelberg, Berlin, Heidelberg, 2016.
+
+\bibitem{TheMilwaukeeSentinel}
+{The Milwaukee Sentinel}.
+\newblock {8 Dec 1926 - " 'Phantom Auto' will tour city"}.
+
+\bibitem{Pomerleau1989}
+Dean~A Pomerleau.
+\newblock {An Autonomous Land Vehicle In a Neural Network}.
+\newblock 1989.
+
+\bibitem{Waymo}
+Waymo.
+\newblock {Waymo}.
+
+\bibitem{AudiMediaCenter}
+{Audi MediaCenter}.
+\newblock {Audi at the IAA 2017: Autonomous driving in three steps}.
+
+\bibitem{Singapore-MITAllianceforResearchandTechnology}
+{Singapore-MIT Alliance for Research and Technology}.
+\newblock {SMART - Singapore-MIT Alliance for Research and Technology}.
+
+\bibitem{Teo}
+Pauline Teo.
+\newblock {SMART launches first Singapore-developed driverless car designed for
+  operations on public roads}.
+
+\bibitem{KarlsruheInstituteofTechnology}
+{Karlsruhe Institute of Technology}.
+\newblock {The KITTI Vision Benchmark Suite}.
+
+\bibitem{Geiger}
+Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun.
+\newblock {Vision meets Robotics: The KITTI Dataset}.
+
+\bibitem{Team}
+Boston~Didi Team.
+\newblock {KITTI Github Respository}.
+
+\bibitem{Sigal}
+Leonid Sigal, Alexandru~O Balan, Michael~J Black, A~O Balan, and M~J Black.
+\newblock {HUMANEVA: Synchronized Video and Motion Capture Dataset and Baseline
+  Algorithm for Evaluation of Articulated Human Motion}.
+\newblock {\em Int J Comput Vis}.
+
+\bibitem{ETHZEidgenossischeTechnischeHochschuleZurich}
+{ETHZ (Eidgen{\"{o}}ssische Technische Hochschule Z{\"{u}}rich)}.
+\newblock {Moving Obstacle Detection in Highly Dynamic Scenes}.
+
+\bibitem{EPFLEcolepolytechniquefederaledeLausanne}
+{EPFL ({\'{E}}cole polytechnique f{\'{e}}d{\'{e}}rale de Lausanne)}.
+\newblock {Multi-camera pedestrians video | CVLAB}.
+
+\bibitem{SoaresDeAlmeida}
+Jorge~Manuel {Soares De Almeida}.
+\newblock {Multi target tracking}.
+
+\bibitem{Spinello2010}
+Luciano Spinello, Rudolph Triebel, and Roland Siegwart.
+\newblock {Multiclass Multimodal Detection and Tracking in Urban Environments}.
+\newblock pages 125--135. Springer, Berlin, Heidelberg, 2010.
+
+\bibitem{MITSUBISHIMOTORS}
+{MITSUBISHI MOTORS}.
+\newblock {Specifications | i-MiEV}.
+
+\bibitem{SICK}
+SICK.
+\newblock {LMS151-10100 | Detection and ranging solutions | SICK}.
+
+\bibitem{SICKa}
+SICK.
+\newblock {LD-MRS400001 | Detection and ranging solutions | SICK}.
+
+\bibitem{PointGrey}
+PointGrey.
+\newblock {Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}.
+
+\bibitem{OpenCV}
+OpenCV.
+\newblock {Background Subtraction}.
+
+\bibitem{OpenCV2.4.13.6documentation}
+{OpenCV 2.4.13.6 documentation}.
+\newblock {Eroding and Dilating}.
+
+\bibitem{OpenCV2.4.13.6documentationa}
+{OpenCV 2.4.13.6 documentation}.
+\newblock {Canny Edge Detector}.
+
+\bibitem{OpenCV2.4.13.6documentationb}
+{OpenCV 2.4.13.6 documentation}.
+\newblock {Sobel Derivatives}.
+
+\bibitem{Suzuki1985}
+Satoshi Suzuki and Keiichi~A. Be.
+\newblock {Topological structural analysis of digitized binary images by border
+  following}.
+\newblock {\em Computer Vision, Graphics and Image Processing}, 30(1):32--46,
+  1985.
+
+\end{thebibliography}

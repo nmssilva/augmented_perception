@@ -1,0 +1,231 @@
+16 Apr 2018 23:20:31.846 INFO  Arara - Welcome to arara!
+16 Apr 2018 23:20:31.848 INFO  Arara - Processing file 'example.tex', please wait.
+16 Apr 2018 23:20:31.849 INFO  DirectiveExtractor - Reading directives from example.tex.
+16 Apr 2018 23:20:31.850 TRACE DirectiveExtractor - Directive found in line 1 with pdflatex: { synctex: true, shell: true}.
+16 Apr 2018 23:20:31.883 TRACE DirectiveExtractor - Directive found in line 2 with bibtex.
+16 Apr 2018 23:20:31.883 TRACE DirectiveExtractor - Directive found in line 3 with pdflatex: { synctex: true, shell: true}.
+16 Apr 2018 23:20:31.890 INFO  DirectiveParser - Parsing directives.
+16 Apr 2018 23:20:31.892 INFO  TaskDeployer - Deploying tasks into commands.
+16 Apr 2018 23:20:31.893 TRACE TaskDeployer - Task 'pdflatex' found in '/usr/share/texlive/texmf-dist/scripts/arara/rules'.
+16 Apr 2018 23:20:31.973 TRACE TaskDeployer - Task 'bibtex' found in '/usr/share/texlive/texmf-dist/scripts/arara/rules'.
+16 Apr 2018 23:20:31.976 TRACE TaskDeployer - Task 'pdflatex' found in '/usr/share/texlive/texmf-dist/scripts/arara/rules'.
+16 Apr 2018 23:20:31.983 INFO  CommandTrigger - Ready to run commands.
+16 Apr 2018 23:20:31.983 INFO  CommandTrigger - Running 'PDFLaTeX'.
+16 Apr 2018 23:20:31.983 TRACE CommandTrigger - Command: pdflatex   --shell-escape --synctex=1  "example.tex"
+16 Apr 2018 23:20:32.334 TRACE CommandTrigger - Output logging:
+16 Apr 2018 23:20:32.334 TRACE CommandTrigger - This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex)
+ \write18 enabled.
+entering extended mode
+(./example.tex
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 3 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo)) (./uaThesis.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg)) (./a4wide.sty
+(/usr/share/texlive/texmf-dist/tex/latex/ntgclass/a4.sty)))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xfor/xfor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/datatool/datatool-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/substr/substr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/datatool/datatool-fp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp.sty
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+(/usr/share/texlive/texmf-dist/tex/latex/fp/defpattern.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-basic.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-addons.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-snap.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-exp.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-trigo.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-pas.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-random.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eqn.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-upn.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eval.sty))))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries-compatible-
+307.sty) (/usr/share/texlive/texmf-dist/tex/latex/tracklang/tracklang.sty
+(/usr/share/texlive/texmf-dist/tex/generic/tracklang/tracklang.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/translator/translator.sty
+(/usr/share/texlive/texmf-dist/tex/latex/beamer/translator/translator-language-
+mappings.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries-english/glossaries-english.
+ldf)
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.st
+y) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-list.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-long.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
+(/usr/share/texlive/texmf-dist/tex/latex/supertabular/supertabular.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty))
+(./example.aux (./cap1intro/cap1intro.aux) (./cap2hard/cap2hard.aux)
+(./cap3calib/cap3calib.aux) (./capxconcl/capxconcl.aux))
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./example.out) (./example.out) <uaLogoOld.pdf, id=108, 120.45pt x 150.5625pt>
+<use uaLogoOld.pdf> (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+<uaLogoNew.pdf, id=109, 60.225pt x 75.28125pt> <use uaLogoNew.pdf> [1{/var/lib/
+texmf/fonts/map/pdftex/updmap/pdftex.map} <./uaLogoOld.pdf> <./uaLogoNew.pdf>]p
+dfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.77 \titlepage\ \endtitlepage
+                               % empty page [1] <use uaLogoNew.pdf>pdfTeX warni
+ng (ext4): destination with the same identifier (name{page.1}) has been already
+ used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.92 \EndTitlePage
+                   [1]pdfTeX warning (ext4): destination with the same identifi
+er (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.93 \titlepage\ \endtitlepage
+                               % empty page [1]pdfTeX warning (ext4): destinati
+on with the same identifier (name{page.1}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.111 \EndTitlePage
+                    [1]pdfTeX warning (ext4): destination with the same identif
+ier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.112 \titlepage\ \endtitlepage
+                                % empty page [1]pdfTeX warning (ext4): destinat
+ion with the same identifier (name{page.1}) has been already used, duplicate ig
+nored
+<to be read again> 
+                   \relax 
+l.123 \EndTitlePage
+                    [1]pdfTeX warning (ext4): destination with the same identif
+ier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.124 \titlepage\ \endtitlepage
+                                % empty page [1]pdfTeX warning (ext4): destinat
+ion with the same identifier (name{page.1}) has been already used, duplicate ig
+nored
+<to be read again> 
+                   \relax 
+l.134 \EndTitlePage
+                    [1]pdfTeX warning (ext4): destination with the same identif
+ier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.135 \titlepage\ \endtitlepage
+                                % empty page [1]pdfTeX warning (ext4): destinat
+ion with the same identifier (name{page.1}) has been already used, duplicate ig
+nored
+<to be read again> 
+                   \relax 
+l.145 \EndTitlePage
+                    [1]pdfTeX warning (ext4): destination with the same identif
+ier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.146 \titlepage\ \endtitlepage
+                                % empty page [1] (./example.toc) [1] [2]
+(./example.lof) [3] [4] (./example.lot)
+No file example.acr.
+[5] [6] (./cap1intro/cap1intro.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.23 
+      [1]) [2] (./cap2hard/cap2hard.tex
+Chapter 2.
+[3]) [4] (./cap3calib/cap3calib.tex
+Chapter 3.
+[5]) [6] (./capxconcl/capxconcl.tex
+Chapter 4.
+) [7] [8] (./example.bbl
+
+LaTeX Warning: Empty `thebibliography' environment on input line 3.
+
+) [9] [10] (./example.aux (./cap1intro/cap1intro.aux) (./cap2hard/cap2hard.aux)
+ (./cap3calib/cap3calib.aux) (./capxconcl/capxconcl.aux)) )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 7 ({)
+### bottom level
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.p
+fb>
+Output written on example.pdf (28 pages, 142997 bytes).
+SyncTeX written on example.synctex.gz.
+Transcript written on example.log.
+
+16 Apr 2018 23:20:32.335 INFO  CommandTrigger - 'PDFLaTeX' was successfully executed.
+16 Apr 2018 23:20:32.335 INFO  CommandTrigger - Running 'BibTeX'.
+16 Apr 2018 23:20:32.335 TRACE CommandTrigger - Command: bibtex  "example.aux"
+16 Apr 2018 23:20:32.438 TRACE CommandTrigger - Output logging:
+16 Apr 2018 23:20:32.438 TRACE CommandTrigger - This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+The top-level auxiliary file: example.aux
+A level-1 auxiliary file: cap1intro/cap1intro.aux
+A level-1 auxiliary file: cap2hard/cap2hard.aux
+A level-1 auxiliary file: cap3calib/cap3calib.aux
+A level-1 auxiliary file: capxconcl/capxconcl.aux
+The style file: unsrt.bst
+I found no \citation commands---while reading file example.aux
+Database file #1: library.bib
+(There was 1 error message)
+
+16 Apr 2018 23:20:32.439 WARN  CommandTrigger - 'BibTeX' returned an error status.
+16 Apr 2018 23:20:32.439 INFO  Arara - Done.
