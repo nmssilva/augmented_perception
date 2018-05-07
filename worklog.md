@@ -361,3 +361,11 @@
 - Integração dos laserScans com MTT
 - Re-ajuste do algoritmo e tracking para a nova pointcloud
 - Tamanho da bounding box fixed
+
+
+27/04/18 Sexta ~ 07/05/18 Terça
+===============================
+
+- Integração dos laserScans com MTT
+- Re-ajuste do algoritmo e tracking para a nova pointcloud
+- Tamanho da bounding box fixed
