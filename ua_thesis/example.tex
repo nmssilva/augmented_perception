@@ -16,6 +16,9 @@
 
 % optional packages
 \usepackage[UKenglish]{babel}
+\usepackage{multicol}
+\usepackage{acronym}
+\usepackage[acronym, toc, automake]{glossaries}
 \usepackage{hyperref}
 \usepackage{epsfig}     
 \usepackage{subfig} 
@@ -91,7 +94,6 @@
 	identifierstyle=\color{maroon}
 }
 
-\usepackage[acronym,automake]{glossaries}
 \makeglossaries
 \glstoctrue
 
@@ -101,6 +103,20 @@
 \newacronym{gui}{GUI}{Graphical User Interface}
 \newacronym{pcl}{PCL}{Point Cloud Library}
 \newacronym{opencv}{OpenCV}{Open Source Computer Vision Library}
+\newacronym{lidar}{LIDAR}{Light Detection And Ranging}
+\newacronym{lar}{LAR}{Laboratory of Automation and Robotics}
+\newacronym{mtt}{MTT}{Multi Target Tracking}
+\newacronym{hsv}{HSV}{Hue, Saturation and Value}
+\newacronym{rca}{RCA}{Radio Corporation of America}
+\newacronym{atc}{ATC}{Advanced Technologies Center}
+\newacronym{scot}{SCOT}{Shared Computer-Operated Transit}
+\newacronym{smart}{SMART}{Singapore-MIT Alliance for Research and Technology}
+\newacronym{kitti}{KITTI}{Karlsruhe Institute of Technology
+	and Toyota Technological Institute}
+\newacronym{mpii}{MPII}{Max Planck Institut Informatik}
+\newacronym{ethz}{ETHZ}{Eidgenössische Technische Hochschule Zürich}
+\newacronym{epfl}{EPFL}{\'Ecole polytechnique f\'ed\'erale de Lausanne}
+\newacronym{roi}{ROI}{Region of Interest}
 
 % optional (comment to use default)s
 %   depth of the table of contents
@@ -230,12 +246,13 @@
 \cleardoublepage
 \listoftables
 
-\printglossary[type=\acronymtype, title=Acronyms]
+\clearpage
+\include{glossary}
 
 
 % The chapters (usually written using the isolatin font encoding ...)
 
-\cleardoublepage
+\titlepage\ \endtitlepage      % Página de verso em branco
 \pagenumbering{arabic}
 
 
@@ -250,8 +267,8 @@
 \fancyhead[RE]{\leftmark}                                 % Header Right-Even (RE)
 \fancyfoot[LE]{Nuno Miguel Soares Silva}                               % Footer Left-Even (LE)
 \fancyfoot[LO]{Nuno Miguel Soares Silva}                               % Footer Left-Odd (LO)
-\fancyfoot[RE]{\textit{Master's thesis }}     % Footer Right-Even (RE)
-\fancyfoot[RO]{\textit{Master's thesis }}     % Footer Right-Odd (RO)
+\fancyfoot[RE]{\textit{Master's thesis}}     % Footer Right-Even (RE)
+\fancyfoot[RO]{\textit{Master's thesis}}     % Footer Right-Odd (RO)
 \renewcommand{\headrulewidth}{0.25pt}                     % Espessura da linha de header
 \renewcommand{\footrulewidth}{0.25pt}                     % Espessura da linha de footer
 \addtolength{\headheight}{0.5pt}                          % Espaçamento para a linha

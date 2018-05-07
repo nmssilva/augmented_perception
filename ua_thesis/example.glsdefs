@@ -1,0 +1,570 @@
+\ifglsentryexists{ad}{}%
+{%
+\gls@defglossaryentry{ad}%
+{%
+name={AD},%
+sort={AD},%
+type={acronym},%
+first={Autonomous Driving\glsspace (AD)},%
+firstplural={Autonomous Driving\acrpluralsuffix \glsspace (AD\acrpluralsuffix )},%
+text={AD},%
+plural={AD\acrpluralsuffix },%
+description={Autonomous Driving},%
+descriptionplural={Autonomous Driving\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Autonomous Driving},%
+longplural={Autonomous Drivings},%
+short={AD},%
+shortplural={ADs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{adas}{}%
+{%
+\gls@defglossaryentry{adas}%
+{%
+name={ADAS},%
+sort={ADAS},%
+type={acronym},%
+first={Advanced Driver Assistance Systems\glsspace (ADAS)},%
+firstplural={Advanced Driver Assistance Systems\acrpluralsuffix \glsspace (ADAS\acrpluralsuffix )},%
+text={ADAS},%
+plural={ADAS\acrpluralsuffix },%
+description={Advanced Driver Assistance Systems},%
+descriptionplural={Advanced Driver Assistance Systems\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Advanced Driver Assistance Systems},%
+longplural={Advanced Driver Assistance Systemss},%
+short={ADAS},%
+shortplural={ADASs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ros}{}%
+{%
+\gls@defglossaryentry{ros}%
+{%
+name={ROS},%
+sort={ROS},%
+type={acronym},%
+first={Robot Operating System\glsspace (ROS)},%
+firstplural={Robot Operating System\acrpluralsuffix \glsspace (ROS\acrpluralsuffix )},%
+text={ROS},%
+plural={ROS\acrpluralsuffix },%
+description={Robot Operating System},%
+descriptionplural={Robot Operating System\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Robot Operating System},%
+longplural={Robot Operating Systems},%
+short={ROS},%
+shortplural={ROSs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{gui}{}%
+{%
+\gls@defglossaryentry{gui}%
+{%
+name={GUI},%
+sort={GUI},%
+type={acronym},%
+first={Graphical User Interface\glsspace (GUI)},%
+firstplural={Graphical User Interface\acrpluralsuffix \glsspace (GUI\acrpluralsuffix )},%
+text={GUI},%
+plural={GUI\acrpluralsuffix },%
+description={Graphical User Interface},%
+descriptionplural={Graphical User Interface\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Graphical User Interface},%
+longplural={Graphical User Interfaces},%
+short={GUI},%
+shortplural={GUIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{pcl}{}%
+{%
+\gls@defglossaryentry{pcl}%
+{%
+name={PCL},%
+sort={PCL},%
+type={acronym},%
+first={Point Cloud Library\glsspace (PCL)},%
+firstplural={Point Cloud Library\acrpluralsuffix \glsspace (PCL\acrpluralsuffix )},%
+text={PCL},%
+plural={PCL\acrpluralsuffix },%
+description={Point Cloud Library},%
+descriptionplural={Point Cloud Library\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Point Cloud Library},%
+longplural={Point Cloud Librarys},%
+short={PCL},%
+shortplural={PCLs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{opencv}{}%
+{%
+\gls@defglossaryentry{opencv}%
+{%
+name={OpenCV},%
+sort={OpenCV},%
+type={acronym},%
+first={Open Source Computer Vision Library\glsspace (OpenCV)},%
+firstplural={Open Source Computer Vision Library\acrpluralsuffix \glsspace (OpenCV\acrpluralsuffix )},%
+text={OpenCV},%
+plural={OpenCV\acrpluralsuffix },%
+description={Open Source Computer Vision Library},%
+descriptionplural={Open Source Computer Vision Library\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Open Source Computer Vision Library},%
+longplural={Open Source Computer Vision Librarys},%
+short={OpenCV},%
+shortplural={OpenCVs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{lidar}{}%
+{%
+\gls@defglossaryentry{lidar}%
+{%
+name={LIDAR},%
+sort={LIDAR},%
+type={acronym},%
+first={Light Detection And Ranging\glsspace (LIDAR)},%
+firstplural={Light Detection And Ranging\acrpluralsuffix \glsspace (LIDAR\acrpluralsuffix )},%
+text={LIDAR},%
+plural={LIDAR\acrpluralsuffix },%
+description={Light Detection And Ranging},%
+descriptionplural={Light Detection And Ranging\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Light Detection And Ranging},%
+longplural={Light Detection And Rangings},%
+short={LIDAR},%
+shortplural={LIDARs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{lar}{}%
+{%
+\gls@defglossaryentry{lar}%
+{%
+name={LAR},%
+sort={LAR},%
+type={acronym},%
+first={Laboratory of Automation and Robotics\glsspace (LAR)},%
+firstplural={Laboratory of Automation and Robotics\acrpluralsuffix \glsspace (LAR\acrpluralsuffix )},%
+text={LAR},%
+plural={LAR\acrpluralsuffix },%
+description={Laboratory of Automation and Robotics},%
+descriptionplural={Laboratory of Automation and Robotics\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Laboratory of Automation and Robotics},%
+longplural={Laboratory of Automation and Roboticss},%
+short={LAR},%
+shortplural={LARs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{mtt}{}%
+{%
+\gls@defglossaryentry{mtt}%
+{%
+name={MTT},%
+sort={MTT},%
+type={acronym},%
+first={Multi Target Tracking\glsspace (MTT)},%
+firstplural={Multi Target Tracking\acrpluralsuffix \glsspace (MTT\acrpluralsuffix )},%
+text={MTT},%
+plural={MTT\acrpluralsuffix },%
+description={Multi Target Tracking},%
+descriptionplural={Multi Target Tracking\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Multi Target Tracking},%
+longplural={Multi Target Trackings},%
+short={MTT},%
+shortplural={MTTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{hsv}{}%
+{%
+\gls@defglossaryentry{hsv}%
+{%
+name={HSV},%
+sort={HSV},%
+type={acronym},%
+first={Hue, Saturation and Value\glsspace (HSV)},%
+firstplural={Hue, Saturation and Value\acrpluralsuffix \glsspace (HSV\acrpluralsuffix )},%
+text={HSV},%
+plural={HSV\acrpluralsuffix },%
+description={Hue, Saturation and Value},%
+descriptionplural={Hue, Saturation and Value\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Hue, Saturation and Value},%
+longplural={Hue, Saturation and Values},%
+short={HSV},%
+shortplural={HSVs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{rca}{}%
+{%
+\gls@defglossaryentry{rca}%
+{%
+name={RCA},%
+sort={RCA},%
+type={acronym},%
+first={Radio Corporation of America\glsspace (RCA)},%
+firstplural={Radio Corporation of America\acrpluralsuffix \glsspace (RCA\acrpluralsuffix )},%
+text={RCA},%
+plural={RCA\acrpluralsuffix },%
+description={Radio Corporation of America},%
+descriptionplural={Radio Corporation of America\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Radio Corporation of America},%
+longplural={Radio Corporation of Americas},%
+short={RCA},%
+shortplural={RCAs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{atc}{}%
+{%
+\gls@defglossaryentry{atc}%
+{%
+name={ATC},%
+sort={ATC},%
+type={acronym},%
+first={Advanced Technologies Center\glsspace (ATC)},%
+firstplural={Advanced Technologies Center\acrpluralsuffix \glsspace (ATC\acrpluralsuffix )},%
+text={ATC},%
+plural={ATC\acrpluralsuffix },%
+description={Advanced Technologies Center},%
+descriptionplural={Advanced Technologies Center\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Advanced Technologies Center},%
+longplural={Advanced Technologies Centers},%
+short={ATC},%
+shortplural={ATCs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{scot}{}%
+{%
+\gls@defglossaryentry{scot}%
+{%
+name={SCOT},%
+sort={SCOT},%
+type={acronym},%
+first={Shared Computer-Operated Transit\glsspace (SCOT)},%
+firstplural={Shared Computer-Operated Transit\acrpluralsuffix \glsspace (SCOT\acrpluralsuffix )},%
+text={SCOT},%
+plural={SCOT\acrpluralsuffix },%
+description={Shared Computer-Operated Transit},%
+descriptionplural={Shared Computer-Operated Transit\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Shared Computer-Operated Transit},%
+longplural={Shared Computer-Operated Transits},%
+short={SCOT},%
+shortplural={SCOTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{smart}{}%
+{%
+\gls@defglossaryentry{smart}%
+{%
+name={SMART},%
+sort={SMART},%
+type={acronym},%
+first={Singapore-MIT Alliance for Research and Technology\glsspace (SMART)},%
+firstplural={Singapore-MIT Alliance for Research and Technology\acrpluralsuffix \glsspace (SMART\acrpluralsuffix )},%
+text={SMART},%
+plural={SMART\acrpluralsuffix },%
+description={Singapore-MIT Alliance for Research and Technology},%
+descriptionplural={Singapore-MIT Alliance for Research and Technology\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Singapore-MIT Alliance for Research and Technology},%
+longplural={Singapore-MIT Alliance for Research and Technologys},%
+short={SMART},%
+shortplural={SMARTs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{kitti}{}%
+{%
+\gls@defglossaryentry{kitti}%
+{%
+name={KITTI},%
+sort={KITTI},%
+type={acronym},%
+first={Karlsruhe Institute of Technology and Toyota Technological Institute\glsspace (KITTI)},%
+firstplural={Karlsruhe Institute of Technology and Toyota Technological Institute\acrpluralsuffix \glsspace (KITTI\acrpluralsuffix )},%
+text={KITTI},%
+plural={KITTI\acrpluralsuffix },%
+description={Karlsruhe Institute of Technology and Toyota Technological Institute},%
+descriptionplural={Karlsruhe Institute of Technology and Toyota Technological Institute\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Karlsruhe Institute of Technology and Toyota Technological Institute},%
+longplural={Karlsruhe Institute of Technology and Toyota Technological Institutes},%
+short={KITTI},%
+shortplural={KITTIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{mpii}{}%
+{%
+\gls@defglossaryentry{mpii}%
+{%
+name={MPII},%
+sort={MPII},%
+type={acronym},%
+first={Max Planck Institut Informatik\glsspace (MPII)},%
+firstplural={Max Planck Institut Informatik\acrpluralsuffix \glsspace (MPII\acrpluralsuffix )},%
+text={MPII},%
+plural={MPII\acrpluralsuffix },%
+description={Max Planck Institut Informatik},%
+descriptionplural={Max Planck Institut Informatik\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Max Planck Institut Informatik},%
+longplural={Max Planck Institut Informatiks},%
+short={MPII},%
+shortplural={MPIIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{ethz}{}%
+{%
+\gls@defglossaryentry{ethz}%
+{%
+name={ETHZ},%
+sort={ETHZ},%
+type={acronym},%
+first={Eidgen\IeC {\"o}ssische Technische Hochschule Z\IeC {\"u}rich\glsspace (ETHZ)},%
+firstplural={Eidgenössische Technische Hochschule Zürich\acrpluralsuffix \glsspace (ETHZ\acrpluralsuffix )},%
+text={ETHZ},%
+plural={ETHZ\acrpluralsuffix },%
+description={Eidgenössische Technische Hochschule Zürich},%
+descriptionplural={Eidgenössische Technische Hochschule Zürich\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Eidgen\IeC {\"o}ssische Technische Hochschule Z\IeC {\"u}rich},%
+longplural={Eidgen\IeC {\"o}ssische Technische Hochschule Z\IeC {\"u}richs},%
+short={ETHZ},%
+shortplural={ETHZs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{epfl}{}%
+{%
+\gls@defglossaryentry{epfl}%
+{%
+name={EPFL},%
+sort={EPFL},%
+type={acronym},%
+first={\'Ecole polytechnique f\'ed\'erale de Lausanne\glsspace (EPFL)},%
+firstplural={\'Ecole polytechnique f\'ed\'erale de Lausanne\acrpluralsuffix \glsspace (EPFL\acrpluralsuffix )},%
+text={EPFL},%
+plural={EPFL\acrpluralsuffix },%
+description={\'Ecole polytechnique f\'ed\'erale de Lausanne},%
+descriptionplural={\'Ecole polytechnique f\'ed\'erale de Lausanne\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={\'Ecole polytechnique f\'ed\'erale de Lausanne},%
+longplural={\'Ecole polytechnique f\'ed\'erale de Lausannes},%
+short={EPFL},%
+shortplural={EPFLs},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{roi}{}%
+{%
+\gls@defglossaryentry{roi}%
+{%
+name={ROI},%
+sort={ROI},%
+type={acronym},%
+first={Region of Interest\glsspace (ROI)},%
+firstplural={Region of Interest\acrpluralsuffix \glsspace (ROI\acrpluralsuffix )},%
+text={ROI},%
+plural={ROI\acrpluralsuffix },%
+description={Region of Interest},%
+descriptionplural={Region of Interest\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={Region of Interest},%
+longplural={Region of Interests},%
+short={ROI},%
+shortplural={ROIs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

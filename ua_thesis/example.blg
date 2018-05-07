@@ -22,45 +22,45 @@ Warning--empty journal in Geiger
 Warning--empty year in Geiger
 Warning--empty year in Sigal
 Warning--empty booktitle in Spinello2010
-You've used 28 entries,
+You've used 30 entries,
             1791 wiz_defined-function locations,
-            572 strings with 6961 characters,
-and the built_in function-call counts, 4198 in all, are:
-= -- 318
-> -- 146
+            579 strings with 7011 characters,
+and the built_in function-call counts, 4426 in all, are:
+= -- 332
+> -- 154
 < -- 4
-+ -- 66
-- -- 38
++ -- 70
+- -- 40
 * -- 116
-:= -- 625
-add.period$ -- 66
-call.type$ -- 28
-change.case$ -- 28
+:= -- 657
+add.period$ -- 70
+call.type$ -- 30
+change.case$ -- 30
 chr.to.int$ -- 0
-cite$ -- 40
-duplicate$ -- 213
-empty$ -- 528
-format.name$ -- 38
-if$ -- 969
+cite$ -- 42
+duplicate$ -- 223
+empty$ -- 564
+format.name$ -- 40
+if$ -- 1023
 int.to.chr$ -- 0
-int.to.str$ -- 28
+int.to.str$ -- 30
 missing$ -- 11
-newline$ -- 123
-num.names$ -- 28
-pop$ -- 141
+newline$ -- 131
+num.names$ -- 30
+pop$ -- 151
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 185
+skip$ -- 199
 stack$ -- 0
 substring$ -- 100
-swap$ -- 48
+swap$ -- 50
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 12
-while$ -- 40
-width$ -- 30
-write$ -- 224
+while$ -- 42
+width$ -- 32
+write$ -- 238
 (There were 12 warnings)

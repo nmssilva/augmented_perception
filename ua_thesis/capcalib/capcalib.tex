@@ -1,6 +1,6 @@
 \chapter{Camera Calibration in ATLASCAR 2}
 
-One of the main tasks for this work was to develop and improve the ball detection fot the calibration package used previously by Silva \cite{VieiradaSilva2016} and Correia \cite{Correia2017}. In previous projects made with the ALTASCAR 2, the ball detection was done by only filtering the HSV values which was not enough to get optimal results.
+One of the main tasks for this work was to develop and improve the ball detection for the calibration package used previously by Silva \cite{VieiradaSilva2016} and Correia \cite{Correia2017}. In previous projects made with the ALTASCAR 2, the ball detection was done by only filtering the \gls{hsv} values which was not enough to get optimal results.
 
 \section{Implementation}
 
@@ -11,12 +11,12 @@ The ball detection upgrade begins by retrieving the video stream frames from the
 	\centering
 	\includegraphics[width=0.4\textwidth]{capcalib/imgs/ball.png}
 	
-	\caption{Ball used for testing}
+	\caption{Ball used for calibration testing}
 	\label{fig:ball}
 	
 \end{figure}
 
-To acquire the images, the node creates a subscriber to get messages from the camera topic. ROS subscribers take the message in the topic and send it to a callback function in order to it to be processed. After obtaining information from the camera's message, it is needed to convert the RGB values into the HSV color space so that the image can be easily manipulated.
+To acquire the images, the node creates a subscriber to get messages from the camera topic. \gls{ros} subscribers take the message in the topic and send it to a callback function in order to it to be processed. After obtaining information from the camera's message, it is needed to convert the RGB values into the \gls{hsv} color space so that the image can be easily manipulated.
 
 \subsection{Background Subtraction}
 
@@ -80,7 +80,7 @@ This process is similar to what is called an erosion. Erosion is a morphological
 
 \subsection{Color Filtering}
 
-After the erosion is done, the ball in the image is beginning to be extracted. The next step is to separate the ball using color filtering. To set the ball color the user needs to click in the ball to capture its hue. A mouse event is triggered and an handler function is called. The handler localizes the mouse click and retrieves the RGB values of the pixel in those coordinates. These values are converted to a hue value of the HSV color space. The selected hue is the color used to filter the ball from the rest of the image. By applying certain thresholds it is possible to define an interval of color. The image will then be filtered by an interval centered in that hue value and the ball is now filtered from the rest of the image. 
+After the erosion is done, the ball in the image is beginning to be extracted. The next step is to separate the ball using color filtering. To set the ball color the user needs to click in the ball to capture its hue. A mouse event is triggered and an handler function is called. The handler localizes the mouse click and retrieves the RGB values of the pixel in those coordinates. These values are converted to a hue value of the \gls{hsv} color space. The selected hue is the color used to filter the ball from the rest of the image. By applying certain thresholds it is possible to define an interval of color. The image will then be filtered by an interval centered in that hue value and the ball is now filtered from the rest of the image. 
 
 A bounding box is drawn around the ball. To draw this box it is needed to calculate the ball center point and box upper-left point. The bounding box will only be drawn in the binary image if there is an area of white pixels big enough. To do this, the image is iterated like in this erosion phase, left-to-right and top-to-bottom. The algorithm saves the coordinates of all white pixels. An average $x$ and $y$ are calculated, finding the ball center. The size of the bounding box is given by how much white is in an specific area. Supposing there is a possibility of a white pixel to appear as noise, that pixel will have low weight in the algorithm considering that the pixels around it are black. Therefore, white pixels gathered in a larger area have high weight. Hence, the width and height of the bounding box are given by the maximum distance between the pixels with higher weight.
 
@@ -99,19 +99,19 @@ A bounding box is drawn around the ball. To draw this box it is needed to calcul
 
 The calibration package used to calibrate the several sensors in ALTASCAR 2 uses multiple nodes, one for each kind of sensor. The camera node in the package is called \texttt{point\_grey\_camera} and it uses the source file \texttt{point\_grey\_camera.cpp}. This file was modified in order to add the implemented features into the calibration package. 
 
-The \texttt{point\_grey\_camera} node receives the camera image by subscribing to the camera topic with ROS. The camera sends images in a ROS message format to be interpreted and processed by a callback function. The image processing algorithm follows the steps explained before in this section. After performing the ball detection, the center of the bounding box matching the center of the ball is retrieved. The ball center is published into the calibration package main node \texttt{calibration\_gui}.
+The \texttt{point\_grey\_camera} node receives the camera image by subscribing to the camera topic with \gls{ros}. The camera sends images in a \gls{ros} message format to be interpreted and processed by a callback function. The image processing algorithm follows the steps explained before in this section. After performing the ball detection, the center of the bounding box matching the center of the ball is retrieved. The ball center is published into the calibration package main node \texttt{calibration\_gui}.
 
-To publish the ball center, a Canny image is retrieved from the binary image. The Canny algorithm is often used in visual computation applications to detect the edges of an object with low error rate, good localization and minimal response. OpenCV implements this function optimally by filtering any noise in the image using Gaussian filters. \cite{OpenCV2.4.13.6documentationa} Then it finds the intensity gradient of the image with a procedure analogous to Sobel. The Sobel derivatives uses discrete differentiation operators that compute an approximation of the gradient of an image intensity function combining Gaussian smoothing and differentiation. \cite{OpenCV2.4.13.6documentationb} 
+To publish the ball center, a Canny image is retrieved from the binary image. The Canny algorithm is often used in visual computation applications to detect the edges of an object with low error rate, good localization and minimal response. \gls{opencv} implements this function optimally by filtering any noise in the image using Gaussian filters. \cite{OpenCV2.4.13.6documentationa} Then it finds the intensity gradient of the image with a procedure analogous to Sobel. The Sobel derivatives uses discrete differentiation operators that compute an approximation of the gradient of an image intensity function combining Gaussian smoothing and differentiation. \cite{OpenCV2.4.13.6documentationb} 
 
 With this, all pixel that are not considered to be part of an edge are removed and only thin lines (the edges) will remain. An upper and lower threshold is applied. This is called the hysteresis procedure and it consists in removing the pixels with a gradient below to the lower threshold. If the pixel has a gradient higher than the upper threshold then it is accepted as part of an edge.
 
-The next step is to find the contours in the image edges. OpenCV implements a function for structural analysis and shape descriptors called \texttt{findContours}. The method retrieves contours from the binary image using the algorithm of Suzuki, S. and Abe, K. \cite{Suzuki1985}. The algorithm performs a point-in-contour test determining whether the point is inside a contour, outside, or lies on an edge. 
+The next step is to find the contours in the image edges. \gls{opencv} implements a function for structural analysis and shape descriptors called \texttt{findContours}. The method retrieves contours from the binary image using the algorithm of Suzuki, S. and Abe, K. \cite{Suzuki1985}. The algorithm performs a point-in-contour test determining whether the point is inside a contour, outside, or lies on an edge. 
 
-When the contours are found, it is needed to find to centroid of the ball. The radius of the ball is calculated with the size of the given bounding box. The real radius of the ball is passed as an argument so it is possible to calculate the distance from the camera to it. The centroids are obtained with a method based on the circle radius and they are published as \texttt{PointStamped} ROS points to be presented in the calibration GUI. 
+When the contours are found, it is needed to find to centroid of the ball. The radius of the ball is calculated with the size of the given bounding box. The real radius of the ball is passed as an argument so it is possible to calculate the distance from the camera to it. The centroids are obtained with a method based on the circle radius and they are published as \texttt{PointStamped} \gls{ros} points to be presented in the calibration \gls{gui}. 
 
 \section{Results}
 
-In figure \ref{fig:gui} the multisensor calibration GUI is shown with a test result. The SICK LMS151 LIDARS were used as point of reference for the purpose of demonstration and to have a comparator point to the camera.
+In figure \ref{fig:gui} the multisensor calibration \gls{gui} is shown with a test result. The SICK LMS151 \gls{lidar}s were used as point of reference for the purpose of demonstration and to have a comparator point to the camera.
 \begin{figure}[htp]
 	
 	\centering

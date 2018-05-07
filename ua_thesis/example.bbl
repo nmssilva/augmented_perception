@@ -105,6 +105,14 @@ SICK.
 PointGrey.
 \newblock {Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}.
 
+\bibitem{ROSWiki}
+{ROS Wiki}.
+\newblock rviz.
+
+\bibitem{ROSWikia}
+{ROS Wiki}.
+\newblock rosbag.
+
 \bibitem{OpenCV}
 OpenCV.
 \newblock {Background Subtraction}.
