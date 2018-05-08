@@ -35,6 +35,7 @@ ros::Publisher pub_scans_filtered;
 image_transport::Publisher pub_image;
 ros::Publisher markers_publisher;
 ros::Publisher marker_publisher;
+ros::Publisher camera_lines_pub;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
@@ -208,6 +209,7 @@ void MatchingMethod(int, void *)
   /*rectangle(result, matchLoc, Point(matchLoc.x + (50 - box_x) * 6,
   matchLoc.y + (50 - box_x) * 6), Scalar::all(0), 2, 8, 0);*/
   imshow("camera", imToShow);
+  imshow("result", result);
   return;
 }
 
@@ -433,6 +435,48 @@ void initMTT()
   markers_publisher.publish(markersMsg);
 
   flags.fi = false;
+}
+
+void drawCameraRangeLine()
+{
+  visualization_msgs::Marker marker;
+  marker.header.frame_id = "root";
+  marker.header.stamp = ros::Time();
+  marker.ns = "camera_range_lines";
+  marker.id = 0;
+  marker.type = visualization_msgs::Marker::LINE_STRIP;
+  marker.action = visualization_msgs::Marker::ADD;
+  marker.pose.position.x = 0;
+  marker.pose.position.y = 0;
+  marker.pose.position.z = 0;
+  marker.pose.orientation.x = 0.0;
+  marker.pose.orientation.y = 0.0;
+  marker.pose.orientation.z = 0.0;
+  marker.pose.orientation.w = 1.0;
+  marker.scale.x = 0.2;
+  marker.scale.y = 0.2;
+  marker.scale.z = 0.2;
+  marker.color.a = 1.0;  // Don't forget to set the alpha!
+  marker.color.r = 1.0;
+  marker.color.g = 1.0;
+  marker.color.b = 0.0;
+
+  geometry_msgs::Point p;
+
+  p.x = 100;
+  p.y = 60;
+  p.z = 0;
+  marker.points.push_back(p);
+
+  p.x = 0;
+  p.y = 0;
+  marker.points.push_back(p);
+
+  p.x = 100;
+  p.y = -60;
+  marker.points.push_back(p);
+
+  camera_lines_pub.publish(marker);
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
@@ -677,6 +721,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg)
   }
 
   initMTT();
+  drawCameraRangeLine();
 
   // Draw red rectangle (tracker) positions
   float max_x, min_x, max_y, min_y;
@@ -787,6 +832,8 @@ int main(int argc, char **argv)
   // Create Camera Windows
   cv::namedWindow("camera", CV_WINDOW_KEEPRATIO);
   cv::resizeWindow("camera", 800, 666);
+  cv::namedWindow("result", CV_WINDOW_KEEPRATIO);
+  cv::resizeWindow("result", 800, 666);
   cv::startWindowThread();
 
   cv::namedWindow("crop", CV_WINDOW_NORMAL);
@@ -809,6 +856,8 @@ int main(int argc, char **argv)
   pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
   markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
   marker_publisher = nh.advertise<visualization_msgs::Marker>("/marker", 1000);
+
+  camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
   init_flags(&flags);    // Inits flags values
   init_config(&config);  // Inits configuration values
