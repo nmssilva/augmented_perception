@@ -361,3 +361,12 @@
 - Integração dos laserScans com MTT
 - Re-ajuste do algoritmo e tracking para a nova pointcloud
 - Tamanho da bounding box fixed
+
+27/04/18 Sexta ~ 07/05/18 Terça
+===============================
+
+- Avanço no Documento da Dissertação
+	- Mais detalhe no State of the art
+	- Parte da calibração com mais detalhe
+	- Capítulo de labelling deteção e tracking
+	- Mais detalhe na infraestrutura experimental
