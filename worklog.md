@@ -370,3 +370,11 @@
 	- Parte da calibração com mais detalhe
 	- Capítulo de labelling deteção e tracking
 	- Mais detalhe na infraestrutura experimental
+
+08/05/18 Quarta
+===============
+
+- Reunião com prof. Paulo e Vitor
+- Marcador visual sobre o campo de visão da camera
+- Filtragem do pointcloud a partir do clique na imagem
+	- A zona filtrada na pointcloud é a zona clicada na imagem
