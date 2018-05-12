@@ -5,15 +5,15 @@
 void PointCloud2ToData(sensor_msgs::PointCloud2 &cloud, t_data &data)  // this function will convert the point cloud
 // data into a laser scan type structure
 {
-	pcl::PointCloud <pcl::PointXYZ> PclCloud;
+	pcl::PointCloud<pcl::PointXYZ> PclCloud;
 	pcl::PCLPointCloud2 pcl_pc;
 	pcl_conversions::toPCL(cloud, pcl_pc);
 	pcl::fromPCLPointCloud2(pcl_pc, PclCloud);
 
 	double theta;
 	map<double, pair<uint, double> > grid;
-	map < double, pair < uint, double > > ::iterator
-	it;
+	map<double, pair<uint, double> >::iterator
+			it;
 
 	double spacing = 1. * M_PI / 180.;
 
@@ -90,7 +90,7 @@ double ClusteringThreshold(double r1, double t1, double r2, double t2, t_config 
 	return config->C0 + min_dist / cos(config->beta);
 }
 
-bool clustering(t_data &data, vector <t_clustersPtr> &clustersPtr, t_config *config, t_flag *flags) {
+bool clustering(t_data &data, vector<t_clustersPtr> &clustersPtr, t_config *config, t_flag *flags) {
 	int i;
 	double x, y, xold = 0, yold = 0;
 	double dist, threshold;
@@ -157,7 +157,7 @@ bool clustering(t_data &data, vector <t_clustersPtr> &clustersPtr, t_config *con
 	return true;
 }
 
-void calc_cluster_props(vector <t_clustersPtr> &clusters, t_data &data) {
+void calc_cluster_props(vector<t_clustersPtr> &clusters, t_data &data) {
 	double rmin;
 	int e;
 
@@ -186,7 +186,7 @@ double point2line_distance(double alpha, double ro, double x, double y) {
 }
 
 bool
-clusters2objects(vector <t_objectPtr> &objectsPtr, vector <t_clustersPtr> &clusters, t_data &data, t_config &config) {
+clusters2objects(vector<t_objectPtr> &objectsPtr, vector<t_clustersPtr> &clusters, t_data &data, t_config &config) {
 	t_objectPtr object(new t_object);
 
 	objectsPtr.clear();
@@ -264,7 +264,7 @@ void recursive_line_fitting(t_objectPtr &object, t_cluster &cluster, t_data &dat
 	recursive_IEPF(object, data, cluster.stp, cluster.enp, config);
 }
 
-void calc_object_props(vector <t_objectPtr> &objects) {
+void calc_object_props(vector<t_objectPtr> &objects) {
 	uint e;
 	double r, t;
 	double xi, yi, xf, yf;
@@ -302,7 +302,7 @@ void calc_object_props(vector <t_objectPtr> &objects) {
 	}
 }
 
-void AssociateObjects(vector <t_listPtr> &list, vector <t_objectPtr> &objects, t_config &config, t_flag &flags) {
+void AssociateObjects(vector<t_listPtr> &list, vector<t_objectPtr> &objects, t_config &config, t_flag &flags) {
 	for (uint i = 0; i < objects.size(); i++)
 		objects[i]->object_found = false;
 
@@ -459,7 +459,7 @@ void SingleObjectAssociation(t_list &list, t_object &object) {
 		list.timers.occludedtime = 0;
 }
 
-void RemoveFromList(vector <t_listPtr> &list, unsigned int id) {
+void RemoveFromList(vector<t_listPtr> &list, unsigned int id) {
 	vector<t_listPtr>::iterator it;
 
 	for (it = list.begin(); it != list.end(); it++) {
@@ -500,7 +500,7 @@ void RemoveFromList(vector <t_listPtr> &list, unsigned int id) {
 
 unsigned int last_id = 0;
 
-void AddObjectToList(vector <t_listPtr> &list, t_object &object, t_config &config) {
+void AddObjectToList(vector<t_listPtr> &list, t_object &object, t_config &config) {
 	t_listPtr element(new t_list);
 
 	AllocMotionModels(*element, config);
@@ -705,7 +705,7 @@ void AddPointErrorVectors(t_errors *error, double x_inno, double y_inno, double 
 		error->number_points++;
 }
 
-void MotionModelsIteration(vector <t_listPtr> &list, t_config &config) {
+void MotionModelsIteration(vector<t_listPtr> &list, t_config &config) {
 	CvMat *x_measurement = cvCreateMat(1, 1, CV_32FC1);
 	CvMat *y_measurement = cvCreateMat(1, 1, CV_32FC1);
 
@@ -1263,7 +1263,7 @@ void GetErrorConvariance(t_errors *error) {
 	return;
 }
 
-void free_lines(vector <t_objectPtr> &objects) {
+void free_lines(vector<t_objectPtr> &objects) {
 	for (uint i = 0; i < objects.size(); i++)
 		objects[i]->lines.clear();
 }
@@ -1352,11 +1352,11 @@ double box_x = 0, box_y = 0, box_z = 0;
 unsigned int box_id;
 bool lost = true;
 
-void CreateMarkers(vector <visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
-				   vector <t_listPtr> &list) {
-	static map <pair<string, int>, pair<visualization_msgs::Marker, int> > marker_map;
-	map < pair < string, int >, pair < visualization_msgs::Marker, int > > ::iterator
-	it;
+void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
+				   vector<t_listPtr> &list) {
+	static map<pair<string, int>, pair<visualization_msgs::Marker, int> > marker_map;
+	map<pair<string, int>, pair<visualization_msgs::Marker, int> >::iterator
+			it;
 
 	// limpar o vector todo
 	marker_vector.clear();
@@ -1523,4 +1523,102 @@ void CreateMarkers(vector <visualization_msgs::Marker> &marker_vector, mtt::Targ
 
 		marker_vector.push_back(it->second.first);
 	}
+}
+
+#include "boost/program_options.hpp"
+#include "rosbag/player.h"
+
+namespace po = boost::program_options;
+
+rosbag::PlayerOptions parseOptions(int argc, char **argv) {
+	rosbag::PlayerOptions opts;
+
+	po::options_description desc("Allowed options");
+
+	desc.add_options()
+			("help,h", "produce help message")
+			("quiet,q", "suppress console output")
+			("immediate,i", "play back all messages without waiting")
+			("pause", "start in paused mode")
+			("queue", po::value<int>()->default_value(100), "use an outgoing queue of size SIZE")
+			("clock", "publish the clock time")
+			("hz", po::value<float>()->default_value(100.0), "use a frequency of HZ when publishing clock time")
+			("delay,d", po::value<float>()->default_value(0.2), "sleep SEC seconds after every advertise call")
+			("rate,r", po::value<float>()->default_value(1.0), "multiply the publish rate by FACTOR")
+			("start,s", po::value<float>()->default_value(0.0), "start SEC seconds into the bag files")
+			("loop,l", "loop playback")
+			("keep-alive,k", "keep alive past end of bag")
+			("try-future-version",
+			 "still try to open a bag file, even if the version is not known to the player")
+			("skip-empty", po::value<float>(),
+			 "skip regions in the bag with no messages for more than SEC seconds")
+			("topics", po::value<std::vector<std::string> >()->multitoken(), "topics to play back")
+			("bags", po::value<std::vector<std::string> >(), "bag files to play back from");
+
+	po::positional_options_description p;
+	p.add("bags", -1);
+
+	po::variables_map vm;
+
+	try {
+		po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
+	} catch (boost::program_options::invalid_command_line_syntax &e) {
+		throw ros::Exception(e.what());
+	} catch (boost::program_options::unknown_option &e) {
+		throw ros::Exception(e.what());
+	}
+
+	if (vm.count("help")) {
+		std::cout << desc << std::endl;
+		exit(0);
+	}
+
+	if (vm.count("quiet"))
+		opts.quiet = true;
+	if (vm.count("immediate"))
+		opts.at_once = true;
+	if (vm.count("pause"))
+		opts.start_paused = true;
+	if (vm.count("queue"))
+		opts.queue_size = vm["queue"].as<int>();
+	if (vm.count("hz"))
+		opts.bag_time_frequency = vm["hz"].as<float>();
+	if (vm.count("clock"))
+		opts.bag_time = true;
+	if (vm.count("delay"))
+		opts.advertise_sleep = ros::WallDuration(vm["delay"].as<float>());
+	if (vm.count("rate"))
+		opts.time_scale = vm["rate"].as<float>();
+	if (vm.count("start")) {
+		opts.time = vm["start"].as<float>();
+		opts.has_time = true;
+	}
+	if (vm.count("skip-empty"))
+		opts.skip_empty = ros::Duration(vm["skip-empty"].as<float>());
+	if (vm.count("loop"))
+		opts.loop = true;
+	if (vm.count("keep-alive"))
+		opts.keep_alive = true;
+
+	if (vm.count("topics")) {
+		std::vector<std::string> topics = vm["topics"].as<std::vector<std::string> >();
+		for (std::vector<std::string>::iterator i = topics.begin();
+			 i != topics.end();
+			 i++)
+			opts.topics.push_back(*i);
+	}
+
+	if (vm.count("bags")) {
+		std::vector<std::string> bags = vm["bags"].as<std::vector<std::string> >();
+		for (std::vector<std::string>::iterator i = bags.begin();
+			 i != bags.end();
+			 i++)
+			opts.bags.push_back(*i);
+	} else {
+		if (vm.count("topics"))
+			throw ros::Exception("When using --topics, --bags should be specified to list bags.");
+		throw ros::Exception("You must specify at least one bag to play back.");
+	}
+
+	return opts;
 }
