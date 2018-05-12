@@ -1,3 +1,7 @@
+#include <iostream>
+#include <cstdlib>
+#include <pthread.h>
+
 #include "laser_geometry/laser_geometry.h"
 #include "tf/message_filter.h"
 #include <ros/package.h>
@@ -19,6 +23,8 @@
 
 using namespace std;
 using namespace cv;
+
+#define NUM_THREADS 2
 
 // Publishers
 ros::Publisher pub_targets;
@@ -45,7 +51,7 @@ Point2f pointdown, pointup, pointbox;
  * 5: Normalized Cross Correlation Coefficient
  */
 int match_method =
-    CV_TM_SQDIFF; // 0: CV_TM_SQDIFF 1: CV_TM_SQDIFF_NORMED 2: CV_TM_CCORR
+		CV_TM_SQDIFF; // 0: CV_TM_SQDIFF 1: CV_TM_SQDIFF_NORMED 2: CV_TM_CCORR
 // 3: CV_TM_CCORR_NORMED 4: CV_TM_CCOEFF 5: CV_TM_CCOEFF_NORMED
 int nframes = 0;
 bool capture = false;
@@ -58,9 +64,9 @@ std::queue<Mat> previous_patches;
 
 // Scanner MTT related variables
 pcl::PointCloud<pcl::PointXYZ> pointDatapcl, pointData0pcl, pointData1pcl,
-    pointData2pcl, pointData3pcl, pointDataEpcl, pointDataDpcl;
+		pointData2pcl, pointData3pcl, pointDataEpcl, pointDataDpcl;
 sensor_msgs::PointCloud2 pointData, pointData0, pointData1, pointData2,
-    pointData3, pointDataE, pointDataD;
+		pointData3, pointDataE, pointDataD;
 
 tf::StampedTransform transformD, transformE;
 bool init_transforms = true;
@@ -79,6 +85,10 @@ visualization_msgs::MarkerArray markersMsg;
 
 unsigned int tracking_bbox_id;
 
+// Rosbag player variables
+
+rosbag::PlayerOptions opts;
+
 // Fusion related variables
 
 float proportion;
@@ -88,14 +98,14 @@ uint click_count_reset = 0;
 // File writing related variables
 
 struct BBox {
-  int x;
-  int y;
-  int width;
-  int height;
-  int id;
-  string label;
-  // 3D position
-  double x3d, y3d, z3d;
+	int x;
+	int y;
+	int width;
+	int height;
+	int id;
+	string label;
+	// 3D position
+	double x3d, y3d, z3d;
 };
 
 std::map<unsigned int, std::vector<BBox> > file_map;
@@ -103,771 +113,785 @@ unsigned int object_id = 0;
 unsigned int first_frame_id;
 
 Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame) {
-  Mat img_display;
-  previous_frame.copyTo(img_display);
-  int result_cols = previous_frame.cols - patch_frame.cols + 1;
-  int result_rows = previous_frame.rows - patch_frame.rows + 1;
-  result.create(result_rows, result_cols, CV_32FC1);
+	Mat img_display;
+	previous_frame.copyTo(img_display);
+	int result_cols = previous_frame.cols - patch_frame.cols + 1;
+	int result_rows = previous_frame.rows - patch_frame.rows + 1;
+	result.create(result_rows, result_cols, CV_32FC1);
 
-  matchTemplate(previous_frame, patch_frame, result, match_method);
+	matchTemplate(previous_frame, patch_frame, result, match_method);
 
-  normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
+	normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
 
-  double minVal;
-  double maxVal;
-  Point minLoc;
-  Point maxLoc;
-  Point matchLoc;
+	double minVal;
+	double maxVal;
+	Point minLoc;
+	Point maxLoc;
+	Point matchLoc;
 
-  minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+	minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
 
-  if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
-    matchLoc = minLoc;
-  } else {
-    matchLoc = maxLoc;
-  }
+	if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
+		matchLoc = minLoc;
+	} else {
+		matchLoc = maxLoc;
+	}
 
-  cv::Rect myROI(matchLoc.x, matchLoc.y, patch_frame.cols, patch_frame.rows);
+	cv::Rect myROI(matchLoc.x, matchLoc.y, patch_frame.cols, patch_frame.rows);
 
-  patch_frame = img_display(myROI);
+	patch_frame = img_display(myROI);
 
-  return patch_frame;
+	return patch_frame;
 }
 
 void MatchingMethod(int, void *) {
-  Mat img_display;
-  sub.copyTo(img_display);
-  int result_cols = sub.cols - patch.cols + 1;
-  int result_rows = sub.rows - patch.rows + 1;
-  result.create(result_rows, result_cols, CV_32FC1);
+	Mat img_display;
+	sub.copyTo(img_display);
+	int result_cols = sub.cols - patch.cols + 1;
+	int result_rows = sub.rows - patch.rows + 1;
+	result.create(result_rows, result_cols, CV_32FC1);
 
-  matchTemplate(sub, patch, result, match_method);
+	matchTemplate(sub, patch, result, match_method);
 
-  normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
+	normalize(result, result, 0, 1, NORM_MINMAX, -1, Mat());
 
-  double minVal;
-  double maxVal;
-  Point minLoc;
-  Point maxLoc;
-  Point matchLoc;
+	double minVal;
+	double maxVal;
+	Point minLoc;
+	Point maxLoc;
+	Point matchLoc;
 
-  minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
+	minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc, Mat());
 
-  if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
-    matchLoc = minLoc;
-  } else {
-    matchLoc = maxLoc;
-  }
+	if (match_method == TM_SQDIFF || match_method == TM_SQDIFF_NORMED) {
+		matchLoc = minLoc;
+	} else {
+		matchLoc = maxLoc;
+	}
 
-  // update patch
-  int patch_size = (50 - box_x) * 6;
+	// update patch
+	int patch_size = (50 - box_x) * 6;
 
-  if (patch_size < 9) {
-    patch_size = 9;
-  }
+	if (patch_size < 9) {
+		patch_size = 9;
+	}
 
-  int roi_width = matchLoc.x + patch_size;
-  int roi_heigth = matchLoc.y + patch_size;
+	int roi_width = matchLoc.x + patch_size;
+	int roi_heigth = matchLoc.y + patch_size;
 
-  if (roi_width >= sub.cols) {
-    roi_width = sub.cols - matchLoc.x;
-  } else {
-    roi_width = patch_size;
-  }
+	if (roi_width >= sub.cols) {
+		roi_width = sub.cols - matchLoc.x;
+	} else {
+		roi_width = patch_size;
+	}
 
-  if (roi_heigth >= sub.rows) {
-    roi_heigth = sub.rows - matchLoc.y;
-  } else {
-    roi_heigth = patch_size;
-  }
+	if (roi_heigth >= sub.rows) {
+		roi_heigth = sub.rows - matchLoc.y;
+	} else {
+		roi_heigth = patch_size;
+	}
 
-  cv::Rect myROI(matchLoc.x, matchLoc.y, roi_width, roi_heigth);
-  patch = img_display(myROI);
+	cv::Rect myROI(matchLoc.x, matchLoc.y, roi_width, roi_heigth);
+	patch = img_display(myROI);
 
-  unsigned int frame_seq = cv_ptr->header.seq;
+	unsigned int frame_seq = cv_ptr->header.seq;
 
-  BBox box;
-  box.x = matchLoc.x;
-  box.y = matchLoc.y;
-  box.width = patch.cols;
-  box.height = patch.rows;
-  box.id = object_id;
-  box.label = "DontCare";
-  box.x3d = box_x;
-  box.y3d = box_y;
-  box.z3d = box_z;
+	BBox box;
+	box.x = matchLoc.x;
+	box.y = matchLoc.y;
+	box.width = patch.cols;
+	box.height = patch.rows;
+	box.id = object_id;
+	box.label = "DontCare";
+	box.x3d = box_x;
+	box.y3d = box_y;
+	box.z3d = box_z;
 
-  file_map[frame_seq].push_back(box);
+	file_map[frame_seq].push_back(box);
 
-  // limit 100
-  if (frame_array.size() >= 100) {
-    frame_array.pop();
-  }
+	// limit 100
+	if (frame_array.size() >= 100) {
+		frame_array.pop();
+	}
 
-  frame_array.push(patch.clone());
+	frame_array.push(patch.clone());
 
-  nframes++;
+	nframes++;
 
-  rectangle(imToShow, matchLoc,
-            Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows),
-            Scalar(0, 0, 255), 2, 8, 0);
+	rectangle(imToShow, matchLoc,
+			  Point(matchLoc.x + patch.cols, matchLoc.y + patch.rows),
+			  Scalar(0, 0, 255), 2, 8, 0);
 
-  /*rectangle(result, matchLoc, Point(matchLoc.x + (50 - box_x) * 6,
-  matchLoc.y + (50 - box_x) * 6), Scalar::all(0), 2, 8, 0);*/
-  imshow("camera", imToShow);
-  // imshow("result", result);
-  return;
+	/*rectangle(result, matchLoc, Point(matchLoc.x + (50 - box_x) * 6,
+	matchLoc.y + (50 - box_x) * 6), Scalar::all(0), 2, 8, 0);*/
+	imshow("camera", imToShow);
+	// imshow("result", result);
+	return;
 }
 
 static void onMouse_TM(int event, int x, int y, int /*flags*/,
-                       void * /*param*/) {
-  if (event == EVENT_LBUTTONUP) {
-    click_on = true;
-    list_vector.clear();
-    // get x
-    int get_x = -x + 812;
-    // associate x to angle
-    float angle = float(get_x) / 27.0;
-    // find marker in angle interval
-    proportion = tan(float(angle) * 0.01745329252); // converting to radians
+					   void * /*param*/) {
+	if (event == EVENT_LBUTTONUP) {
+		click_on = true;
+		list_vector.clear();
+		// get x
+		int get_x = -x + 812;
+		// associate x to angle
+		float angle = float(get_x) / 27.0;
+		// find marker in angle interval
+		proportion = tan(float(angle) * 0.01745329252); // converting to radians
 
-    lost = false;
+		lost = false;
 
-    float bbox_size = (50 - box_x) * 3;
+		float bbox_size = (50 - box_x) * 3;
 
-    if (bbox_size < 9.) {
-      bbox_size = 9.;
-    }
+		if (bbox_size < 9.) {
+			bbox_size = 9.;
+		}
 
-    pointdown = Point2f((float)x - bbox_size, (float)y - bbox_size);
-    pointup = Point2f((float)x + bbox_size, (float)y + bbox_size);
+		pointdown = Point2f((float) x - bbox_size, (float) y - bbox_size);
+		pointup = Point2f((float) x + bbox_size, (float) y + bbox_size);
 
-    // Point verification
-    if (pointup.x < 0)
-      pointup.x = 0;
+		// Point verification
+		if (pointup.x < 0)
+			pointup.x = 0;
 
-    if (pointup.y < 0)
-      pointup.y = 0;
+		if (pointup.y < 0)
+			pointup.y = 0;
 
-    if (pointdown.x < 0)
-      pointdown.x = 0;
+		if (pointdown.x < 0)
+			pointdown.x = 0;
 
-    if (pointdown.y < 0)
-      pointdown.y = 0;
+		if (pointdown.y < 0)
+			pointdown.y = 0;
 
-    if (pointdown.x >= image_input.cols)
-      pointdown.x = image_input.cols - 1;
+		if (pointdown.x >= image_input.cols)
+			pointdown.x = image_input.cols - 1;
 
-    if (pointdown.y >= image_input.rows)
-      pointdown.y = image_input.rows - 1;
+		if (pointdown.y >= image_input.rows)
+			pointdown.y = image_input.rows - 1;
 
-    if (pointup.x >= image_input.cols)
-      pointup.x = image_input.cols - 1;
+		if (pointup.x >= image_input.cols)
+			pointup.x = image_input.cols - 1;
 
-    if (pointup.y >= image_input.rows)
-      pointup.y = image_input.rows - 1;
+		if (pointup.y >= image_input.rows)
+			pointup.y = image_input.rows - 1;
 
-    capture = true;
-    got_last_patches = false;
-    nframes = 0;
+		capture = true;
+		got_last_patches = false;
+		nframes = 0;
 
-    first_frame_id = cv_ptr->header.seq;
-    object_id++;
+		first_frame_id = cv_ptr->header.seq;
+		object_id++;
 
-    while (frame_array.size() > 0) {
-      frame_array.pop();
-    }
+		while (frame_array.size() > 0) {
+			frame_array.pop();
+		}
 
-    pointbox = Point2f((float)x, (float)y);
-  }
+		pointbox = Point2f((float) x, (float) y);
+	}
 }
 
 void filter_pc() {
-  float back_limit = 0.1;
+	float back_limit = 0.1;
 
-  if (click_on) {
+	if (click_on) {
 
-    click_count_reset++;
-    if (click_count_reset > 2) {
-      click_on = false;
-      click_count_reset = 0;
-    }
+		click_count_reset++;
+		if (click_count_reset > 2) {
+			click_on = false;
+			click_count_reset = 0;
+		}
 
-    for (int i = 0; i < pointDatapcl.points.size(); i++) {
-      if (pointDatapcl.points[i].y >
-              pointDatapcl.points[i].x * (proportion + 0.05) ||
-          pointDatapcl.points[i].y <
-              pointDatapcl.points[i].x * (proportion - 0.05) ||
-          pointDatapcl.points[i].x < back_limit) {
-        pointDatapcl.points[i].x = 9999;
-        pointDatapcl.points[i].y = 9999;
-        pointDatapcl.points[i].z = 9999;
-      }
-    }
+		for (int i = 0; i < pointDatapcl.points.size(); i++) {
+			if (pointDatapcl.points[i].y >
+				pointDatapcl.points[i].x * (proportion + 0.05) ||
+				pointDatapcl.points[i].y <
+				pointDatapcl.points[i].x * (proportion - 0.05) ||
+				pointDatapcl.points[i].x < back_limit) {
+				pointDatapcl.points[i].x = 9999;
+				pointDatapcl.points[i].y = 9999;
+				pointDatapcl.points[i].z = 9999;
+			}
+		}
 
-    cerr << "box_id: " << box_id << endl;
-    tracking_bbox_id = box_id;
-  }
+		cerr << "box_id: " << box_id << endl;
+		tracking_bbox_id = box_id;
+	}
 }
 
 void checkIfIDexist() {
-  bool id_found = false;
-  for (uint i = 0; i < list_vector.size(); i++) {
-    if (list_vector[i]->shape.lines.size() != 0) {
-      if (tracking_bbox_id == list_vector[i]->id) {
-        cout << tracking_bbox_id << ":(" << box_x << ", " << box_y << ")\n";
-        id_found = true;
-        break;
-      }
-    }
-  }
-  if (!id_found) {
-    lost = true;
-  }
+	bool id_found = false;
+	for (uint i = 0; i < list_vector.size(); i++) {
+		if (list_vector[i]->shape.lines.size() != 0) {
+			if (tracking_bbox_id == list_vector[i]->id) {
+				cout << tracking_bbox_id << ":(" << box_x << ", " << box_y << ")\n";
+				id_found = true;
+				break;
+			}
+		}
+	}
+	if (!id_found) {
+		lost = true;
+	}
 }
 
 void initMTT() {
-  pcl::fromROSMsg(pointData0, pointData0pcl);
-  pcl::fromROSMsg(pointData1, pointData1pcl);
-  pcl::fromROSMsg(pointData2, pointData2pcl);
-  pcl::fromROSMsg(pointData3, pointData3pcl);
-  pcl::fromROSMsg(pointDataE, pointDataEpcl);
-  pcl::fromROSMsg(pointDataD, pointDataDpcl);
+	pcl::fromROSMsg(pointData0, pointData0pcl);
+	pcl::fromROSMsg(pointData1, pointData1pcl);
+	pcl::fromROSMsg(pointData2, pointData2pcl);
+	pcl::fromROSMsg(pointData3, pointData3pcl);
+	pcl::fromROSMsg(pointDataE, pointDataEpcl);
+	pcl::fromROSMsg(pointDataD, pointDataDpcl);
 
-  if (init_transforms) {
-    init_transforms = false;
-    tf::TransformListener listener;
+	if (init_transforms) {
+		init_transforms = false;
+		tf::TransformListener listener;
 
-    try {
-      ros::Time now = ros::Time(0);
+		try {
+			ros::Time now = ros::Time(0);
 
-      listener.waitForTransform("/ldmrs0", "/lms151_D", now,
-                                ros::Duration(3.0));
-      listener.lookupTransform("/ldmrs0", "/lms151_D", now, transformD);
+			listener.waitForTransform("/ldmrs0", "/lms151_D", now,
+									  ros::Duration(3.0));
+			listener.lookupTransform("/ldmrs0", "/lms151_D", now, transformD);
 
-      listener.waitForTransform("/ldmrs0", "/lms151_E", now,
-                                ros::Duration(3.0));
-      listener.lookupTransform("/ldmrs0", "/lms151_E", now, transformE);
-    } catch (tf::TransformException ex) {
-      ROS_ERROR("%s", ex.what());
-    }
-  }
+			listener.waitForTransform("/ldmrs0", "/lms151_E", now,
+									  ros::Duration(3.0));
+			listener.lookupTransform("/ldmrs0", "/lms151_E", now, transformE);
+		} catch (tf::TransformException ex) {
+			ROS_ERROR("%s", ex.what());
+		}
+	}
 
-  pcl_ros::transformPointCloud(pointDataDpcl, pointDataDpcl, transformD);
-  pcl_ros::transformPointCloud(pointDataEpcl, pointDataEpcl, transformE);
+	pcl_ros::transformPointCloud(pointDataDpcl, pointDataDpcl, transformD);
+	pcl_ros::transformPointCloud(pointDataEpcl, pointDataEpcl, transformE);
 
-  pointDatapcl = pointData0pcl;
-  pointDatapcl += pointData1pcl;
-  pointDatapcl += pointData2pcl;
-  pointDatapcl += pointData3pcl;
-  pointDatapcl += pointDataEpcl;
-  pointDatapcl += pointDataDpcl;
+	pointDatapcl = pointData0pcl;
+	pointDatapcl += pointData1pcl;
+	pointDatapcl += pointData2pcl;
+	pointDatapcl += pointData3pcl;
+	pointDatapcl += pointDataEpcl;
+	pointDatapcl += pointDataDpcl;
 
-  pcl::toROSMsg(pointDatapcl, pointData);
+	pcl::toROSMsg(pointDatapcl, pointData);
 
-  pub_scans.publish(pointData);
+	pub_scans.publish(pointData);
 
-  filter_pc();
+	filter_pc();
 
-  checkIfIDexist();
+	checkIfIDexist();
 
-  pcl::toROSMsg(pointDatapcl, pointData);
+	pcl::toROSMsg(pointDatapcl, pointData);
 
-  pub_scans_filtered.publish(pointData);
+	pub_scans_filtered.publish(pointData);
 
-  // Get data from PointCloud2 to full_data
-  PointCloud2ToData(pointData, full_data);
+	// Get data from PointCloud2 to full_data
+	PointCloud2ToData(pointData, full_data);
 
-  // clustering
-  clustering(full_data, clusters, &config, &flags);
+	// clustering
+	clustering(full_data, clusters, &config, &flags);
 
-  // calc_cluster_props
-  calc_cluster_props(clusters, full_data);
+	// calc_cluster_props
+	calc_cluster_props(clusters, full_data);
 
-  // clusters2objects
-  clusters2objects(object, clusters, full_data, config);
+	// clusters2objects
+	clusters2objects(object, clusters, full_data, config);
 
-  calc_object_props(object);
+	calc_object_props(object);
 
-  // AssociateObjects
-  AssociateObjects(list_vector, object, config, flags);
+	// AssociateObjects
+	AssociateObjects(list_vector, object, config, flags);
 
-  // MotionModelsIteration
-  MotionModelsIteration(list_vector, config);
+	// MotionModelsIteration
+	MotionModelsIteration(list_vector, config);
 
-  // cout<<"Number of targets "<<list_vector.size() << endl;
+	// cout<<"Number of targets "<<list_vector.size() << endl;
 
-  free_lines(object); // clean current objects
+	free_lines(object); // clean current objects
 
-  targetList.id.clear();
-  targetList.obstacle_lines.clear(); // clear all lines
+	targetList.id.clear();
+	targetList.obstacle_lines.clear(); // clear all lines
 
-  pcl::PointCloud<pcl::PointXYZ> target_positions;
-  pcl::PointCloud<pcl::PointXYZ> velocity;
+	pcl::PointCloud<pcl::PointXYZ> target_positions;
+	pcl::PointCloud<pcl::PointXYZ> velocity;
 
-  target_positions.header.frame_id = pointData.header.frame_id;
+	target_positions.header.frame_id = pointData.header.frame_id;
 
-  velocity.header.frame_id = pointData.header.frame_id;
+	velocity.header.frame_id = pointData.header.frame_id;
 
-  targetList.header.stamp = ros::Time::now();
-  targetList.header.frame_id = pointData.header.frame_id;
+	targetList.header.stamp = ros::Time::now();
+	targetList.header.frame_id = pointData.header.frame_id;
 
-  // cout << "list size: " << list_vector.size() << endl;
+	// cout << "list size: " << list_vector.size() << endl;
 
-  for (uint i = 0; i < list_vector.size(); i++) {
-    targetList.id.push_back(list_vector[i]->id);
+	for (uint i = 0; i < list_vector.size(); i++) {
+		targetList.id.push_back(list_vector[i]->id);
 
-    pcl::PointXYZ position;
+		pcl::PointXYZ position;
 
-    position.x = list_vector[i]->position.estimated_x;
-    position.y = list_vector[i]->position.estimated_y;
-    position.z = 0;
+		position.x = list_vector[i]->position.estimated_x;
+		position.y = list_vector[i]->position.estimated_y;
+		position.z = 0;
 
-    target_positions.points.push_back(position);
+		target_positions.points.push_back(position);
 
-    pcl::PointXYZ vel;
+		pcl::PointXYZ vel;
 
-    vel.x = list_vector[i]->velocity.velocity_x;
-    vel.y = list_vector[i]->velocity.velocity_y;
-    vel.z = 0;
+		vel.x = list_vector[i]->velocity.velocity_x;
+		vel.y = list_vector[i]->velocity.velocity_y;
+		vel.z = 0;
 
-    velocity.points.push_back(vel);
+		velocity.points.push_back(vel);
 
-    pcl::PointCloud<pcl::PointXYZ> shape;
-    pcl::PointXYZ line_point;
+		pcl::PointCloud<pcl::PointXYZ> shape;
+		pcl::PointXYZ line_point;
 
-    uint j;
-    for (j = 0; j < list_vector[i]->shape.lines.size(); j++) {
-      line_point.x = list_vector[i]->shape.lines[j]->xi;
-      line_point.y = list_vector[i]->shape.lines[j]->yi;
+		uint j;
+		for (j = 0; j < list_vector[i]->shape.lines.size(); j++) {
+			line_point.x = list_vector[i]->shape.lines[j]->xi;
+			line_point.y = list_vector[i]->shape.lines[j]->yi;
 
-      shape.points.push_back(line_point);
-    }
+			shape.points.push_back(line_point);
+		}
 
-    line_point.x = list_vector[i]->shape.lines[j - 1]->xf;
-    line_point.y = list_vector[i]->shape.lines[j - 1]->yf;
+		line_point.x = list_vector[i]->shape.lines[j - 1]->xf;
+		line_point.y = list_vector[i]->shape.lines[j - 1]->yf;
 
-    sensor_msgs::PointCloud2 shape_cloud;
-    pcl::toROSMsg(shape, shape_cloud);
-    targetList.obstacle_lines.push_back(shape_cloud);
-  }
+		sensor_msgs::PointCloud2 shape_cloud;
+		pcl::toROSMsg(shape, shape_cloud);
+		targetList.obstacle_lines.push_back(shape_cloud);
+	}
 
-  pcl::toROSMsg(target_positions, targetList.position);
-  pcl::toROSMsg(velocity, targetList.velocity);
+	pcl::toROSMsg(target_positions, targetList.position);
+	pcl::toROSMsg(velocity, targetList.velocity);
 
-  pub_targets.publish(targetList);
+	pub_targets.publish(targetList);
 
-  CreateMarkers(markersMsg.markers, targetList, list_vector);
+	CreateMarkers(markersMsg.markers, targetList, list_vector);
 
-  markers_publisher.publish(markersMsg);
+	markers_publisher.publish(markersMsg);
 
-  flags.fi = false;
+	flags.fi = false;
 }
 
 void drawCameraRangeLine() {
-  visualization_msgs::Marker marker;
-  marker.header.frame_id = "root";
-  marker.header.stamp = ros::Time();
-  marker.ns = "camera_range_lines";
-  marker.id = 0;
-  marker.type = visualization_msgs::Marker::LINE_STRIP;
-  marker.action = visualization_msgs::Marker::ADD;
-  marker.pose.position.x = 0;
-  marker.pose.position.y = 0;
-  marker.pose.position.z = 0;
-  marker.pose.orientation.x = 0.0;
-  marker.pose.orientation.y = 0.0;
-  marker.pose.orientation.z = 0.0;
-  marker.pose.orientation.w = 1.0;
-  marker.scale.x = 0.2;
-  marker.scale.y = 0.2;
-  marker.scale.z = 0.2;
-  marker.color.a = 1.0; // Don't forget to set the alpha!
-  marker.color.r = 1.0;
-  marker.color.g = 1.0;
-  marker.color.b = 0.0;
+	visualization_msgs::Marker marker;
+	marker.header.frame_id = "root";
+	marker.header.stamp = ros::Time();
+	marker.ns = "camera_range_lines";
+	marker.id = 0;
+	marker.type = visualization_msgs::Marker::LINE_STRIP;
+	marker.action = visualization_msgs::Marker::ADD;
+	marker.pose.position.x = 0;
+	marker.pose.position.y = 0;
+	marker.pose.position.z = 0;
+	marker.pose.orientation.x = 0.0;
+	marker.pose.orientation.y = 0.0;
+	marker.pose.orientation.z = 0.0;
+	marker.pose.orientation.w = 1.0;
+	marker.scale.x = 0.2;
+	marker.scale.y = 0.2;
+	marker.scale.z = 0.2;
+	marker.color.a = 1.0; // Don't forget to set the alpha!
+	marker.color.r = 1.0;
+	marker.color.g = 1.0;
+	marker.color.b = 0.0;
 
-  geometry_msgs::Point p;
+	geometry_msgs::Point p;
 
-  p.x = 100;
-  p.y = 60;
-  p.z = 0;
-  marker.points.push_back(p);
+	p.x = 100;
+	p.y = 60;
+	p.z = 0;
+	marker.points.push_back(p);
 
-  p.x = 0;
-  p.y = 0;
-  marker.points.push_back(p);
+	p.x = 0;
+	p.y = 0;
+	marker.points.push_back(p);
 
-  p.x = 100;
-  p.y = -60;
-  marker.points.push_back(p);
+	p.x = 100;
+	p.y = -60;
+	marker.points.push_back(p);
 
-  camera_lines_pub.publish(marker);
+	camera_lines_pub.publish(marker);
 }
 
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
-  try {
-    cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
+	try {
+		cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
 
-    char c = (char)waitKey(10);
+		char c = (char) waitKey(10);
 
-    if (c == 'q') {
-      exit(0);
-    }
+		if (c == 'q') {
+			exit(0);
+		}
 
-    if (c == 'p') {
-      int last_frame_id = -1;
-      int actual_frame_id;
-      string path =
-          ros::package::getPath("augmented_perception") + "/datasets/";
-      mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+		if (c == 'p') {
+			int last_frame_id = -1;
+			int actual_frame_id;
+			string path =
+					ros::package::getPath("augmented_perception") + "/datasets/";
+			mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
-      ofstream myfile;
-      string filename =
-          path + boost::lexical_cast<std::string>(std::time(NULL)) + ".txt";
-      myfile.open(filename.c_str());
-      myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT LABEL ID 3D_X 3D_Y 3D_Z\n";
+			ofstream myfile;
+			string filename =
+					path + boost::lexical_cast<std::string>(std::time(NULL)) + ".txt";
+			myfile.open(filename.c_str());
+			myfile << "FRAME_ID\nBOX_X BOX_Y WIDTH HEIGHT LABEL ID 3D_X 3D_Y 3D_Z\n";
 
-      for (std::map<unsigned int, std::vector<BBox> >::iterator it =
-               file_map.begin();
-           it != file_map.end(); ++it) {
-        // Skipped frames part
-        actual_frame_id = it->first;
-        if (it->first - last_frame_id > 1 && it->first - last_frame_id < 5 &&
-            last_frame_id >
-                -1) { // frames were skipped, need to replicate them...
-          --it;       // go back
-          for (int i = 1; i < (actual_frame_id - last_frame_id);
-               i++) // for each skipped frame
-          {
-            myfile << ((it->first) + i) << endl; // write frame id to file
-            for (int i = 0; i < (it->second).size(); i++) // write skipped boxes
-            {
-              myfile << it->second[i].x << " " << it->second[i].y << " "
-                     << it->second[i].width << " " << it->second[i].height
-                     << " " << it->second[i].label << " " << it->second[i].id
-                     << " " << it->second[i].x3d << " " << it->second[i].y3d
-                     << " " << it->second[i].z3d << endl;
-            }
-          }
-          ++it; // return to actual state
-        }
+			for (std::map<unsigned int, std::vector<BBox> >::iterator it =
+					file_map.begin();
+				 it != file_map.end(); ++it) {
+				// Skipped frames part
+				actual_frame_id = it->first;
+				if (it->first - last_frame_id > 1 && it->first - last_frame_id < 5 &&
+					last_frame_id >
+					-1) { // frames were skipped, need to replicate them...
+					--it;       // go back
+					for (int i = 1; i < (actual_frame_id - last_frame_id);
+						 i++) // for each skipped frame
+					{
+						myfile << ((it->first) + i) << endl; // write frame id to file
+						for (int i = 0; i < (it->second).size(); i++) // write skipped boxes
+						{
+							myfile << it->second[i].x << " " << it->second[i].y << " "
+								   << it->second[i].width << " " << it->second[i].height
+								   << " " << it->second[i].label << " " << it->second[i].id
+								   << " " << it->second[i].x3d << " " << it->second[i].y3d
+								   << " " << it->second[i].z3d << endl;
+						}
+					}
+					++it; // return to actual state
+				}
 
-        // Actual frames part
-        myfile << it->first << endl;                  // write frame id to file
-        for (int i = 0; i < (it->second).size(); i++) // write actual boxes
-        {
-          myfile << it->second[i].x << " " << it->second[i].y << " "
-                 << it->second[i].width << " " << it->second[i].height << " "
-                 << it->second[i].label << " " << it->second[i].id << " "
-                 << it->second[i].x3d << " " << it->second[i].y3d << " "
-                 << it->second[i].z3d << endl;
-        }
-        last_frame_id = it->first;
-      }
-      myfile.close();
-      ROS_INFO("Saved frames dataset to %s", filename.c_str());
-    }
+				// Actual frames part
+				myfile << it->first << endl;                  // write frame id to file
+				for (int i = 0; i < (it->second).size(); i++) // write actual boxes
+				{
+					myfile << it->second[i].x << " " << it->second[i].y << " "
+						   << it->second[i].width << " " << it->second[i].height << " "
+						   << it->second[i].label << " " << it->second[i].id << " "
+						   << it->second[i].x3d << " " << it->second[i].y3d << " "
+						   << it->second[i].z3d << endl;
+				}
+				last_frame_id = it->first;
+			}
+			myfile.close();
+			ROS_INFO("Saved frames dataset to %s", filename.c_str());
+		}
 
-    if (c == 's') {
-      int gotframes = nframes;
-      if (gotframes > 100)
-        gotframes = 100;
+		if (c == 's') {
+			int gotframes = nframes;
+			if (gotframes > 100)
+				gotframes = 100;
 
-      nframes = 0;
+			nframes = 0;
 
-      if (gotframes == 0 || patch.empty()) {
-        ROS_INFO("There are no frames to save.");
-      } else {
-        ROS_INFO("Loading templates to save...");
+			if (gotframes == 0 || patch.empty()) {
+				ROS_INFO("There are no frames to save.");
+			} else {
+				ROS_INFO("Loading templates to save...");
 
-        // get 5 last patches
-        if (!got_last_patches) {
-          Mat previous_patch = first_patch;
-          for (int i = 0; i < 5; i++) {
-            previous_patch = MatchingMethod(0, 0, previous_patch,
-                                            first_previous_frames.front());
-            first_previous_frames.pop();
-            previous_patches.push(previous_patch);
-          }
-          got_last_patches = true;
-        }
+				// get 5 last patches
+				if (!got_last_patches) {
+					Mat previous_patch = first_patch;
+					for (int i = 0; i < 5; i++) {
+						previous_patch = MatchingMethod(0, 0, previous_patch,
+														first_previous_frames.front());
+						first_previous_frames.pop();
+						previous_patches.push(previous_patch);
+					}
+					got_last_patches = true;
+				}
 
-        ROS_INFO("Saving %s frames. Please enter object label: (type 'exit' to "
-                 "discard frames)",
-                 boost::lexical_cast<std::string>(gotframes + 5).c_str());
+				ROS_INFO("Saving %s frames. Please enter object label: (type 'exit' to "
+								 "discard frames)",
+						 boost::lexical_cast<std::string>(gotframes + 5).c_str());
 
-        string path;
-        path = ros::package::getPath("augmented_perception") + "/labelling/";
-        mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+				string path;
+				path = ros::package::getPath("augmented_perception") + "/labelling/";
+				mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
-        cin >> path;
+				cin >> path;
 
-        if (path.find("exit")) {
-          path = ros::package::getPath("augmented_perception") + "/labelling/" +
-                 path;
-          mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+				if (path.find("exit")) {
+					path = ros::package::getPath("augmented_perception") + "/labelling/" +
+						   path;
+					mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
-          path += "/" + boost::lexical_cast<std::string>(std::time(NULL));
-          mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+					path += "/" + boost::lexical_cast<std::string>(std::time(NULL));
+					mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 
-          for (int i = 0; i < gotframes; i++) {
-            string impath;
-            impath =
-                path + "/" + boost::lexical_cast<std::string>(i + 1) + ".bmp";
-            imwrite(impath, frame_array.front());
-            frame_array.pop();
-          }
+					for (int i = 0; i < gotframes; i++) {
+						string impath;
+						impath =
+								path + "/" + boost::lexical_cast<std::string>(i + 1) + ".bmp";
+						imwrite(impath, frame_array.front());
+						frame_array.pop();
+					}
 
-          int i = 0;
-          while (!previous_patches.empty()) {
-            i++;
-            string impath;
-            impath = path + "/previous_" + boost::lexical_cast<std::string>(i) +
-                     ".bmp";
-            imwrite(impath, previous_patches.front());
-            previous_patches.pop();
-            previous_frames.pop();
-          }
+					int i = 0;
+					while (!previous_patches.empty()) {
+						i++;
+						string impath;
+						impath = path + "/previous_" + boost::lexical_cast<std::string>(i) +
+								 ".bmp";
+						imwrite(impath, previous_patches.front());
+						previous_patches.pop();
+						previous_frames.pop();
+					}
 
-          ROS_INFO("Saved %s frames to %s",
-                   boost::lexical_cast<std::string>(gotframes + 5).c_str(),
-                   path.c_str());
-        } else {
-          cout << "Did not save\n";
-        }
-      }
-    }
+					ROS_INFO("Saved %s frames to %s",
+							 boost::lexical_cast<std::string>(gotframes + 5).c_str(),
+							 path.c_str());
+				} else {
+					cout << "Did not save\n";
+				}
+			}
+		}
 
-    string label = "";
-    if (c == 'c') {
-      patch = Mat();
-      ROS_INFO("Image cleared.");
-      label = "DontCare";
-      c = 'l';
-    }
+		string label = "";
+		if (c == 'c') {
+			patch = Mat();
+			ROS_INFO("Image cleared.");
+			label = "DontCare";
+			c = 'l';
+		}
 
-    if (lost && patch.cols > 0) {
-      ROS_INFO("Lost Track of object.");
-      c = 'l';
-    }
+		if (lost && patch.cols > 0) {
+			ROS_INFO("Lost Track of object.");
+			c = 'l';
+		}
 
-    if (c == 'l') {
-      patch = Mat();
-      if (label == "") {
-        bool success = false;
-        while (!success) {
-          ROS_INFO("Object Label (enter '-' to pass): ");
-          cin >> label;
+		if (c == 'l') {
+			patch = Mat();
+			if (label == "") {
+				bool success = false;
+				while (!success) {
+					ROS_INFO("Object Label (enter '-' to pass): ");
+					cin >> label;
 
-          if (label == "-") {
-            label = "DontCare";
-          }
+					if (label == "-") {
+						label = "DontCare";
+					}
 
-          if (label.find(' ') != std::string::npos) {
-            ROS_INFO("Invalid label name. Labels must be a single word.");
-            success = false;
-          } else {
-            success = true;
-          }
-        }
-      }
-      unsigned int actual_frame_id = cv_ptr->header.seq;
+					if (label.find(' ') != std::string::npos) {
+						ROS_INFO("Invalid label name. Labels must be a single word.");
+						success = false;
+					} else {
+						success = true;
+					}
+				}
+			}
+			unsigned int actual_frame_id = cv_ptr->header.seq;
 
-      if (actual_frame_id < first_frame_id) {
-        actual_frame_id = first_frame_id + 99999;
-      }
+			if (actual_frame_id < first_frame_id) {
+				actual_frame_id = first_frame_id + 99999;
+			}
 
-      for (std::map<unsigned int, std::vector<BBox> >::iterator it =
-               file_map.begin();
-           it != file_map.end(); ++it) {
-        if (it->first >= first_frame_id && it->first <= actual_frame_id)
-          for (int i = 0; i < (it->second).size(); i++) {
-            (it->second)[i].label = label;
-          }
-      }
-    }
+			for (std::map<unsigned int, std::vector<BBox> >::iterator it =
+					file_map.begin();
+				 it != file_map.end(); ++it) {
+				if (it->first >= first_frame_id && it->first <= actual_frame_id)
+					for (int i = 0; i < (it->second).size(); i++) {
+						(it->second)[i].label = label;
+					}
+			}
+		}
 
-    // Show image_input
-    image_input = cv_ptr->image;
-    imToShow = image_input.clone();
-    sub = image_input.clone();
+		// Show image_input
+		image_input = cv_ptr->image;
+		imToShow = image_input.clone();
+		sub = image_input.clone();
 
-    // previous 5 frames
-    if (previous_frames.size() >= 5) {
-      previous_frames.pop();
-    }
+		// previous 5 frames
+		if (previous_frames.size() >= 5) {
+			previous_frames.pop();
+		}
 
-    previous_frames.push(image_input);
+		previous_frames.push(image_input);
 
-    if (drawRect) {
-      // Draw area-to-crop rectangle (green)
-      float max_x, min_x, max_y, min_y;
-      if (pointbox.x > pointdown.x) {
-        min_x = pointdown.x;
-        max_x = pointbox.x;
-      } else {
-        max_x = pointdown.x;
-        min_x = pointbox.x;
-      }
-      if (pointbox.y > pointdown.y) {
-        min_y = pointdown.y;
-        max_y = pointbox.y;
-      } else {
-        max_y = pointdown.y;
-        min_y = pointbox.y;
-      }
+		if (drawRect) {
+			// Draw area-to-crop rectangle (green)
+			float max_x, min_x, max_y, min_y;
+			if (pointbox.x > pointdown.x) {
+				min_x = pointdown.x;
+				max_x = pointbox.x;
+			} else {
+				max_x = pointdown.x;
+				min_x = pointbox.x;
+			}
+			if (pointbox.y > pointdown.y) {
+				min_y = pointdown.y;
+				max_y = pointbox.y;
+			} else {
+				max_y = pointdown.y;
+				min_y = pointbox.y;
+			}
 
-      cv::rectangle(imToShow, Point((int)min_x, (int)min_y),
-                    Point((int)max_x, (int)max_y), Scalar(0, 255, 0), 3);
-    }
+			cv::rectangle(imToShow, Point((int) min_x, (int) min_y),
+						  Point((int) max_x, (int) max_y), Scalar(0, 255, 0), 3);
+		}
 
-    cv::imshow("camera", imToShow);
-    cvSetMouseCallback("camera", onMouse_TM, 0);
-  } catch (cv_bridge::Exception &e) {
-    ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
-  }
+		cv::imshow("camera", imToShow);
+		cvSetMouseCallback("camera", onMouse_TM, 0);
+	} catch (cv_bridge::Exception &e) {
+		ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
+	}
 
-  if (!lost) {
-    initMTT();
-  }
-  drawCameraRangeLine();
+	if (!lost) {
+		initMTT();
+	}
+	drawCameraRangeLine();
 
-  // Draw red rectangle (tracker) positions
-  float max_x, min_x, max_y, min_y;
-  if (pointup.x > pointdown.x) {
-    min_x = pointdown.x;
-    max_x = pointup.x;
-  } else {
-    max_x = pointdown.x;
-    min_x = pointup.x;
-  }
-  if (pointup.y > pointdown.y) {
-    min_y = pointdown.y;
-    max_y = pointup.y;
-  } else {
-    max_y = pointdown.y;
-    min_y = pointup.y;
-  }
+	// Draw red rectangle (tracker) positions
+	float max_x, min_x, max_y, min_y;
+	if (pointup.x > pointdown.x) {
+		min_x = pointdown.x;
+		max_x = pointup.x;
+	} else {
+		max_x = pointdown.x;
+		min_x = pointup.x;
+	}
+	if (pointup.y > pointdown.y) {
+		min_y = pointdown.y;
+		max_y = pointup.y;
+	} else {
+		max_y = pointdown.y;
+		min_y = pointup.y;
+	}
 
-  // get first patch and previous frames
-  if (max_x - min_x > 0 && max_y - min_y > 0 && capture) {
-    cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
-    patch = image_input(myROI);
-    first_patch = patch.clone();
-    while (!previous_frames.empty()) {
-      first_previous_frames.push(previous_frames.front());
-      previous_frames.pop();
-    }
+	// get first patch and previous frames
+	if (max_x - min_x > 0 && max_y - min_y > 0 && capture) {
+		cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
+		patch = image_input(myROI);
+		first_patch = patch.clone();
+		while (!previous_frames.empty()) {
+			first_previous_frames.push(previous_frames.front());
+			previous_frames.pop();
+		}
 
-    capture = false;
-    drawRect = false;
-  }
+		capture = false;
+		drawRect = false;
+	}
 
-  // up half ignore
-  for (int y = 0; y < sub.rows / 3; y++) {
-    for (int x = 0; x < sub.cols; x++) {
-      sub.at<Vec3b>(Point(x, y))[0] = 0;
-      sub.at<Vec3b>(Point(x, y))[1] = 0;
-      sub.at<Vec3b>(Point(x, y))[2] = 0;
-    }
-  }
+	// up half ignore
+	for (int y = 0; y < sub.rows / 3; y++) {
+		for (int x = 0; x < sub.cols; x++) {
+			sub.at<Vec3b>(Point(x, y))[0] = 0;
+			sub.at<Vec3b>(Point(x, y))[1] = 0;
+			sub.at<Vec3b>(Point(x, y))[2] = 0;
+		}
+	}
 
-  if (!patch.empty()) {
-    imshow("crop", patch);
-    MatchingMethod(0, 0);
-  }
+	if (!patch.empty()) {
+		imshow("crop", patch);
+		MatchingMethod(0, 0);
+	}
 }
 
 void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
-  // int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
+	// int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
 
-  // cout << input->header.frame_id << endl;
+	// cout << input->header.frame_id << endl;
 
-  laser_geometry::LaserProjection projector;
+	laser_geometry::LaserProjection projector;
 
-  if (input->header.frame_id == "/ldmrs0") {
-    projector.projectLaser(*input, pointData0);
-  }
-  if (input->header.frame_id == "/ldmrs1") {
-    projector.projectLaser(*input, pointData1);
-  }
-  if (input->header.frame_id == "/ldmrs2") {
-    projector.projectLaser(*input, pointData2);
-  }
-  if (input->header.frame_id == "/ldmrs3") {
-    projector.projectLaser(*input, pointData3);
-  }
-  if (input->header.frame_id == "lms151_E") {
-    projector.projectLaser(*input, pointDataE);
-  }
-  if (input->header.frame_id == "lms151_D") {
-    projector.projectLaser(*input, pointDataD);
-  }
+	if (input->header.frame_id == "/ldmrs0") {
+		projector.projectLaser(*input, pointData0);
+	}
+	if (input->header.frame_id == "/ldmrs1") {
+		projector.projectLaser(*input, pointData1);
+	}
+	if (input->header.frame_id == "/ldmrs2") {
+		projector.projectLaser(*input, pointData2);
+	}
+	if (input->header.frame_id == "/ldmrs3") {
+		projector.projectLaser(*input, pointData3);
+	}
+	if (input->header.frame_id == "lms151_E") {
+		projector.projectLaser(*input, pointDataE);
+	}
+	if (input->header.frame_id == "lms151_D") {
+		projector.projectLaser(*input, pointDataD);
+	}
+}
+
+void *RosbagPlayer(void *threadid) {
+	rosbag::Player player(opts);
+
+	try {
+		player.publish();
+	}
+	catch (std::runtime_error &e) {
+		ROS_FATAL("%s", e.what());
+	}
 }
 
 int main(int argc, char **argv) {
-  // Initialize ROS
-  ros::init(argc, argv, "labelling_node");
-  ros::NodeHandle nh;
-  image_transport::ImageTransport it(nh);
 
-  // Create Camera Windows
-  cv::namedWindow("camera", CV_WINDOW_KEEPRATIO);
-  cv::resizeWindow("camera", 800, 666);
-  cv::startWindowThread();
+	pthread_t threads[NUM_THREADS];
+	int rc;
 
-  cv::namedWindow("crop", CV_WINDOW_NORMAL);
-  cv::startWindowThread();
+	// Initialize ROS
+	ros::init(argc, argv, "labelling_node");
+	ros::NodeHandle nh;
+	image_transport::ImageTransport it(nh);
 
-  // Parse the command-line options
-  rosbag::PlayerOptions opts;
-  try {
-    opts = parseOptions(argc, argv);
-  } catch (ros::Exception const &ex) {
-    ROS_ERROR("Error reading options: %s", ex.what());
-    return 1;
-  }
+	// Create Camera Windows
+	cv::namedWindow("camera", CV_WINDOW_KEEPRATIO);
+	cv::resizeWindow("camera", 800, 666);
+	cv::startWindowThread();
 
-  rosbag::Player player(opts);
+	cv::namedWindow("crop", CV_WINDOW_NORMAL);
+	cv::startWindowThread();
 
-  // Create a ROS subscriber for the inputs
-  ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
-  ros::Subscriber sub_scan_1 = nh.subscribe("/ld_rms/scan1", 1, laserToPC2);
-  ros::Subscriber sub_scan_2 = nh.subscribe("/ld_rms/scan2", 1, laserToPC2);
-  ros::Subscriber sub_scan_3 = nh.subscribe("/ld_rms/scan3", 1, laserToPC2);
-  ros::Subscriber sub_scan_D = nh.subscribe("/lms151_D_scan", 1, laserToPC2);
-  ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, laserToPC2);
+	// Parse the command-line options
+	try {
+		opts = parseOptions(argc, argv);
+	} catch (ros::Exception const &ex) {
+		ROS_ERROR("Error reading options: %s", ex.what());
+		return 1;
+	}
 
-  image_transport::Subscriber sub_image =
-      it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
+	// Create a ROS subscriber for the inputs
+	ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
+	ros::Subscriber sub_scan_1 = nh.subscribe("/ld_rms/scan1", 1, laserToPC2);
+	ros::Subscriber sub_scan_2 = nh.subscribe("/ld_rms/scan2", 1, laserToPC2);
+	ros::Subscriber sub_scan_3 = nh.subscribe("/ld_rms/scan3", 1, laserToPC2);
+	ros::Subscriber sub_scan_D = nh.subscribe("/lms151_D_scan", 1, laserToPC2);
+	ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, laserToPC2);
 
-  // Create a ROS publisher for the output point cloud
-  pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
-  pub_scans_filtered =
-      nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
-  pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
-  markers_publisher =
-      nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
+	image_transport::Subscriber sub_image =
+			it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
 
-  camera_lines_pub =
-      nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
+	// Create a ROS publisher for the output point cloud
+	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
+	pub_scans_filtered =
+			nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
+	pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
+	markers_publisher =
+			nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
 
-  try {
-    player.publish();
-  } catch (std::runtime_error &e) {
-    ROS_FATAL("%s", e.what());
-    return 1;
-  }
+	camera_lines_pub =
+			nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
-  init_flags(&flags);   // Inits flags values
-  init_config(&config); // Inits configuration values
 
-  cout << "Keyboard Controls:\n";
-  cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint "
-          "File\n";
+	init_flags(&flags);   // Inits flags values
+	init_config(&config); // Inits configuration values
 
-  // Spin
-  ros::spin();
-  cv::destroyAllWindows();
+	cout << "Keyboard Controls:\n";
+	cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint "
+			"File\n";
+
+	try {
+		rc = pthread_create(&threads[1], NULL, RosbagPlayer, (void *)1);
+	} catch (std::runtime_error &e) {
+		ROS_FATAL("%s", e.what());
+		return 1;
+	}
+
+	// Spin
+	ros::spin();
+
+	cv::destroyAllWindows();
 }
