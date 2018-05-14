@@ -30,6 +30,7 @@ ros::Publisher markers_publisher;
 
 ros::Publisher pub_scans;
 ros::Publisher pub_scans_filtered;
+ros::Publisher pub_scans_suggest;
 
 ros::Publisher camera_lines_pub;
 
@@ -61,9 +62,9 @@ std::queue<Mat> first_previous_frames;
 std::queue<Mat> previous_patches;
 
 // Scanner MTT related variables
-pcl::PointCloud<pcl::PointXYZ> pointDatapcl, pointData0pcl, pointData1pcl,
+pcl::PointCloud<pcl::PointXYZ> pointDatapclSug, pointDatapcl, pointData0pcl, pointData1pcl,
 		pointData2pcl, pointData3pcl, pointDataEpcl, pointDataDpcl;
-sensor_msgs::PointCloud2 pointData, pointData0, pointData1, pointData2,
+sensor_msgs::PointCloud2 pointDataSug, pointData, pointData0, pointData1, pointData2,
 		pointData3, pointDataE, pointDataD;
 
 tf::StampedTransform transformD, transformE;
@@ -301,6 +302,23 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 	}
 }
 
+
+void filter_suggest() {
+	float back_limit = 2;
+	float left_limit = 4;
+	float right_limit = 2;
+
+	for (int i = 0; i < pointDatapclSug.points.size(); i++) {
+		if (pointDatapclSug.points[i].y > left_limit ||
+				pointDatapclSug.points[i].y < -right_limit ||
+				pointDatapclSug.points[i].x < back_limit) {
+			pointDatapclSug.points[i].x = 9999;
+			pointDatapclSug.points[i].y = 9999;
+			pointDatapclSug.points[i].z = 9999;
+		}
+	}
+
+}
 void filter_pc() {
 	float back_limit = 0.1;
 
@@ -345,7 +363,7 @@ void checkIfIDexist() {
 	}
 }
 
-void initMTT() {
+void initClouds(){
 	pcl::fromROSMsg(pointData0, pointData0pcl);
 	pcl::fromROSMsg(pointData1, pointData1pcl);
 	pcl::fromROSMsg(pointData2, pointData2pcl);
@@ -381,6 +399,25 @@ void initMTT() {
 	pointDatapcl += pointData3pcl;
 	pointDatapcl += pointDataEpcl;
 	pointDatapcl += pointDataDpcl;
+
+	pointDatapclSug = pointData0pcl;
+	pointDatapclSug += pointData1pcl;
+	pointDatapclSug += pointData2pcl;
+	pointDatapclSug += pointData3pcl;
+	pointDatapclSug += pointDataEpcl;
+	pointDatapclSug += pointDataDpcl;
+}
+
+void initMTTSuggest(){
+
+	filter_suggest();
+
+	pcl::toROSMsg(pointDatapclSug, pointDataSug);
+
+	pub_scans_suggest.publish(pointDataSug);
+}
+
+void initMTT() {
 
 	pcl::toROSMsg(pointDatapcl, pointData);
 
@@ -747,10 +784,15 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
 	}
 
+	drawCameraRangeLine();
+
+	initClouds();
+
+	initMTTSuggest();
+
 	if (!lost) {
 		initMTT();
 	}
-	drawCameraRangeLine();
 
 	// Draw red rectangle (tracker) positions
 	float max_x, min_x, max_y, min_y;
@@ -911,6 +953,13 @@ int main(int argc, char **argv) {
 	cv::namedWindow("crop", CV_WINDOW_NORMAL);
 	cv::startWindowThread();
 
+	// Create a ROS publisher for the output point cloud
+	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
+	pub_scans_filtered = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
+	pub_scans_suggest = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/suggest", 1000);
+	pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
+	markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
+	camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
 	// Create a ROS subscriber for the inputs
 	ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
@@ -921,14 +970,6 @@ int main(int argc, char **argv) {
 	ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, laserToPC2);
 
 	image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
-
-	// Create a ROS publisher for the output point cloud
-	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
-	pub_scans_filtered = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
-	pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
-	markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
-
-	camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
 	init_flags(&flags);   // Inits flags values
 	init_config(&config); // Inits configuration values
