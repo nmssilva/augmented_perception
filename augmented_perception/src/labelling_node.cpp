@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <pthread.h>
 
 #include "laser_geometry/laser_geometry.h"
 #include "tf/message_filter.h"
@@ -24,7 +22,7 @@
 using namespace std;
 using namespace cv;
 
-#define NUM_THREADS 2
+// ROS
 
 // Publishers
 ros::Publisher pub_targets;
@@ -86,7 +84,6 @@ visualization_msgs::MarkerArray markersMsg;
 unsigned int tracking_bbox_id;
 
 // Rosbag player variables
-
 rosbag::PlayerOptions opts;
 
 // Fusion related variables
@@ -94,6 +91,10 @@ rosbag::PlayerOptions opts;
 float proportion;
 bool click_on = false;
 uint click_count_reset = 0;
+
+// Color segmentation related variables
+
+float hue = 0.0, saturation = 0.0, value = 0.0;
 
 // File writing related variables
 
@@ -289,6 +290,14 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 		}
 
 		pointbox = Point2f((float) x, (float) y);
+
+		hue = getH(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
+		saturation = getS(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
+		value = getV(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
+
+		cout << "hue: " << hue << " saturation: " << saturation << " value: " << value << endl;
+
+
 	}
 }
 
@@ -787,6 +796,72 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		imshow("crop", patch);
 		MatchingMethod(0, 0);
 	}
+
+
+	// segmentation part
+	bool pointsToDelete[sub.rows / 2 * sub.cols] = { false };
+	int meanX = 0;
+	int meanY = 0;
+	int boundX = 0;
+	int boundY = 0;
+	int cntBallPoint = 0;
+
+	Mat segment = sub.clone();
+	uchar Hthreshold = 8;
+	uchar Vthreshold = 5;
+	uchar hmax = hue + Hthreshold;
+	uchar hmin = hue - Hthreshold;
+	uchar vmax = value + Vthreshold;
+	uchar vmin = value - Vthreshold;
+
+	bool more_is_less = false;
+	if (hmax < hmin)
+	{
+		more_is_less = true;
+	}
+
+
+	double alpha = 10.6; /*< Simple contrast control */
+	int beta = 10.6;       /*< Simple brightness control */
+
+	for (int y = segment.rows / 3; y < segment.rows; y++) {
+		for (int x = 0; x < segment.cols; x++) {
+			segment.at<Vec3b>(Point(x, y))[0] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[0] ) + beta );
+			segment.at<Vec3b>(Point(x, y))[1] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[1] ) + beta );
+			segment.at<Vec3b>(Point(x, y))[2] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[2] ) + beta );
+		}
+	}
+
+	// TODO: posterize and then filter by color
+
+
+/*
+	for (int y = segment.rows / 3; y < segment.rows; y++) {
+		for (int x = 0; x < segment.cols; x++) {
+			unsigned char b = segment.at<Vec3b>(Point(x, y))[0];
+			unsigned char g = segment.at<Vec3b>(Point(x, y))[1];
+			unsigned char r = segment.at<Vec3b>(Point(x, y))[2];
+
+			int h = getH(r, g, b);
+			int v = getV(r, g, b);
+
+			if(v > vmax || v < vmin)
+			{
+				segment.at<Vec3b>(Point(x, y))[0] = 0;
+				segment.at<Vec3b>(Point(x, y))[1] = 0;
+				segment.at<Vec3b>(Point(x, y))[2] = 0;
+			}
+			else{
+				segment.at<Vec3b>(Point(x, y))[0] = 255;
+				segment.at<Vec3b>(Point(x, y))[1] = 255;
+				segment.at<Vec3b>(Point(x, y))[2] = 255;
+			}
+		}
+	}*/
+
+
+	// TODO: uncomment this
+	//imshow("segmentation",segment);
 }
 
 void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
@@ -816,21 +891,7 @@ void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
 	}
 }
 
-void *RosbagPlayer(void *threadid) {
-	rosbag::Player player(opts);
-
-	try {
-		player.publish();
-	}
-	catch (std::runtime_error &e) {
-		ROS_FATAL("%s", e.what());
-	}
-}
-
 int main(int argc, char **argv) {
-
-	pthread_t threads[NUM_THREADS];
-	int rc;
 
 	// Initialize ROS
 	ros::init(argc, argv, "labelling_node");
@@ -838,20 +899,18 @@ int main(int argc, char **argv) {
 	image_transport::ImageTransport it(nh);
 
 	// Create Camera Windows
-	cv::namedWindow("camera", CV_WINDOW_KEEPRATIO);
+	cv::namedWindow("camera", CV_WINDOW_NORMAL);
 	cv::resizeWindow("camera", 800, 666);
 	cv::startWindowThread();
+
+	// TODO: uncomment this
+	/*cv::namedWindow("segmentation", CV_WINDOW_NORMAL);
+	cv::resizeWindow("segmentation", 800, 666);
+	cv::startWindowThread();*/
 
 	cv::namedWindow("crop", CV_WINDOW_NORMAL);
 	cv::startWindowThread();
 
-	// Parse the command-line options
-	try {
-		opts = parseOptions(argc, argv);
-	} catch (ros::Exception const &ex) {
-		ROS_ERROR("Error reading options: %s", ex.what());
-		return 1;
-	}
 
 	// Create a ROS subscriber for the inputs
 	ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
@@ -861,20 +920,15 @@ int main(int argc, char **argv) {
 	ros::Subscriber sub_scan_D = nh.subscribe("/lms151_D_scan", 1, laserToPC2);
 	ros::Subscriber sub_scan_E = nh.subscribe("/lms151_E_scan", 1, laserToPC2);
 
-	image_transport::Subscriber sub_image =
-			it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
+	image_transport::Subscriber sub_image = it.subscribe("/camera/image_color", 1, image_cb_TemplateMatching);
 
 	// Create a ROS publisher for the output point cloud
 	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
-	pub_scans_filtered =
-			nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
+	pub_scans_filtered = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/filtered", 1000);
 	pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
-	markers_publisher =
-			nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
+	markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
 
-	camera_lines_pub =
-			nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
-
+	camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
 	init_flags(&flags);   // Inits flags values
 	init_config(&config); // Inits configuration values
@@ -882,13 +936,6 @@ int main(int argc, char **argv) {
 	cout << "Keyboard Controls:\n";
 	cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint "
 			"File\n";
-
-	try {
-		rc = pthread_create(&threads[1], NULL, RosbagPlayer, (void *)1);
-	} catch (std::runtime_error &e) {
-		ROS_FATAL("%s", e.what());
-		return 1;
-	}
 
 	// Spin
 	ros::spin();

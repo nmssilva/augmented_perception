@@ -12,21 +12,22 @@ include_directories(/usr/local/include/opencv2)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(OpenCV REQUIRED)
+find_package(PCL 1.2 REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
-  cmake_modules
-  colormap
-  cv_bridge
-  laser_geometry
-  lidar_segmentation
-  message_runtime
-  pcl_ros
-  roscpp
-  rospy
-  std_msgs
-  tf
-  velodyne_pointcloud
-  mtt
-)
+		cmake_modules
+		colormap
+		cv_bridge
+		laser_geometry
+		lidar_segmentation
+		message_runtime
+		pcl_ros
+		roscpp
+		rospy
+		std_msgs
+		tf
+		velodyne_pointcloud
+		mtt
+		)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -84,8 +85,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-  DEPENDENCIES
-  std_msgs
+		DEPENDENCIES
+		std_msgs
 )
 
 ################################################
@@ -118,10 +119,10 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
-#  LIBRARIES augmented_perception
-#  CATKIN_DEPENDS cmake_modules colormap laser_geometry lidar_segmentation message_runtime pcl_ros roscpp rospy std_msgs tf velodyne_pointcloud
-#  DEPENDS system_lib
+		INCLUDE_DIRS include
+		#  LIBRARIES augmented_perception
+		#  CATKIN_DEPENDS cmake_modules colormap laser_geometry lidar_segmentation message_runtime pcl_ros roscpp rospy std_msgs tf velodyne_pointcloud
+		#  DEPENDS system_lib
 )
 
 ###########
@@ -131,16 +132,21 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
+		include
+		${catkin_INCLUDE_DIRS}
+		${PCL_INCLUDE_DIRS}
 )
 
-include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS}
+		${PCL_LIBRARY_DIRS}
+		)
+
+add_definitions(${PCL_DEFINITIONS})
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
-   src/common.cpp
-)
+		src/common.cpp
+		)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -154,6 +160,7 @@ add_library(${PROJECT_NAME}
 add_executable(ball_detection_node src/ball_detection_node.cpp)
 add_executable(labelling_node src/labelling_node.cpp)
 add_executable(dataset_playback_node src/dataset_playback_node.cpp)
+add_executable(rosbag_player_node src/rosbag_player_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -167,24 +174,29 @@ add_executable(dataset_playback_node src/dataset_playback_node.cpp)
 add_dependencies(ball_detection_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(labelling_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS} mtt_generate_messages_cpp)
 add_dependencies(dataset_playback_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(rosbag_player_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ball_detection_node
-    ${catkin_LIBRARIES}
-    # ${PCL_LIBRARIES}
-    ${OpenCV_LIBS}
-)
+		${catkin_LIBRARIES}
+		# ${PCL_LIBRARIES}
+		${OpenCV_LIBS}
+		)
 target_link_libraries(labelling_node
-    ${catkin_LIBRARIES}
-    # ${PCL_LIBRARIES}
-    ${OpenCV_LIBS}
-)
+		${catkin_LIBRARIES}
+		${PCL_LIBRARIES}
+		${OpenCV_LIBS}
+		)
 target_link_libraries(dataset_playback_node
-    ${catkin_LIBRARIES}
-    # ${PCL_LIBRARIES}
-    ${OpenCV_LIBS}
-)
-
+		${catkin_LIBRARIES}
+		# ${PCL_LIBRARIES}
+		${OpenCV_LIBS}
+		)
+target_link_libraries(rosbag_player_node
+		${catkin_LIBRARIES}
+		# ${PCL_LIBRARIES}
+		${OpenCV_LIBS}
+		)
 #############
 ## Install ##
 #############
