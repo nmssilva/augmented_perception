@@ -27,6 +27,8 @@ using namespace cv;
 // Publishers
 ros::Publisher pub_targets;
 ros::Publisher markers_publisher;
+ros::Publisher pub_targetsSug;
+ros::Publisher markers_publisherSug;
 
 ros::Publisher pub_scans;
 ros::Publisher pub_scans_filtered;
@@ -83,6 +85,20 @@ vector<t_listPtr> list_vector;
 visualization_msgs::MarkerArray markersMsg;
 
 unsigned int tracking_bbox_id;
+
+// Suggestion MTT related variables
+
+mtt::TargetListPC targetListSug;
+
+t_config configSug;
+t_data full_dataSug;
+t_flag flagsSug;
+
+vector<t_clustersPtr> clustersSug;
+vector<t_objectPtr> objectSug;
+vector<t_listPtr> list_vectorSug;
+
+visualization_msgs::MarkerArray markersMsgSug;
 
 // Rosbag player variables
 rosbag::PlayerOptions opts;
@@ -302,16 +318,17 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 	}
 }
 
-
 void filter_suggest() {
-	float back_limit = 2;
+	float back_limit = 8;
+	float front_limit = 19;
 	float left_limit = 4;
 	float right_limit = 2;
 
 	for (int i = 0; i < pointDatapclSug.points.size(); i++) {
 		if (pointDatapclSug.points[i].y > left_limit ||
 				pointDatapclSug.points[i].y < -right_limit ||
-				pointDatapclSug.points[i].x < back_limit) {
+				pointDatapclSug.points[i].x < back_limit |
+				pointDatapclSug.points[i].x > front_limit) {
 			pointDatapclSug.points[i].x = 9999;
 			pointDatapclSug.points[i].y = 9999;
 			pointDatapclSug.points[i].z = 9999;
@@ -415,6 +432,94 @@ void initMTTSuggest(){
 	pcl::toROSMsg(pointDatapclSug, pointDataSug);
 
 	pub_scans_suggest.publish(pointDataSug);
+
+	// Get data from PointCloud2 to full_data
+	PointCloud2ToData(pointDataSug, full_dataSug);
+
+	// clustering
+	clustering(full_dataSug, clustersSug, &configSug, &flagsSug);
+
+	// calc_cluster_props
+	calc_cluster_props(clustersSug, full_dataSug);
+
+	// clusters2objects
+	clusters2objects(objectSug, clustersSug, full_dataSug, configSug);
+
+	calc_object_props(objectSug);
+
+	// AssociateObjects
+	AssociateObjects(list_vectorSug, objectSug, configSug, flagsSug);
+
+	// MotionModelsIteration
+	MotionModelsIteration(list_vectorSug, configSug);
+
+	// cout<<"Number of targets "<<list_vector.size() << endl;
+
+	free_lines(objectSug); // clean current objects
+
+	targetListSug.id.clear();
+	targetListSug.obstacle_lines.clear(); // clear all lines
+
+	pcl::PointCloud<pcl::PointXYZ> target_positionsSug;
+	pcl::PointCloud<pcl::PointXYZ> velocitySug;
+
+	target_positionsSug.header.frame_id = pointDataSug.header.frame_id;
+
+	velocitySug.header.frame_id = pointDataSug.header.frame_id;
+
+	targetListSug.header.stamp = ros::Time::now();
+	targetListSug.header.frame_id = pointDataSug.header.frame_id;
+
+	// cout << "list size: " << list_vector.size() << endl;
+
+	for (uint i = 0; i < list_vectorSug.size(); i++) {
+		targetListSug.id.push_back(list_vectorSug[i]->id);
+
+		pcl::PointXYZ positionSug;
+
+		positionSug.x = list_vectorSug[i]->position.estimated_x;
+		positionSug.y = list_vectorSug[i]->position.estimated_y;
+		positionSug.z = 0;
+
+		target_positionsSug.points.push_back(positionSug);
+
+		pcl::PointXYZ velSug;
+
+		velSug.x = list_vectorSug[i]->velocity.velocity_x;
+		velSug.y = list_vectorSug[i]->velocity.velocity_y;
+		velSug.z = 0;
+
+		velocitySug.points.push_back(velSug);
+
+		pcl::PointCloud<pcl::PointXYZ> shapeSug;
+		pcl::PointXYZ line_pointSug;
+
+		uint j;
+		for (j = 0; j < list_vectorSug[i]->shape.lines.size(); j++) {
+			line_pointSug.x = list_vectorSug[i]->shape.lines[j]->xi;
+			line_pointSug.y = list_vectorSug[i]->shape.lines[j]->yi;
+
+			shapeSug.points.push_back(line_pointSug);
+		}
+
+		line_pointSug.x = list_vectorSug[i]->shape.lines[j - 1]->xf;
+		line_pointSug.y = list_vectorSug[i]->shape.lines[j - 1]->yf;
+
+		sensor_msgs::PointCloud2 shape_cloudSug;
+		pcl::toROSMsg(shapeSug, shape_cloudSug);
+		targetListSug.obstacle_lines.push_back(shape_cloudSug);
+	}
+
+	pcl::toROSMsg(target_positionsSug, targetListSug.position);
+	pcl::toROSMsg(velocitySug, targetListSug.velocity);
+
+	pub_targetsSug.publish(targetListSug);
+
+	CreateMarkers(markersMsgSug.markers, targetListSug, list_vectorSug);
+
+	markers_publisherSug.publish(markersMsgSug);
+
+	flagsSug.fi = false;
 }
 
 void initMTT() {
@@ -959,6 +1064,8 @@ int main(int argc, char **argv) {
 	pub_scans_suggest = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/suggest", 1000);
 	pub_targets = nh.advertise<mtt::TargetListPC>("/targets", 1000);
 	markers_publisher = nh.advertise<visualization_msgs::MarkerArray>("/markers", 1000);
+	pub_targetsSug = nh.advertise<mtt::TargetListPC>("/targetsSug", 1000);
+	markers_publisherSug = nh.advertise<visualization_msgs::MarkerArray>("/markersSug", 1000);
 	camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
 
 	// Create a ROS subscriber for the inputs
@@ -973,6 +1080,10 @@ int main(int argc, char **argv) {
 
 	init_flags(&flags);   // Inits flags values
 	init_config(&config); // Inits configuration values
+
+	init_flags(&flagsSug);   // Inits flags values
+	init_config(&configSug); // Inits configuration values
+
 
 	cout << "Keyboard Controls:\n";
 	cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint "
