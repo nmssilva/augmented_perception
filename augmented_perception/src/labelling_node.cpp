@@ -917,12 +917,13 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	}
 
 	// Draw blue rectangle (suggestion) positions
-	float angleSug = atan(box_ySug/box_xSug);
+	float angleSug = atan(box_ySug/box_xSug)*0.9;
 	int xSug = -(angleSug/0.01745329252*27.0)+812;
 
-
 	if(foundSug){
-		rectangle(imToShow, Point((int)xSug - 50, 700), Point((int)xSug + 50, 800), Scalar(255, 0, 0), 3);
+		float size = 500 - 12.5*distanceSug;
+		rectangle(imToShow, Point(xSug - size/2, 693 - size/2),
+				  Point(xSug + size/2, 693 + size/2), Scalar(255, 0, 0), 3);
 		imshow("camera",imToShow);
 	}
 
