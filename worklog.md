@@ -378,3 +378,30 @@
 - Marcador visual sobre o campo de visão da camera
 - Filtragem do pointcloud a partir do clique na imagem
 	- A zona filtrada na pointcloud é a zona clicada na imagem
+	
+09/05/18 Sexta
+==============
+
+- Rosbag player incorporado no labeling node
+	- Problema: O player bloqueia o resto do programa
+	- Solução: Threading
+	- Problema: Aparece um erro "Timers cannot be started from another thread" que não soube resolver...
+	
+10/05/18 Sábado
+===============
+- Rosbag player node. Criação de um node para reproduzir um bag.
+- Dá para pausar o bag e inclusive andar no bag passo a passo.
+
+11/05/18 Domingo
+================
+
+- Experiências com segmentação de cores para deteção da altura dos carros
+	- Experiências com manipulaço de brilho, contraste e redução de cores
+	- Resultados ainda não conclusivos
+
+12/05/18 Segunda
+================
+
+- Implementação das sugestões quando um objeto é detetado pelo MTT
+	- Deteção dos objetos é feita a partir do MTT e projetado na camera.
+	- Bounding box desenhada à volta do objeto detetado
