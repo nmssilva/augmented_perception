@@ -257,7 +257,7 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 		// associate x to angle
 		float angle = float(get_x) / 27.0;
 		// find marker in angle interval
-		proportion = tan(float(angle) * 0.01745329252); // converting to radians
+		proportion = tan(angle * 0.01745329252); // converting to radians
 
 		lost = false;
 
@@ -515,7 +515,7 @@ void initMTTSuggest(){
 
 	pub_targetsSug.publish(targetListSug);
 
-	CreateMarkers(markersMsgSug.markers, targetListSug, list_vectorSug);
+	CreateMarkersSug(markersMsgSug.markers, targetListSug, list_vectorSug);
 
 	markers_publisherSug.publish(markersMsgSug);
 
@@ -915,6 +915,17 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		max_y = pointdown.y;
 		min_y = pointup.y;
 	}
+
+	// Draw blue rectangle (suggestion) positions
+	float angleSug = atan(box_ySug/box_xSug);
+	int xSug = -(angleSug/0.01745329252*27.0)+812;
+
+
+	if(foundSug){
+		rectangle(imToShow, Point((int)xSug - 50, 700), Point((int)xSug + 50, 800), Scalar(255, 0, 0), 3);
+		imshow("camera",imToShow);
+	}
+
 
 	// get first patch and previous frames
 	if (max_x - min_x > 0 && max_y - min_y > 0 && capture) {
