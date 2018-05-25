@@ -38,7 +38,7 @@ ros::Publisher camera_lines_pub;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
-Mat image_input, imToShow, sub;
+Mat image_input, imToShow, sub, projection, imagePoints;
 
 // Template-Matching related variables
 Mat patch, first_patch, result;
@@ -308,9 +308,10 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 
 		pointbox = Point2f((float) x, (float) y);
 
-		hue = getH(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
-		saturation = getS(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
-		value = getV(image_input.at<Vec3b>(x, y)[0],image_input.at<Vec3b>(x, y)[1],image_input.at<Vec3b>(x, y)[2]);
+		hue = getH(image_input.at<Vec3b>(x, y)[0], image_input.at<Vec3b>(x, y)[1], image_input.at<Vec3b>(x, y)[2]);
+		saturation = getS(image_input.at<Vec3b>(x, y)[0], image_input.at<Vec3b>(x, y)[1],
+						  image_input.at<Vec3b>(x, y)[2]);
+		value = getV(image_input.at<Vec3b>(x, y)[0], image_input.at<Vec3b>(x, y)[1], image_input.at<Vec3b>(x, y)[2]);
 
 		cout << "hue: " << hue << " saturation: " << saturation << " value: " << value << endl;
 
@@ -326,9 +327,9 @@ void filter_suggest() {
 
 	for (int i = 0; i < pointDatapclSug.points.size(); i++) {
 		if (pointDatapclSug.points[i].y > left_limit ||
-				pointDatapclSug.points[i].y < -right_limit ||
-				pointDatapclSug.points[i].x < back_limit |
-				pointDatapclSug.points[i].x > front_limit) {
+			pointDatapclSug.points[i].y < -right_limit ||
+			pointDatapclSug.points[i].x < back_limit |
+			pointDatapclSug.points[i].x > front_limit) {
 			pointDatapclSug.points[i].x = 9999;
 			pointDatapclSug.points[i].y = 9999;
 			pointDatapclSug.points[i].z = 9999;
@@ -336,6 +337,7 @@ void filter_suggest() {
 	}
 
 }
+
 void filter_pc() {
 	float back_limit = 0.1;
 
@@ -380,7 +382,7 @@ void checkIfIDexist() {
 	}
 }
 
-void initClouds(){
+void initClouds() {
 	pcl::fromROSMsg(pointData0, pointData0pcl);
 	pcl::fromROSMsg(pointData1, pointData1pcl);
 	pcl::fromROSMsg(pointData2, pointData2pcl);
@@ -425,7 +427,7 @@ void initClouds(){
 	pointDatapclSug += pointDataDpcl;
 }
 
-void initMTTSuggest(){
+void initMTTSuggest() {
 
 	filter_suggest();
 
@@ -523,10 +525,6 @@ void initMTTSuggest(){
 }
 
 void initMTT() {
-
-	pcl::toROSMsg(pointDatapcl, pointData);
-
-	pub_scans.publish(pointData);
 
 	filter_pc();
 
@@ -895,6 +893,10 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 	initMTTSuggest();
 
+	// needed
+	pcl::toROSMsg(pointDatapcl, pointData);
+	pub_scans.publish(pointData);
+
 	if (!lost) {
 		initMTT();
 	}
@@ -917,14 +919,14 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	}
 
 	// Draw blue rectangle (suggestion) positions
-	float angleSug = atan(box_ySug/box_xSug)*0.9;
-	int xSug = -(angleSug/0.01745329252*27.0)+812;
+	float angleSug = atan(box_ySug / box_xSug) * 0.9;
+	int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
 
-	if(foundSug){
-		float size = 500 - 12.5*distanceSug;
-		rectangle(imToShow, Point(xSug - size/2, 693 - size/2),
-				  Point(xSug + size/2, 693 + size/2), Scalar(255, 0, 0), 3);
-		imshow("camera",imToShow);
+	if (foundSug) {
+		float size = 500 - 12.5 * distanceSug;
+		rectangle(imToShow, Point(xSug - size / 2, 693 - size / 2),
+				  Point(xSug + size / 2, 693 + size / 2), Scalar(255, 0, 0), 3);
+		imshow("camera", imToShow);
 	}
 
 
@@ -958,7 +960,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 
 	// segmentation part
-	bool pointsToDelete[sub.rows / 2 * sub.cols] = { false };
+	bool pointsToDelete[sub.rows / 2 * sub.cols] = {false};
 	int meanX = 0;
 	int meanY = 0;
 	int boundX = 0;
@@ -974,8 +976,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	uchar vmin = value - Vthreshold;
 
 	bool more_is_less = false;
-	if (hmax < hmin)
-	{
+	if (hmax < hmin) {
 		more_is_less = true;
 	}
 
@@ -985,9 +986,9 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 	for (int y = segment.rows / 3; y < segment.rows; y++) {
 		for (int x = 0; x < segment.cols; x++) {
-			segment.at<Vec3b>(Point(x, y))[0] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[0] ) + beta );
-			segment.at<Vec3b>(Point(x, y))[1] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[1] ) + beta );
-			segment.at<Vec3b>(Point(x, y))[2] = saturate_cast<uchar>( alpha*( segment.at<Vec3b>(y,x)[2] ) + beta );
+			segment.at<Vec3b>(Point(x, y))[0] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[0]) + beta);
+			segment.at<Vec3b>(Point(x, y))[1] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[1]) + beta);
+			segment.at<Vec3b>(Point(x, y))[2] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[2]) + beta);
 		}
 	}
 
@@ -1021,6 +1022,57 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 	// TODO: uncomment this
 	//imshow("segmentation",segment);
+
+	// 3D reprojection part
+
+	std::vector<cv::Point3f> objectPoints;
+
+	cv::Mat rvec = cv::Mat ( 3, 3, CV_32FC1 );
+	cv::Mat tvec = cv::Mat ( 3, 3, CV_32FC1 );
+
+	cv::Mat distCoeffs = cv::Mat ( 1, 5, CV_32FC1 );
+	cv::Mat cameraMatrix = cv::Mat ( 3, 3, CV_32FC1 );
+
+	image_input.copyTo(projection);
+
+	for (int i = 0; i < pointData.data.size(); i += 3) {
+		objectPoints.push_back(cv::Point3f(pointData.data[i], pointData.data[i + 1], pointData.data[i + 2]));
+	}
+
+	for (int i = 0; i < rvec.rows * rvec.cols; i += 4) {
+		rvec.at<int>(i/3,i%3) = 1;
+		tvec.at<int>(i/3,i%3) = 1;
+	}
+
+	distCoeffs.at<int>(0) = -0.2015966527847064;
+	distCoeffs.at<int>(1) = 0.1516937421259596;
+	distCoeffs.at<int>(2) = -0.0009340794635090795;
+	distCoeffs.at<int>(3) = -0.0006787308984611241;
+	distCoeffs.at<int>(4) = 0;
+
+	cameraMatrix.at<int>(0) = 1454.423376687359; //fx
+	cameraMatrix.at<int>(4) = 1458.005828758985; //fy
+	cameraMatrix.at<int>(2) = 822.9545738617143; //cx
+	cameraMatrix.at<int>(5) = 590.5652711935882; //cy
+	cameraMatrix.at<int>(8) = 1;
+
+	Rodrigues(rvec,rvec);
+	Rodrigues(tvec,tvec);
+
+	projectPoints(objectPoints, rvec, tvec, cameraMatrix, distCoeffs, imagePoints);
+
+	for (int i = 0; i < imagePoints.rows * imagePoints.cols; i += 2) {
+		int x = imagePoints.at<cv::Vec2i>(0,i)[0];
+		int y = imagePoints.at<cv::Vec2i>(0,i)[1];
+		//cerr << "x:" << x << " y:" << y << endl;
+		if(projection.cols > x && projection.rows > y && x >= 0 && y >= 0){
+			projection.at<cv::Vec3b>(y,x)[0] = 0;
+			projection.at<cv::Vec3b>(y,x)[1] = 255;
+			projection.at<cv::Vec3b>(y,x)[2] = 0;
+		}
+	}
+
+	imshow("projection", projection);
 }
 
 void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
@@ -1060,6 +1112,10 @@ int main(int argc, char **argv) {
 	// Create Camera Windows
 	cv::namedWindow("camera", CV_WINDOW_NORMAL);
 	cv::resizeWindow("camera", 800, 666);
+	cv::startWindowThread();
+
+	cv::namedWindow("projection", CV_WINDOW_NORMAL);
+	cv::resizeWindow("projection", 800, 666);
 	cv::startWindowThread();
 
 	// TODO: uncomment this

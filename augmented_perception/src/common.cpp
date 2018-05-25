@@ -1347,7 +1347,6 @@ void init_config(t_config *config) {
 	config->ezB = 1.0;
 }
 
-double prev_box_x, prev_box_y, prev_box_z;
 double box_x = 0, box_y = 0, box_z = 0;
 unsigned int box_id;
 bool lost = true;
@@ -1390,10 +1389,9 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
 	marker.color.a = 1;
 
 	marker.id = 0;
+	int distance = 3000;
 
 	if (list.size() > 0) {
-		lost = false;
-		int distance = 3000;
 		for (uint i = 0; i < list.size(); i++) {
 			if (list[i]->shape.lines.size() != 0) {
 				if (sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2)) < distance) {
@@ -1405,8 +1403,184 @@ void CreateMarkers(vector<visualization_msgs::Marker> &marker_vector, mtt::Targe
 				}
 			}
 		}
-	} else {
-		lost = true;
+	}
+
+	//cout << box_id << ":(" << box_x << ", " << box_y << ")\n";
+
+	for (uint i = 0; i < list.size(); i++) {
+		if (list[i]->shape.lines.size() != 0) {
+			marker.pose.position.x = list[i]->position.estimated_x;
+			marker.pose.position.y = list[i]->position.estimated_y;
+
+			marker.text = boost::lexical_cast<string>(list[i]->id);
+
+			marker.id++;
+
+			marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);
+			// isto substitui ou cria o novo marker no maplist
+		}
+	}
+
+	marker.pose.position.x = 0;
+	marker.pose.position.y = 0;
+
+	marker.text = "origin";
+
+	marker.id++;
+
+	// end of text markers
+	// begin line objects
+
+	marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no map
+
+	// Markers for Line objects
+	marker.type = visualization_msgs::Marker::LINE_STRIP;
+	marker.ns = "objects";
+
+	marker.pose.position.x = 0;
+	marker.pose.position.y = 0;
+	marker.pose.position.z = 0;
+
+	marker.scale.x = 0.02;
+	marker.scale.y = 0.1;
+	marker.scale.z = 0.1;
+
+	for (uint i = 0; i < list.size(); i++) {
+		marker.color = colormap.color(list[i]->id);
+
+		geometry_msgs::Point p;
+		p.z = 0.1;
+
+		marker.points.clear();
+
+		uint l;
+		for (l = 0; l < list[i]->shape.lines.size(); l++) {
+			p.x = list[i]->shape.lines[l]->xi;
+			p.y = list[i]->shape.lines[l]->yi;
+
+			marker.points.push_back(p);
+		}
+
+		p.x = list[i]->shape.lines[l - 1]->xf;
+		p.y = list[i]->shape.lines[l - 1]->yf;
+
+		marker.points.push_back(p);
+
+		marker.id++;
+
+		// isto substitui ou cria o novo marker no map
+		marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);
+	}
+
+	// begin 3D BBox markers
+	marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker, 1);  // isto substitui ou cria o novo marker no map
+
+	// Markers for Line objects
+	marker.type = visualization_msgs::Marker::CUBE;
+	marker.ns = "boxes";
+
+	marker.pose.position.z = 0.5;
+
+	marker.scale.x = 3;
+	marker.scale.y = 2;
+	marker.scale.z = 1;
+
+	for (uint i = 0; i < list.size(); i++) {
+		if (list[i]->shape.lines.size() != 0) {
+			marker.pose.position.x = list[i]->position.estimated_x;
+			marker.pose.position.y = list[i]->position.estimated_y;
+			marker.color.a = 0.5;
+			marker.color.r = 0;
+			marker.color.g = 1;
+			marker.color.b = 0;
+
+			marker.id++;
+
+			marker_map[make_pair(marker.ns, marker.id)] = make_pair(marker,
+																	1);  // isto substitui ou cria o novo marker no
+			// map
+		}
+	}
+
+	// para o map todo envio tudo, e meto tudo a false
+	// envio todo e tudo o que ainda estiver a false vai com operaração de delete
+	for (it = marker_map.begin(); it != marker_map.end(); it++) {
+		if (it->second.second == 0)  // se for falso é para apagar
+			it->second.first.action = visualization_msgs::Marker::DELETE;
+		else if (it->second.second <= -1)  // já foi apagado
+		{
+			/**
+			\todo This should be erased but it is not working now
+			marker_map.erase(it);
+			*/
+			continue;
+		}
+
+		marker_vector.push_back(it->second.first);
+	}
+}
+
+
+double box_xSug = 0, box_ySug = 0, box_zSug = 0;
+unsigned int box_idSug;
+bool foundSug = false;
+float distanceSug = 3000;
+
+void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
+				   vector<t_listPtr> &list) {
+	static map<pair<string, int>, pair<visualization_msgs::Marker, int> > marker_map;
+	map<pair<string, int>, pair<visualization_msgs::Marker, int> >::iterator
+			it;
+
+	// limpar o vector todo
+	marker_vector.clear();
+	// colocar todos os elementos em processo de elemincação
+	for (it = marker_map.begin(); it != marker_map.end(); it++)
+		it->second.second--;
+
+	std_msgs::ColorRGBA color;
+	class_colormap colormap("hsv", 10, 1, false);
+
+	visualization_msgs::Marker marker;
+
+	marker.header.frame_id = target_msg.header.frame_id;
+	// cout << "fid:" << target_msg.header.frame_id << endl;
+
+	marker.header.stamp = ros::Time::now();
+	marker.ns = "ids";
+	marker.action = visualization_msgs::Marker::ADD;
+
+	marker.pose.position.z = 0.3;
+
+	marker.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
+
+	marker.scale.x = 1;
+	marker.scale.y = 1;
+	marker.scale.z = 1;
+
+	marker.color.r = 1;
+	marker.color.g = 1;
+	marker.color.b = 1;
+	marker.color.a = 1;
+
+	marker.id = 0;
+
+	distanceSug = 3000;
+	if (list.size() > 0) {
+		foundSug = true;
+		for (uint i = 0; i < list.size(); i++) {
+			if (list[i]->shape.lines.size() != 0) {
+				if (sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2)) < distanceSug) {
+					distanceSug = sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2));
+					box_idSug = list[i]->id;
+					box_xSug = list[i]->position.estimated_x;
+					box_ySug = list[i]->position.estimated_y;
+					box_zSug = 0.5;
+				}
+			}
+		}
+	}else{
+		foundSug = false;
 	}
 
 	//cout << box_id << ":(" << box_x << ", " << box_y << ")\n";
