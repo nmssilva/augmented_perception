@@ -362,7 +362,7 @@
 - Re-ajuste do algoritmo e tracking para a nova pointcloud
 - Tamanho da bounding box fixed
 
-27/04/18 Sexta ~ 07/05/18 Terça
+27/04/18 Sexta ~ 08/05/18 Terça
 ===============================
 
 - Avanço no Documento da Dissertação
@@ -371,7 +371,7 @@
 	- Capítulo de labelling deteção e tracking
 	- Mais detalhe na infraestrutura experimental
 
-08/05/18 Quarta
+09/05/18 Quarta
 ===============
 
 - Reunião com prof. Paulo e Vitor
@@ -379,7 +379,7 @@
 - Filtragem do pointcloud a partir do clique na imagem
 	- A zona filtrada na pointcloud é a zona clicada na imagem
 	
-09/05/18 Sexta
+11/05/18 Sexta
 ==============
 
 - Rosbag player incorporado no labeling node
@@ -387,21 +387,63 @@
 	- Solução: Threading
 	- Problema: Aparece um erro "Timers cannot be started from another thread" que não soube resolver...
 	
-10/05/18 Sábado
+12/05/18 Sábado
 ===============
 - Rosbag player node. Criação de um node para reproduzir um bag.
 - Dá para pausar o bag e inclusive andar no bag passo a passo.
 
-11/05/18 Domingo
+13/05/18 Domingo
 ================
 
 - Experiências com segmentação de cores para deteção da altura dos carros
 	- Experiências com manipulaço de brilho, contraste e redução de cores
 	- Resultados ainda não conclusivos
 
-12/05/18 Segunda
+14/05/18 Segunda
 ================
 
 - Implementação das sugestões quando um objeto é detetado pelo MTT
 	- Deteção dos objetos é feita a partir do MTT e projetado na camera.
 	- Bounding box desenhada à volta do objeto detetado
+	
+	
+15/05/18 Terça
+==============
+
+- Melhoria da posição da bounding box das sugestões
+
+16/05/18 Quarta
+===============
+
+- Reunião
+	- Começar a trabalhar na reprojeção da imagem
+	- Fazer uma anotação completa
+		- Arranjar métricas e mostrá-las numa tabela representativa
+- Calibração intrínseca da camera para proceder projeção 3D na imagem
+
+
+17/05/18 Quinta ~ 20/05/18 Domingo
+==================================
+
+- Ínicio das experiências com cv::projectPoints
+- Correção de alguns erros no documento da tese
+
+
+21/05/18 Segunda ~ 22/05/18 Terça
+=================================
+
+- Introdução da pointcloud na imagem com cv::projectPoints
+	- Pontos nas aparecem onde deveriam... Parece ruído na imagem...
+
+23/05/18 Quarta
+===============
+
+- Reunião
+
+
+24/05/18 Quinta ~ 26/05/18 Sábado
+=================================
+
+- Resolução dos exercicios de projeção que o prof. Paulo enviou
+- Experiências numa frame do bag com base nos exercícios
+
