@@ -43,14 +43,14 @@ cv::Mat cameraMatrix = cv::Mat(3, 3, CV_32FC1);
  */
 std::vector<cv::Point3f> Generate3DPoints(float size, float x, float y) {
 	std::vector<cv::Point3f> points;
-	points.push_back(cv::Point3f(y+size, size/2, 0));//x-size));
-	points.push_back(cv::Point3f(y+size, size/2, 0));//x+size));
-	points.push_back(cv::Point3f(y-size, size/2, 0));//x-size));
-	points.push_back(cv::Point3f(y-size, size/2, 0));//x+size));
-	points.push_back(cv::Point3f(y+size, -size/2, 0));//x-size));
-	points.push_back(cv::Point3f(y+size, -size/2, 0));//x+size));
-	points.push_back(cv::Point3f(y-size, -size/2, 0));//x-size));
-	points.push_back(cv::Point3f(y-size, -size/2, 0));//x+size));
+	points.push_back(cv::Point3f(-y+size, size/2, x-size+10));
+	points.push_back(cv::Point3f(-y+size, size/2, x+size+10));
+	points.push_back(cv::Point3f(-y-size, size/2, x+size+10));
+	points.push_back(cv::Point3f(-y-size, size/2, x-size+10));
+	points.push_back(cv::Point3f(-y+size, -size/2, x-size+10));
+	points.push_back(cv::Point3f(-y+size, -size/2, x+size+10));
+	points.push_back(cv::Point3f(-y-size, -size/2, x+size+10));
+	points.push_back(cv::Point3f(-y-size, -size/2, x-size+10));
 	return points;
 }
 
@@ -65,27 +65,36 @@ int main(int argc, char **argv) {
 	image_input.copyTo(projection);
 
 	for (int i = 0; i < 3; i++) {
-		rvec.at<int>(i) = 0;
-		tvec.at<int>(i) = 10;
+		rvec.at<float>(i) = 0;
+		tvec.at<float>(i) = 0;
 	}
 
-	distCoeffs.at<int>(0) = -0.2015966527847064;
-	distCoeffs.at<int>(1) = 0.1516937421259596;
-	distCoeffs.at<int>(2) = -0.0009340794635090795;
-	distCoeffs.at<int>(3) = -0.0006787308984611241;
-	distCoeffs.at<int>(4) = 0;
 
-	cameraMatrix.at<int>(0) = 1454.423376687359; //fx
-	cameraMatrix.at<int>(4) = 1458.005828758985; //fy
-	cameraMatrix.at<int>(2) = 822.9545738617143; //cx
-	cameraMatrix.at<int>(5) = 590.5652711935882; //cy
-	cameraMatrix.at<int>(8) = 1;
+	tvec.at<float>(0) = 1;
+
+	distCoeffs.at<float>(0) = -0.2015966527847064;
+	distCoeffs.at<float>(1) = 0.1516937421259596;
+	distCoeffs.at<float>(2) = -0.0009340794635090795;
+	distCoeffs.at<float>(3) = -0.0006787308984611241;
+	distCoeffs.at<float>(4) = 0;
+
+	cameraMatrix.at<float>(0) = 1454.423376687359; //fx
+	cameraMatrix.at<float>(4) = 1458.005828758985; //fy
+	cameraMatrix.at<float>(2) = 822.9545738617143; //cx
+	cameraMatrix.at<float>(5) = 590.5652711935882; //cy
+	cameraMatrix.at<float>(8) = 1;
+
+	cameraMatrix.at<float>(1) = 0;
+	cameraMatrix.at<float>(3) = 0;
+	cameraMatrix.at<float>(6) = 0;
+	cameraMatrix.at<float>(7) = 0;
 
 	// create cube points
-	std::vector<cv::Point3f> o_points = Generate3DPoints(1.5, 8., 0.);
+	std::vector<cv::Point3f> o_points = Generate3DPoints(3, 10, 3);
 	// position cube
 	std::vector<cv::Point2f> projectedPoints;
 	cv::projectPoints(o_points, rvec, tvec, cameraMatrix, distCoeffs, projectedPoints);
+
 	// create cube lines
 	cout << projectedPoints.at(0) << endl;
 	cout << projectedPoints.at(1) << endl;
@@ -104,11 +113,6 @@ int main(int argc, char **argv) {
 	cout << o_points.at(5) << endl;
 	cout << o_points.at(6) << endl;
 	cout << o_points.at(7) << endl;
-
-	for(int i = 0; i < projectedPoints.size(); i++){
-		projectedPoints.at(i).y += ((cameraMatrix.at<int>(2)+cameraMatrix.at<int>(5))/2);
-		projectedPoints.at(i).x = cameraMatrix.at<int>(2)-projectedPoints.at(i).x;
-	}
 
 	cv::line(image_input, projectedPoints.at(0), projectedPoints.at(1), cv::Scalar(255, 0, 0), 2, 8);
 	cv::line(image_input, projectedPoints.at(1), projectedPoints.at(2), cv::Scalar(255, 0, 0), 2, 8);

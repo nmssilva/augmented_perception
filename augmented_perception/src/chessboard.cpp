@@ -124,6 +124,9 @@ int main(int argc, char **argv) {
 
 	std::cout << std::endl << "Distortion = "<< std::endl << " " << distortion_coeffs << std::endl;
 
+
+	cout << distortion_coeffs.ptr(0,0) << endl;
+
 	std::cout << std::endl << "Translations = "<< std::endl ;
 	for (i=0;i<n_boards;i++)
 		std::cout << translation_vectors.at(i) << std::endl;
