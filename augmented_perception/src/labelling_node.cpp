@@ -38,7 +38,7 @@ ros::Publisher camera_lines_pub;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
-Mat image_input, imToShow, sub, projection, imagePoints;
+Mat image_input, imToShow, sub, projection, projectionPC;
 
 // Template-Matching related variables
 Mat patch, first_patch, result;
@@ -112,6 +112,13 @@ uint click_count_reset = 0;
 // Color segmentation related variables
 
 float hue = 0.0, saturation = 0.0, value = 0.0;
+
+// 3D projection
+cv::Mat rvec = cv::Mat(3, 1, CV_32FC1);
+cv::Mat tvec = cv::Mat(3, 1, CV_32FC1);
+
+cv::Mat distCoeffs = cv::Mat(5, 1, CV_32FC1);
+cv::Mat cameraMatrix = cv::Mat(3, 3, CV_32FC1);
 
 // File writing related variables
 
@@ -664,6 +671,34 @@ void drawCameraRangeLine() {
 	camera_lines_pub.publish(marker);
 }
 
+std::vector<cv::Point3f> Generate3DPoints(float size, float x, float y) {
+	std::vector<cv::Point3f> points;
+	points.push_back(cv::Point3f(-y + size, size / 2, x - size + 10));
+	points.push_back(cv::Point3f(-y + size, size / 2, x + size + 10));
+	points.push_back(cv::Point3f(-y - size, size / 2, x + size + 10));
+	points.push_back(cv::Point3f(-y - size, size / 2, x - size + 10));
+	points.push_back(cv::Point3f(-y + size, -size / 2, x - size + 10));
+	points.push_back(cv::Point3f(-y + size, -size / 2, x + size + 10));
+	points.push_back(cv::Point3f(-y - size, -size / 2, x + size + 10));
+	points.push_back(cv::Point3f(-y - size, -size / 2, x - size + 10));
+	return points;
+}
+
+std::vector<cv::Point3f> Generate3DPointsPC(pcl::PointCloud<pcl::PointXYZ> pcData) {
+	std::vector<cv::Point3f> points;
+	for(int i = 0; i < pcData.size(); i++){
+		points.push_back(cv::Point3f(pcData.at(i).y,0.17,pcData.at(i).x));
+	}
+	return points;
+}
+
+Scalar ScalarHSV2BGR(uchar H, uchar S, uchar V) {
+	Mat rgb;
+	Mat hsv(1,1, CV_8UC3, Scalar(H,S,V));
+	cvtColor(hsv, rgb, CV_HSV2BGR);
+	return Scalar(rgb.data[0], rgb.data[1], rgb.data[2]);
+}
+
 void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	try {
 		cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
@@ -1023,56 +1058,94 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	// TODO: uncomment this
 	//imshow("segmentation",segment);
 
-	// 3D reprojection part
-
-	std::vector<cv::Point3f> objectPoints;
-
-	cv::Mat rvec = cv::Mat ( 3, 3, CV_32FC1 );
-	cv::Mat tvec = cv::Mat ( 3, 3, CV_32FC1 );
-
-	cv::Mat distCoeffs = cv::Mat ( 1, 5, CV_32FC1 );
-	cv::Mat cameraMatrix = cv::Mat ( 3, 3, CV_32FC1 );
-
+	// 3D Box reprojection part
 	image_input.copyTo(projection);
 
-	for (int i = 0; i < pointData.data.size(); i += 3) {
-		objectPoints.push_back(cv::Point3f(pointData.data[i], pointData.data[i + 1], pointData.data[i + 2]));
+	for (int i = 0; i < 3; i++) {
+		rvec.at<float>(i) = 0;
+		tvec.at<float>(i) = 0;
 	}
 
-	for (int i = 0; i < rvec.rows * rvec.cols; i += 4) {
-		rvec.at<int>(i/3,i%3) = 1;
-		tvec.at<int>(i/3,i%3) = 1;
-	}
+	//TODO: read from file
+	distCoeffs.at<float>(0) = -0.2015966527847064;
+	distCoeffs.at<float>(1) = 0.1516937421259596;
+	distCoeffs.at<float>(2) = -0.0009340794635090795;
+	distCoeffs.at<float>(3) = -0.0006787308984611241;
+	distCoeffs.at<float>(4) = 0;
 
-	distCoeffs.at<int>(0) = -0.2015966527847064;
-	distCoeffs.at<int>(1) = 0.1516937421259596;
-	distCoeffs.at<int>(2) = -0.0009340794635090795;
-	distCoeffs.at<int>(3) = -0.0006787308984611241;
-	distCoeffs.at<int>(4) = 0;
+	cameraMatrix.at<float>(0) = 1454.423376687359; //fx
+	cameraMatrix.at<float>(4) = 1458.005828758985; //fy
+	cameraMatrix.at<float>(2) = 822.9545738617143; //cx
+	cameraMatrix.at<float>(5) = 590.5652711935882; //cy
+	cameraMatrix.at<float>(8) = 1;
 
-	cameraMatrix.at<int>(0) = 1454.423376687359; //fx
-	cameraMatrix.at<int>(4) = 1458.005828758985; //fy
-	cameraMatrix.at<int>(2) = 822.9545738617143; //cx
-	cameraMatrix.at<int>(5) = 590.5652711935882; //cy
-	cameraMatrix.at<int>(8) = 1;
+	cameraMatrix.at<float>(1) = 0;
+	cameraMatrix.at<float>(3) = 0;
+	cameraMatrix.at<float>(6) = 0;
+	cameraMatrix.at<float>(7) = 0;
 
-	Rodrigues(rvec,rvec);
-	Rodrigues(tvec,tvec);
+	if (foundSug) {
+		// create cube points
+		std::vector<cv::Point3f> o_points = Generate3DPoints(3, box_xSug, box_ySug);
+		// position cube
+		std::vector<cv::Point2f> projectedPoints;
+		cv::projectPoints(o_points, rvec, tvec, cameraMatrix, distCoeffs, projectedPoints);
 
-	projectPoints(objectPoints, rvec, tvec, cameraMatrix, distCoeffs, imagePoints);
-
-	for (int i = 0; i < imagePoints.rows * imagePoints.cols; i += 2) {
-		int x = imagePoints.at<cv::Vec2i>(0,i)[0];
-		int y = imagePoints.at<cv::Vec2i>(0,i)[1];
-		//cerr << "x:" << x << " y:" << y << endl;
-		if(projection.cols > x && projection.rows > y && x >= 0 && y >= 0){
-			projection.at<cv::Vec3b>(y,x)[0] = 0;
-			projection.at<cv::Vec3b>(y,x)[1] = 255;
-			projection.at<cv::Vec3b>(y,x)[2] = 0;
+		for (int i = 0; i < projectedPoints.size(); i++) {
+			projectedPoints.at(i).y += cameraMatrix.at<float>(5) * 0.2;
 		}
+
+		//draw cube lines
+		cv::line(projection, projectedPoints.at(0), projectedPoints.at(1), cv::Scalar(255, 0, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(1), projectedPoints.at(2), cv::Scalar(255, 0, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(2), projectedPoints.at(3), cv::Scalar(255, 0, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(3), projectedPoints.at(0), cv::Scalar(255, 0, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(1), projectedPoints.at(5), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(2), projectedPoints.at(6), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(5), projectedPoints.at(6), cv::Scalar(0, 0, 255), 2, 8);
+		cv::line(projection, projectedPoints.at(6), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
+		cv::line(projection, projectedPoints.at(5), projectedPoints.at(4), cv::Scalar(0, 0, 255), 2, 8);
+		cv::line(projection, projectedPoints.at(4), projectedPoints.at(0), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(7), projectedPoints.at(3), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(4), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
 	}
 
 	imshow("projection", projection);
+
+
+	// 3D PC reprojection part
+
+	image_input.copyTo(projectionPC);
+
+	for (int i = 0; i < 3; i++) {
+		rvec.at<float>(i) = 0;
+		tvec.at<float>(i) = 0;
+	}
+
+	// create cube points
+	std::vector<cv::Point3f> o_points = Generate3DPointsPC(pointDatapcl);
+
+	// position cube
+	std::vector<cv::Point2f> projectedPoints;
+	cv::projectPoints(o_points, rvec, tvec, cameraMatrix, distCoeffs, projectedPoints);
+
+	for (int i = 0; i < projectedPoints.size(); i++) {
+		projectedPoints.at(i).y += cameraMatrix.at<float>(5) * 0.2;
+	}
+
+	//draw points
+	for(int i = 0; i < projectedPoints.size(); i++){
+		if(projectedPoints.at(i).x >= 0 && projectedPoints.at(i).y-15 >= 0
+		   && projectedPoints.at(i).x < projectionPC.cols && projectedPoints.at(i).y-15 < projectionPC.rows){
+			circle(projectionPC, Point(-projectedPoints.at(i).x+projectionPC.cols,projectedPoints.at(i).y-15), 3,
+				   ScalarHSV2BGR(o_points.at(i).z,255,255), -1);
+
+		}
+	}
+
+
+	imshow("projectionPC", projectionPC);
+
 }
 
 void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
@@ -1116,6 +1189,11 @@ int main(int argc, char **argv) {
 
 	cv::namedWindow("projection", CV_WINDOW_NORMAL);
 	cv::resizeWindow("projection", 800, 666);
+	cv::startWindowThread();
+
+
+	cv::namedWindow("projectionPC", CV_WINDOW_NORMAL);
+	cv::resizeWindow("projectionPC", 800, 666);
 	cv::startWindowThread();
 
 	// TODO: uncomment this

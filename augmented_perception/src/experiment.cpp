@@ -69,8 +69,7 @@ int main(int argc, char **argv) {
 		tvec.at<float>(i) = 0;
 	}
 
-
-	tvec.at<float>(0) = 1;
+	//tvec.at<float>(0) = 0;
 
 	distCoeffs.at<float>(0) = -0.2015966527847064;
 	distCoeffs.at<float>(1) = 0.1516937421259596;
