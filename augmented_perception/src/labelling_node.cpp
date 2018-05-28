@@ -671,30 +671,31 @@ void drawCameraRangeLine() {
 	camera_lines_pub.publish(marker);
 }
 
-std::vector<cv::Point3f> Generate3DPoints(float size, float x, float y) {
+std::vector<cv::Point3f> Generate3DPoints(float x, float y) {
 	std::vector<cv::Point3f> points;
-	points.push_back(cv::Point3f(-y + size, size / 2, x - size + 10));
-	points.push_back(cv::Point3f(-y + size, size / 2, x + size + 10));
-	points.push_back(cv::Point3f(-y - size, size / 2, x + size + 10));
-	points.push_back(cv::Point3f(-y - size, size / 2, x - size + 10));
-	points.push_back(cv::Point3f(-y + size, -size / 2, x - size + 10));
-	points.push_back(cv::Point3f(-y + size, -size / 2, x + size + 10));
-	points.push_back(cv::Point3f(-y - size, -size / 2, x + size + 10));
-	points.push_back(cv::Point3f(-y - size, -size / 2, x - size + 10));
+	float size = 1.5;
+	points.push_back(cv::Point3f(-y * 1.3 + size, -1.5, x * 2 - size));
+	points.push_back(cv::Point3f(-y * 1.3 + size, -1.5, x * 2 + size));
+	points.push_back(cv::Point3f(-y * 1.3 - size, -1.5, x * 2 + size));
+	points.push_back(cv::Point3f(-y * 1.3 - size, -1.5, x * 2 - size));
+	points.push_back(cv::Point3f(-y * 1.3 + size, 1, x * 2 - size));
+	points.push_back(cv::Point3f(-y * 1.3 + size, 1, x * 2 + size));
+	points.push_back(cv::Point3f(-y * 1.3 - size, 1, x * 2 + size));
+	points.push_back(cv::Point3f(-y * 1.3 - size, 1, x * 2 - size));
 	return points;
 }
 
 std::vector<cv::Point3f> Generate3DPointsPC(pcl::PointCloud<pcl::PointXYZ> pcData) {
 	std::vector<cv::Point3f> points;
-	for(int i = 0; i < pcData.size(); i++){
-		points.push_back(cv::Point3f(pcData.at(i).y,0.17,pcData.at(i).x));
+	for (int i = 0; i < pcData.size(); i++) {
+		points.push_back(cv::Point3f(pcData.at(i).y, 0.17, pcData.at(i).x));
 	}
 	return points;
 }
 
 Scalar ScalarHSV2BGR(uchar H, uchar S, uchar V) {
 	Mat rgb;
-	Mat hsv(1,1, CV_8UC3, Scalar(H,S,V));
+	Mat hsv(1, 1, CV_8UC3, Scalar(H, S, V));
 	cvtColor(hsv, rgb, CV_HSV2BGR);
 	return Scalar(rgb.data[0], rgb.data[1], rgb.data[2]);
 }
@@ -1086,27 +1087,28 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 	if (foundSug) {
 		// create cube points
-		std::vector<cv::Point3f> o_points = Generate3DPoints(3, box_xSug, box_ySug);
+		std::vector<cv::Point3f> o_points = Generate3DPoints(box_xSug, box_ySug);
 		// position cube
 		std::vector<cv::Point2f> projectedPoints;
 		cv::projectPoints(o_points, rvec, tvec, cameraMatrix, distCoeffs, projectedPoints);
 
 		for (int i = 0; i < projectedPoints.size(); i++) {
 			projectedPoints.at(i).y += cameraMatrix.at<float>(5) * 0.2;
+			projectedPoints.at(i).x -= cameraMatrix.at<float>(5) * 0.09;
 		}
 
 		//draw cube lines
-		cv::line(projection, projectedPoints.at(0), projectedPoints.at(1), cv::Scalar(255, 0, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(0), projectedPoints.at(1), cv::Scalar(255, 0, 0), 2, 8); // blue base
 		cv::line(projection, projectedPoints.at(1), projectedPoints.at(2), cv::Scalar(255, 0, 0), 2, 8);
 		cv::line(projection, projectedPoints.at(2), projectedPoints.at(3), cv::Scalar(255, 0, 0), 2, 8);
 		cv::line(projection, projectedPoints.at(3), projectedPoints.at(0), cv::Scalar(255, 0, 0), 2, 8);
-		cv::line(projection, projectedPoints.at(1), projectedPoints.at(5), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(1), projectedPoints.at(5), cv::Scalar(0, 255, 0), 2, 8); // green lines
 		cv::line(projection, projectedPoints.at(2), projectedPoints.at(6), cv::Scalar(0, 255, 0), 2, 8);
-		cv::line(projection, projectedPoints.at(5), projectedPoints.at(6), cv::Scalar(0, 0, 255), 2, 8);
-		cv::line(projection, projectedPoints.at(6), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
-		cv::line(projection, projectedPoints.at(5), projectedPoints.at(4), cv::Scalar(0, 0, 255), 2, 8);
 		cv::line(projection, projectedPoints.at(4), projectedPoints.at(0), cv::Scalar(0, 255, 0), 2, 8);
 		cv::line(projection, projectedPoints.at(7), projectedPoints.at(3), cv::Scalar(0, 255, 0), 2, 8);
+		cv::line(projection, projectedPoints.at(5), projectedPoints.at(6), cv::Scalar(0, 0, 255), 2, 8); // red top
+		cv::line(projection, projectedPoints.at(6), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
+		cv::line(projection, projectedPoints.at(5), projectedPoints.at(4), cv::Scalar(0, 0, 255), 2, 8);
 		cv::line(projection, projectedPoints.at(4), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
 	}
 
@@ -1129,22 +1131,23 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	std::vector<cv::Point2f> projectedPoints;
 	cv::projectPoints(o_points, rvec, tvec, cameraMatrix, distCoeffs, projectedPoints);
 
+
 	for (int i = 0; i < projectedPoints.size(); i++) {
 		projectedPoints.at(i).y += cameraMatrix.at<float>(5) * 0.2;
+		projectedPoints.at(i).x -= cameraMatrix.at<float>(5) * 0.09;
 	}
 
 	//draw points
-	for(int i = 0; i < projectedPoints.size(); i++){
-		if(projectedPoints.at(i).x >= 0 && projectedPoints.at(i).y-15 >= 0
-		   && projectedPoints.at(i).x < projectionPC.cols && projectedPoints.at(i).y-15 < projectionPC.rows){
-			circle(projectionPC, Point(-projectedPoints.at(i).x+projectionPC.cols,projectedPoints.at(i).y-15), 3,
-				   ScalarHSV2BGR(o_points.at(i).z,255,255), -1);
+	for (int i = 0; i < projectedPoints.size(); i++) {
+		if (projectedPoints.at(i).x >= 0 && projectedPoints.at(i).y - 15 >= 0
+			&& projectedPoints.at(i).x < projectionPC.cols && projectedPoints.at(i).y - 15 < projectionPC.rows) {
+			circle(projectionPC, Point(-projectedPoints.at(i).x + projectionPC.cols, projectedPoints.at(i).y - 15), 3,
+				   ScalarHSV2BGR(o_points.at(i).z, 255, 255), -1);
 
 		}
 	}
 
-
-	imshow("projectionPC", projectionPC);
+	imshow("Full Pointcloud Data", projectionPC);
 
 }
 
@@ -1192,8 +1195,8 @@ int main(int argc, char **argv) {
 	cv::startWindowThread();
 
 
-	cv::namedWindow("projectionPC", CV_WINDOW_NORMAL);
-	cv::resizeWindow("projectionPC", 800, 666);
+	cv::namedWindow("Full Pointcloud Data", CV_WINDOW_NORMAL);
+	cv::resizeWindow("Full Pointcloud Data", 800, 666);
 	cv::startWindowThread();
 
 	// TODO: uncomment this
