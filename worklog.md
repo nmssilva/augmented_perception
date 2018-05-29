@@ -1,6 +1,6 @@
 
-## AtlasCar-V2 Augmented Perception
-### Tese de Mestrado - Nuno Silva, nº72708
+## ATLASCAR2 Augmented Perception
+### Tese de Mestrado
 # Worklog
 
 25/10/17 Quarta
