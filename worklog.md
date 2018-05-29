@@ -453,3 +453,9 @@
 - Projeção da pointcloud total na imagem
 - Projeção da bounding box 3D na imagem
 
+
+28/05/18 Segunda
+================
+
+- Ajuste da posição da bounding box 3D
+
