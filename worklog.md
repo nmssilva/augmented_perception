@@ -458,4 +458,5 @@
 ================
 
 - Ajuste da posição da bounding box 3D
+- Avanço na escrita do documento da tese
 
