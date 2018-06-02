@@ -1,59 +1,135 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
 \select@language {UKenglish}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Contents}{i}{section.0.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{List of Figures}{iii}{section.0.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{List of Tables}{v}{section.0.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Acronyms}{vi}{section.0.4}
+\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.1}ATLAS Project}{1}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}History}{1}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Related work on ATLASCAR2}{3}{subsection.1.1.2}
-\contentsline {subsubsection}{Multisensor Calibration and Data Fusion Using LIDAR and Vision}{3}{section*.8}
-\contentsline {subsubsection}{Visual and Depth Perception Unit for ATLASCAR2}{3}{section*.9}
-\contentsline {subsubsection}{Active Tracking of Dynamic Multivariate Agents}{4}{section*.10}
-\contentsline {section}{\numberline {1.2}Motivation}{4}{section.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.1}History}{2}{subsection.1.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Motivation}{3}{section.1.2}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.3}Objectives}{4}{section.1.3}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1.4}Document Structure}{4}{section.1.4}
-\contentsline {chapter}{\numberline {2}State of the art}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Milestones on the history of autonomous vehicles}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Multi Sensor Calibration}{8}{section.2.2}
-\contentsline {section}{\numberline {2.3}Image Labelling}{8}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}KITTI Dataset}{9}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}HumanEva II Dataset}{10}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Other relevant datasets}{11}{subsection.2.3.3}
-\contentsline {subsubsection}{ETHZ dataset}{11}{section*.21}
-\contentsline {subsubsection}{EPFL dataset}{11}{section*.24}
-\contentsline {section}{\numberline {2.4}Object Detection and Tracking}{15}{section.2.4}
-\contentsline {section}{\numberline {2.5}Contribution}{16}{section.2.5}
-\contentsline {chapter}{\numberline {3}Experimental Infrastructure}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}ATLASCAR 2}{17}{section.3.1}
-\contentsline {section}{\numberline {3.2}Sensors}{18}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}SICK LMS151 LIDAR}{18}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}SICK LD-MRS LIDAR}{19}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}PointGrey Zebra 2 Camera}{21}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Software}{21}{section.3.3}
-\contentsline {section}{\numberline {3.4}ROS}{22}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Rviz}{22}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Rosbag}{22}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Roslaunch}{22}{subsection.3.4.3}
-\contentsline {subsection}{\numberline {3.4.4}Multi-sensor calibration package}{23}{subsection.3.4.4}
-\contentsline {chapter}{\numberline {4}Camera Calibration in ATLASCAR 2}{24}{chapter.4}
-\contentsline {section}{\numberline {4.1}Implementation}{24}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Background Subtraction}{25}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Noise Filtering}{27}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Color Filtering}{27}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Modifying the calibration package}{28}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Results}{29}{section.4.2}
-\contentsline {chapter}{\numberline {5}Object Detection, Tracking and Labelling}{31}{chapter.5}
-\contentsline {section}{\numberline {5.1}Image Tracking}{31}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Template Matching}{32}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}2D Dataset and Playback}{34}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Range Based Tracking}{35}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Multi Target Tracking}{36}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}3D Datasets}{40}{subsection.5.2.2}
-\contentsline {chapter}{\numberline {6}Results}{42}{chapter.6}
-\contentsline {section}{\numberline {6.1}Ball detection improvement}{42}{section.6.1}
-\contentsline {section}{\numberline {6.2}Image Object Tracking}{42}{section.6.2}
-\contentsline {section}{\numberline {6.3}Sensor Object Tracking}{42}{section.6.3}
-\contentsline {section}{\numberline {6.4}Dataset creation}{42}{section.6.4}
-\contentsline {chapter}{\numberline {7}Conclusions and Future Work}{43}{chapter.7}
-\contentsline {chapter}{Bibliography}{45}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Literature Review}{5}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Related work on ATLASCAR2}{5}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.1}Multisensor Calibration and Data Fusion Using LIDAR and Vision}{5}{subsection.2.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.2}Visual and Depth Perception Unit for ATLASCAR2}{5}{subsection.2.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.3}Active Tracking of Dynamic Multivariate Agents}{5}{subsection.2.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Milestones on the History of autonomous driving}{6}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Object Detection and Tracking}{9}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Labelling Datasets}{11}{section.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.1}KITTI Dataset}{11}{subsection.2.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.2}HumanEva II Dataset}{13}{subsection.2.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.3}Other relevant datasets}{14}{subsection.2.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{ETHZ dataset}{14}{section*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{EPFL dataset}{14}{section*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Experimental Infrastructure}{19}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}ATLASCAR 2}{19}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Sensors}{20}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}SICK LMS151 LIDAR}{20}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}SICK LD-MRS LIDAR}{21}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.3}PointGrey Zebra 2 Camera}{23}{subsection.3.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.3}Software}{23}{section.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.4}ROS}{24}{section.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.1}Rviz}{24}{subsection.3.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.2}Rosbag}{24}{subsection.3.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.4.3}Roslaunch}{24}{subsection.3.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.5}LAR Toolkit}{25}{section.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.1}Multi-sensor calibration package}{25}{subsection.3.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5.2}Multi Target Tracking (MTT)}{25}{subsection.3.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.6}\gls {pcl}}{26}{section.3.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Camera Calibration in ATLASCAR2}{27}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Calibration Package features}{27}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Ball detector algorithm}{28}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.1}Background Subtraction}{29}{subsection.4.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.2}Noise Filtering}{29}{subsection.4.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.3}Color Filtering}{32}{subsection.4.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Application Interface}{32}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Modifying the calibration package}{32}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Object Detection, Tracking and Labelling}{35}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.1}Image Tracking}{36}{section.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.1}Template Matching}{36}{subsection.5.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.2}Range Based Tracking}{38}{section.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.2.1}Multi Target Tracking}{40}{subsection.5.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Sensor Data Fusion}{42}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.3.1}Dynamic Bounding Box Size}{42}{subsection.5.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.4}Output Datasets}{43}{section.5.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.4.1}2D Dataset}{43}{subsection.5.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.4.2}3D Datasets}{44}{subsection.5.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.5}Extra Tools}{45}{section.5.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.5.1}Playback}{45}{subsection.5.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.5.2}Rosbag Player}{46}{subsection.5.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Results}{47}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Camera Calibration}{47}{section.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Tracking}{48}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.1}Dataset 1 - Highway / A25}{48}{subsection.6.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.2}Dataset 2 - Aveiro City Urban Area}{48}{subsection.6.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Conclusions and Future Work}{49}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Bibliography}{51}{section.7.1}

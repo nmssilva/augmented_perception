@@ -1,66 +1,28 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: example.aux
-A level-1 auxiliary file: capintro/capintro.aux
-A level-1 auxiliary file: capstate/capstate.aux
-A level-1 auxiliary file: capexp/capexp.aux
-A level-1 auxiliary file: capcalib/capcalib.aux
-A level-1 auxiliary file: caplabel/caplabel.aux
-A level-1 auxiliary file: capresults/capresults.aux
-A level-1 auxiliary file: capxconcl/capxconcl.aux
-The style file: unsrt.bst
-Database file #1: library.bib
-Warning--empty journal in VieiradaSilva2016
-Warning--empty journal in Correia2017
-Warning--empty journal in SoaresDeAlmeida2016a
-Warning--empty journal in TheMilwaukeeSentinel
-Warning--empty year in TheMilwaukeeSentinel
-Warning--empty journal in Pomerleau1989
-Warning--empty journal in Teo
-Warning--empty year in Teo
-Warning--empty journal in Geiger
-Warning--empty year in Geiger
-Warning--empty year in Sigal
-Warning--empty booktitle in Spinello2010
-You've used 30 entries,
-            1791 wiz_defined-function locations,
-            579 strings with 7011 characters,
-and the built_in function-call counts, 4426 in all, are:
-= -- 332
-> -- 154
-< -- 4
-+ -- 70
-- -- 40
-* -- 116
-:= -- 657
-add.period$ -- 70
-call.type$ -- 30
-change.case$ -- 30
-chr.to.int$ -- 0
-cite$ -- 42
-duplicate$ -- 223
-empty$ -- 564
-format.name$ -- 40
-if$ -- 1023
-int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 11
-newline$ -- 131
-num.names$ -- 30
-pop$ -- 151
-preamble$ -- 1
-purify$ -- 0
-quote$ -- 0
-skip$ -- 199
-stack$ -- 0
-substring$ -- 100
-swap$ -- 50
-text.length$ -- 4
-text.prefix$ -- 0
-top$ -- 0
-type$ -- 0
-warning$ -- 12
-while$ -- 42
-width$ -- 32
-write$ -- 238
-(There were 12 warnings)
+[0] Config.pm:340> INFO - This is Biber 2.4
+[0] Config.pm:343> INFO - Logfile is 'example.blg'
+[37] biber:287> INFO - === Sáb Jun  2, 2018, 04:22:40
+[124] Biber.pm:348> INFO - Reading 'example.bcf'
+[257] Biber.pm:742> INFO - Found 31 citekeys in bib section 0
+[262] Biber.pm:3151> INFO - Processing section 0
+[288] Biber.pm:3308> INFO - Looking for bibtex format file 'library.bib' for section 0
+[364] bibtex.pm:1113> INFO - Decoding LaTeX character macros into UTF-8
+[424] bibtex.pm:974> INFO - Found BibTeX data source 'library.bib'
+[426] Utils.pm:147> WARN - Duplicate entry key: 'Kroger2016' in file 'library.bib', skipping ...
+[650] Utils.pm:147> WARN - ISBN '0734-189X' in entry 'Suzuki1985' is invalid - run biber with '--validate_datamodel' for details.
+[659] Utils.pm:147> WARN - BibTeX subsystem: /tmp/JL2ouybgXp/library.bib_26375.utf8, line 6, warning: 170 characters of junk seen at toplevel
+[913] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[913] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'variable = shifted' with 'variable = non-ignorable'
+[913] Biber.pm:3028> INFO - Sorting list 'anyt/global' of type 'entry' with scheme 'anyt' and locale 'en-UK'
+[914] Biber.pm:3032> INFO - No sort tailoring available for locale 'en-UK'
+[952] bbl.pm:519> INFO - Writing 'example.bbl' with encoding 'ascii'
+[967] Utils.pm:147> WARN - The entry 'Correia2017' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[978] Utils.pm:147> WARN - The entry 'EPFLEcolepolytechniquefederaledeLausanne' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[983] Utils.pm:147> WARN - The entry 'ETHZEidgenossischeTechnischeHochschuleZurich' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[994] Utils.pm:147> WARN - The entry 'Geiger' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1010] Utils.pm:147> WARN - The entry 'Kroger2016' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1084] Utils.pm:147> WARN - The entry 'Suzuki1985' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1115] Utils.pm:147> WARN - The entry 'Sigal' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1138] Utils.pm:147> WARN - The entry 'SoaresDeAlmeida2016a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1147] Utils.pm:147> WARN - The entry 'Spinello2010' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1178] bbl.pm:615> INFO - Output to example.bbl
+[1178] Biber.pm:109> INFO - WARNINGS: 12

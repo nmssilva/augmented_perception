@@ -1,43 +1,101 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
 \select@language {UKenglish}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {1.1}{\ignorespaces ATLAS project small-sized prototypes\relax }}{2}{figure.caption.5}
+\defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {1.2}{\ignorespaces ATLASCAR 1 based on the Ford Escort platform\relax }}{2}{figure.caption.6}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces ATLASCAR 2 based on the Mitsubishi i-MiEV platform\relax }}{3}{figure.caption.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Mitsubishi i-MiEV platform where ATLASCAR 2 is based\relax }}{3}{figure.caption.7}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The Milwaukee Sentinel - 8 Dez 1926 - 'Phantom Auto' Will Tour City\relax }}{5}{figure.caption.11}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Waymo's Jaguar I-PACE\relax }}{6}{figure.caption.12}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Ford Fusion Uber ATC car\relax }}{7}{figure.caption.13}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces The new Audi A8\relax }}{7}{figure.caption.14}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces SCOT - Shared Computer-Operated Transit vehicle\relax }}{8}{figure.caption.15}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Volkswagen Station Wagon used in the KITTI Dataset\relax }}{9}{figure.caption.16}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Sequence example of tracking by detection using the \gls {kitti} dataset\relax }}{11}{figure.caption.18}
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Example image of the HumanEva dataset that generated the snippet in listing \ref {lst:humaneva_snip} \relax }}{13}{figure.caption.20}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces One of the images of the \gls {ethz} dataset that generated part of the snippet in listing \ref {lst:ETHZ} \relax }}{14}{figure.caption.23}
-\contentsline {figure}{\numberline {2.10}{\ignorespaces One of the images of the \gls {epfl} dataset that generated part of the snippet in listing \ref {lst:basket} \relax }}{15}{figure.caption.26}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Overview of the multi-modal approach. \relax }}{16}{figure.caption.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The Milwaukee Sentinel - 8 Dez 1926 - 'Phantom Auto' Will Tour City\relax }}{6}{figure.caption.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Waymo's Jaguar I-PACE\relax }}{7}{figure.caption.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Ford Fusion Uber ATC car\relax }}{8}{figure.caption.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces The new Audi A8\relax }}{8}{figure.caption.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.5}{\ignorespaces SCOT - Shared Computer-Operated Transit vehicle\relax }}{9}{figure.caption.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Timeline with some milestone of autonomous driving history\relax }}{10}{figure.caption.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Volkswagen Station Wagon used in the KITTI Dataset\relax }}{11}{figure.caption.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.8}{\ignorespaces KITTI development kit showing 2D and 3D bounding boxes around several cars\relax }}{12}{figure.caption.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Sequence example of tracking by detection using the \gls {kitti} dataset\relax }}{14}{figure.caption.17}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Example image of the HumanEva dataset that generated the snippet in listing \ref {lst:humaneva_snip} \relax }}{16}{figure.caption.19}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.11}{\ignorespaces One of the images of the \gls {ethz} dataset that generated part of the snippet in listing \ref {lst:ETHZ} \relax }}{17}{figure.caption.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.12}{\ignorespaces One of the images of the \gls {epfl} dataset that generated part of the snippet in listing \ref {lst:basket} \relax }}{18}{figure.caption.25}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces The Mitsubishi i-MiEV\relax }}{17}{figure.caption.28}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces The SICK LMS151 LIDAR and its operating range\relax }}{19}{figure.caption.30}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces The SICK LD-MRS LIDAR and its operating range\relax }}{20}{figure.caption.32}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces The PointGrey Zebra 2 Camera\relax }}{21}{figure.caption.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces The ATLASCAR 2 based on the Mitsubishi i-MiEV platform equipped with a camera and several LIDAR sensors\relax }}{19}{figure.caption.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces The SICK LMS151 LIDAR and its operating range\relax }}{21}{figure.caption.29}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The SICK LD-MRS LIDAR and its operating range\relax }}{22}{figure.caption.31}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.4}{\ignorespaces The PointGrey Zebra 2 Camera\relax }}{23}{figure.caption.33}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Ball used for calibration testing\relax }}{24}{figure.caption.36}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Background in test rosbag used for testing\relax }}{25}{figure.caption.37}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Frame with ball rolling in front of the camera\relax }}{26}{figure.caption.38}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Background subtraction result with noise\relax }}{26}{figure.caption.39}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Neighbor pixels used in the algorithm\relax }}{27}{figure.caption.40}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Ball detected with bounding box\relax }}{28}{figure.caption.41}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Calibration GUI with calibration result\relax }}{29}{figure.caption.42}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Calibration GUI\relax }}{28}{figure.caption.35}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Simplified ball detection algorithm diagram\relax }}{28}{figure.caption.36}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Ball used for calibration testing\relax }}{29}{figure.caption.37}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Background in test rosbag used for testing\relax }}{30}{figure.caption.38}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Frame with ball rolling in front of the camera\relax }}{30}{figure.caption.39}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Background subtraction result with noise\relax }}{31}{figure.caption.40}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Neighbor pixels used in the algorithm\relax }}{31}{figure.caption.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Ball detected with bounding box\relax }}{33}{figure.caption.42}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Window view with image sequences appearing\relax }}{32}{figure.caption.44}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Template matching example inverted result matrix\relax }}{33}{figure.caption.45}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Playback example with a car\relax }}{36}{figure.caption.48}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces All the separated laserScans visualized with Rviz\relax }}{37}{figure.caption.49}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Visualization of a detected car with \gls {mtt} in Rviz\relax }}{39}{figure.caption.53}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Image tracking algorithm diagram\relax }}{36}{figure.caption.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Window view with image sequences appearing\relax }}{37}{figure.caption.44}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Template matching example inverted result matrix\relax }}{37}{figure.caption.45}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Example of back tracking and front tracking: the picture in the middle is the starting frame, the two upper frames show the back tracking and the two lower frames show to front tracking.\relax }}{39}{figure.caption.46}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Range Based Detector Algorithm Diagram\relax }}{39}{figure.caption.47}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces All the separated laserScans visualized with Rviz\relax }}{40}{figure.caption.48}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Visualization of a detected car with \gls {mtt} in Rviz\relax }}{41}{figure.caption.49}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Overview of the multi-modal approach. \relax }}{42}{figure.caption.50}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Playback example with a car\relax }}{45}{figure.caption.55}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Calibration GUI with calibration result\relax }}{47}{figure.caption.56}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

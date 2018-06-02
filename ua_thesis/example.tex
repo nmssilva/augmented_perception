@@ -32,6 +32,14 @@
 \usepackage{fancyhdr}
 \usepackage{xspace}% used by \sigla
 
+\usepackage[
+backend=biber,
+style=alphabetic,
+citestyle=authoryear
+]{biblatex}
+
+\addbibresource{library.bib} %Imports bibliography file
+
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
@@ -109,6 +117,7 @@
 \newacronym{hsv}{HSV}{Hue, Saturation and Value}
 \newacronym{rca}{RCA}{Radio Corporation of America}
 \newacronym{atc}{ATC}{Advanced Technologies Center}
+\newacronym{darpa}{DARPA}{Defense Advanced Research Projects Agency}
 \newacronym{scot}{SCOT}{Shared Computer-Operated Transit}
 \newacronym{smart}{SMART}{Singapore-MIT Alliance for Research and Technology}
 \newacronym{kitti}{KITTI}{Karlsruhe Institute of Technology
@@ -117,6 +126,7 @@
 \newacronym{ethz}{ETHZ}{Eidgenössische Technische Hochschule Zürich}
 \newacronym{epfl}{EPFL}{\'Ecole polytechnique f\'ed\'erale de Lausanne}
 \newacronym{roi}{ROI}{Region of Interest}
+\newacronym{lartk}{LARTk}{\gls{lar} Toolkit}
 
 % optional (comment to use default)s
 %   depth of the table of contents
@@ -289,13 +299,14 @@
 % The bibliography
 %
 \cleardoublepage
+
+\printbibliography
   % Use this is the final version
   %  unsrt produces numbered entries, sorted by order of citation
   %  plain produces numbered entries, sorted alphabetically
   %  other styles are possible (I recommend the harvard package)
-  \bibliographystyle{unsrt}
+  %\bibliographystyle{unsrt}
   %\bibliographystyle{plain}
-  \bibliography{library}% replace by the name of name of your .bib file
+  %\bibliography{library}% replace by the name of name of your .bib file
 \cleardoublepage
-
 \end{document}

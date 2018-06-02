@@ -1,139 +1,900 @@
-\begin{thebibliography}{10}
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.6 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
 
-\bibitem{LARlabs}
-LARlabs.
-\newblock {ATLAS project}.
 
-\bibitem{VieiradaSilva2016}
-David~Tiago {Vieira da Silva}.
-\newblock {Multisensor Calibration and Data Fusion Using LIDAR and Vision}.
-\newblock page 107, 2016.
+\refsection{0}
+  \sortlist[entry]{anyt/global}
+    \entry{AudiMediaCenter}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=38fcf0804b04d6622bdd3070e400ab06}{%
+           family={{Audi\bibnamedelimb MediaCenter}},
+           family_i={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{38fcf0804b04d6622bdd3070e400ab06}
+      \strng{fullhash}{38fcf0804b04d6622bdd3070e400ab06}
+      \field{labelalpha}{Aud}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{17}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Audi at the IAA 2017: Autonomous driving in three steps}}
+      \field{urlday}{17}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://www.audi-mediacenter.com/en/press-releases/audi-at-the-iaa-2017-autonomous-driving-in-three-steps-9311
+      \endverb
+    \endentry
+    \entry{Team}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=504a19d782995da21c02212c721a9cdd}{%
+           family={{Boston\bibnamedelimb Didi\bibnamedelimb Team}},
+           family_i={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{504a19d782995da21c02212c721a9cdd}
+      \strng{fullhash}{504a19d782995da21c02212c721a9cdd}
+      \field{labelalpha}{Bos18}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{KITTI Github Respository}}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://github.com/bostondiditeam/kitti
+      \endverb
+    \endentry
+    \entry{Correia2017}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=3078fb47822907f5e547d7b409f73080}{%
+           family={Correia},
+           family_i={C\bibinitperiod},
+           given={Jos\'{e}},
+           given_i={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3078fb47822907f5e547d7b409f73080}
+      \strng{fullhash}{3078fb47822907f5e547d7b409f73080}
+      \field{labelalpha}{Cor17}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labelyear}{2017}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Unidade de Perce\c{c}\~{a}o Visual e de profundidade para o ATLASCAR2}}
+      \field{year}{2017}
+      \field{pages}{1\bibrangedash 98}
+      \range{pages}{98}
+      \verb{file}
+      \verb :home/mikael/Desktop/TeseDiogoCorreia.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://lars.mec.ua.pt/public/LAR%20Projects/Perception/2017%7B%5C_%7DDiogoCorreia/TeseDiogoCorreia.pdf
+      \endverb
+    \endentry
+    \entry{DARPA}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=4dfc523f0e64c3d37b27e3b43b3f5f20}{%
+           family={DARPA},
+           family_i={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{4dfc523f0e64c3d37b27e3b43b3f5f20}
+      \strng{fullhash}{4dfc523f0e64c3d37b27e3b43b3f5f20}
+      \field{labelalpha}{DAR}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelyear}{2018}
+      \field{labelmonth}{05}
+      \field{labelday}{29}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{DARPA Grand Challenge}}
+      \field{urlday}{29}
+      \field{urlmonth}{05}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb http://archive.darpa.mil/grandchallenge/
+      \endverb
+    \endentry
+    \entry{EPFLEcolepolytechniquefederaledeLausanne}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=e3e2dfb2d5d3c1c8c3af1f3029fabfea}{%
+           family={{EPFL\bibnamedelimb (\'{E}cole\bibnamedelimb polytechnique\bibnamedelimb f\'{e}d\'{e}rale\bibnamedelimb de\bibnamedelimb Lausanne)}},
+           family_i={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{e3e2dfb2d5d3c1c8c3af1f3029fabfea}
+      \strng{fullhash}{e3e2dfb2d5d3c1c8c3af1f3029fabfea}
+      \field{labelalpha}{EPF}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{18}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Multi-camera pedestrians video | CVLAB}}
+      \field{urlday}{18}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://cvlab.epfl.ch/data/pom
+      \endverb
+    \endentry
+    \entry{ETHZEidgenossischeTechnischeHochschuleZurich}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=a8291a18da6898ca2f5c5e4050ce72cf}{%
+           family={{ETHZ\bibnamedelimb (Eidgen\"{o}ssische\bibnamedelimb Technische\bibnamedelimb Hochschule\bibnamedelimb Z\"{u}rich)}},
+           family_i={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{a8291a18da6898ca2f5c5e4050ce72cf}
+      \strng{fullhash}{a8291a18da6898ca2f5c5e4050ce72cf}
+      \field{labelalpha}{ETH}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{18}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Moving Obstacle Detection in Highly Dynamic Scenes}}
+      \field{urlday}{18}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://data.vision.ee.ethz.ch/cvl/aess/dataset/
+      \endverb
+    \endentry
+    \entry{Geiger}{article}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,hash=06133052ac3c14a188601b82783cd4f7}{%
+           family={Geiger},
+           family_i={G\bibinitperiod},
+           given={Andreas},
+           given_i={A\bibinitperiod}}}%
+        {{uniquename=0,hash=f594289a77a4b801a7156edc29235ad8}{%
+           family={Lenz},
+           family_i={L\bibinitperiod},
+           given={Philip},
+           given_i={P\bibinitperiod}}}%
+        {{uniquename=0,hash=ca1de2d211c8e4a0f976b3b90a625cb8}{%
+           family={Stiller},
+           family_i={S\bibinitperiod},
+           given={Christoph},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=bc58c1e920023b071a4d0695299cf804}{%
+           family={Urtasun},
+           family_i={U\bibinitperiod},
+           given={Raquel},
+           given_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{0ed1132e2b009ef637750997288e3249}
+      \strng{fullhash}{5a983328f9e192b0dde84b863e9f7f4e}
+      \field{labelalpha}{Gei+13}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelyear}{2013}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{\x{fffd}\x{fffd}\x{fffd}We present a novel dataset captured from a VW station wagon for use in mobile robotics and autonomous driving research. In total, we recorded 6 hours of traffic scenarios at 10-100 Hz using a variety of sensor modalities such as high-resolution color and grayscale stereo cameras, a Velodyne 3D laser scanner and a high-precision GPS/IMU inertial navigation system. The scenarios are diverse, capturing real-world traffic situations and range from freeways over rural areas to inner-city scenes with many static and dynamic objects. Our data is calibrated, synchronized and timestamped, and we provide the rectified and raw image sequences. Our dataset also contains object labels in the form of 3D tracklets and we provide online benchmarks for stereo, optical flow, object detection and other tasks. This paper describes our recording platform, the data format and the utilities that we provide.}
+      \field{title}{{Vision meets Robotics: The KITTI Dataset}}
+      \field{year}{2013}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Geiger et al. - Unknown - Vision meets Robotics The KITTI Dataset.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://ww.cvlibs.net/publications/Geiger2013IJRR.pdf
+      \endverb
+      \keyw{GPS,Index Terms\x{fffd}\x{fffd}\x{fffd}dataset,KITTI,SLAM,autonomous driving,benchmarks,cameras,computer vision,field robotics,laser,mobile robotics,object detection,optical flow,stereo,tracking}
+    \endentry
+    \entry{KarlsruheInstituteofTechnology}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=421c6361132d2406c5b290690b1d5bf5}{%
+           family={{Karlsruhe\bibnamedelimb Institute\bibnamedelimb of\bibnamedelimb Technology}},
+           family_i={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{421c6361132d2406c5b290690b1d5bf5}
+      \strng{fullhash}{421c6361132d2406c5b290690b1d5bf5}
+      \field{labelalpha}{Kar}
+      \field{sortinit}{K}
+      \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{17}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{The KITTI Vision Benchmark Suite}}
+      \field{urlday}{17}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb http://www.cvlibs.net/datasets/kitti/
+      \endverb
+    \endentry
+    \entry{Kroger2016}{incollection}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=3ef4e90811274b0d642ebddf4f90bae9}{%
+           family={Kr\"{o}ger},
+           family_i={K\bibinitperiod},
+           given={Fabian},
+           given_i={F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{3ef4e90811274b0d642ebddf4f90bae9}
+      \strng{fullhash}{3ef4e90811274b0d642ebddf4f90bae9}
+      \field{labelalpha}{Kr\"{o}16}
+      \field{sortinit}{K}
+      \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
+      \field{labelyear}{2016}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Autonomous Driving}
+      \field{title}{{Automated Driving in Its Social, Historical and Cultural Contexts}}
+      \field{year}{2016}
+      \field{pages}{41\bibrangedash 68}
+      \range{pages}{28}
+      \verb{doi}
+      \verb 10.1007/978-3-662-48847-8_3
+      \endverb
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Kr\"{o}ger - 2016 - Automated Driving in Its Social, Historical and Cultural Contexts.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/978-3-662-48847-8%7B%5C_%7D3
+      \endverb
+    \endentry
+    \entry{LARlabs}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=b241c427368b346774dc18bc75f67b28}{%
+           family={LARlabs},
+           family_i={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{b241c427368b346774dc18bc75f67b28}
+      \strng{fullhash}{b241c427368b346774dc18bc75f67b28}
+      \field{labelalpha}{LAR}
+      \field{sortinit}{L}
+      \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
+      \field{labelyear}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{ATLAS is a project created by the Group of Automation and Robotics at the Department of Mechanical Engineering of the University of Aveiro, Portugal. The mission of the ATLAS project is to develop and enable the proliferation of advanced sensing and active systems designed for implementation in automobiles and affine platforms. Advanced active systems being improved, or newly developed, use data from vision, laser and other sensors. The ATLAS project has vast experience with autonomous navigation in controlled environments and is now evolving to deal with real road scenarios. To ensure that the developments are meeting the ATLAS project mission statement, a full sized prototype, the ATLASCAR 1, has been equipped with several state of the art sensors.}
+      \field{title}{{ATLAS project}}
+      \verb{url}
+      \verb http://atlas.web.ua.pt/
+      \endverb
+    \endentry
+    \entry{MITSUBISHIMOTORS}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=5c0c9c6977d3c488412191fa1dd5b991}{%
+           family={{MITSUBISHI\bibnamedelimb MOTORS}},
+           family_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{5c0c9c6977d3c488412191fa1dd5b991}
+      \strng{fullhash}{5c0c9c6977d3c488412191fa1dd5b991}
+      \field{labelalpha}{MIT}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{20}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Specifications | i-MiEV}}
+      \field{urlday}{20}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://www.mitsubishi-motors.com/en/showroom/i-miev/specifications/
+      \endverb
+    \endentry
+    \entry{OpenCV}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=5bd4c87976f48e6a53919d53e14025e9}{%
+           family={OpenCV},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{fullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \field{labelalpha}{Ope}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{29}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Background Subtraction}}
+      \field{urlday}{29}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/3.1.0/db/d5c/tutorial%7B%5C_%7Dpy%7B%5C_%7Dbg%7B%5C_%7Dsubtraction.html
+      \endverb
+    \endentry
+    \entry{OpenCV2.4.13.6documentationa}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{1}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{30}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Canny Edge Detector}}
+      \field{urlday}{30}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny%7B%5C_%7Ddetector/canny%7B%5C_%7Ddetector.html
+      \endverb
+    \endentry
+    \entry{OpenCV2.4.13.6documentation}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{2}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{29}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Eroding and Dilating}}
+      \field{urlday}{29}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion%7B%5C_%7Ddilatation/erosion%7B%5C_%7Ddilatation.html
+      \endverb
+    \endentry
+    \entry{OpenCV2.4.13.6documentationb}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{3}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{30}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Sobel Derivatives}}
+      \field{urlday}{30}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel%7B%5C_%7Dderivatives/sobel%7B%5C_%7Dderivatives.html
+      \endverb
+    \endentry
+    \entry{PointGrey}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=87c45e263da2af7b2fca2fe5aebd8423}{%
+           family={PointGrey},
+           family_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{87c45e263da2af7b2fca2fe5aebd8423}
+      \strng{fullhash}{87c45e263da2af7b2fca2fe5aebd8423}
+      \field{labelalpha}{Poi}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{20}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}}
+      \field{urlday}{20}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://www.ptgrey.com/zebra2-2-mp-color-gige-vision-hd-sdi-sony-icx274-camera
+      \endverb
+    \endentry
+    \entry{PointCloudLibrary2018}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=4c1254c13ed2ffa0245f946a05528db8}{%
+           family={{Point\bibnamedelimb Cloud\bibnamedelimb Library}},
+           family_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{4c1254c13ed2ffa0245f946a05528db8}
+      \strng{fullhash}{4c1254c13ed2ffa0245f946a05528db8}
+      \field{labelalpha}{Poi18}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{About - Point Cloud Library (PCL)}}
+      \field{urlday}{02}
+      \field{urlmonth}{06}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb http://pointclouds.org/about/
+      \endverb
+    \endentry
+    \entry{Pomerleau1989}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=a24984eef521c92b2a0d65db2c0e73fa}{%
+           family={Pomerleau},
+           family_i={P\bibinitperiod},
+           given={Dean\bibnamedelima A},
+           given_i={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{a24984eef521c92b2a0d65db2c0e73fa}
+      \strng{fullhash}{a24984eef521c92b2a0d65db2c0e73fa}
+      \field{labelalpha}{Pom89}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelyear}{1989}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{ALVINN (Autonomous Land Vehicle In a Neural Network) is a 3-layer back-propagation network designed for the task of road following. Currently ALVINN takes images from a camera and a laser range finder as input and produces as output the direction the vehicle should travel in order to follow the road. Training has been conducted using simulated road images. Successful tests on the Carnegie Mellon autonomous navigation test vehicle indicate that the network can effectively follow real roads under certain field conditions. The representation developed to perform the task differs dramatically when the network is trained under various conditions, suggesting the possibility of a novel adaptive autonomous navigation system capable of tailoring its processing to the conditions at hand.}
+      \field{title}{{An Autonomous Land Vehicle In a Neural Network}}
+      \field{year}{1989}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Pomerleau - 1989 - An Autonomous Land Vehicle In a Neural Network.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://repository.cmu.edu/cgi/viewcontent.cgi?article=2874%7B%5C&%7Dcontext=compsci
+      \endverb
+    \endentry
+    \entry{ROSWikia}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=43431b3270adb2656280b33ce669637e}{%
+           family={{ROS\bibnamedelimb Wiki}},
+           family_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{43431b3270adb2656280b33ce669637e}
+      \strng{fullhash}{43431b3270adb2656280b33ce669637e}
+      \field{labelalpha}{ROS}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{extrayear}{1}
+      \field{labelyear}{2018}
+      \field{labelmonth}{05}
+      \field{labelday}{05}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{rosbag}
+      \field{urlday}{05}
+      \field{urlmonth}{05}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb http://wiki.ros.org/rosbag
+      \endverb
+    \endentry
+    \entry{ROSWiki}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=43431b3270adb2656280b33ce669637e}{%
+           family={{ROS\bibnamedelimb Wiki}},
+           family_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{43431b3270adb2656280b33ce669637e}
+      \strng{fullhash}{43431b3270adb2656280b33ce669637e}
+      \field{labelalpha}{ROS}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{extrayear}{2}
+      \field{labelyear}{2018}
+      \field{labelmonth}{05}
+      \field{labelday}{05}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{rviz}
+      \field{urlday}{05}
+      \field{urlmonth}{05}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb http://wiki.ros.org/rviz
+      \endverb
+    \endentry
+    \entry{Suzuki1985}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,hash=88ba338dc1dd2ed26aeecccad763e4d2}{%
+           family={Suzuki},
+           family_i={S\bibinitperiod},
+           given={Satoshi},
+           given_i={S\bibinitperiod}}}%
+        {{uniquename=0,hash=f007b141bc6d2b3909bc5b1572652721}{%
+           family={Abe},
+           family_i={A\bibinitperiod},
+           given={Keiichi\bibnamedelima A.},
+           given_i={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{b988b4679f3fcef2adeff97aa136f6ac}
+      \strng{fullhash}{b988b4679f3fcef2adeff97aa136f6ac}
+      \field{labelalpha}{SA85}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{1985}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Two border following algorithms are proposed for the topological analysis of digitized binary images. The first one determines the surroundness relations among the borders of a binary image. Since the outer borders and the hole borders have a one-to-one correspondence to the connected components of 1-pixels and to the holes, respectively, the proposed algorithm yields a representation of a binary image, from which one can extract some sort of features without reconstructing the image. The second algorithm, which is a modified version of the first, follows only the outermost borders (i.e., the outer borders which are not surrounded by holes). These algorithms can be effectively used in component counting, shrinking, and topological structural analysis of binary images, when a sequential digital computer is used. {{$\copyright$}} 1985.}
+      \field{isbn}{0734-189X}
+      \field{issn}{0734189X}
+      \field{journaltitle}{Computer Vision, Graphics and Image Processing}
+      \field{number}{1}
+      \field{title}{{Topological structural analysis of digitized binary images by border following}}
+      \field{volume}{30}
+      \field{year}{1985}
+      \field{pages}{32\bibrangedash 46}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1016/0734-189X(85)90016-7
+      \endverb
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/suzuki1985.pdf:pdf
+      \endverb
+    \endentry
+    \entry{SICKa}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=b1de57a076206eae4b4e1c032b93c88f}{%
+           family={SICK},
+           family_i={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{b1de57a076206eae4b4e1c032b93c88f}
+      \strng{fullhash}{b1de57a076206eae4b4e1c032b93c88f}
+      \field{labelalpha}{SIC}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{extrayear}{1}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{20}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{LD-MRS400001 | Detection and ranging solutions | SICK}}
+      \field{urlday}{20}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://www.sick.com/de/en/detection-and-ranging-solutions/3d-lidar-sensors/ld-mrs/ld-mrs400001/p/p112355
+      \endverb
+    \endentry
+    \entry{SICK}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=b1de57a076206eae4b4e1c032b93c88f}{%
+           family={SICK},
+           family_i={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{b1de57a076206eae4b4e1c032b93c88f}
+      \strng{fullhash}{b1de57a076206eae4b4e1c032b93c88f}
+      \field{labelalpha}{SIC}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{extrayear}{2}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{20}
+      \field{datelabelsource}{url}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{LMS151-10100 | Detection and ranging solutions | SICK}}
+      \field{urlday}{20}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://www.sick.com/de/en/detection-and-ranging-solutions/2d-lidar-sensors/lms1xx/lms151-10100/p/p141840%20https://www.sick.com/de/en/detection-and-ranging-solutions/3d-lidar-sensors/ld-mrs/ld-mrs400001/p/p112355
+      \endverb
+    \endentry
+    \entry{Sigal}{article}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,hash=f62518b1d57aae9c142795c004a4826f}{%
+           family={Sigal},
+           family_i={S\bibinitperiod},
+           given={Leonid},
+           given_i={L\bibinitperiod}}}%
+        {{uniquename=0,hash=518010fb10fa3a0c51c9d835be84a327}{%
+           family={Balan},
+           family_i={B\bibinitperiod},
+           given={Alexandru\bibnamedelima O},
+           given_i={A\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{uniquename=0,hash=26af00234eeffd596ef72512e2d913ce}{%
+           family={Black},
+           family_i={B\bibinitperiod},
+           given={Michael\bibnamedelima J},
+           given_i={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{uniquename=0,hash=52368133b414bb4aa7bc8999655fa552}{%
+           family={Balan},
+           family_i={B\bibinitperiod},
+           given={A\bibnamedelima O},
+           given_i={A\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{uniquename=0,hash=4f448b7f1cc264f53a2905d9308d3140}{%
+           family={Black},
+           family_i={B\bibinitperiod},
+           given={M\bibnamedelima J},
+           given_i={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{f0a01d6af3fa25d1518de6809d9f9f22}
+      \strng{fullhash}{6904e7592d8d0eb6200cf49ca9fed151}
+      \field{labelalpha}{Sig+}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{nodate}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{While research on articulated human motion and pose estimation has progressed rapidly in the last few years, there has been no systematic quantitative evaluation of com-peting methods to establish the current state of the art. We present data obtained using a hardware system that is able to capture synchronized video and ground-truth 3D motion. The resulting HUMANEVA datasets contain multiple sub-jects performing a set of predefined actions with a number of repetitions. On the order of 40,000 frames of synchro-nized motion capture and multi-view video (resulting in over one quarter million image frames in total) were collected at 60 Hz with an additional 37,000 time instants of pure mo-tion capture data. A standard set of error measures is defined This project was supported in part by gifts from Honda Research Institute and Intel Corporation. Funding for portions of this work was also provided by NSF grants IIS-0534858 and IIS-0535075. We would like to thank Ming-Hsuan Yang, Rui Li, Payman Yadollahpour and Stefan Roth for help in data collection and post-processing. We also would like to thank Stan Sclaroff for making the color video capture equipment available for this effort. for evaluating both 2D and 3D pose estimation and tracking algorithms. We also describe a baseline algorithm for 3D articulated tracking that uses a relatively standard Bayesian framework with optimization in the form of Sequential Im-portance Resampling and Annealed Particle Filtering. In the context of this baseline algorithm we explore a vari-ety of likelihood functions, prior models of human motion and the effects of algorithm parameters. Our experiments suggest that image observation models and motion priors play important roles in performance, and that in a multi-view laboratory environment, where initialization is avail-able, Bayesian filtering tends to perform well. The datasets and the software are made available to the research com-munity. This infrastructure will support the development of new articulated motion and pose estimation algorithms, will provide a baseline for the evaluation and comparison of new methods, and will help establish the current state of the art in human pose estimation and tracking.}
+      \field{journaltitle}{Int J Comput Vis}
+      \field{title}{{HUMANEVA: Synchronized Video and Motion Capture Dataset and Baseline Algorithm for Evaluation of Articulated Human Motion}}
+      \verb{doi}
+      \verb 10.1007/s11263-009-0273-6
+      \endverb
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Sigal et al. - Unknown - HUMANEVA Synchronized Video and Motion Capture Dataset and Baseline Algorithm for Evaluation of Articulated Hum.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://files.is.tue.mpg.de/black/papers/ehumIJCV10web.pdf
+      \endverb
+      \keyw{Articulated pose estimation {{$\textperiodcentered$}},Articulated tracking {{$\textperiodcentered$}},Datasets and evaluation,Human tracking {{$\textperiodcentered$}},Motion capture {{$\textperiodcentered$}}}
+    \endentry
+    \entry{Singapore-MITAllianceforResearchandTechnology}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=de42c10f40efb99931ab07e51a0525e8}{%
+           family={{Singapore-MIT\bibnamedelimb Alliance\bibnamedelimb for\bibnamedelimb Research\bibnamedelimb and\bibnamedelimb Technology}},
+           family_i={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{de42c10f40efb99931ab07e51a0525e8}
+      \strng{fullhash}{de42c10f40efb99931ab07e51a0525e8}
+      \field{labelalpha}{Sin}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2018}
+      \field{labelmonth}{04}
+      \field{labelday}{17}
+      \field{datelabelsource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{SMART - Singapore-MIT Alliance for Research and Technology}}
+      \field{urlday}{17}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \verb{url}
+      \verb https://smart.mit.edu/
+      \endverb
+    \endentry
+    \entry{SoaresDeAlmeida2016a}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=47e504f4b8921e848992cdba6d5f391c}{%
+           family={{Soares\bibnamedelimb De\bibnamedelimb Almeida}},
+           family_i={S\bibinitperiod},
+           given={Jorge\bibnamedelima Manuel},
+           given_i={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{47e504f4b8921e848992cdba6d5f391c}
+      \strng{fullhash}{47e504f4b8921e848992cdba6d5f391c}
+      \field{labelalpha}{Soa16}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2016}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Seguimento ativo de agentes din\^{a}micos multivariados usando informa\c{c}\~{a}o vectorial Active Tracking of Dynamic Multivariate Agents using Vectorial Range Data}}
+      \field{year}{2016}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Soares De Almeida - 2016 - Seguimento ativo de agentes din\^{a}micos multivariados usando informa\c{c}\~{a}o vectorial Active Tracking of Dyna(2).pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://lars.mec.ua.pt/public/LAR%20Projects/Perception/2016%7B%5C_%7DJorgeAlmeida/Thesis/PhDThesis.pdf
+      \endverb
+    \endentry
+    \entry{Spinello2010}{incollection}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=c105a088674c03ad755da447c51fc3cc}{%
+           family={Spinello},
+           family_i={S\bibinitperiod},
+           given={Luciano},
+           given_i={L\bibinitperiod}}}%
+        {{uniquename=0,hash=e8ad581b48403dea2b06971054fe9ff1}{%
+           family={Triebel},
+           family_i={T\bibinitperiod},
+           given={Rudolph},
+           given_i={R\bibinitperiod}}}%
+        {{uniquename=0,hash=6ee8958bbf32527489012d8ca7c95ee3}{%
+           family={Siegwart},
+           family_i={S\bibinitperiod},
+           given={Roland},
+           given_i={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer, Berlin, Heidelberg}%
+      }
+      \strng{namehash}{27fdd973806618f94103d15f8a57f396}
+      \strng{fullhash}{27fdd973806618f94103d15f8a57f396}
+      \field{labelalpha}{STS10}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelyear}{2010}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Multiclass Multimodal Detection and Tracking in Urban Environments}}
+      \field{year}{2010}
+      \field{pages}{125\bibrangedash 135}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1007/978-3-642-13408-1_12
+      \endverb
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Spinello, Triebel, Siegwart - 2010 - Multiclass Multimodal Detection and Tracking in Urban Environments \x{fffd}\x{fffd}\x{fffd}.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/978-3-642-13408-1%7B%5C_%7D12
+      \endverb
+    \endentry
+    \entry{Teo}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=947d07fcd732a4efdb22131525fbbf62}{%
+           family={Teo},
+           family_i={T\bibinitperiod},
+           given={Pauline},
+           given_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{947d07fcd732a4efdb22131525fbbf62}
+      \strng{fullhash}{947d07fcd732a4efdb22131525fbbf62}
+      \field{labelalpha}{Teo18}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{SMART launches first Singapore-developed driverless car designed for operations on public roads}}
+      \field{year}{2018}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Teo - Unknown - SMART launches first Singapore-developed driverless car designed for operations on public roads.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb https://smart.mit.edu/images/pdf/news/2014/Driverless%7B%5C_%7DCar%7B%5C_%7DNR%7B%5C_%7D270114%7B%5C_%7DFinal.pdf
+      \endverb
+    \endentry
+    \entry{TheMilwaukeeSentinel}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=45af50404acd0bc0cc01d3ea2329dd56}{%
+           family={{The\bibnamedelimb Milwaukee\bibnamedelimb Sentinel}},
+           family_i={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{45af50404acd0bc0cc01d3ea2329dd56}
+      \strng{fullhash}{45af50404acd0bc0cc01d3ea2329dd56}
+      \field{labelalpha}{The26}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
+      \field{labelyear}{1926}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{8 Dec 1926 - " 'Phantom Auto' will tour city"}}
+      \field{year}{1926}
+      \verb{url}
+      \verb https://news.google.com/newspapers?id=unBQAAAAIBAJ%7B%5C&%7Dsjid=QQ8EAAAAIBAJ%7B%5C&%7Dpg=7304,3766749
+      \endverb
+    \endentry
+    \entry{VieiradaSilva2016}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=f48c30a669782bd557614b8b20d9d00b}{%
+           family={{Vieira\bibnamedelimb da\bibnamedelimb Silva}},
+           family_i={V\bibinitperiod},
+           given={David\bibnamedelima Tiago},
+           given_i={D\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \strng{namehash}{f48c30a669782bd557614b8b20d9d00b}
+      \strng{fullhash}{f48c30a669782bd557614b8b20d9d00b}
+      \field{labelalpha}{Vie16}
+      \field{sortinit}{V}
+      \field{sortinithash}{d18f5ce25ce0b5ca7f924e3f6c04870e}
+      \field{labelyear}{2016}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The work presented in this thesis expands an existing extrinsic calibration$\backslash$npackage to vision-based sensors. A ball is used as a calibration target to$\backslash$nestimate the pose of multiple sensors relative to a reference frame. First, an$\backslash$nalgorithm is developed to detect the ball in an image then, two methods are$\backslash$nimplemented and tested to estimate the camera pose relative to a reference$\backslash$nframe. Additionally, a graphical user interface is developed for the extrinsic$\backslash$ncalibration package. The interface allows multiple sensor configurations to$\backslash$nbe calibrated, greatly simplifies the calibration procedure and is easily expandable$\backslash$nto new sensors. To illustrate the expansion process, Microsoft$\backslash$nKinect 3D-depth sensor is integrated in the calibration package and interface.$\backslash$nFinally, from the estimated poses, sensor data fusion is achieved with$\backslash$nATLASCAR 1, an autonomous vehicle, and in indoors tests.}
+      \field{title}{{Multisensor Calibration and Data Fusion Using LIDAR and Vision}}
+      \field{year}{2016}
+      \field{pages}{107}
+      \range{pages}{1}
+      \verb{file}
+      \verb :home/mikael/Desktop/Tese{\_}David{\_}Silva{\_}65033.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://lars.mec.ua.pt/public/LAR%20Projects/Perception/2016%7B%5C_%7DDavidSilva/Tese%7B%5C_%7DDavid%7B%5C_%7DSilva%7B%5C_%7D65033.pdf
+      \endverb
+    \endentry
+    \entry{Waymo}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=beb75dcfb476cb9abd4b5ac630a91dfb}{%
+           family={Waymo},
+           family_i={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{beb75dcfb476cb9abd4b5ac630a91dfb}
+      \strng{fullhash}{beb75dcfb476cb9abd4b5ac630a91dfb}
+      \field{labelalpha}{Way18}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Waymo}}
+      \field{urlday}{17}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://waymo.com/
+      \endverb
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
 
-\bibitem{Correia2017}
-Jos{\'{e}} Correia.
-\newblock {Unidade de Perce{\c{c}}{\~{a}}o Visual e de profundidade para o
-  ATLASCAR2}.
-\newblock pages 1--98, 2017.
-
-\bibitem{SoaresDeAlmeida2016a}
-Jorge~Manuel {Soares De Almeida}.
-\newblock {Seguimento ativo de agentes din{\^{a}}micos multivariados usando
-  informa{\c{c}}{\~{a}}o vectorial Active Tracking of Dynamic Multivariate
-  Agents using Vectorial Range Data}.
-\newblock 2016.
-
-\bibitem{Kroger2016}
-Fabian Kr{\"{o}}ger.
-\newblock {Automated Driving in Its Social, Historical and Cultural Contexts}.
-\newblock In {\em Autonomous Driving}, pages 41--68. Springer Berlin
-  Heidelberg, Berlin, Heidelberg, 2016.
-
-\bibitem{TheMilwaukeeSentinel}
-{The Milwaukee Sentinel}.
-\newblock {8 Dec 1926 - " 'Phantom Auto' will tour city"}.
-
-\bibitem{Pomerleau1989}
-Dean~A Pomerleau.
-\newblock {An Autonomous Land Vehicle In a Neural Network}.
-\newblock 1989.
-
-\bibitem{Waymo}
-Waymo.
-\newblock {Waymo}.
-
-\bibitem{AudiMediaCenter}
-{Audi MediaCenter}.
-\newblock {Audi at the IAA 2017: Autonomous driving in three steps}.
-
-\bibitem{Singapore-MITAllianceforResearchandTechnology}
-{Singapore-MIT Alliance for Research and Technology}.
-\newblock {SMART - Singapore-MIT Alliance for Research and Technology}.
-
-\bibitem{Teo}
-Pauline Teo.
-\newblock {SMART launches first Singapore-developed driverless car designed for
-  operations on public roads}.
-
-\bibitem{KarlsruheInstituteofTechnology}
-{Karlsruhe Institute of Technology}.
-\newblock {The KITTI Vision Benchmark Suite}.
-
-\bibitem{Geiger}
-Andreas Geiger, Philip Lenz, Christoph Stiller, and Raquel Urtasun.
-\newblock {Vision meets Robotics: The KITTI Dataset}.
-
-\bibitem{Team}
-Boston~Didi Team.
-\newblock {KITTI Github Respository}.
-
-\bibitem{Sigal}
-Leonid Sigal, Alexandru~O Balan, Michael~J Black, A~O Balan, and M~J Black.
-\newblock {HUMANEVA: Synchronized Video and Motion Capture Dataset and Baseline
-  Algorithm for Evaluation of Articulated Human Motion}.
-\newblock {\em Int J Comput Vis}.
-
-\bibitem{ETHZEidgenossischeTechnischeHochschuleZurich}
-{ETHZ (Eidgen{\"{o}}ssische Technische Hochschule Z{\"{u}}rich)}.
-\newblock {Moving Obstacle Detection in Highly Dynamic Scenes}.
-
-\bibitem{EPFLEcolepolytechniquefederaledeLausanne}
-{EPFL ({\'{E}}cole polytechnique f{\'{e}}d{\'{e}}rale de Lausanne)}.
-\newblock {Multi-camera pedestrians video | CVLAB}.
-
-\bibitem{SoaresDeAlmeida}
-Jorge~Manuel {Soares De Almeida}.
-\newblock {Multi target tracking}.
-
-\bibitem{Spinello2010}
-Luciano Spinello, Rudolph Triebel, and Roland Siegwart.
-\newblock {Multiclass Multimodal Detection and Tracking in Urban Environments}.
-\newblock pages 125--135. Springer, Berlin, Heidelberg, 2010.
-
-\bibitem{MITSUBISHIMOTORS}
-{MITSUBISHI MOTORS}.
-\newblock {Specifications | i-MiEV}.
-
-\bibitem{SICK}
-SICK.
-\newblock {LMS151-10100 | Detection and ranging solutions | SICK}.
-
-\bibitem{SICKa}
-SICK.
-\newblock {LD-MRS400001 | Detection and ranging solutions | SICK}.
-
-\bibitem{PointGrey}
-PointGrey.
-\newblock {Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}.
-
-\bibitem{ROSWiki}
-{ROS Wiki}.
-\newblock rviz.
-
-\bibitem{ROSWikia}
-{ROS Wiki}.
-\newblock rosbag.
-
-\bibitem{OpenCV}
-OpenCV.
-\newblock {Background Subtraction}.
-
-\bibitem{OpenCV2.4.13.6documentation}
-{OpenCV 2.4.13.6 documentation}.
-\newblock {Eroding and Dilating}.
-
-\bibitem{OpenCV2.4.13.6documentationa}
-{OpenCV 2.4.13.6 documentation}.
-\newblock {Canny Edge Detector}.
-
-\bibitem{OpenCV2.4.13.6documentationb}
-{OpenCV 2.4.13.6 documentation}.
-\newblock {Sobel Derivatives}.
-
-\bibitem{Suzuki1985}
-Satoshi Suzuki and Keiichi~A. Be.
-\newblock {Topological structural analysis of digitized binary images by border
-  following}.
-\newblock {\em Computer Vision, Graphics and Image Processing}, 30(1):32--46,
-  1985.
-
-\end{thebibliography}
