@@ -1,12 +1,12 @@
 
-#### AtlasCar-V2 Augmented Perception
-#### Tese de Mestrado - Nuno Silva, nº72708
+## ATLASCAR2 Augmented Perception
+### Tese de Mestrado
 # Worklog
 
 25/10/17 Quarta
 ===============
 
-- Manhã no lar a testar o pacote de calibração e descobrir como se lança a interface gráfica
+- Manhã no LAR a testar o pacote de calibração e descobrir como se lança a interface gráfica
 - Reunião com mentores
 - Tarde no carro a testar a calibração nos sensores
 	- camera nao funcionava, problema na consistencia da imagem. tentei resolver a situação mas ficou em standby
@@ -446,4 +446,17 @@
 
 - Resolução dos exercicios de projeção que o prof. Paulo enviou
 - Experiências numa frame do bag com base nos exercícios
+
+27/05/18 Domingo
+================
+
+- Projeção da pointcloud total na imagem
+- Projeção da bounding box 3D na imagem
+
+
+28/05/18 Segunda
+================
+
+- Ajuste da posição da bounding box 3D
+- Avanço na escrita do documento da tese
 
