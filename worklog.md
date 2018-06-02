@@ -460,3 +460,9 @@
 - Ajuste da posição da bounding box 3D
 - Avanço na escrita do documento da tese
 
+
+29/05/18 Terça ~ 02/06/18 Sábado
+================================
+
+- Avanço na escrita do documento da tese
+
