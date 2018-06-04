@@ -36,8 +36,14 @@ ros::Publisher pub_scans_suggest;
 
 ros::Publisher camera_lines_pub;
 
+image_transport::Publisher pc_image_proj;
+image_transport::Publisher box3d_image_proj;
+image_transport::Publisher box2d_image_proj;
+
+
 // Images
 cv_bridge::CvImagePtr cv_ptr;
+cv_bridge::CvImage out_msg;
 Mat image_input, imToShow, sub, projection, projectionPC;
 
 // Template-Matching related variables
@@ -108,6 +114,7 @@ rosbag::PlayerOptions opts;
 float proportion;
 bool click_on = false;
 uint click_count_reset = 0;
+bool prevFoundSug = false;
 
 // Color segmentation related variables
 
@@ -201,7 +208,7 @@ void MatchingMethod(int, void *) {
 		patch_size = 9;
 	}
 
-	int roi_width = matchLoc.x + patch_size;
+	/*int roi_width = matchLoc.x + patch_size;
 	int roi_heigth = matchLoc.y + patch_size;
 
 	if (roi_width >= sub.cols) {
@@ -214,9 +221,10 @@ void MatchingMethod(int, void *) {
 		roi_heigth = sub.rows - matchLoc.y;
 	} else {
 		roi_heigth = patch_size;
-	}
+	}*/
 
-	cv::Rect myROI(matchLoc.x, matchLoc.y, roi_width, roi_heigth);
+	//cv::Rect myROI(matchLoc.x, matchLoc.y, roi_width, roi_heigth);
+	cv::Rect myROI(matchLoc.x, matchLoc.y, 300, 300);
 	patch = img_display(myROI);
 
 	unsigned int frame_seq = cv_ptr->header.seq;
@@ -320,7 +328,7 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 						  image_input.at<Vec3b>(x, y)[2]);
 		value = getV(image_input.at<Vec3b>(x, y)[0], image_input.at<Vec3b>(x, y)[1], image_input.at<Vec3b>(x, y)[2]);
 
-		cout << "hue: " << hue << " saturation: " << saturation << " value: " << value << endl;
+		//cout << "hue: " << hue << " saturation: " << saturation << " value: " << value << endl;
 
 
 	}
@@ -368,7 +376,7 @@ void filter_pc() {
 			}
 		}
 
-		cerr << "box_id: " << box_id << endl;
+		//cerr << "box_id: " << box_id << endl;
 		tracking_bbox_id = box_id;
 	}
 }
@@ -842,10 +850,18 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 			c = 'l';
 		}
 
-		if (lost && patch.cols > 0) {
+		/*if (lost && patch.cols > 0) {
+			ROS_INFO("Lost Track of object.");
+			c = 'l';
+		}*/
+
+
+		if(!foundSug && prevFoundSug){
 			ROS_INFO("Lost Track of object.");
 			c = 'l';
 		}
+
+		prevFoundSug = foundSug;
 
 		if (c == 'l') {
 			patch = Mat();
@@ -967,7 +983,10 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 
 	// get first patch and previous frames
-	if (max_x - min_x > 0 && max_y - min_y > 0 && capture) {
+	if(foundSug && !prevFoundSug){
+		ROS_INFO("Tracking found object.");
+	}
+	if ((max_x - min_x > 0 && max_y - min_y > 0 && capture)) {
 		cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
 		patch = image_input(myROI);
 		first_patch = patch.clone();
@@ -978,6 +997,29 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 		capture = false;
 		drawRect = false;
+	}
+	if(foundSug){
+
+		unsigned int frame_seq = cv_ptr->header.seq;
+
+		float angleSug = atan(box_ySug / box_xSug) * 0.9;
+		int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
+		float size = 500 - 12.5 * distanceSug;
+
+		object_id++;
+
+		BBox box;
+		box.x = xSug - size / 2;
+		box.y = 693 - size / 2;
+		box.width = size;
+		box.height = size;
+		box.id = object_id;
+		box.label = "DontCare";
+		box.x3d = box_xSug;
+		box.y3d = box_ySug;
+		box.z3d = box_zSug;
+
+		file_map[frame_seq].push_back(box);
 	}
 
 	// up half ignore
@@ -1112,7 +1154,15 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		cv::line(projection, projectedPoints.at(4), projectedPoints.at(7), cv::Scalar(0, 0, 255), 2, 8);
 	}
 
-	imshow("projection", projection);
+	// imshow("projection", projection);
+
+	// Publish the data.
+	cv_bridge::CvImage out_msg;
+	out_msg.header = msg->header;                           // Same timestamp and tf frame as input image
+	out_msg.encoding = sensor_msgs::image_encodings::BGR8;  // Or whatever
+	out_msg.image = projection;                           // Your cv::Mat
+
+	box3d_image_proj.publish(out_msg.toImageMsg());
 
 
 	// 3D PC reprojection part
@@ -1147,7 +1197,12 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		}
 	}
 
-	imshow("Full Pointcloud Data", projectionPC);
+	// Publish the data.
+	out_msg.header = msg->header;                           // Same timestamp and tf frame as input image
+	out_msg.encoding = sensor_msgs::image_encodings::BGR8;  // Or whatever
+	out_msg.image = projectionPC;                           // Your cv::Mat
+
+	pc_image_proj.publish(out_msg.toImageMsg());
 
 }
 
@@ -1190,14 +1245,14 @@ int main(int argc, char **argv) {
 	cv::resizeWindow("camera", 800, 666);
 	cv::startWindowThread();
 
-	cv::namedWindow("projection", CV_WINDOW_NORMAL);
+	/*cv::namedWindow("projection", CV_WINDOW_NORMAL);
 	cv::resizeWindow("projection", 800, 666);
 	cv::startWindowThread();
 
 
 	cv::namedWindow("Full Pointcloud Data", CV_WINDOW_NORMAL);
 	cv::resizeWindow("Full Pointcloud Data", 800, 666);
-	cv::startWindowThread();
+	cv::startWindowThread();*/
 
 	// TODO: uncomment this
 	/*cv::namedWindow("segmentation", CV_WINDOW_NORMAL);
@@ -1216,6 +1271,10 @@ int main(int argc, char **argv) {
 	pub_targetsSug = nh.advertise<mtt::TargetListPC>("/targetsSug", 1000);
 	markers_publisherSug = nh.advertise<visualization_msgs::MarkerArray>("/markersSug", 1000);
 	camera_lines_pub = nh.advertise<visualization_msgs::Marker>("/camera_range_lines", 0);
+
+	pc_image_proj = it.advertise("image/pc_projection", 1);
+	box3d_image_proj = it.advertise("image/box3d_projection", 1);
+	box2d_image_proj = it.advertise("image/box2d_projection", 1);
 
 	// Create a ROS subscriber for the inputs
 	ros::Subscriber sub_scan_0 = nh.subscribe("/ld_rms/scan0", 1, laserToPC2);
