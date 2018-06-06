@@ -4,11 +4,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Contents}{i}{section.0.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{List of Figures}{iii}{section.0.2}
+\contentsline {chapter}{List of Figures}{v}{section.0.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{List of Tables}{v}{section.0.3}
+\contentsline {chapter}{List of Tables}{vii}{section.0.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Acronyms}{vi}{section.0.4}
+\contentsline {chapter}{Acronyms}{viii}{section.0.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \defcounter {refsection}{0}\relax 
@@ -151,3 +151,7 @@
 \contentsline {section}{\numberline {A.2}Ball Detection Node Interface}{63}{section.a.A.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {A.3}Labelling Node Interface}{63}{section.a.A.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.4}Playback}{64}{section.a.A.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.5}Dataset Stats Script}{64}{section.a.A.5}

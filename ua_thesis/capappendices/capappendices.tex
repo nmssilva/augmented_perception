@@ -104,3 +104,35 @@ The interface uses keyboard and mouse inputs:
 	\end{itemize}
 \end{itemize}
 
+
+\section{Playback}
+
+The playback node is used to preview the dataset while the rosbag runs in background. To execute the node run the following command: 
+
+\begin{center}
+	\begin{lstlisting}[label={lst:BBox2d} ,language=c++]
+	rosrun augmented_perception dataset_playback_node <dataset file>\end{lstlisting}
+\end{center}
+
+
+\section{Dataset Stats Script}
+
+A small python script was implemented to check the stats of the datasets. To run it execute the following command 
+
+\begin{center}
+	\begin{lstlisting}[label={lst:BBox2d} ,language=c++]
+	rosrun augmented_perception dataset_stats.py <dataset file>\end{lstlisting}
+\end{center}
+
+The output of the script should present the possible labels and the amount of each one in the given dataset. In listing \ref{lst:pyscript} an example of the output can be seen.
+
+\begin{center}
+	\begin{lstlisting}[label={lst:pyscript} ,language=c++]
+	('car: ', 63)
+	('van: ', 10)
+	('people: ', 10)
+	('bicycle: ', 2)
+	('sign: ', 1)
+	('misc: ', 3)
+	('DontCare: ', 31)\end{lstlisting}
+\end{center}
