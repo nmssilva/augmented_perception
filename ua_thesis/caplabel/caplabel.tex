@@ -178,7 +178,9 @@ In the figure, the processed pointcloud can be seen, where the \gls{lidar} \text
 
 \section{Sensor Data Fusion}
 
-To accomplish this, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors. The clustered data is meant to detect and track objects in the sensor's field of view. The information from the laser points are treated with a range based detector algorithm and the image sequences are processed with an appearance based algorithm.
+To accomplish this, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors. The \gls{mtt} library uses the \gls{lidar} sensors of the ATLASCAR 2, and since it was developed specifically for the ATLASCAR it is the optimal tool to detect and track objects in the field of view. 
+
+The clustered data is meant to detect and track objects in the sensor's field of view. The information from the laser points are treated with a range based detector algorithm and the image sequences are processed with an appearance based algorithm.
 
 \begin{figure}[htp]
 	
@@ -190,13 +192,105 @@ To accomplish this, a multi-modal approach was utilized, combining data retrieve
 	
 \end{figure}
 
-Utilizing a multiple motion model and Kalman filters it is possible to consolidate both range and image data. This process is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognitive process of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
+Utilizing a multiple motion model and Kalman filters it is possible to consolidate both range and image data. This process is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
 
 \subsection{Dynamic Bounding Box Size}
 % desenvolver esta section
 The bounding box size is given by the distance to the object. If the distance is greater, the bounding box will be smaller and vice-versa.
 
-The distance to the object is given by the tri-dimensional spacial coordinates given by the \gls{mtt} library explained further in the dissertation. This library uses the \gls{lidar} sensors of the ATLASCAR 2, and since it was developed specifically for the ATLASCAR it is the optimal tool to detect and track objects in the field of view.
+The distance to the object is given by the tri-dimensional spacial coordinates given by the \gls{mtt} library. 
+
+\subsection{Pointcloud Projection}
+
+By combining the sensor data with the image it is possible to check where the pointcloud is relatively to the camera position. To accomplish this it is needed to firstly make the intrinsic calibration of the camera, and then proceed to the implementation of the pointcloud projection.
+
+Firstly, to calibrate the camera one must use a chessboard. A \gls{ros} node in the package \texttt{camera\_calibration} was used to calibrate the camera. It is a python script using \gls{opencv} that receives the chess board dimensions and the camera's image topic.
+
+The node launches a \gls{gui} and detects the chessboard's points. By moving the chessboard around the node calculates the intrinsic values of the camera and the distortion coefficients. The result of the calibration is a file similar to listing \ref{lst: intcalib}.
+
+\begin{figure}
+	\begin{center}
+		\begin{lstlisting}[caption={Intrinsic Calibration Result}, language=c++, label={lst: intcalib}]
+		image_width: 1624
+		image_height: 1224
+		camera_name: 0
+		camera_matrix:
+			rows: 3
+			cols: 3
+			data: [1454.423376687359, 0, 822.9545738617143, 0, 1458.005828758985, 590.5652711935882, 0, 0, 1]
+		distortion_model: plumb_bob
+		distortion_coefficients:
+			rows: 1
+			cols: 5
+			data: [-0.2015966527847064, 0.1516937421259596, -0.0009340794635090795, -0.0006787308984611241, 0]
+		rectification_matrix:
+			rows: 3
+			cols: 3
+			data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+		projection_matrix:
+			rows: 3
+			cols: 4
+			data: [1379.264282226562, 0, 822.6802277325623, 0, 0, 1410.231689453125, 588.4764252277164, 0, 0, 0, 1, 0]\end{lstlisting}
+	\end{center}
+\end{figure}
+
+In this file it is possible to check the image dimensions, the intrinsic values and distortions coefficients of the camera as well as the rectification and projection matrix.
+
+These values are used to reproject the points of the pointcloud into the camera's image. To do so, \gls{opencv} implements a method called \texttt{cv::projectPoints} (\cite{OpenCVa}) that is used in the labelling node. 
+
+Firstly, the labelling node reads the file in listing \ref{lst: intcalib} to calibrate the camera. Then, the full pointcloud is taken and a vector of the points is retrieved. The \texttt{cv::projectPoints} method takes the calibration file parameters and the points vector and generates another vector with the $(x,y)$ coordinates of the points in the image.
+
+The next step is simply to draw those points in the image using the function \texttt{circle} implemented by \gls{opencv}. The final result is as seen on the left in figure \ref{fig:projectpoints}.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=.47\textwidth]{caplabel/imgs/projectpc.png}
+	\includegraphics[width=.45\textwidth]{caplabel/imgs/rvizpc.png}
+	
+	\caption{Example of the pointcloud projection (left) in comparison with the Rviz 3D view (right)}
+	\label{fig:projectpoints}
+	
+\end{figure}
+
+With the pointclouds points projected in the image it is possible to confer the intrinsic and extrinsic calibrations. The points match the objects in the frames so the calibration was well executed.
+
+
+\subsection{Tracking with 3D Bounding Boxes}
+
+The next step of using the pointcloud data into the image is to apply the projection techniques into the tracking algorithm.
+
+Since the sensor data and image data are now merged, it is possible to pick up the points where objects of interest are and follow them.
+
+A semi-automatic algorithm was developed where the tracking can be done manually by clicking while the semi-automatic system suggests objects of interest that may appear in the field of view. A simplified diagram of the algorithm is found in figure \ref{fig:bbdiagram}.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=.6\textwidth]{caplabel/imgs/bbdiagram.pdf}
+	
+	\caption{Simplified diagram of the tracking with sensor fusion}
+	\label{fig:bbdiagram}
+	
+\end{figure}
+
+To begin, the full pointcloud data is gathered and passed into the \gls{mtt} algorithm. The \gls{mtt} library implements methods that handle detection and tracking of objects and outputs the coordinates of the found objects. 
+
+A function polls the \gls{mtt} algorithm and raises a flag whenever an object is found. If more than an object is found, the nearest object is tracked. The coordinates of the objects relatively to the vehicle are found so the distances can be calculated. The object with shortest distance is chosen to track.
+
+Having the coordinates of the tracked object, a cube is drawn centered in the point given by the \gls{mtt} algorithm by setting the cube vertices and using the \texttt{line} function implemented by \gls{opencv} to join them.
+
+Then, the cube is projected to the image using \gls{opencv}'s \texttt{cv:projectPoints}. In figure \ref{fig:cube} it can be seen a 3D bounding box being projected around the detected car.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=.7\textwidth]{caplabel/imgs/3dcube.png}
+	
+	\caption{Example of 3D bounding box tracking a car}
+	\label{fig:cube}
+	
+\end{figure}
 
 \section{Output Datasets}
 
@@ -293,18 +387,26 @@ In this section it will be described some extra features that were implemented i
 
 \subsection{Playback}
 
-The dataset can be used later to playback the rosbag. Another node was developed with the aim to play the rosbag and identify the objects in the images using the dataset created previously. This rosnode starts similarly to the previous one, by subscribing to the camera \gls{ros} topic and send the image message to a callback function where it is processed. The message is converted into \gls{opencv} format and the dataset file is read. A map similar to the previous is also created to be filled with the dataset information where it relates the objects in the bounding boxes to the frames in the sequence. 
+An extra rosnode was developed with the aim to play the rosbag and identify the objects in the images using the dataset created previously while the rosbag plays in the background.
 
-When a frame is received, its frame ID is retrieved. This ID is used to check which boxes in this frame. If this frame contains objects, a rectangle is draw in the image representing the bounding box acquired before. The box also features a legend with the object label and its ID. The color of the bounding box is randomly assigned, depending on its label. In other words, objects with the same label will have the same box color, making it easy to identify objects if the image has several different boxes. The resulting image is presented in figure \ref{fig:playback}. The image is then converted again into the \gls{ros} format and published to a topic.
+This rosnode starts similarly to the previous one, by subscribing to the camera \gls{ros} topic and send the image message to a callback function where it is processed. 
+
+The message is converted into \gls{opencv} format and the dataset file is read. A map similar to the previous is also created to be filled with the dataset information where it relates the objects in the bounding boxes to the frames in the sequence. 
+
+When a frame is received, its frame ID is retrieved. This ID is used to check which boxes in this frame. If this frame contains objects, a rectangle is draw in the image representing the bounding box acquired before. 
+
+The box also features a legend with the object label and its ID. The color of the bounding box is randomly assigned, depending on its label. 
+
+In other words, objects with the same label will have the same box color, making it easy to identify objects if the image has several different boxes. 
+
+The resulting image is presented in figure \ref{fig:playback}. The image is then converted again into the \gls{ros} format and published to a topic.
 
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=0.8\textwidth]{caplabel/imgs/playback.png}
+	\includegraphics[width=0.7\textwidth]{caplabel/imgs/playback.png}
 	
 	\caption{Playback example with a car}
 	\label{fig:playback}
 	
 \end{figure}
-
-\subsection{Rosbag Player}

@@ -19,6 +19,7 @@
 \usepackage{multicol}
 \usepackage{acronym}
 \usepackage[acronym, toc, automake]{glossaries}
+\usepackage[toc,page]{appendix}
 \usepackage{hyperref}
 \usepackage{epsfig}     
 \usepackage{subfig} 
@@ -169,7 +170,7 @@ citestyle=authoryear
   \HEADER{\BAR\FIG{\includegraphics[height=60mm]{uaLogoOld}}} % the \FIG{} is optional
          {\ThesisYear}
   \TITLE{Nuno Miguel \newline Soares Silva}
-        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for AtlasCar}
+        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for ATLASCAR2}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
@@ -180,7 +181,7 @@ citestyle=authoryear
 \TitlePage
   \HEADER{}{\ThesisYear}
   \TITLE{Nuno Miguel \newline Soares Silva}
-        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for AtlasCar}
+        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for ATLASCAR2}
   \vspace*{15mm}
   \TEXT{}
        {Disserta\c c\~ao apresentada \`a Universidade de Aveiro para cumprimento dos requesitos
@@ -309,4 +310,9 @@ citestyle=authoryear
   %\bibliographystyle{plain}
   %\bibliography{library}% replace by the name of name of your .bib file
 \cleardoublepage
+
+\begin{appendices}
+\input{capappendices/capappendices}   
+\end{appendices}
+
 \end{document}

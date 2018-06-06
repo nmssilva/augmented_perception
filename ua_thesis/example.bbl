@@ -330,6 +330,7 @@
       \field{labelalpha}{Ope}
       \field{sortinit}{O}
       \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{1}
       \field{labelyear}{2018}
       \field{labelmonth}{04}
       \field{labelday}{29}
@@ -424,6 +425,31 @@
       \field{urlyear}{2018}
       \verb{url}
       \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel%7B%5C_%7Dderivatives/sobel%7B%5C_%7Dderivatives.html
+      \endverb
+    \endentry
+    \entry{OpenCVa}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=5bd4c87976f48e6a53919d53e14025e9}{%
+           family={OpenCV},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{5bd4c87976f48e6a53919d53e14025e9}
+      \strng{fullhash}{5bd4c87976f48e6a53919d53e14025e9}
+      \field{labelalpha}{Ope18}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{2}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Camera Calibration and 3D Reconstruction \x{fffd}\x{fffd}\x{fffd} OpenCV 2.4.13.6 documentation}}
+      \field{urlday}{05}
+      \field{urlmonth}{06}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/modules/calib3d/doc/camera%7B%5C_%7Dcalibration%7B%5C_%7Dand%7B%5C_%7D3d%7B%5C_%7Dreconstruction.html
       \endverb
     \endentry
     \entry{PointGrey}{misc}{}

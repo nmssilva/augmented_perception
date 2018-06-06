@@ -42,25 +42,34 @@
 \BOOKMARK [2][-]{subsection.4.2.1}{Background Subtraction}{section.4.2}% 42
 \BOOKMARK [2][-]{subsection.4.2.2}{Noise Filtering}{section.4.2}% 43
 \BOOKMARK [2][-]{subsection.4.2.3}{Color Filtering}{section.4.2}% 44
-\BOOKMARK [1][-]{section.4.3}{Application Interface}{chapter.4}% 45
-\BOOKMARK [1][-]{section.4.4}{Modifying the calibration package}{chapter.4}% 46
-\BOOKMARK [0][-]{chapter.5}{Object Detection, Tracking and Labelling}{}% 47
-\BOOKMARK [1][-]{section.5.1}{Image Tracking}{chapter.5}% 48
-\BOOKMARK [2][-]{subsection.5.1.1}{Template Matching}{section.5.1}% 49
-\BOOKMARK [1][-]{section.5.2}{Range Based Tracking}{chapter.5}% 50
-\BOOKMARK [2][-]{subsection.5.2.1}{Multi Target Tracking}{section.5.2}% 51
-\BOOKMARK [1][-]{section.5.3}{Sensor Data Fusion}{chapter.5}% 52
-\BOOKMARK [2][-]{subsection.5.3.1}{Dynamic Bounding Box Size}{section.5.3}% 53
-\BOOKMARK [1][-]{section.5.4}{Output Datasets}{chapter.5}% 54
-\BOOKMARK [2][-]{subsection.5.4.1}{2D Dataset}{section.5.4}% 55
-\BOOKMARK [2][-]{subsection.5.4.2}{3D Datasets}{section.5.4}% 56
-\BOOKMARK [1][-]{section.5.5}{Extra Tools}{chapter.5}% 57
-\BOOKMARK [2][-]{subsection.5.5.1}{Playback}{section.5.5}% 58
-\BOOKMARK [2][-]{subsection.5.5.2}{Rosbag Player}{section.5.5}% 59
+\BOOKMARK [1][-]{section.4.3}{Modifying the calibration package}{chapter.4}% 45
+\BOOKMARK [0][-]{chapter.5}{Object Detection, Tracking and Labelling}{}% 46
+\BOOKMARK [1][-]{section.5.1}{Image Tracking}{chapter.5}% 47
+\BOOKMARK [2][-]{subsection.5.1.1}{Template Matching}{section.5.1}% 48
+\BOOKMARK [1][-]{section.5.2}{Range Based Tracking}{chapter.5}% 49
+\BOOKMARK [2][-]{subsection.5.2.1}{Multi Target Tracking}{section.5.2}% 50
+\BOOKMARK [1][-]{section.5.3}{Sensor Data Fusion}{chapter.5}% 51
+\BOOKMARK [2][-]{subsection.5.3.1}{Dynamic Bounding Box Size}{section.5.3}% 52
+\BOOKMARK [2][-]{subsection.5.3.2}{Pointcloud Projection}{section.5.3}% 53
+\BOOKMARK [2][-]{subsection.5.3.3}{Tracking with 3D Bounding Boxes}{section.5.3}% 54
+\BOOKMARK [1][-]{section.5.4}{Output Datasets}{chapter.5}% 55
+\BOOKMARK [2][-]{subsection.5.4.1}{2D Dataset}{section.5.4}% 56
+\BOOKMARK [2][-]{subsection.5.4.2}{3D Datasets}{section.5.4}% 57
+\BOOKMARK [1][-]{section.5.5}{Extra Tools}{chapter.5}% 58
+\BOOKMARK [2][-]{subsection.5.5.1}{Playback}{section.5.5}% 59
 \BOOKMARK [0][-]{chapter.6}{Results}{}% 60
 \BOOKMARK [1][-]{section.6.1}{Camera Calibration}{chapter.6}% 61
-\BOOKMARK [1][-]{section.6.2}{Tracking}{chapter.6}% 62
+\BOOKMARK [1][-]{section.6.2}{Detection, Tracking and Labelling}{chapter.6}% 62
 \BOOKMARK [2][-]{subsection.6.2.1}{Dataset 1 - Highway / A25}{section.6.2}% 63
 \BOOKMARK [2][-]{subsection.6.2.2}{Dataset 2 - Aveiro City Urban Area}{section.6.2}% 64
-\BOOKMARK [0][-]{chapter.7}{Conclusions and Future Work}{}% 65
-\BOOKMARK [0][-]{section.7.1}{Bibliography}{}% 66
+\BOOKMARK [2][-]{subsection.6.2.3}{Dataset 2.1 - Semi-Automatic Method}{section.6.2}% 65
+\BOOKMARK [2][-]{subsection.6.2.4}{Dataset 2.2 - Manual Method}{section.6.2}% 66
+\BOOKMARK [0][-]{chapter.7}{Conclusions and Future Work}{}% 67
+\BOOKMARK [1][-]{section.7.1}{Conclusions}{chapter.7}% 68
+\BOOKMARK [1][-]{section.7.2}{Future Work}{chapter.7}% 69
+\BOOKMARK [0][-]{section.7.3}{Bibliography}{}% 70
+\BOOKMARK [0][-]{section*.71}{Appendices}{}% 71
+\BOOKMARK [0][-]{Appendix.a.A}{Appendices}{}% 72
+\BOOKMARK [1][-]{section.a.A.1}{Augmented Perception Package}{Appendix.a.A}% 73
+\BOOKMARK [1][-]{section.a.A.2}{Ball Detection Node Interface}{Appendix.a.A}% 74
+\BOOKMARK [1][-]{section.a.A.3}{Labelling Node Interface}{Appendix.a.A}% 75

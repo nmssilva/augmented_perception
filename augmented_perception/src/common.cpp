@@ -1525,6 +1525,9 @@ double box_xSug = 0, box_ySug = 0, box_zSug = 0;
 unsigned int box_idSug;
 bool foundSug = false;
 float distanceSug = 3000;
+bool changeID = false;
+unsigned int prevID = 0;
+bool firstID = true;
 
 void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
 				   vector<t_listPtr> &list) {
@@ -1573,14 +1576,26 @@ void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::Ta
 				if (sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2)) < distanceSug) {
 					distanceSug = sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2));
 					box_idSug = list[i]->id;
+					if(firstID){
+						prevID = box_idSug;
+					}
+					firstID = false;
 					box_xSug = list[i]->position.estimated_x;
 					box_ySug = list[i]->position.estimated_y;
 					box_zSug = 0.5;
 				}
 			}
 		}
+		if(prevID != box_idSug){
+			changeID = true;
+		}
+		else{
+			changeID = false;
+		}
+		prevID = box_idSug;
 	}else{
 		foundSug = false;
+		changeID = false;
 	}
 
 	//cout << box_id << ":(" << box_x << ", " << box_y << ")\n";

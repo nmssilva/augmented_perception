@@ -106,6 +106,10 @@ vector<t_listPtr> list_vectorSug;
 
 visualization_msgs::MarkerArray markersMsgSug;
 
+bool prevFoundSug = false;
+bool manual = false;
+bool full_manual = true;
+
 // Rosbag player variables
 rosbag::PlayerOptions opts;
 
@@ -114,7 +118,6 @@ rosbag::PlayerOptions opts;
 float proportion;
 bool click_on = false;
 uint click_count_reset = 0;
-bool prevFoundSug = false;
 
 // Color segmentation related variables
 
@@ -266,6 +269,7 @@ static void onMouse_TM(int event, int x, int y, int /*flags*/,
 					   void * /*param*/) {
 	if (event == EVENT_LBUTTONUP) {
 		click_on = true;
+		manual = true;
 		list_vector.clear();
 		// get x
 		int get_x = -x + 812;
@@ -855,15 +859,25 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 			c = 'l';
 		}*/
 
-
-		if(!foundSug && prevFoundSug){
+		if((!foundSug && prevFoundSug && !manual && !full_manual)||( changeID && !manual && !full_manual)){
 			ROS_INFO("Lost Track of object.");
 			c = 'l';
 		}
 
 		prevFoundSug = foundSug;
 
+		if (c == 'm') {
+			full_manual = !full_manual;
+			if(full_manual){
+				ROS_INFO("Full Manual Mode.");
+			}
+			else{
+				ROS_INFO("Semi-Automatic Mode");
+			}
+		}
+
 		if (c == 'l') {
+			manual = false;
 			patch = Mat();
 			if (label == "") {
 				bool success = false;
@@ -889,14 +903,18 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 				actual_frame_id = first_frame_id + 99999;
 			}
 
-			for (std::map<unsigned int, std::vector<BBox> >::iterator it =
-					file_map.begin();
+			ROS_INFO("Label: %s",label.c_str());
+
+			int count = 0;
+			for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin();
 				 it != file_map.end(); ++it) {
 				if (it->first >= first_frame_id && it->first <= actual_frame_id)
 					for (int i = 0; i < (it->second).size(); i++) {
 						(it->second)[i].label = label;
+						count ++;
 					}
 			}
+			ROS_INFO("count: %d",count);
 		}
 
 		// Show image_input
@@ -971,20 +989,23 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	}
 
 	// Draw blue rectangle (suggestion) positions
-	float angleSug = atan(box_ySug / box_xSug) * 0.9;
-	int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
+	if((!manual && !full_manual)){
+		float angleSug = atan(box_ySug / box_xSug) * 0.9;
+		int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
 
-	if (foundSug) {
-		float size = 500 - 12.5 * distanceSug;
-		rectangle(imToShow, Point(xSug - size / 2, 693 - size / 2),
-				  Point(xSug + size / 2, 693 + size / 2), Scalar(255, 0, 0), 3);
-		imshow("camera", imToShow);
+		if (foundSug) {
+			float size = 500 - 12.5 * distanceSug;
+			rectangle(imToShow, Point(xSug - size / 2, 693 - size / 2),
+					  Point(xSug + size / 2, 693 + size / 2), Scalar(255, 0, 0), 3);
+			imshow("camera", imToShow);
+		}
 	}
 
-
 	// get first patch and previous frames
-	if(foundSug && !prevFoundSug){
+	if(foundSug && changeID && !manual && !full_manual){
 		ROS_INFO("Tracking found object.");
+		first_frame_id = cv_ptr->header.seq;
+		object_id++;
 	}
 	if ((max_x - min_x > 0 && max_y - min_y > 0 && capture)) {
 		cv::Rect myROI(min_x, min_y, max_x - min_x, max_y - min_y);
@@ -998,15 +1019,13 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		capture = false;
 		drawRect = false;
 	}
-	if(foundSug){
+	if(foundSug && !manual && !full_manual){
 
 		unsigned int frame_seq = cv_ptr->header.seq;
 
 		float angleSug = atan(box_ySug / box_xSug) * 0.9;
 		int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
 		float size = 500 - 12.5 * distanceSug;
-
-		object_id++;
 
 		BBox box;
 		box.x = xSug - size / 2;
@@ -1032,7 +1051,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	}
 
 	if (!patch.empty()) {
-		imshow("crop", patch);
+		//imshow("crop", patch);
 		MatchingMethod(0, 0);
 	}
 
@@ -1164,7 +1183,6 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 	box3d_image_proj.publish(out_msg.toImageMsg());
 
-
 	// 3D PC reprojection part
 
 	image_input.copyTo(projectionPC);
@@ -1207,9 +1225,6 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 }
 
 void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
-	// int n_pos = (input->angle_max - input->angle_min) / input->angle_increment;
-
-	// cout << input->header.frame_id << endl;
 
 	laser_geometry::LaserProjection projector;
 
@@ -1252,15 +1267,10 @@ int main(int argc, char **argv) {
 
 	cv::namedWindow("Full Pointcloud Data", CV_WINDOW_NORMAL);
 	cv::resizeWindow("Full Pointcloud Data", 800, 666);
-	cv::startWindowThread();*/
-
-	// TODO: uncomment this
-	/*cv::namedWindow("segmentation", CV_WINDOW_NORMAL);
-	cv::resizeWindow("segmentation", 800, 666);
-	cv::startWindowThread();*/
+	cv::startWindowThread();
 
 	cv::namedWindow("crop", CV_WINDOW_NORMAL);
-	cv::startWindowThread();
+	cv::startWindowThread();*/
 
 	// Create a ROS publisher for the output point cloud
 	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
@@ -1294,7 +1304,7 @@ int main(int argc, char **argv) {
 
 
 	cout << "Keyboard Controls:\n";
-	cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[P]rint "
+	cout << "[Q]uit\n[C]lear image\n[L]abel object\n[S]ave templates\n[M]anual Mode On/Off\n[P]rint "
 			"File\n";
 
 	// Spin
