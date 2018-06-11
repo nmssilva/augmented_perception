@@ -27,19 +27,18 @@
       }
       \strng{namehash}{38fcf0804b04d6622bdd3070e400ab06}
       \strng{fullhash}{38fcf0804b04d6622bdd3070e400ab06}
-      \field{labelalpha}{Aud}
+      \field{labelalpha}{Aud18}
       \field{sortinit}{A}
       \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{17}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Audi at the IAA 2017: Autonomous driving in three steps}}
       \field{urlday}{17}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://www.audi-mediacenter.com/en/press-releases/audi-at-the-iaa-2017-autonomous-driving-in-three-steps-9311
       \endverb
@@ -101,19 +100,18 @@
       }
       \strng{namehash}{4dfc523f0e64c3d37b27e3b43b3f5f20}
       \strng{fullhash}{4dfc523f0e64c3d37b27e3b43b3f5f20}
-      \field{labelalpha}{DAR}
+      \field{labelalpha}{DAR18}
       \field{sortinit}{D}
       \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
       \field{labelyear}{2018}
-      \field{labelmonth}{05}
-      \field{labelday}{29}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{DARPA Grand Challenge}}
       \field{urlday}{29}
       \field{urlmonth}{05}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb http://archive.darpa.mil/grandchallenge/
       \endverb
@@ -126,19 +124,18 @@
       }
       \strng{namehash}{e3e2dfb2d5d3c1c8c3af1f3029fabfea}
       \strng{fullhash}{e3e2dfb2d5d3c1c8c3af1f3029fabfea}
-      \field{labelalpha}{EPF}
+      \field{labelalpha}{EPF18}
       \field{sortinit}{E}
       \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{18}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Multi-camera pedestrians video | CVLAB}}
       \field{urlday}{18}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://cvlab.epfl.ch/data/pom
       \endverb
@@ -151,19 +148,18 @@
       }
       \strng{namehash}{a8291a18da6898ca2f5c5e4050ce72cf}
       \strng{fullhash}{a8291a18da6898ca2f5c5e4050ce72cf}
-      \field{labelalpha}{ETH}
+      \field{labelalpha}{ETH18}
       \field{sortinit}{E}
       \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{18}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Moving Obstacle Detection in Highly Dynamic Scenes}}
       \field{urlday}{18}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://data.vision.ee.ethz.ch/cvl/aess/dataset/
       \endverb
@@ -219,19 +215,18 @@
       }
       \strng{namehash}{421c6361132d2406c5b290690b1d5bf5}
       \strng{fullhash}{421c6361132d2406c5b290690b1d5bf5}
-      \field{labelalpha}{Kar}
+      \field{labelalpha}{Kar18}
       \field{sortinit}{K}
       \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{17}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{The KITTI Vision Benchmark Suite}}
       \field{urlday}{17}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb http://www.cvlibs.net/datasets/kitti/
       \endverb
@@ -282,14 +277,16 @@
       }
       \strng{namehash}{b241c427368b346774dc18bc75f67b28}
       \strng{fullhash}{b241c427368b346774dc18bc75f67b28}
-      \field{labelalpha}{LAR}
+      \field{labelalpha}{LAR18}
       \field{sortinit}{L}
       \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
-      \field{labelyear}{nodate}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{ATLAS is a project created by the Group of Automation and Robotics at the Department of Mechanical Engineering of the University of Aveiro, Portugal. The mission of the ATLAS project is to develop and enable the proliferation of advanced sensing and active systems designed for implementation in automobiles and affine platforms. Advanced active systems being improved, or newly developed, use data from vision, laser and other sensors. The ATLAS project has vast experience with autonomous navigation in controlled environments and is now evolving to deal with real road scenarios. To ensure that the developments are meeting the ATLAS project mission statement, a full sized prototype, the ATLASCAR 1, has been equipped with several state of the art sensors.}
       \field{title}{{ATLAS project}}
+      \field{year}{2018}
       \verb{url}
       \verb http://atlas.web.ua.pt/
       \endverb
@@ -302,19 +299,18 @@
       }
       \strng{namehash}{5c0c9c6977d3c488412191fa1dd5b991}
       \strng{fullhash}{5c0c9c6977d3c488412191fa1dd5b991}
-      \field{labelalpha}{MIT}
+      \field{labelalpha}{MIT18}
       \field{sortinit}{M}
       \field{sortinithash}{2684bec41e9697b92699b46491061da2}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{20}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Specifications | i-MiEV}}
       \field{urlday}{20}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://www.mitsubishi-motors.com/en/showroom/i-miev/specifications/
       \endverb
@@ -327,14 +323,12 @@
       }
       \strng{namehash}{5bd4c87976f48e6a53919d53e14025e9}
       \strng{fullhash}{5bd4c87976f48e6a53919d53e14025e9}
-      \field{labelalpha}{Ope}
+      \field{labelalpha}{Ope18}
       \field{sortinit}{O}
       \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
       \field{extrayear}{1}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{29}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{extraalpha}{1}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -342,89 +336,9 @@
       \field{urlday}{29}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://docs.opencv.org/3.1.0/db/d5c/tutorial%7B%5C_%7Dpy%7B%5C_%7Dbg%7B%5C_%7Dsubtraction.html
-      \endverb
-    \endentry
-    \entry{OpenCV2.4.13.6documentationa}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
-           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
-           family_i={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \field{labelalpha}{Ope}
-      \field{sortinit}{O}
-      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{1}
-      \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{30}
-      \field{datelabelsource}{url}
-      \field{extraalpha}{2}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Canny Edge Detector}}
-      \field{urlday}{30}
-      \field{urlmonth}{04}
-      \field{urlyear}{2018}
-      \verb{url}
-      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny%7B%5C_%7Ddetector/canny%7B%5C_%7Ddetector.html
-      \endverb
-    \endentry
-    \entry{OpenCV2.4.13.6documentation}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
-           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
-           family_i={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \field{labelalpha}{Ope}
-      \field{sortinit}{O}
-      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{2}
-      \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{29}
-      \field{datelabelsource}{url}
-      \field{extraalpha}{3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Eroding and Dilating}}
-      \field{urlday}{29}
-      \field{urlmonth}{04}
-      \field{urlyear}{2018}
-      \verb{url}
-      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion%7B%5C_%7Ddilatation/erosion%7B%5C_%7Ddilatation.html
-      \endverb
-    \endentry
-    \entry{OpenCV2.4.13.6documentationb}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
-           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
-           family_i={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \field{labelalpha}{Ope}
-      \field{sortinit}{O}
-      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{3}
-      \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{30}
-      \field{datelabelsource}{url}
-      \field{extraalpha}{4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Sobel Derivatives}}
-      \field{urlday}{30}
-      \field{urlmonth}{04}
-      \field{urlyear}{2018}
-      \verb{url}
-      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel%7B%5C_%7Dderivatives/sobel%7B%5C_%7Dderivatives.html
       \endverb
     \endentry
     \entry{OpenCVa}{misc}{}
@@ -441,6 +355,7 @@
       \field{extrayear}{2}
       \field{labelyear}{2018}
       \field{datelabelsource}{}
+      \field{extraalpha}{2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{Camera Calibration and 3D Reconstruction \x{fffd}\x{fffd}\x{fffd} OpenCV 2.4.13.6 documentation}}
@@ -452,29 +367,82 @@
       \verb https://docs.opencv.org/2.4/modules/calib3d/doc/camera%7B%5C_%7Dcalibration%7B%5C_%7Dand%7B%5C_%7D3d%7B%5C_%7Dreconstruction.html
       \endverb
     \endentry
-    \entry{PointGrey}{misc}{}
+    \entry{OpenCV2.4.13.6documentationa}{misc}{}
       \name{author}{1}{}{%
-        {{uniquename=0,hash=87c45e263da2af7b2fca2fe5aebd8423}{%
-           family={PointGrey},
-           family_i={P\bibinitperiod}}}%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
       }
-      \strng{namehash}{87c45e263da2af7b2fca2fe5aebd8423}
-      \strng{fullhash}{87c45e263da2af7b2fca2fe5aebd8423}
-      \field{labelalpha}{Poi}
-      \field{sortinit}{P}
-      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope18}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{1}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{20}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
+      \field{extraalpha}{3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{{Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}}
-      \field{urlday}{20}
+      \field{title}{{Canny Edge Detector}}
+      \field{urlday}{30}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
-      \verb https://www.ptgrey.com/zebra2-2-mp-color-gige-vision-hd-sdi-sony-icx274-camera
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny%7B%5C_%7Ddetector/canny%7B%5C_%7Ddetector.html
+      \endverb
+    \endentry
+    \entry{OpenCV2.4.13.6documentation}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope18}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{2}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{extraalpha}{4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Eroding and Dilating}}
+      \field{urlday}{29}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion%7B%5C_%7Ddilatation/erosion%7B%5C_%7Ddilatation.html
+      \endverb
+    \endentry
+    \entry{OpenCV2.4.13.6documentationb}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
+           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
+           family_i={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
+      \field{labelalpha}{Ope18}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{extrayear}{3}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{extraalpha}{5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Sobel Derivatives}}
+      \field{urlday}{30}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel%7B%5C_%7Dderivatives/sobel%7B%5C_%7Dderivatives.html
       \endverb
     \endentry
     \entry{PointCloudLibrary2018}{misc}{}
@@ -490,6 +458,7 @@
       \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
       \field{labelyear}{2018}
       \field{datelabelsource}{}
+      \field{extraalpha}{1}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{About - Point Cloud Library (PCL)}}
@@ -499,6 +468,31 @@
       \field{year}{2018}
       \verb{url}
       \verb http://pointclouds.org/about/
+      \endverb
+    \endentry
+    \entry{PointGrey}{misc}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=87c45e263da2af7b2fca2fe5aebd8423}{%
+           family={PointGrey},
+           family_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{87c45e263da2af7b2fca2fe5aebd8423}
+      \strng{fullhash}{87c45e263da2af7b2fca2fe5aebd8423}
+      \field{labelalpha}{Poi18}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Zebra2 2.0 MP Color GigE / HD-SDI (Sony ICX274)}}
+      \field{urlday}{20}
+      \field{urlmonth}{04}
+      \field{urlyear}{2018}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://www.ptgrey.com/zebra2-2-mp-color-gige-vision-hd-sdi-sony-icx274-camera
       \endverb
     \endentry
     \entry{Pomerleau1989}{article}{}
@@ -536,14 +530,12 @@
       }
       \strng{namehash}{43431b3270adb2656280b33ce669637e}
       \strng{fullhash}{43431b3270adb2656280b33ce669637e}
-      \field{labelalpha}{ROS}
+      \field{labelalpha}{ROS18}
       \field{sortinit}{R}
       \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
       \field{extrayear}{1}
       \field{labelyear}{2018}
-      \field{labelmonth}{05}
-      \field{labelday}{05}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{extraalpha}{1}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -551,6 +543,7 @@
       \field{urlday}{05}
       \field{urlmonth}{05}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb http://wiki.ros.org/rosbag
       \endverb
@@ -563,14 +556,12 @@
       }
       \strng{namehash}{43431b3270adb2656280b33ce669637e}
       \strng{fullhash}{43431b3270adb2656280b33ce669637e}
-      \field{labelalpha}{ROS}
+      \field{labelalpha}{ROS18}
       \field{sortinit}{R}
       \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
       \field{extrayear}{2}
       \field{labelyear}{2018}
-      \field{labelmonth}{05}
-      \field{labelday}{05}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{extraalpha}{2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -578,6 +569,7 @@
       \field{urlday}{05}
       \field{urlmonth}{05}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb http://wiki.ros.org/rviz
       \endverb
@@ -629,14 +621,12 @@
       }
       \strng{namehash}{b1de57a076206eae4b4e1c032b93c88f}
       \strng{fullhash}{b1de57a076206eae4b4e1c032b93c88f}
-      \field{labelalpha}{SIC}
+      \field{labelalpha}{SIC18}
       \field{sortinit}{S}
       \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
       \field{extrayear}{1}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{20}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{extraalpha}{1}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -644,6 +634,7 @@
       \field{urlday}{20}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://www.sick.com/de/en/detection-and-ranging-solutions/3d-lidar-sensors/ld-mrs/ld-mrs400001/p/p112355
       \endverb
@@ -656,14 +647,12 @@
       }
       \strng{namehash}{b1de57a076206eae4b4e1c032b93c88f}
       \strng{fullhash}{b1de57a076206eae4b4e1c032b93c88f}
-      \field{labelalpha}{SIC}
+      \field{labelalpha}{SIC18}
       \field{sortinit}{S}
       \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
       \field{extrayear}{2}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{20}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{extraalpha}{2}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
@@ -671,6 +660,7 @@
       \field{urlday}{20}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://www.sick.com/de/en/detection-and-ranging-solutions/2d-lidar-sensors/lms1xx/lms151-10100/p/p141840%20https://www.sick.com/de/en/detection-and-ranging-solutions/3d-lidar-sensors/ld-mrs/ld-mrs400001/p/p112355
       \endverb
@@ -705,15 +695,17 @@
       }
       \strng{namehash}{f0a01d6af3fa25d1518de6809d9f9f22}
       \strng{fullhash}{6904e7592d8d0eb6200cf49ca9fed151}
-      \field{labelalpha}{Sig+}
+      \field{labelalpha}{Sig+09}
       \field{sortinit}{S}
       \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
-      \field{labelyear}{nodate}
+      \field{labelyear}{2009}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{While research on articulated human motion and pose estimation has progressed rapidly in the last few years, there has been no systematic quantitative evaluation of com-peting methods to establish the current state of the art. We present data obtained using a hardware system that is able to capture synchronized video and ground-truth 3D motion. The resulting HUMANEVA datasets contain multiple sub-jects performing a set of predefined actions with a number of repetitions. On the order of 40,000 frames of synchro-nized motion capture and multi-view video (resulting in over one quarter million image frames in total) were collected at 60 Hz with an additional 37,000 time instants of pure mo-tion capture data. A standard set of error measures is defined This project was supported in part by gifts from Honda Research Institute and Intel Corporation. Funding for portions of this work was also provided by NSF grants IIS-0534858 and IIS-0535075. We would like to thank Ming-Hsuan Yang, Rui Li, Payman Yadollahpour and Stefan Roth for help in data collection and post-processing. We also would like to thank Stan Sclaroff for making the color video capture equipment available for this effort. for evaluating both 2D and 3D pose estimation and tracking algorithms. We also describe a baseline algorithm for 3D articulated tracking that uses a relatively standard Bayesian framework with optimization in the form of Sequential Im-portance Resampling and Annealed Particle Filtering. In the context of this baseline algorithm we explore a vari-ety of likelihood functions, prior models of human motion and the effects of algorithm parameters. Our experiments suggest that image observation models and motion priors play important roles in performance, and that in a multi-view laboratory environment, where initialization is avail-able, Bayesian filtering tends to perform well. The datasets and the software are made available to the research com-munity. This infrastructure will support the development of new articulated motion and pose estimation algorithms, will provide a baseline for the evaluation and comparison of new methods, and will help establish the current state of the art in human pose estimation and tracking.}
       \field{journaltitle}{Int J Comput Vis}
       \field{title}{{HUMANEVA: Synchronized Video and Motion Capture Dataset and Baseline Algorithm for Evaluation of Articulated Human Motion}}
+      \field{year}{2009}
       \verb{doi}
       \verb 10.1007/s11263-009-0273-6
       \endverb
@@ -733,19 +725,18 @@
       }
       \strng{namehash}{de42c10f40efb99931ab07e51a0525e8}
       \strng{fullhash}{de42c10f40efb99931ab07e51a0525e8}
-      \field{labelalpha}{Sin}
+      \field{labelalpha}{Sin18}
       \field{sortinit}{S}
       \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
       \field{labelyear}{2018}
-      \field{labelmonth}{04}
-      \field{labelday}{17}
-      \field{datelabelsource}{url}
+      \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{{SMART - Singapore-MIT Alliance for Research and Technology}}
       \field{urlday}{17}
       \field{urlmonth}{04}
       \field{urlyear}{2018}
+      \field{year}{2018}
       \verb{url}
       \verb https://smart.mit.edu/
       \endverb
