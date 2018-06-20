@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="bag" default="$(find augmented_perception)/../../a25.bag"/>
+  <arg name = "record" default = "false"/>
+
+  <!--Parameters-->
+  <param name="/use_sim_time" value="true"/>
+
+  <!--Launch the visualizer-->
+  <node pkg="rviz" type="rviz" name="rviz" args="--display-config $(find augmented_perception)/config/detect.rviz" required="true"/>
+
+  <!--Launch the frame publisher-->
+  <include file="$(find augmented_perception)/launch/static_transform_publisher.launch"/>
+
+  <node pkg="rqt_bag" type="rqt_bag" name="rqt_bag" output="screen" args="$(arg bag) --clock"/>
+
+</launch>

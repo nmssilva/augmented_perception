@@ -17,6 +17,10 @@
 #include "rosbag/bag_player.h"
 #include "rosbag/player.h"
 
+#include "ros/ros.h"
+
+#include "rqt_bag/Pause.h"
+
 #include "common.cpp"
 
 using namespace std;
@@ -146,6 +150,12 @@ struct BBox {
 std::map<unsigned int, std::vector<BBox> > file_map;
 unsigned int object_id = 0;
 unsigned int first_frame_id;
+
+// Service related variables
+
+ros::ServiceClient client;
+rqt_bag::Pause srv;
+
 
 Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame) {
 	Mat img_display;
@@ -877,6 +887,8 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		}
 
 		if (c == 'l') {
+			srv.request.control = "Pause";
+			client.call(srv);
 			manual = false;
 			patch = Mat();
 			if (label == "") {
@@ -915,6 +927,9 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 					}
 			}
 			ROS_INFO("count: %d",count);
+
+			srv.request.control = "Resume";
+			client.call(srv);
 		}
 
 		// Show image_input
@@ -1271,6 +1286,8 @@ int main(int argc, char **argv) {
 
 	cv::namedWindow("crop", CV_WINDOW_NORMAL);
 	cv::startWindowThread();*/
+
+	client = nh.serviceClient<rqt_bag::Pause>("pause");
 
 	// Create a ROS publisher for the output point cloud
 	pub_scans = nh.advertise<sensor_msgs::PointCloud2>("/pointcloud/all", 1000);
