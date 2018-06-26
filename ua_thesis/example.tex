@@ -35,7 +35,7 @@
 
 \usepackage[
 backend=biber,
-style=alphabetic,
+style=authoryear,
 citestyle=authoryear
 ]{biblatex}
 
@@ -167,7 +167,7 @@ citestyle=authoryear
 % First alternative, with a figure
 \TitlePage
   %\GRID  % for debugging ONLY
-  \HEADER{\BAR\FIG{\includegraphics[height=60mm]{uaLogoOld}}} % the \FIG{} is optional
+  \HEADER{\BAR} % the \FIG{} is optional
          {\ThesisYear}
   \TITLE{Nuno Miguel \newline Soares Silva}
         {Anota\c c\~ ao e Seguimento Semi-Autom\'atico de Alvos para Condu\c c\~ ao Aut\'onoma \newline Semi-Automatic Labelling and Tracking of Targets for Autonomous Driving}
@@ -181,7 +181,7 @@ citestyle=authoryear
 \TitlePage
   \HEADER{}{\ThesisYear}
   \TITLE{Nuno Miguel \newline Soares Silva}
-        {Perce\c c\~ao Aumentada para o AtlasCar \newline Augmented Perception for ATLASCAR2}
+        {Anota\c c\~ ao e Seguimento Semi-Autom\'atico de Alvos para Condu\c c\~ ao Aut\'onoma \newline Semi-Automatic Labelling and Tracking of Targets for Autonomous Driving}
   \vspace*{15mm}
   \TEXT{}
        {Disserta\c c\~ao apresentada \`a Universidade de Aveiro para cumprimento dos requesitos
@@ -200,43 +200,41 @@ citestyle=authoryear
         Universidade de Aveiro)}}
   \vspace*{5mm}
   \TEXT{vogais~/~examiners committee}
-       {\textbf{Prof. Doutor B}\newline {\small
-        Professor Catedr\'atico da Universidade de Aveiro (orientador)}}
+       {\textbf{Jo\~ao Silva}\newline {\small
+        Investigador de Software Robótico da Altran (arguente)}}
   \vspace*{5mm}
   \TEXT{}
-       {\textbf{Prof. Doutor C}\newline {\small
-        Professor associado da Universidade J (co-orientador)}}
+       {\textbf{Prof. Doutor Paulo Miguel de Jesus Dias}\newline {\small
+        Professor Auxiliar da Universidade de Aveiro (orientador)}}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
 \TitlePage
   \vspace*{55mm}
   \TEXT{\textbf{agradecimentos~/\newline acknowledgements}}
-       {\`A minha fam\'ilia em especial \`a minha m\~ae e ao meu pai pela educa\c c\~ao que me deram e por estarem comigo em todos os momentos. Aos professores Paulo Dias e V\'itor Santos pela sua orienta\c c\~ ao, sugest\~oes e dedica\c c\~ ao ao projeto.}
+       {\`A minha fam\'ilia em especial \`a minha m\~ae e ao meu pai pela educa\c c\~ao que me deram e por estarem comigo em todos os momentos. Aos professores Paulo Dias e V\'itor Santos pela sua orienta\c c\~ ao, sugest\~oes e dedica\c c\~ ao ao projeto. Tamb\'em ao professor Miguel Riem Oliveira pela sua prontid\~ao a ajudar e disponibilidade.}
   \TEXT{}
-       {Por \'ultimo, mas n\~ao menos importante, aos meus amigos e pessoal do DETI que me fizeram evoluir como pessoa e que contribu\'iram para a minha forma\c c\~ ao acad\' emica.}
+       {Por \'ultimo, mas n\~ao menos importante, aos meus amigos e pessoal do DETI que durantes estes anos me fizeram evoluir como pessoa e que contribu\'iram para a minha forma\c c\~ ao acad\' emica.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
 \TitlePage
   \vspace*{55mm}
   \TEXT{\textbf{Palavras-chave}}
-  {Navega{\c c}\~ao aut\'onoma; ATLASCAR; Agrupamento de dados; Calibra{\c c}\~ao; Etiqueta\c c\~ao de dados; Dete\c c\~ao de Objetos; ADAS.}
+  {Navega{\c c}\~ao aut\'onoma; Ve\'iculos aut\'onomos; ATLASCAR; Agrupamento de dados; Calibra{\c c}\~ao; Anota\c c\~ao de dados; Dete\c c\~ao de Objetos; Fus\~ao de Dados; ADAS; LIDAR; Processamento de Imagem.}
   \vspace*{5mm}
   \TEXT{\textbf{Resumo}}
-       {Este trabalho baseia-se no desenvolvimento de um pacote ROS para o ATLASCAR 2. O ATLASCAR 2 consiste em um Mitsubishi i-MiEV usado exclusivamente para investiga\c c\~ao de sistemas avan\c cados de assist\^encia \`a condu\c c\~ao no Departamento de Engenharia Mec\^anica da Universidade de Aveiro. O ATLASCAR 2 est\'a equipado com uma c\^amera PointGrey que foi usada para aquisi\c c\~ao de imagens, dois scanners planares LIDAR e um laser de quatro feixes frontais. Este pacote ROS implementa n\'os para dete\c c\~ao semi-autom\'atica de objetos. Estes n\'os s\~ao ut\'eis para etiquetar os dados ligados aos objetos detetados. Estes objetos, na pr\'atica, ser\~ao por exemplo ve\'iculos e pe\~oes na estrada. A manipula\c c\~ao dos dados na imagem foi realizada atrav\'es das bibliotecas de OpenCV. Em paralelo, foi desenvolvido e melhorado a dete\c c\~ao da bola para o pacote de calibra\c c\~ao multi-sensorial.
-       	}
+       {No \^ambito do projeto do ATLASCAR2, esta disserta\c c\~ao baseia-se no desenvolvimento (usando \gls{ros}) de um sistema de assist\^encia \`a condu\c c\~ao que implementa uma interface de dete\c c\~ao, seguimento e anota\c c\~ao de alvos na estrada. A dete\c c\~ao e o seguimento s\~ao feitos a partir de dados de sensores \gls{lidar} e de uma c\^amera. Numa primeira fase \'e implementado um algoritmo para ser usado na c\^amera baseado na apar\^encia do alvo a ser seguido. Seguidamente, \'e desenvolvido um algoritmo baseado no alcance usando dados adquiridos nos sensores para seguir objetos num espa\c co tridimensional. Finalmente, como \'e poss\'ivel detetar e seguir objetos usando a imagem e os lasers, a combina\c c\~ao dos algoritmos \'e feita  projetando o que \'e capturado pelos sensores na imagem da c\^amera, sendo poss\'ivel obter um seguimento mais preciso e robusto dos alvos na estrada. Para avaliar o algoritmo alguns datasets foram usados com a anota\c c\~ao dos v\'arios alvos detetados e seguidos. Para efetuar este trabalho \'e necess\'ario que os sensores e a c\^amera estejam devidamente calibrados. Para este efeito, a calibra\c c\~ao entre os v\'arios dispositivos \'e feita atrav\'es de uma aplica\c c\~ao que, ao passar uma bola em frente dos sensores, \'e poss\'ivel descobrir os valores das posi\c c\~oes de cada sensor relativamente a um dispositivo dado como refer\^encia. Ao n\'ivel da calibra\c c\~ao, esta disserta\c c\~ao inclui tamb\'em uma melhoria do algoritmo de dete\c c\~ao da bola na imagem obtida pela c\^amera.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
 \TitlePage
   \vspace*{55mm}
   \TEXT{\textbf{Keywords}}
-  {Autonomous driving; ATLASCAR; Data Clustering; Calibration; Data Labelling; Object Detection; ADAS.}
+  {Autonomous driving; Autonomous vehicles; ATLASCAR; Data Clustering; Calibration; Data Labelling; Object Detection; Data Fusion; ADAS; LIDAR; Image Processing.}
   \vspace*{5mm}
   \TEXT{\textbf{Abstract}}
-       {This thesis is based on the development of a ROS package for the ATLASCAR 2. The ATLASCAR 2 consists in a Mitsubishi i-MiEV used exclusively for research of Advanced driver assistance systems (or ADAS) in the Mechanical Engineering Department at University of Aveiro. The ALTASCAR 2 is equipped with a PointGrey camera used to acquire images, two planar LIDAR scanners and a four-beam frontal scanner. This ROS package implements nodes for semi-automatic object detection. This nodes are useful to label data to the detected objects. This objects, in practice, are for example vehicles or pedestrians on the street. The handling of the image data was done through OpenCV libraries. In parallel, it was developed and improved the ball detection for the multi-sensorial calibration package.
-       	}
+       {In the scope of the ATLASCAR2 project, this dissertation is based on the development (using \gls{ros}) of a driving assistance system that implements a detection, tracking and labelling interface of targets on the road. The detection and tracking are done from \gls{lidar} sensor data and a camera. Firstly, it is implemented an algorithm to be used in the camera based on the appearance of the target to be tracked. Next, it is developed a range based algorithm using the data acquired from the sensors to follow objects in a tridimensional space. Finally, because it is possible to detect and track objects using the image and the lasers, the combination of the algorithms is done by projecting what is captured from the sensors in the camera image, being possible to obtain a more accurate and robust tracking. To evaluate the algorithm some datasets were used with the labelled data from the several detected and followed objects. To perform this work the sensors and the camera need to be properly calibrated. To do this, the calibration between the several devices was done using an application that, by passing a ball in front of the sensors, it is possible to find the position values of each sensor relatively to a given reference device. Within the calibration, this dissertation also includes an improvement of the ball detection algorithm in the image obtained by the camera.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
@@ -274,9 +272,9 @@ citestyle=authoryear
 \fancyhead[LO]{\leftmark}                                 % Header Left-Odd (LO)
 \fancyhead[RE]{\leftmark}                                 % Header Right-Even (RE)
 \fancyfoot[LE]{Nuno Miguel Soares Silva}                               % Footer Left-Even (LE)
-\fancyfoot[LO]{Nuno Miguel Soares Silva}                               % Footer Left-Odd (LO)
-\fancyfoot[RE]{\textit{Master's thesis}}     % Footer Right-Even (RE)
-\fancyfoot[RO]{\textit{Master's thesis}}     % Footer Right-Odd (RO)
+\fancyfoot[LO]{ }                               % Footer Left-Odd (LO)
+\fancyfoot[RE]{\textit{ }}     % Footer Right-Even (RE)
+\fancyfoot[RO]{\textit{Master's Thesis}}     % Footer Right-Odd (RO)
 \renewcommand{\headrulewidth}{0.25pt}                     % Espessura da linha de header
 \renewcommand{\footrulewidth}{0.25pt}                     % Espessura da linha de footer
 \addtolength{\headheight}{0.5pt}                          % Espaçamento para a linha

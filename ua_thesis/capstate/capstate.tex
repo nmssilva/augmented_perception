@@ -1,28 +1,7 @@
 \chapter{Literature Review}
 
-\section{Related work on ATLASCAR2}
+This chapter presents some milestones in the history of autonomous driving and also some of the most relevant projects made previously in the ATLASCAR2.
 
-\gls{ad} and \gls{adas} are trendy topics at \gls{lar} in the University of Aveiro. Some research on the ATLASCARs related to \gls{ad} has been made in the past. There are some relevant dissertations done at \gls{lar} that were useful for this project. 
-
-\subsection{Multisensor Calibration and Data Fusion Using LIDAR and Vision} 
-
-This is a master's thesis made by \cite{VieiradaSilva2016}. The work presents an expansion to an existing extrinsic calibration package to vision-based sensors where a ball is used as calibration target. 
-
-The calibration consists in a appearance-based algorithm to detect the ball in the image and a range-based algorithm to detect the ball in the surroundings. 
-
-The calibration package consists in a graphical interface that allows the user to configure the various sensors to be calibrated. The estimated positions between sensors are achieved with sensor data fusion.
-
-\subsection{Visual and Depth Perception Unit for ATLASCAR2} 
-
-This is a master's thesis made by \cite{Correia2017}. It is focused on the installation of an aluminum infrastructure on ATLASCAR 2 to support ranging and vision-based sensors. The sensors setup also include the electrical project in which a power distribution circuit was developed, consisting in the wiring installation and the communication infrastructure. 
-
-In addition, sensor calibration was done using the calibration graphical interface developed by \cite{VieiradaSilva2016}. New sensors were added to the package so that the calibration could be proceeded. To demonstrate the functionalities of the platform setup, a multisensor data merging application was developed representing the free space to navigate around the car.
-
-\subsection{Active Tracking of Dynamic Multivariate Agents} 
-
-This is a PhD Thesis made by \cite{SoaresDeAlmeida2016a}. The thesis is based in the tracking of multiple targets in the fields of advanced safety systems. The focus lies in the prediction of the movement and actions of external agents. Two main targets are studied: vehicles and pedestrians. 
-
-This thesis proposes techniques to improve motion prediction to achieve the development of algorithms capable of target tracking. These algorithms make use of the 3D point clouds of the environment and vision-based sensors. 
 
 \section{Milestones on the History of autonomous driving}
 
@@ -107,18 +86,53 @@ Another interesting autonomous vehicle project is the \gls{scot} vehicle (figure
 	
 \end{figure}
 
-\section{Object Detection and Tracking}
-%Fazer um research sobre algoritmos de deteção de objetos%
-Computer vision and image processing are often related to algorithms used in object detection. To detect a certain object it is common to look at their geometry and to their color. One of the uses of object detection is tracking its movement. In fixed cameras it is common to use methods like optical flow and background removal. In the fields of \gls{adas} and \gls{ad}, it is assumed that the camera is moving since it belongs to a vehicle, and recently, many car manufacturers already offer automatic pedestrian detection in their latest vehicles. 
+\section{Related work on ATLASCAR2}
 
-To observate traffic the car must be equipped with cameras or laser sensors. To detect a moving object within what is captured in the image and in the laser scans it is needed to implement ways to separate what is the object of interest with the rest. When choosing an object to track it is important to extract its major features in order to identify what object it is. This kind of procedures are related to learning and usually the objects have a classification that connects them to their components.
+In this section it is referenced previous work done at \gls{lar} relevant for this thesis.
 
-After gathering information about the select object, the next step is the tracking. All data received from the sensors should be used to maximize precision and accuracy of the objects position. For the camera there is a 2D position relatively to the coordinates of the object in the image view. In the other hand, the laser sensors can create tridimensional pointclouds, so the target's position can be anywhere in space. 
+\subsection{Multisensor Calibration and Data Fusion Using LIDAR and Vision} 
 
-With images it is common to use the template matching strategy to track objects within the field of view. The object features are gathered and can be used to find where the object is in the next frame. In range based sensors the objects are detected by separating the nearest points of the position of interest from the farthest. The points are tracked and based on their direction and velocity it can be calculated an estimate location when the tracking is lost.
+The calibration procedure for data fusion of ATLASCAR was developed by \cite{VieiradaSilva2016}. The work presents an expansion to an existing extrinsic calibration package to vision-based sensors where a ball is used as calibration target. 
 
-\section{Labelling Datasets}
-Tracking of objects in images is done frequently using bounding boxes around the target. These boxes are often linked to a class in which the object in the template represents. Image labelling is the act of relating the object to this class, or more specifically, the label. Some image labelling datasets already exist and in this section it will be presented a few used in the research of this dissertation.
+The calibration consists in a appearance-based algorithm to detect the ball in the image and a range-based algorithm to detect the ball in the surroundings. 
+
+The calibration package consists in a graphical interface (see figure \ref{fig:david}) that allows the user to configure the various sensors to be calibrated. The estimated positions between sensors are achieved with sensor data fusion.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=1\textwidth]{capstate/imgs/david.png}
+	
+	\caption{Calibration package result visualization}
+	\label{fig:david}
+	
+\end{figure}
+
+\subsection{Visual and Depth Perception Unit for ATLASCAR2} 
+
+The infrastructure to build a visual and depth perception unit for the ATLASCAR was developed by \cite{Correia2017}.  is focused on the installation of an aluminum infrastructure on ATLASCAR 2 to support ranging and vision-based sensors. The sensors setup also include the electrical project in which a power distribution circuit was developed, consisting in the wiring installation and the communication infrastructure. 
+
+In addition, sensor calibration was done using the calibration graphical interface developed by \cite{VieiradaSilva2016}. New sensors were added to the package so that the calibration could be proceeded. To demonstrate the functionalities of the platform setup, a multisensor data merging application was developed representing the free space to navigate around the car (see figure \ref{fig:diogo}).
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=1\textwidth]{capstate/imgs/diogo.png}
+	
+	\caption{Free space represented by a polygon (left) and an occupancy grid (right)}
+	\label{fig:diogo}
+	
+\end{figure}
+
+\subsection{Active Tracking of Dynamic Multivariate Agents} 
+
+Methods to detect and follow targets using the \gls{lidar} on the ATLASCAR was developed by  \cite{SoaresDeAlmeida2016a}. The thesis is based in the tracking of multiple targets in the fields of advanced safety systems. The focus lies in the prediction of the movement and actions of external agents. Two main targets are studied: vehicles and pedestrians. 
+
+This thesis proposes techniques to improve motion prediction to achieve the development of algorithms capable of target tracking. These algorithms make use of the 3D point clouds of the environment and vision-based sensors. 
+
+\section{ADAS Datasets - Examples of Labelled Data}
+
+This sections presents some relevant work and its results in public labelled datasets for \gls{adas} projects.
 
 \subsection{KITTI Dataset}
 One of them and probably the most well-known in the fields of \gls{ad} is the \gls{kitti} dataset (\cite{KarlsruheInstituteofTechnology}). The \gls{kitti} Dataset was captured with a Volkswagen station wagon (figure \ref{fig:kitticar}) for use in mobile robotics and \gls{ad} research. The \gls{kitti} benchmark suite is born in 2012 at Karlsruhe Institute of Technology by the need to have a dataset to classify objects on the streets. 
@@ -141,7 +155,7 @@ It consists in image sequences (see figure \ref{fig:kittiresult}) and a text fil
 
 The development kit used for the KITTI database contains C++ and MATLAB code to read the sensor data and write dataset results. The data development kit used is provided on the KITTI Website (\cite{KarlsruheInstituteofTechnology}). It contains MATLAB demonstration code with C++ wrappers. 
 
-The data is manipulated to be inserted into MATLAB structures and arrays. The demonstration shows how 3D boxes can be read from the dataset files and projected into the image plane of the cameras (see figure \ref{fig:kittidk}). The KITTI database also uses the \gls{pcl} to process and gather the pointclouds obtained from the LIDAR sensors.
+The data is processed and inserted into MATLAB structures and arrays. The demonstration shows how 3D boxes can be read from the dataset files and projected into the image plane of the cameras (see figure \ref{fig:kittidk}). The KITTI database also uses the \gls{pcl} to process and gather the pointclouds obtained from the LIDAR sensors.
 
 \begin{figure}[htp]
 	
@@ -155,7 +169,7 @@ The data is manipulated to be inserted into MATLAB structures and arrays. The de
 
 \begin{figure}
 \begin{center}
-	\begin{lstlisting}[caption={KITTI dataset file snippet.}, language=c++, label={lst: pop_grid}]
+	\begin{lstlisting}[caption={KITTI dataset file snippet presenting frame\_id, object\_id, label, truncated and occluded flags, alpha, left top and right bottom coordinates, height, width and length, 3D coordinates (x,y,z) and rotation}, language=c++, label={lst: pop_grid}]
 	...
 	3 1 Cyclist 0 0 -1.931469 759.786603 146.098339 954.280160 374.000000 1.739063 0.824591 1.785241 1.821119 1.569936 5.783265 -1.642450
 	3 2 Pedestrian 0 0 -2.547728 1154.836779 148.360923 1241.000000 321.627088 1.714062 0.767881 0.972283 6.463579 1.474131 7.560739 -1.860031
@@ -171,12 +185,7 @@ Listing \ref{lst: pop_grid} shows an example snippet in which there are two line
 
 The following numbers consist in the alpha (observation angle of object), the left, top, right and bottom of the 2D bounding box, the height, width and length of the 3D bounding box and its XYZ coordinates. The last number consists in the 3D rotation angle in the Y axis (\cite{Team}).
 
-\begin{center}
-	\begin{lstlisting}[caption={KITTI dataset file snippet legend.}, label={lst: kitti_legend}]
-	frame_id object_id label truncated occluded alpha left top right bottom height width length x y z rotation_y	\end{lstlisting}
-\end{center}
-
-The legend of the KITTI datasets is in listing \ref{lst: kitti_legend} but it is not included in the dataset files. Analyzing the snippet, it is possible to locate a a cyclist and a pedestrian in frame 3 and the same cyclist and pedestrian (because they have the same object\_id) in the next frame with also a van. The \texttt{DontCare} label is often shown representing an object detected that is not related to the scope of the \gls{kitti} dataset. Other information indicate where these objects are found relatively to the car.
+Analyzing the snippet, it is possible to locate a cyclist and a pedestrian in frame 3 and the same cyclist and pedestrian (because they have the same object\_id) in the next frame with also a van. The \texttt{DontCare} label is often shown representing an object detected that is not related to the scope of the \gls{kitti} dataset. Other information indicate where these objects are found relatively to the car.
 
 \begin{figure}[htp]
 	
@@ -187,9 +196,72 @@ The legend of the KITTI datasets is in listing \ref{lst: kitti_legend} but it is
 	\label{fig:kittiresult}
 	
 \end{figure}
+
+\subsection{Berkeley DeepDrive Dataset}
+
+The DeepDrive Dataset is a recent \gls{adas} labelled dataset from the University of California, Berkeley.
+
+The Dataset consists of box annotations, region annotations and detection of objects, lanes and drivable areas (\cite{Yu2018}). Their labelling system is a web-based tool (see figure \ref{fig:berkeletool}). 
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=0.99\textwidth]{capstate/imgs/berveleytool.png}
+	
+	\caption{DeepDrive Dataset Annotation Tool}
+	\label{fig:berkeletool}
+	
+\end{figure}
+
+The labelling has a semi-automatic and a manual mode. In this annotation application the objects of interest are suggested with a bounding box and a category (label). The size of the bounding box and the category can be edited if the system fails. The objects are detected using a previously trained object detection model. 
+
+\begin{figure}
+	\begin{center}
+		\begin{lstlisting}[label={lst:berkelydata}, caption={DeepDrive dataset file snippet.},language=c++]
+		...
+		    "frames": [
+		    {
+			    "timestamp": 10000,
+			    "objects": [
+			    {
+				    "category": "car",
+				    "id": 0,
+				    "attributes": {
+				    "occluded": true,
+				    "truncated": false,
+				    "trafficLightColor": "none"
+				    },
+				    "box2d": {
+				    "x1": 555.647397,
+				    "y1": 304.228432,
+				    "x2": 574.015906,
+				    "y2": 316.474104
+				    }
+			    },
+			    {
+				    "category": "car",
+				    "id": 1,
+				    "attributes": {
+				    "occluded": true,
+				    "truncated": false,
+				    "trafficLightColor": "none"
+				    },
+				    "box2d": {
+				    "x1": 554.116689,
+				    "y1": 318.004813,
+				    "x2": 567.89307,
+				    "y2": 328.719775
+				    }
+		    },
+		...	\end{lstlisting}
+	\end{center}
+\end{figure}
+
+In listing \ref{lst:berkelydata} a snippet from a file of the DeepDrive dataset is depicted. The dataset is presented in the JSON format. For each frame there is a timestamp and a set of objects. Each object is identifies with a category, an ID, attributes that indicate if the object is occluded, truncated, and if the object is a traffic light which light color is on. The position is represented by the 2D bounding box position $(x1,y1,x2,y2)$.
+
 	
 \subsection{HumanEva II Dataset}
-The HumanEva II Dataset from the \gls{mpii} was also an interesting dataset. Although it is used for pedestrian detection only, it was important to have a comparator with the \gls{kitti} dataset, specially regarding its structure. 
+The HumanEva II Dataset from the \gls{mpii} was also an interesting dataset, although it is used mainly for pedestrian detection.
 
 This dataset appears with the need to represent information about detection and tracking of humans and their poses captured by a single image camera. The HumanEva dataset development kit includes several MATLAB modules, each one implementing a feature. Some modules refer to the body pose, others to image stream processing, writing the dataset results, and so on. Each script implements a chunk of the system that gathers the data and shapes it into MATLAB structures to be processed and to create the dataset.
 
@@ -214,7 +286,7 @@ By looking at listing \ref{lst:humaneva_snip}, in this dataset snippet is easy t
 \subsection{Other relevant datasets}
 Other datasets included in the research for this dissertation are found in \gls{ethz} and in \gls{epfl} projects. 
 \subsubsection{ETHZ dataset}
-\gls{ethz} conducted studies for detection and tracking of people on the street. Just like the previous datasets, the development is based in MATLAB scripts and the data is gathered and stored in MATLAB structures. The dataset is simple: for each frame there are several bounding boxes in the image.
+\gls{ethz} conducted studies for detection and tracking of people on the street. Just like the previous datasets, its creation is based in MATLAB scripts and the data is gathered and stored in MATLAB structures. The dataset is simple: for each frame there are several bounding boxes in the image.
 \begin{figure}
 \begin{center}
 	\begin{lstlisting}[label={lst:ETHZ}, caption={ETHZ dataset dataset file snippet.},language=c++]
@@ -239,11 +311,11 @@ Other datasets included in the research for this dissertation are found in \gls{
 This dataset is focused just in the detection and tracking of pedestrians in the image (\cite{ETHZEidgenossischeTechnischeHochschuleZurich}). In listing \ref{lst:ETHZ} each line is composed with a string defining a path to the image representing the actual frame, followed by tuples of four elements $(x1,y1,x2,y2)$ representing the bounding boxes where pedestrians are found in the respective frame. 
 
 \subsubsection{EPFL dataset}
-The \gls{epfl} designed a dataset for multiple people in a camera environment, independent of the scenario. This dataset used various synced video cameras filming the same area in different angles. The data from the cameras is captured and processed with MATLAB scripts. This dataset also features some algorithms in C++.
+The \gls{epfl} designed a dataset for multiple people in a camera environment, independent of the scenario. This dataset used various synced video cameras filming the same area in different angles. The data from the cameras is captured and processed with MATLAB scripts and some algorithms in C++.
 
 \begin{figure}
 \begin{center}
-	\begin{lstlisting}[label={lst:basket}, caption={ETHZ dataset file snippet.},language=c++]
+	\begin{lstlisting}[label={lst:basket}, caption={EPFL dataset file snippet.},language=c++]
 									...
 									1 80 45 99 98 9363 0 0 1 "PERSON"
 									1 80 45 99 98 9364 0 0 0 "PERSON"

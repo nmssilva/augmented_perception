@@ -11,7 +11,7 @@
 %
 % university logo
 %
-\DeclareOption{oldLogo}{\def\ua@logo{uaLogoOld.pdf}}
+
 \DeclareOption{newLogo}{\def\ua@logo{uaLogoNew.pdf}}
 
 %
@@ -87,7 +87,6 @@
   \def\ua@textD{}}
 
 \ExecuteOptions{DETI}    % default!
-\ExecuteOptions{oldLogo} % default!
 \ProcessOptions
 
 %
@@ -144,8 +143,8 @@
       \ua@below{\ua@textC}{\ua@textD}}}\par
   \ua@font@size0\vspace*{-8.8mm}\noindent\hspace*{67mm}\includegraphics[height=9mm]{\ua@logo}%
     \ifua@final@\else
-      \smash{\rlap{\kern 10mm\lower 110mm\hbox{\Huge\textsf{\textbf{DOCUMENTO}}}}}%
-      \smash{\rlap{\kern 20mm\lower 122mm\hbox{\Huge\textsf{\textbf{PROVIS\'ORIO}}}}}%
+      \smash{\rlap{\kern 10mm\lower 110mm\hbox{\Huge\textsf{\textbf{ }}}}}%
+      \smash{\rlap{\kern 20mm\lower 122mm\hbox{\Huge\textsf{\textbf{ }}}}}%
     \fi
   \par\vspace*{40mm}}
 

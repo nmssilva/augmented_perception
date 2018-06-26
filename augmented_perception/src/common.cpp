@@ -1273,78 +1273,79 @@ void init_flags(t_flag *flags) {
 	flags->fi = true;
 }
 
-void init_config(t_config *config) {
-	config->maxr = 50.;  // in meters
+void init_config(t_config*config)
+{
+	config->maxr=50.; 		//in meters
 
-	config->in_clip = 0.1;  // in meters
-	config->out_clip = config->maxr;
+	config->in_clip=0.1; 		//in meters
+	config->out_clip=config->maxr;
 
-	config->in_angle = 0;          // Radians
-	config->out_angle = 2 * M_PI;  // Radians
+	config->in_angle= 0; 		//Radians
+	config->out_angle= 2*M_PI;		//Radians
 
 	// 	config->cluster_break_distance=10;
 	// 	config->cluster_break_distance=100;
-	// 		config->cluster_break_distance=10.;
-	// 	config->cluster_break_distance=100;
-	config->cluster_break_distance = 10000;
-	// 	config->cluster_break_distance=0.5;
+// 		config->cluster_break_distance=10.;
+// 	config->cluster_break_distance=100;
+	config->cluster_break_distance=10000;
+// 	config->cluster_break_distance=0.5;
 
-	// 	config->fi=5.0*(M_PI/180.);//clustering parameters
-	// 	config->fi=90*(M_PI/180.);//clustering parameters
-	config->beta = 80 * (M_PI / 180.);
-	// 		config->C0=200.;
-	config->C0 = 0.5;
-	// 	config->C0=0.2;
+// 	config->fi=5.0*(M_PI/180.);//clustering parameters
+// 	config->fi=90*(M_PI/180.);//clustering parameters
+	config->beta=80*(M_PI/180.);
+// 		config->C0=200.;
+	config->C0=0.9;
+// 	config->C0=0.2;
 
-	config->filter_max_variation = 0.001;  // used in raw data filter, in m
+	config->filter_max_variation=0.001;//used in raw data filter, in m
 
-	// 	config->excluding_dr=2.50;
-	config->excluding_dr = 250;
+// 	config->excluding_dr=2.50;
+	config->excluding_dr=250;
 
-	// 	config->point_occlusion_distance=500.; //used in point occlusion calculation
-	config->point_occlusion_distance = 2000;  // used in point occlusion calculation
+// 	config->point_occlusion_distance=500.; //used in point occlusion calculation
+	config->point_occlusion_distance=2000; //used in point occlusion calculation
 	// 	config->point_occlusion_distance=250; //used in point occlusion calculation
 
-	config->max_line_per_object = 1000;  // used in lines
-	config->max_mean_variance = 0.1;     // used in lines
+	config->max_line_per_object=1000;//used in lines
+	config->max_mean_variance=0.1;//used in lines
 	// 	config->max_mean_variance=5;//used in lines
 
-	// 	config->data_acc_scans=20;
-	config->data_acc_scans = 10;
+// 	config->data_acc_scans=20;
+	config->data_acc_scans=10;
 
-	// 	config->max_missing_iterations=30;
-	config->max_missing_iterations = 50;
+// 	config->max_missing_iterations=30;
+	config->max_missing_iterations=50;
 
-	config->overlap_max = 5;
-	config->overlap_distance = 0.2;
+	config->overlap_max=5;
+	config->overlap_distance=0.2;
 
-	config->display_min_lifetime = 10;
+	config->display_min_lifetime=10;
 
 	// 	config->dt=1./13.;
-	// 	config->dt=1./30.;
+// 	config->dt=1./30.;
 	// 	config->dt=1./40.;
-	// 	config->dt=1./50.;
-	config->dt = 1. / 50.;
+// 	config->dt=1./50.;
+	config->dt=1./50.;
 
-	config->estimation_window_size = 2;  // estimation window size for all the error vectors
+	config->estimation_window_size=2; //estimation window size for all the error vectors
 
-	config->max_stationary_velocity = 0.00030;
-	config->min_moving_velocity = 0.000100;
+	config->max_stationary_velocity=0.00030;
+	config->min_moving_velocity=0.000100;
 
-	config->velocity_acc_size = 10;
+	config->velocity_acc_size=10;
 
-	config->path_lenght = 1000;
+	config->path_lenght=1000;
 
-	// 	config->default_ellipse_axis=0.500;
-	// 	config->max_ellipse_axis=2.000;
-	// 	config->min_ellipse_axis=0.050;
+// 	config->default_ellipse_axis=0.500;
+// 	config->max_ellipse_axis=2.000;
+// 	config->min_ellipse_axis=0.050;
 
-	config->default_ellipse_axis = 1.000;
-	config->max_ellipse_axis = 2.500;
-	config->min_ellipse_axis = 0.500;
+	config->default_ellipse_axis=5.000;
+	config->max_ellipse_axis=10.500;
+	config->min_ellipse_axis=0.500;
 
-	config->ezA = 2.0;
-	config->ezB = 1.0;
+	config->ezA=2.0;
+	config->ezB=1.0;
 }
 
 double box_x = 0, box_y = 0, box_z = 0;

@@ -1,43 +1,21 @@
-\chapter{Camera Calibration in ATLASCAR2}
+\chapter{Improvement of the Calibration Process in ATLASCAR2}
 
-Using sensors to recognize the environment is of most importance for vehicles to become fully autonomous. The perception of their surroundings is obtained from data acquired through ranged-based sensors. The more sensors the vehicle has, the more accurate it can be about the environment. A car equipped with several sensors needs to know the position of each sensor so that the readings can be aligned and exact perception can be obtained. 
+Using sensors to recognize the environment is of most importance for vehicles to become fully autonomous. A car equipped with several sensors needs to know the position of each sensor so that the readings can be aligned and exact perception can be obtained. 
 
-Before any detection, tracking and labelling can be done, it is necessary to ensure that the vehicle's sensors are properly calibrated.
+One of the main tasks for this dissertation is to be improve the extrinsic camera calibration process. Multi sensor calibration in ATLASCAR 2 is done using a ball as a target. One of the limitations of the approach in \cite{VieiradaSilva2016} is the use of filtering the image using HSV values to detect the ball.
 
-One of the main tasks for this dissertation is to be improve the camera calibration. Multi sensor calibration in ATLASCAR 2 is done using a ball as a target. In previous projects made with the ALTASCAR 2, the ball detection was done by only filtering the \gls{hsv} values which presented several limitations to get optimal results. 
+While moving the ball around the sensors, a point cloud is created for each sensor. These point clouds are aligned so that the estimate pose of each sensor can be obtained using an arbitrary sensor as reference.
 
-While moving the ball around the sensors, a point cloud is created for each sensor. These point clouds are aligned so that the estimate pose of each sensor can be obtained using an arbitrary sensor as reference (\cite{VieiradaSilva2016}).
+\section{New Ball Detector Algorithm}
 
-\section{Calibration Package features}
-
-The calibration package is used to extrinsically calibrate the multiple ATLASCAR2 sensors. To calibrate the ball the user should roll a ball (see figure \ref{fig:ball}) in front of the sensors in order to create a pointcloud of ball centers, and then align them. The user adds the sensors that will be calibrated and inserts the IP address of the sensor. One of the sensors will be defined as the reference sensor. 
-
-\begin{figure}[htp]
-	
-	\centering
-	\includegraphics[width=0.99\textwidth]{capcalib/imgs/calibgui.png}
-	
-	\caption{Calibration GUI}
-	\label{fig:calibgui}
-	
-\end{figure}
-
-Some configurations can be done in the \textit{Options} menu. The ball diameter can be defined here as well as the number of calibration points and distance between points. The calibration also has two acquisition types: automatic or user prompt. 
-
-In the automatic mode, while the ball rolls in front of the sensors the calibration programs automatically detects the ball center and publishes it. In the user prompt mode the user chooses when the ball should be captured.
-
-In the end a file with the transformation matrices with the relative position of the sensors relatively to the reference sensor will be written.
-
-\section{Ball detector algorithm}
-
-In this section it will be described the proceedings in the development of the ball detector.
+This section describes the progress introduced in the development of the ball detector.
 
 \begin{figure}[htp]
 	
 	\centering
 	\includegraphics[width=0.6\textwidth]{capcalib/imgs/calib_implementation.pdf}
 	
-	\caption{Simplified ball detection algorithm diagram}
+	\caption{New ball detection algorithm simplified diagram}
 	\label{fig:ball_diagram}
 	
 \end{figure}
@@ -58,11 +36,11 @@ To acquire the images, the node creates a subscriber to get messages from the ca
 
 \subsection{Background Subtraction}
 
-The first thing to do with the frames is to apply background subtraction. It is supposed that the vehicle is stopped when the calibration is being done, so the background subtraction is a good method to apply. It would not make sense to use background subtraction if the vehicle was moving because the background would be constantly changing.
+The first thing to do with the frames is to apply background subtraction. It is supposed that the vehicle is stopped when the calibration is being done, so the background subtraction is a good method to apply.
 
-When the capture starts, the first received frame will be default background. The background removal is a process used in many vision based applications with static cameras, in which a frame is captured and defined as the background of a sequence of images. Therefore, when an objects enters the scene, by subtracting the background with the actual frame it is possible to detect easily where the object is (\cite{OpenCV}).
+When the capture starts, the first received frame will be default background (see figure \ref{fig:background}). The background removal is a process used in many vision based applications with static cameras, in which a frame is captured and defined as the background of a sequence of images. Therefore, when an objects enters the scene, by subtracting the background with the actual frame it is possible to detect easily where the object is (\cite{OpenCV}).
 
-Technically, background subtraction extracts the foreground from the static background. Most times, the background is worked out and a Gaussian blur is often applied to it. By defining a threshold, when subtracting the foreground with the background it is obtained a value for each pixel. It this value is higher than the threshold then (probably) an object entered that area.
+Technically, background subtraction extracts the foreground from the static background. Most times, the background is worked out and a Gaussian blur is often applied to it. When subtracting the foreground with the background it is obtained a value for each pixel that is evaluated with a threshold. The result is a binary image as seen in figure \ref{fig:ballnoise}.
 
 \begin{figure}[htp]
 	
@@ -100,9 +78,9 @@ The background removal process in the calibration package for the ball detection
 
 \subsection{Noise Filtering}
 
-After the background removal technique is applied, the resulting image may possibly contain some noise. Some pixels may be left white in the background due to lightning changes when the ball passes in front of the camera. These white pixels are false positives and must be cleared.
+After the background removal technique is applied, the resulting image may possibly contain some noise. Some pixels may be left white in the background due to lightning changes when the ball passes in front of the camera. These white pixels are false positives and must be removed.
 
-To remove extra white pixels, an erosion method is implemented where for each pixel the neighbor pixels are counted. The image is processed left-to-right, top-to-bottom, so the matrix corresponding to the frame is iterated throughout its lines. A counter is added to check if the previous pixels contained white pixels (with value of 1). 
+An erosion algorithm is implemented where for each pixel the neighbor pixels are counted. The image is processed left-to-right, top-to-bottom, so the matrix corresponding to the frame is iterated throughout its lines. A counter is added to check if the previous pixels contained white pixels (with value of 1). 
 
 \begin{figure}[htp]
 	
@@ -114,15 +92,13 @@ To remove extra white pixels, an erosion method is implemented where for each pi
 	
 \end{figure}
 
-The pixel in red with letter P in figure \ref{fig:neigh_cnt} represents the pixel being analyzed at the moment. If the pixel is black (zero) then it is not noise and nothing needs to be removed, but if the pixel is white (one) it is needed to look at the neighbor pixels because it might be a noise pixel. Around pixel P there are pixels with gray color. These are the neighbor pixels to be analyzed in the algorithm. The method is simple: if all of these pixels are set to one (white) the pixel P probably belongs to an object in the frame, but if one of the neighbor pixels is set to zero (black) then the pixel P is most likely to be a noise pixel and it is also set to zero.
-
-This process is similar to what is called an erosion. Erosion is a morphological operations that consists in a set of operations that process images based on shapes applying a structuring element to an input image and generate an output image. In erosion, the algorithm computes a local minimum over the area of a kernel. In figure \ref{fig:neigh_cnt} the kernel is composed by the gray pixels. As the kernel is scanned over the image, the algorithm computes the minimal pixel value overlapped by the kernel and replaces the image pixel under the anchor point with that minimal value (\cite{OpenCV2.4.13.6documentation}). 
+Erosion is a morphological operations that consists in a set of operations that process images based on shapes applying a structuring element to an input image and generate an output image. In erosion, the algorithm computes a local minimum over the area of a kernel. In figure \ref{fig:neigh_cnt} the kernel is composed by the gray pixels. As the kernel is scanned over the image, the algorithm computes the minimal pixel value overlapped by the kernel and replaces the image pixel under the anchor point with that minimal value (\cite{OpenCV2.4.13.6documentation}). The result is the image in figure 
 
 \subsection{Color Filtering}
 
 After the noise filtering, the ball stands out in the image. The next step is to separate the ball using color filtering. To set the ball color the user needs to click in the ball to capture its hue. A mouse event is triggered and an handler function is called. The handler localizes the mouse click and retrieves the RGB values of the pixel in those coordinates. These values are converted to a hue value of the \gls{hsv} color space. The selected hue is the color used to filter the ball from the rest of the image. By applying certain thresholds it is possible to define an interval of color. The image will then be filtered by an interval centered in that hue value and the ball is now filtered from the rest of the image. 
 
-A bounding box is drawn around the ball. To draw this box it is needed to calculate the ball center point and box upper-left point. The bounding box will only be drawn in the binary image if there is a number of white pixels bigger than a predefined threshold. To do this, the image is iterated like in this erosion phase, left-to-right and top-to-bottom. The algorithm saves the coordinates of all white pixels. An average $x$ and $y$ are calculated, finding the ball center. The size of the bounding box is given by how much white is in an specific area. Supposing there is a possibility of a white pixel to appear as noise, that pixel will have low weight in the algorithm considering that the pixels around it are black. Therefore, white pixels gathered in a larger area have high weight. Hence, the width and height of the bounding box are given by the maximum distance between the pixels with higher weight.
+A bounding box is drawn around the ball if there is a number of white pixels bigger than a predefined threshold. To do this, the image is iterated like in this erosion phase, left-to-right and top-to-bottom. The algorithm saves the coordinates of all white pixels. An average $x$ and $y$ are calculated, finding the ball center. The size of the bounding box is given by how much white is in an specific area. Supposing there is a possibility of a white pixel to appear as noise, that pixel will have low weight in the algorithm considering that the pixels around it are black. Therefore, white pixels gathered in a larger area have high weight. Hence, the width and height of the bounding box are given by the maximum distance between the pixels with higher weight.
 
 
 \begin{figure}[htp]
@@ -139,15 +115,9 @@ A bounding box is drawn around the ball. To draw this box it is needed to calcul
 
 The calibration package used to calibrate the several sensors in ALTASCAR 2 uses multiple nodes, one for each kind of sensor. The camera node in the package is called \texttt{point\_grey\_camera} and it uses the source file \texttt{point\_grey\_camera.cpp}. This file was modified in order to add the implemented features into the calibration package. 
 
-The \texttt{point\_grey\_camera} node receives the camera image by subscribing to the camera topic with \gls{ros}. The camera sends images in a \gls{ros} message format to be interpreted and processed by a callback function. The image processing algorithm follows the steps explained before in this section. After performing the ball detection, the center of the bounding box matching the center of the ball is retrieved. The ball center is published into the calibration package main node \texttt{calibration\_gui}.
+The \texttt{point\_grey\_camera} node receives the camera image by subscribing to the camera topic with \gls{ros}. The camera sends images in a \gls{ros} message format to be interpreted and processed by a callback function. The image processing algorithm follows the steps explained in the previous section. After performing the ball detection, the center of the bounding box matching the center of the ball is retrieved. The ball center is published into the calibration package main node \texttt{calibration\_gui}.
 
-To find the ball center, a Canny image is retrieved from the binary image. The Canny algorithm is often used in visual computation applications to detect the edges of an object with low error rate, good localization and minimal response. \gls{opencv} implements this function optimally by filtering any noise in the image using Gaussian filters (\cite{OpenCV2.4.13.6documentationa}). Then it finds the intensity gradient of the image with a procedure analogous to Sobel. The Sobel derivatives uses discrete differentiation operators that compute an approximation of the gradient of an image intensity function combining Gaussian smoothing and differentiation (\cite{OpenCV2.4.13.6documentationb}). 
-
-With this, all pixel that are not considered to be part of an edge are removed and only thin lines (the edges) will remain. An upper and lower threshold is applied. This is called the hysteresis procedure and it consists in removing the pixels with a gradient below to the lower threshold. If the pixel has a gradient higher than the upper threshold then it is accepted as part of an edge.
-
-The next step is to find the contours in the image edges. \gls{opencv} implements a function for structural analysis and shape descriptors called \texttt{findContours}. The method retrieves contours from the binary image using the algorithm of \cite{Suzuki1985}. The algorithm performs a point-in-contour test determining whether the point is inside a contour, outside, or lies on an edge. 
-
-When the contours are found, it is needed to find to centroid of the ball. The radius of the ball is calculated with the size of the given bounding box. The real radius of the ball is passed as an argument so it is possible to calculate the distance from the camera to it. The centroids are obtained with a method based on the circle radius and they are published as \texttt{PointStamped} \gls{ros} points to be presented in the calibration \gls{gui}. 
+The radius of the ball is passed as an argument so it is possible to calculate the distance from the camera to it. The centroids are obtained with a method based on the circle radius and they are published as \texttt{PointStamped} \gls{ros} points to be presented in the calibration \gls{gui}. 
 
 
 

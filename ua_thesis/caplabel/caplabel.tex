@@ -1,25 +1,10 @@
 \chapter{Object Detection, Tracking and Labelling}
 
-The main objective of this dissertation is focused on the detection, tracking and labeling of objects in motion found in the field of view of the several sensors equipped in ATLASCAR 2. 
+This chapter explains how this application was implemented. First, it will be described how the detection, tracking and labelling in the 2D image is performed. 
 
-Since the scope of this dissertation is meant for general objects detection in the street while expecting an human input, it will not be used a database or any set of image templates. The detection and tracking will be done semi-automatically. 
+Secondly, the implementation of the tracking of targets using \gls{lidar} sensors will be explained. Lastly, the combination of the 2D image and the \gls{lidar} data is explained.
 
-This work, in the end, results in a tool for machine learning. By gathering the data and creating a model for the object based on the previous frames, it is possible to merge the training and inference phases into one, creating datasets and image sequences that can be of use in a convolutional neural network in deep learning fields.
-
-In this chapter it will be explained how this application was implemented. Firstly, it will be described how the detection and tracking in the image is performed. In the image tracking phase happens also the labelling phase and the creation of 2D dataset files and image templates. 
-
-Secondly, the implementation of the tracking of multiple targets with ranged based sensors will be explained. To make this step possible, the \gls{mtt} library designed by \cite{SoaresDeAlmeida2016a} was used. The \gls{mtt} library contains methods of perception and clustering. 
-
-Lastly, a multi-modal approach will be used where both data from the images and the \gls{lidar}s will be assembled and a single perception unit will be created. With this conceptualization, it is possible to detect, track and label objects easily in the ATLASCAR 2.
-
-The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has. The rosbags were recorded in October 17, 2017, in the afternoon. Two rosbags were recorded:
-
-\begin{itemize}
-	\item The first rosbag was recorded while leaving Departamento de Engenharia Mec\^anica at Universidade de Aveiro. The car travelled around the campus and visited the Alboi neighbourhood.
-	\subitem In this bag there are cars, vans, cyclist and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
-	\item The second rosbag starts at Alboi where the first rosbag stopped. The car follows a path into the A25 highway until the first exit.
-	\subitem There are mostly cars in this one and it was a good rosbag to start with some tests in tracking objects.
-\end{itemize} 
+The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has. The rosbags were recorded in October 17, 2017, in the afternoon. 
 
 \section{Image Tracking}
 
@@ -54,13 +39,15 @@ When the node starts, a window opens (see figure \ref{fig:view}) for the user to
 	
 \end{figure}
 
-When the user clicks on an object, a callback function is triggered to process the mouse event and a bounding box appears around the selected target. This callback function gets the $(x,y)$ coordinates of the mouse click. In that place, a bounding box will appear around the selected object.
+When the user clicks on an object, a callback function is triggered to process the mouse event and a bounding box with a predefined size appears in the click position.
 
-The upper third-part of the image is ignore as it is considered to be irrelevant content as most of it will be tall objects like trees or objects in the sky, like clouds. Also, it is meant for the image to be fused with the laser data, and since the ATLASCAR 2 is equipped with planar based sensor, the objects off the ground will be out of the scope. The bounding box tracks the object inside the bounding box. To accomplish this, template matching techniques are used. Firstly, the previous frames are saved. The node will check the queue of previous frames and store them to use them later. 
+During this process, when the image is iterated the upper third-part of the image is ignored as it is considered to be irrelevant content as most of it will be tall objects like trees or objects in the sky, like clouds.
+
+The bounding box follows the selected target. To accomplish this, template matching techniques are used. Firstly, the previous frames are saved. The node will check the queue of previous frames and store them to use them later. 
 
 The template matching strategy is used to track the selected target in the next frames. It begins by copying the source image to display to another \gls{opencv} matrix and also creates a result matrix. The matching is now performed using a method implemented by \gls{opencv} called \texttt{matchTemplate} which takes the source image, the patch (which is the \gls{roi} inside the bounding box), the result matrix and a matching method. 
 
-Template matching is a technique for finding areas of an image that match (are similar) to a template image (patch). It is needed a source image which will be the actual frame and a template image which will be the \gls{roi} in the bounding box. The template matching purpose is to detect the highest matching area. to identify the matching area, the algorithm compares the template image with the source by iterating it through the source image. In other words, the patch will move on pixel at a time in the source image  (left to right, up to down). At each cycle, a score is calculated. This score represents how good the match is in that position of the source image (or how similar the patch is to that particular area in that location). 
+Template matching is a technique for finding areas of an image that match (are similar) to a template image (patch). A resulting image is calculated by iterating the source image and comparing the template with the area in that position. For each position a score is assigned representing how good the match is in that position.
 
 \begin{figure}[htp]
 	
@@ -68,22 +55,10 @@ Template matching is a technique for finding areas of an image that match (are s
 	\includegraphics[width=0.49\textwidth]{caplabel/imgs/resultmat.png}\hfill
 	\includegraphics[width=0.49\textwidth]{caplabel/imgs/resultmat2.png}
 	
-	\caption{Template matching example inverted result matrix}
+	\caption{Template matching example result matrix}
 	\label{fig:resultmat}
 	
 \end{figure}
-
-For each location, the score is stored in the result matrix. Each location contains a metric score. The brightest points represent the positions where the matching was more similar. In figure \ref{fig:resultmat} two images are displayed: on the left there is an example of a car being selected with a bounding box around it, and on the right is the inverted result matrix from the template matching algorithm. A red circle is around the brightest spot which indicates the location where the matching score was higher. The matching method used for this project is an equation based on the squared difference. The following equation is described by the the following formula
-
-\begin{center}
-	$R(x,y) = \sum_{x',y'}(T(x',y')-I(x+x',y+y'))^2$
-\end{center}
-
-where $R$ is the result matrix, $T$ is the template (patch, or \gls{roi} in the bounding box) and $I$ is the source image. The result is obtained by calculating the squared difference between the pixels in the template and in the area in that location in the source image.  
-
-After the result matrix is filled, it is needed to locate the highest or lowest value in the result matrix depending on the matching method used. \gls{opencv} implements a function called \texttt{minMaxLoc} which finds the global minimum and maximum in an array or matrix. Because it was used the squared difference as matching method, the locations with highest score are the ones where the difference is minimal.
-
-In other words, the result matrix shows that the place with more similarities is the one where the values are lower. In figure \ref{fig:resultmat} on the right, the result matrix is inverted for demonstration purposes. So in reality, the result matrix for this project show that the location with more similarities is in the position with the lowest value.
 
 It is important to note that after each frame is received, the patch used for the next template matching cycle will be the \gls{roi} acquired in the previous frame. This means that the patch is update when a new frame is received to obtain better accuracy of the object's pose. 
 
@@ -114,7 +89,7 @@ With a queue, the last frames are saved and at the moment of object selection th
 
 \section{Range Based Tracking}
 
-To improve the tracking, the image process is combined using the \gls{lidar} scanners equipped in the ATLASCAR 2. To develop this part, a continuation to the previous labelling node is added where the capabilities of the laser scans will be explored. The range based object tracking is performed with the \gls{mtt} library developed by \cite{SoaresDeAlmeida2016a}. 
+To improve the tracking, the image process is combined using the \gls{lidar} scanners in the ATLASCAR 2. To develop this part, a continuation to the previous labelling node is added where the capabilities of the laser scans will be explored. The range based object tracking is performed with the \gls{mtt} library developed by \cite{SoaresDeAlmeida2016a}. 
 
 
 \begin{figure}[htp]
@@ -128,7 +103,7 @@ To improve the tracking, the image process is combined using the \gls{lidar} sca
 \end{figure}
 
 
-The \gls{mtt} library was designed specially for the ALTASCAR making it the best tool to be used for this project. The \gls{mtt} works with planar scanners to obtain perception although it receives a pointcloud as input. The \gls{mtt} library supposes that the objects are all at the same height so the pointclouds are flattened. For the scope of this project this is no problem as most of the scanners used are planar except for the SICK LD-MRS. Assuming that the readings of this \gls{lidar} are at the same height does not influence the results as the difference of the measures are minimal. 
+The \gls{mtt} works with planar scanners to obtain perception although it receives a pointcloud as input. The \gls{mtt} library supposes that the objects are all at the same height so the pointclouds are flattened. For the scope of this project this is no problem as most of the scanners used are planar except for the SICK LD-MRS. Assuming that the readings of this \gls{lidar} are at the same height does not influence the results as the difference of the measures are minimal. 
 
 \subsection{Multi Target Tracking}
 
@@ -148,17 +123,15 @@ This callback functions gets the laser frame ID. This frame is the transformatio
 
 In figure \ref{fig:rviz0} the \texttt{laserScans} can be observed individually. The readings from the central SICK LD-MRS are given by the white points. The two SICK LMS151 are distinguished by the red and green colors for the left and right respectively. The colors are chosen regarding nautical and aeronautical navigation lights for port and starboard positions.
 
-In the image callback function, when an image frame arrives it creates a full pointcloud by merging the pointclouds of all \texttt{laserScans}. To do this, a transform listener is created to calculate the transforms at that given time between the two SICK LMS151 and the SICK LD-MRS. The \gls{pcl} library is used here to blend the different \texttt{laserScans}. The \gls{pcl} can concatenate pointclouds making it easy to merge them all together. The pointclouds are converted from the \gls{ros} format to \gls{pcl} format, concatenated, and ready to be processed by the \gls{mtt} library. 
+In the image callback function, when an image frame arrives it creates a full pointcloud by merging the pointclouds of all \texttt{laserScans}. To do this, a transform listener is created to calculate the transforms at that given time between the two SICK LMS151 and the SICK LD-MRS. The \gls{pcl} library is used here to blend the different \texttt{laserScans}. The \gls{pcl} can concatenate pointclouds making it easy to merge them all together.
 
-Firsty, the final pointcloud is converted to the \gls{mtt} format. The \gls{mtt} library works in a data structure that has all points coordinates called \texttt{t\_data}.
+Finally, the pointcloud is filtered to an area in front of the car. This process avoids unwanted objects to appear such as roadsides on the highway. The pointclouds are converted from the \gls{ros} format to \gls{pcl} format, concatenated, and ready to be processed by the \gls{mtt} library. 
 
-The pointcloud is iterated and a \texttt{t\_data} instance is initialized and filled with the pointcloud information. The next step is to cluster the different objects found in the pointcloud. The clustering strategy is implemented by the \gls{mtt} library. The \gls{mtt} takes the full data and initializes a vector of clusters. Clusters are formed by points and its structure contains an id of the cluster, start and end points, total number of points, length of the cluster, among other variables and flags used for occlusion detection.
+The next step is to cluster the different objects found in the pointcloud. The clustering strategy is implemented by the \gls{mtt} library and it is based on the Nearest Neighbor Clustering algorithm (\cite{Yu2018}). The \gls{mtt} takes the full data and initializes a vector of clusters. Clusters are formed by points and its structure contains an id of the cluster, start and end points, total number of points, length of the cluster, among other variables and flags used for occlusion detection.
 
-The clustering algorithm breaks the data into small groups (clusters) of points. A distance threshold is defined depending on the size of the pointcloud data and the distance between the points is calculated. If the distance between points is larger than the given threshold, then an object is most likely to be there. A set of points near that position will be grouped to form a segment. The clusters are then converted into objects. Objects are defined as a set of lines connecting the points that form the cluster. 
+A distance threshold is defined depending on the size of the pointcloud data and the distance between the points is calculated. If the distance between points is larger than the given threshold, then an object is most likely to be there.
 
-The lines that form an object are defined by the polar coordinates and the Cartesian coordinates of the initial and final line points and a target list is published to a \gls{ros} topic. 
-
-For the sake of visualization, markers are created and placed in the location fo the objects. For each object in the target list, a marker is created with the ID of the object. The ID increments by one as a new object is found. 
+To make it easier to visualize, markers are created and placed in the location of the objects. For each object in the target list, a marker is created with the ID of the object. The ID increments by one as a new object is found. 
 
 \begin{figure}[htp]
 	
@@ -170,17 +143,15 @@ For the sake of visualization, markers are created and placed in the location fo
 	
 \end{figure}
 
-In the position of the object, a visual marker is placed. There are also markers in the form of line strips in order to visualize the connection between the points of the pointcloud. An addition to the marker creation method was made, where 3D bounding boxes are created in the location of the objects.
+In the position of the object, a visual marker is placed. There are also markers in the form of line strips in order to visualize the connection between the points of the pointcloud. An addition to the marker creation method was made, where 3D bounding boxes with a predefined static size are created in the location of the objects.
 
-The information in figure \ref{fig:rviz1} was visualized using the Rviz tool. The \gls{mtt} creates by default a marker at the origin where usually the front of the ATLASCAR 2 is (depending on the transformations). 
-
-In the figure, the processed pointcloud can be seen, where the \gls{lidar} \texttt{laserScans} messages are all merged into. It can also be seen a green 3D bounding box with the ID 103, meaning that an object was found at that location. The object was in fact a car traveling in front of the ATLASCAR 2. 
+The information in figure \ref{fig:rviz1} was visualized using the Rviz tool. The \gls{mtt} creates by default a marker at the origin where usually the front of the ATLASCAR 2 is (depending on the transformations). The processed pointcloud can be seen, where the \gls{lidar} \texttt{laserScans} messages are all merged and a green 3D bounding box with the ID 103 is shown meaning that an object was found at that location. The object was in fact a car traveling in front of the ATLASCAR 2. 
 
 \section{Sensor Data Fusion}
 
-To accomplish this, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors. The \gls{mtt} library uses the \gls{lidar} sensors of the ATLASCAR 2, and since it was developed specifically for the ATLASCAR it is the optimal tool to detect and track objects in the field of view. 
+To accomplish this, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors.
 
-The clustered data is meant to detect and track objects in the sensor's field of view. The information from the laser points are treated with a range based detector algorithm and the image sequences are processed with an appearance based algorithm.
+Since the detection, tracking and labelling can be done independently with the 2D image and with the \gls{lidar} data, this section will explain how the combination of both can be done.
 
 \begin{figure}[htp]
 	
@@ -188,25 +159,30 @@ The clustered data is meant to detect and track objects in the sensor's field of
 	\includegraphics[width=0.99\textwidth]{caplabel/imgs/multimodal}
 	
 	\caption{ Overview of the multi-modal approach. }
+	\label{fig:multimodal}
+	
+\end{figure}
+
+The process of the multi-modal approach is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
+
+\subsection{Dynamic 2D Bounding Box Size}
+% desenvolver esta section
+The 2D bounding box size is given by the distance to the object. If the distance is greater, the bounding box will be smaller and vice-versa. The distance to the object is given by the tri-dimensional spacial coordinates given by the \gls{mtt} algorithm.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=0.45\textwidth]{caplabel/imgs/boxds1.png}
+	\includegraphics[width=0.45\textwidth]{caplabel/imgs/boxds2.png}
+	
+	\caption{Example of near (left) and far (right) car with dynamic bounding box size}
 	\label{fig:basket}
 	
 \end{figure}
 
-Utilizing a multiple motion model and Kalman filters it is possible to consolidate both range and image data. This process is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
-
-\subsection{Dynamic Bounding Box Size}
-% desenvolver esta section
-The bounding box size is given by the distance to the object. If the distance is greater, the bounding box will be smaller and vice-versa.
-
-The distance to the object is given by the tri-dimensional spacial coordinates given by the \gls{mtt} library. 
-
 \subsection{Pointcloud Projection}
 
-By combining the sensor data with the image it is possible to check where the pointcloud is relatively to the camera position. To accomplish this it is needed to firstly make the intrinsic calibration of the camera, and then proceed to the implementation of the pointcloud projection.
-
-Firstly, to calibrate the camera one must use a chessboard. A \gls{ros} node in the package \texttt{camera\_calibration} was used to calibrate the camera. It is a python script using \gls{opencv} that receives the chess board dimensions and the camera's image topic.
-
-The node launches a \gls{gui} and detects the chessboard's points. By moving the chessboard around the node calculates the intrinsic values of the camera and the distortion coefficients. The result of the calibration is a file similar to listing \ref{lst: intcalib}.
+By combining the sensor data with the image it is possible to check where the pointcloud is relatively to the camera position. To accomplish this it is needed to firstly make the intrinsic calibration of the camera, and then proceed to the implementation of the pointcloud projection. Using a \gls{ros} node in the package \texttt{camera\_calibration} it is possible to obtain the intrinsic values of the camera and the distortion coefficients (see listing \ref{lst: intcalib}).
 
 \begin{figure}
 	\begin{center}
@@ -234,9 +210,7 @@ The node launches a \gls{gui} and detects the chessboard's points. By moving the
 	\end{center}
 \end{figure}
 
-In this file it is possible to check the image dimensions, the intrinsic values and distortions coefficients of the camera as well as the rectification and projection matrix.
-
-These values are used to reproject the points of the pointcloud into the camera's image. To do so, \gls{opencv} implements a method called \texttt{cv::projectPoints} (\cite{OpenCVa}) that is used in the labelling node. 
+In this file it is possible to see the image dimensions, the intrinsic values and distortions coefficients of the camera as well as the rectification and projection matrix. These values are used to reproject the points of the pointcloud into the camera's image. To do so, \gls{opencv} implements a method called \texttt{cv::projectPoints} (\cite{OpenCVa}) that is used in the labelling node. 
 
 Firstly, the labelling node reads the file in listing \ref{lst: intcalib} to calibrate the camera. Then, the full pointcloud is taken and a vector of the points is retrieved. The \texttt{cv::projectPoints} method takes the calibration file parameters and the points vector and generates another vector with the $(x,y)$ coordinates of the points in the image.
 
@@ -253,14 +227,12 @@ The next step is simply to draw those points in the image using the function \te
 	
 \end{figure}
 
-With the pointclouds points projected in the image it is possible to confer the intrinsic and extrinsic calibrations. The points match the objects in the frames so the calibration was well executed.
+With the pointclouds points projected in the image it is possible to associate the 3D clusters to the 2D image templates.
 
 
-\subsection{Tracking with 3D Bounding Boxes}
+\subsection{3D Bounding Box Representation}
 
-The next step of using the pointcloud data into the image is to apply the projection techniques into the tracking algorithm.
-
-Since the sensor data and image data are now merged, it is possible to pick up the points where objects of interest are and follow them.
+Using the algorithms previously developed it is possible to track objects in the 2D image using the position of the 3D clusters by picking up their points and following them.
 
 A semi-automatic algorithm was developed where the tracking can be done manually by clicking while the semi-automatic system suggests objects of interest that may appear in the field of view. A simplified diagram of the algorithm is found in figure \ref{fig:bbdiagram}.
 
@@ -276,7 +248,7 @@ A semi-automatic algorithm was developed where the tracking can be done manually
 
 To begin, the full pointcloud data is gathered and passed into the \gls{mtt} algorithm. The \gls{mtt} library implements methods that handle detection and tracking of objects and outputs the coordinates of the found objects. 
 
-A function polls the \gls{mtt} algorithm and raises a flag whenever an object is found. If more than an object is found, the nearest object is tracked. The coordinates of the objects relatively to the vehicle are found so the distances can be calculated. The object with shortest distance is chosen to track.
+A function polls the \gls{mtt} algorithm and raises a flag when an object is found. If more than an object is found, the nearest object is tracked. The coordinates of the objects relatively to the vehicle are found so the distances can be calculated. The object with shortest distance is chosen to track.
 
 Having the coordinates of the tracked object, a cube is drawn centered in the point given by the \gls{mtt} algorithm by setting the cube vertices and using the \texttt{line} function implemented by \gls{opencv} to join them.
 
@@ -379,11 +351,13 @@ While tracking an object in the image, an object in the \gls{mtt} of ranged base
 	\end{center}
 \end{figure}
 
-The dataset header was updated to contain the 3D information and the contents now present the coordinates in space of the object regarding the ATLASCAR 2 position. Analyzing the snippet in listing \ref{lst:dataset3d}, the \texttt{3D\_Z} values can be seen set to 0.5. The explanation for this is that the \gls{mtt} library implements perception for planar sensors which only give $x$ and $y$ coordinates. For this reason, the height for all objects is estimated as 0.5 (half a meter). 
+The dataset header was updated to contain the 3D information and the contents now present the coordinates in space of the object regarding the ATLASCAR 2 position. Analyzing the snippet in listing \ref{lst:dataset3d}, the \texttt{3D\_Z} values can be seen set to 0.5. The explanation for this is that the \gls{mtt} library implements perception for planar sensors which only give $x$ and $y$ coordinates. For this reason, the height for all objects is forced to 0.5 (half a meter). 
 
-\section{Extra Tools}
+\section{UI Tools for Labelling}
 
 In this section it will be described some extra features that were implemented in addition to the detection, tracking and labelling of objects. Most features presented here are used to aid and complement what has been previously done.
+
+\subsection{Labelling Interface}
 
 \subsection{Playback}
 
@@ -393,13 +367,9 @@ This rosnode starts similarly to the previous one, by subscribing to the camera 
 
 The message is converted into \gls{opencv} format and the dataset file is read. A map similar to the previous is also created to be filled with the dataset information where it relates the objects in the bounding boxes to the frames in the sequence. 
 
-When a frame is received, its frame ID is retrieved. This ID is used to check which boxes in this frame. If this frame contains objects, a rectangle is draw in the image representing the bounding box acquired before. 
+When a frame is received, its frame ID is retrieved. This ID is used to check which boxes in this frame. If this frame contains objects, a rectangle is draw in the image representing the bounding box acquired before. The box also features a legend with the object label and its ID. The color of the bounding box is randomly assigned, depending on its label. 
 
-The box also features a legend with the object label and its ID. The color of the bounding box is randomly assigned, depending on its label. 
-
-In other words, objects with the same label will have the same box color, making it easy to identify objects if the image has several different boxes. 
-
-The resulting image is presented in figure \ref{fig:playback}. The image is then converted again into the \gls{ros} format and published to a topic.
+In other words, objects with the same label will have the same box color, making it easy to identify objects if the image has several different boxes. The resulting image is presented in figure \ref{fig:playback}. The image is then converted again into the \gls{ros} format and published to a topic.
 
 \begin{figure}[htp]
 	

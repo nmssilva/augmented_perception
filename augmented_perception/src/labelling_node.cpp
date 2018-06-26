@@ -17,8 +17,6 @@
 #include "rosbag/bag_player.h"
 #include "rosbag/player.h"
 
-#include "ros/ros.h"
-
 #include "rqt_bag/Pause.h"
 
 #include "common.cpp"
@@ -47,7 +45,6 @@ image_transport::Publisher box2d_image_proj;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
-cv_bridge::CvImage out_msg;
 Mat image_input, imToShow, sub, projection, projectionPC;
 
 // Template-Matching related variables
@@ -113,9 +110,6 @@ visualization_msgs::MarkerArray markersMsgSug;
 bool prevFoundSug = false;
 bool manual = false;
 bool full_manual = true;
-
-// Rosbag player variables
-rosbag::PlayerOptions opts;
 
 // Fusion related variables
 

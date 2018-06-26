@@ -1,10 +1,11 @@
 \chapter{Results}
 
-In this chapter it will be shown the results of what was implemented and developed during this dissertation. Firstly it will be presented the results for the camera calibration and secondly some datasets on the tracking part will be analyzed.
+This chapter presents the results of the improvement of the calibration process and object detection, tracking and labelling system.
 
 \section{Camera Calibration}
 
-In figure \ref{fig:gui} the multisensor calibration \gls{gui} is shown with a test result. One of the SICK LMS151 \gls{lidar}s was used as point of reference for the purpose of demonstration and to have a comparator point to the camera.
+Figure \ref{fig:gui} presents the multisensor calibration \gls{gui}. One of the SICK LMS151 \gls{lidar}s was used as point of reference for the purpose of demonstration and to have a comparator point to the camera.
+
 \begin{figure}[htp]
 	
 	\centering
@@ -31,27 +32,27 @@ In listing \ref{lst:calib_result} an example output file of the calibration can 
 
 \section{Detection, Tracking and Labelling}
 
-In this section it will be analyzed two rosbags recorded and used for the testing of the detection, tracking and labelling algorithms.
+This section will present the detection, tracking and labelling results with two rosbags recorded and used for the testing of the detection, tracking and labelling algorithms. Two rosbags were recorded:
+
+\begin{itemize}
+	\item The first rosbag was recorded while leaving Departamento de Engenharia Mec\^anica at Universidade de Aveiro. The car travelled around the campus and visited the Alboi neighbourhood.
+	\begin{itemize}
+	\item In this bag there are cars, vans, cyclists and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
+	\end{itemize} 
+	\item The second rosbag starts at Alboi where the first rosbag stopped. The car follows a path into the A25 highway until the first exit.
+	\begin{itemize}
+	\item There are mostly cars in this one and it was a good rosbag to start with some tests in tracking objects.
+	\end{itemize} 
+\end{itemize} 
+
 
 Each rosbag produced a dataset where the objects found were registered. Looking into the datasets can show how the algorithm behaves.
 
 \subsection{Dataset 1 - Highway / A25}
 
-The first dataset was produced from the highway rosbag. The rosbag details can be found in table \ref{tab: highwayrosbag}.
+The first dataset was produced from the highway rosbag. The rosbag duration is 3:37s (217s), has a size of 8.6 GB and includes 62352 messages.
 
-\begin{table}[!h]
-	\centering
-	\caption{Highway Rosbag Details}
-	\label{tab: highwayrosbag}
-	\begin{tabular}{c|c|c}
-		\textbf{Duration} & \textbf{Messages} & \textbf{Size} \\ \hline
-		3:07              & 62352             & 8.6 GB        
-	\end{tabular}
-\end{table}
-
-The labelling was done using semi-automatic methods using sensor fusion and also manually by pointing and clicking on an object when the sensors don't find it. The semi-automatic methods suggest the user an object that it has tracked to be saved or discarded.
-
-The datasets were evaluated using some labelling metrics described in table \ref{tab: highwaymetrics}.
+The labelling was done using semi-automatic methods using sensor fusion and also manually by pointing and clicking on an object when the sensors don't find it. The semi-automatic methods suggest the user an object of interest and asks for a label from the user.
 
 \begin{table}[]
 	\centering
@@ -80,27 +81,17 @@ Several objects were found in this sequence. The discarded objects or the object
 	\end{tabular}
 \end{table}
 
-This rosbag was recorded starting at the entrance and during an highway with low traffic. As this sequence presents few objects at a time, most semi-automatic suggestions were accepted. The semi-automatic system works better in areas with reduced movement so the readings of the sensors are more accurate.
+As this sequence presents few objects at a time, most semi-automatic suggestions were accepted. The semi-automatic system works better in areas with reduced movement so the readings of the sensors are more accurate.
 
 \subsection{Dataset 2 - Aveiro City Urban Area}
 
-The second dataset was generated from an urban area in Aveiro city. The rosbag details are as found in table \ref{tab: urbanrosbag}.
-
-\begin{table}[]
-	\centering
-	\caption{Urban Area Rosbag Details}
-	\label{tab: urbanrosbag}
-	\begin{tabular}{c|c|c}
-		\textbf{Duration} & \textbf{Messages} & \textbf{Size} \\ \hline
-		7:06              & 135379            & 18.0 GB      
-	\end{tabular}
-\end{table}
+The second dataset was generated from the rosbag at an urban area in Aveiro city. The rosbag duration is 7:06s (456s), has a size of 18.0 GB and includes 135379 messages. 
 
 The labelling in this rosbag was done using the semi-automatic methods and the manual methods separately. The reason for this is to compare the behavior of the semi-automatic suggestions and the manual method in a different environment.
 
-\subsection{Dataset 2.1 - Semi-Automatic Method}
+\subsubsection{Dataset 2.1 - Semi-Automatic Method}
 
-Firstly, the semi-automatic methods were tested. The dataset produced gave out the labelling metric listed in table \ref{tab: urban1metrics}.
+The dataset produced with the semi-automatic method the labelling metric listed in table \ref{tab: urban1metrics}.
 
 \begin{table}[]
 	\centering
@@ -114,7 +105,7 @@ Firstly, the semi-automatic methods were tested. The dataset produced gave out t
 	\end{tabular}
 \end{table}
 
-The Urban area is a zone with high-traffic and because there are more objects (sidewalks, road boundaries, walls, etc...), the sensors are more likely to mistake an object of interest with something with no significance in the dataset scope. 
+The Urban area is a zone with high-traffic and because there are more objects (sidewalks, road boundaries, walls, etc...), the semi-automatic method is more likely to mistake an object of interest with something with no significance in the dataset scope. 
 
 The metrics show that nearly 2 out of 3 suggestions are something that has no interest for the dataset. In table \ref{tab: urban1stats} the amount of objects found is presented.
 
@@ -129,7 +120,7 @@ The metrics show that nearly 2 out of 3 suggestions are something that has no in
 \end{table}
 
 
-\subsection{Dataset 2.2 - Manual Method}
+\subsubsection{Dataset 2.2 - Manual Method}
 
 To test the manual method, one must click on the object and control the rosbag (pause it, go back and forward, etc...) to obtain maximum precision on the detection and tracking. 
 
@@ -147,7 +138,7 @@ To test the manual method, one must click on the object and control the rosbag (
 
 In table \ref{tab: urban2metrics} some annotation metrics are shown. Despite the high traffic zone, the metrics in the manual methods show that nearly 3 out of 4 clicks result in a good detection and tracking of the object. 
 
-Because the annotation was done manually, it is possible to enter more than one object at the same time. When the sensors suggest an object in sight, the algorithm always gives out the object that is closer to the vehicle, so at the same frame the object will always be the same. In table \ref{tab: urban2stats} it is possible to see the amount of each object in this dataset.
+Because the annotation was done manually, it is possible to enter more than one object at the same time whereas in the semi-automatic that is not possible because when the sensors suggest an object in sight, the algorithm always outputs the object that is closer to the vehicle. In table \ref{tab: urban2stats} it is possible to see the amount of each object in this dataset.
 
 \begin{table}[]
 	\centering

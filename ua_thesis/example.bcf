@@ -40,7 +40,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labelalpha</bcf:key>
-      <bcf:value>1</bcf:value>
+      <bcf:value>0</bcf:value>
     </bcf:option>
     <bcf:option type="multivalued">
       <bcf:key>labelnamespec</bcf:key>
@@ -121,7 +121,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortscheme</bcf:key>
-      <bcf:value>anyt</bcf:value>
+      <bcf:value>nyt</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>uniquelist</bcf:key>
@@ -310,6 +310,8 @@
     <bcf:option datatype="boolean">doi</bcf:option>
     <bcf:option datatype="boolean">eprint</bcf:option>
     <bcf:option datatype="boolean">related</bcf:option>
+    <bcf:option datatype="boolean">dashed</bcf:option>
+    <bcf:option datatype="boolean">mergedate</bcf:option>
     <bcf:option datatype="integer">mincrossrefs</bcf:option>
     <bcf:option datatype="integer">maxnames</bcf:option>
     <bcf:option datatype="integer">minnames</bcf:option>
@@ -681,13 +683,10 @@
     <bcf:sort order="1">
       <bcf:sortitem order="1">presort</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="2">
-      <bcf:sortitem order="1">labelalpha</bcf:sortitem>
-    </bcf:sort>
-    <bcf:sort order="3" final="1">
+    <bcf:sort order="2" final="1">
       <bcf:sortitem order="1">sortkey</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="4">
+    <bcf:sort order="3">
       <bcf:sortitem order="1">sortname</bcf:sortitem>
       <bcf:sortitem order="2">author</bcf:sortitem>
       <bcf:sortitem order="3">editor</bcf:sortitem>
@@ -695,15 +694,15 @@
       <bcf:sortitem order="5">sorttitle</bcf:sortitem>
       <bcf:sortitem order="6">title</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="5">
+    <bcf:sort order="4">
       <bcf:sortitem order="1">sortyear</bcf:sortitem>
       <bcf:sortitem order="2">year</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="6">
+    <bcf:sort order="5">
       <bcf:sortitem order="1">sorttitle</bcf:sortitem>
       <bcf:sortitem order="2">title</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="7">
+    <bcf:sort order="6">
       <bcf:sortitem order="1" pad_side="left" pad_width="4" pad_char="0">volume</bcf:sortitem>
       <bcf:sortitem order="2">0000</bcf:sortitem>
     </bcf:sort>
@@ -2051,66 +2050,62 @@
     <bcf:datasource type="file" datatype="bibtex">library.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">LARlabs</bcf:citekey>
-    <bcf:citekey order="2">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="3">SoaresDeAlmeida2016a</bcf:citekey>
-    <bcf:citekey order="4">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="5">Correia2017</bcf:citekey>
-    <bcf:citekey order="6">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="7">SoaresDeAlmeida2016a</bcf:citekey>
-    <bcf:citekey order="8">Kroger2016</bcf:citekey>
-    <bcf:citekey order="9">TheMilwaukeeSentinel</bcf:citekey>
-    <bcf:citekey order="10">Kroger2016</bcf:citekey>
-    <bcf:citekey order="11">Pomerleau1989</bcf:citekey>
-    <bcf:citekey order="12">DARPA</bcf:citekey>
-    <bcf:citekey order="13">Waymo</bcf:citekey>
-    <bcf:citekey order="14">AudiMediaCenter</bcf:citekey>
-    <bcf:citekey order="15">Singapore-MITAllianceforResearchandTechnology</bcf:citekey>
-    <bcf:citekey order="16">Teo</bcf:citekey>
+    <bcf:citekey order="2">LARlabs</bcf:citekey>
+    <bcf:citekey order="3">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="4">Kroger2016</bcf:citekey>
+    <bcf:citekey order="5">TheMilwaukeeSentinel</bcf:citekey>
+    <bcf:citekey order="6">Kroger2016</bcf:citekey>
+    <bcf:citekey order="7">Pomerleau1989</bcf:citekey>
+    <bcf:citekey order="8">DARPA</bcf:citekey>
+    <bcf:citekey order="9">Waymo</bcf:citekey>
+    <bcf:citekey order="10">AudiMediaCenter</bcf:citekey>
+    <bcf:citekey order="11">Singapore-MITAllianceforResearchandTechnology</bcf:citekey>
+    <bcf:citekey order="12">Teo</bcf:citekey>
+    <bcf:citekey order="13">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="14">Correia2017</bcf:citekey>
+    <bcf:citekey order="15">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="16">SoaresDeAlmeida2016a</bcf:citekey>
     <bcf:citekey order="17">KarlsruheInstituteofTechnology</bcf:citekey>
     <bcf:citekey order="18">Geiger</bcf:citekey>
     <bcf:citekey order="19">KarlsruheInstituteofTechnology</bcf:citekey>
     <bcf:citekey order="20">Team</bcf:citekey>
-    <bcf:citekey order="21">Sigal</bcf:citekey>
-    <bcf:citekey order="22">ETHZEidgenossischeTechnischeHochschuleZurich</bcf:citekey>
-    <bcf:citekey order="23">EPFLEcolepolytechniquefederaledeLausanne</bcf:citekey>
-    <bcf:citekey order="24">MITSUBISHIMOTORS</bcf:citekey>
-    <bcf:citekey order="25">Correia2017</bcf:citekey>
-    <bcf:citekey order="26">SICK</bcf:citekey>
-    <bcf:citekey order="27">SICK</bcf:citekey>
-    <bcf:citekey order="28">SICKa</bcf:citekey>
-    <bcf:citekey order="29">SICKa</bcf:citekey>
-    <bcf:citekey order="30">PointGrey</bcf:citekey>
-    <bcf:citekey order="31">Correia2017</bcf:citekey>
-    <bcf:citekey order="32">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="33">ROSWiki</bcf:citekey>
-    <bcf:citekey order="34">ROSWikia</bcf:citekey>
-    <bcf:citekey order="35">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="36">SoaresDeAlmeida2016a</bcf:citekey>
-    <bcf:citekey order="37">PointCloudLibrary2018</bcf:citekey>
-    <bcf:citekey order="38">VieiradaSilva2016</bcf:citekey>
-    <bcf:citekey order="39">OpenCV</bcf:citekey>
-    <bcf:citekey order="40">OpenCV2.4.13.6documentation</bcf:citekey>
-    <bcf:citekey order="41">OpenCV2.4.13.6documentationa</bcf:citekey>
-    <bcf:citekey order="42">OpenCV2.4.13.6documentationb</bcf:citekey>
-    <bcf:citekey order="43">Suzuki1985</bcf:citekey>
+    <bcf:citekey order="21">Yu2018</bcf:citekey>
+    <bcf:citekey order="22">Sigal</bcf:citekey>
+    <bcf:citekey order="23">ETHZEidgenossischeTechnischeHochschuleZurich</bcf:citekey>
+    <bcf:citekey order="24">EPFLEcolepolytechniquefederaledeLausanne</bcf:citekey>
+    <bcf:citekey order="25">MITSUBISHIMOTORS</bcf:citekey>
+    <bcf:citekey order="26">MITSUBISHIMOTORS</bcf:citekey>
+    <bcf:citekey order="27">Correia2017</bcf:citekey>
+    <bcf:citekey order="28">SICK</bcf:citekey>
+    <bcf:citekey order="29">SICK</bcf:citekey>
+    <bcf:citekey order="30">SICKa</bcf:citekey>
+    <bcf:citekey order="31">SICKa</bcf:citekey>
+    <bcf:citekey order="32">PointGrey</bcf:citekey>
+    <bcf:citekey order="33">Correia2017</bcf:citekey>
+    <bcf:citekey order="34">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="35">ROSWiki</bcf:citekey>
+    <bcf:citekey order="36">ROSWikia</bcf:citekey>
+    <bcf:citekey order="37">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="38">SoaresDeAlmeida2016a</bcf:citekey>
+    <bcf:citekey order="39">Luo</bcf:citekey>
+    <bcf:citekey order="40">PointCloudLibrary2018</bcf:citekey>
+    <bcf:citekey order="41">VieiradaSilva2016</bcf:citekey>
+    <bcf:citekey order="42">OpenCV</bcf:citekey>
+    <bcf:citekey order="43">OpenCV2.4.13.6documentation</bcf:citekey>
     <bcf:citekey order="44">SoaresDeAlmeida2016a</bcf:citekey>
-    <bcf:citekey order="45">SoaresDeAlmeida2016a</bcf:citekey>
+    <bcf:citekey order="45">Yu2018</bcf:citekey>
     <bcf:citekey order="46">Spinello2010</bcf:citekey>
     <bcf:citekey order="47">OpenCVa</bcf:citekey>
   </bcf:section>
-  <bcf:sortlist section="0" name="anyt/global" type="entry" sortscheme="anyt" sortnamekeyscheme="global">
+  <bcf:sortlist section="0" name="nyt/global" type="entry" sortscheme="nyt" sortnamekeyscheme="global">
   <bcf:sorting>
     <bcf:sort order="1">
       <bcf:sortitem order="1">presort</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="2">
-      <bcf:sortitem order="1">labelalpha</bcf:sortitem>
-    </bcf:sort>
-    <bcf:sort order="3" final="1">
+    <bcf:sort order="2" final="1">
       <bcf:sortitem order="1">sortkey</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="4">
+    <bcf:sort order="3">
       <bcf:sortitem order="1">sortname</bcf:sortitem>
       <bcf:sortitem order="2">author</bcf:sortitem>
       <bcf:sortitem order="3">editor</bcf:sortitem>
@@ -2118,15 +2113,15 @@
       <bcf:sortitem order="5">sorttitle</bcf:sortitem>
       <bcf:sortitem order="6">title</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="5">
+    <bcf:sort order="4">
       <bcf:sortitem order="1">sortyear</bcf:sortitem>
       <bcf:sortitem order="2">year</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="6">
+    <bcf:sort order="5">
       <bcf:sortitem order="1">sorttitle</bcf:sortitem>
       <bcf:sortitem order="2">title</bcf:sortitem>
     </bcf:sort>
-    <bcf:sort order="7">
+    <bcf:sort order="6">
       <bcf:sortitem order="1" pad_side="left" pad_width="4" pad_char="0">volume</bcf:sortitem>
       <bcf:sortitem order="2">0000</bcf:sortitem>
     </bcf:sort>
