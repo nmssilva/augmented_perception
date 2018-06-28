@@ -1,5 +1,10 @@
 #include <iostream>
 
+#include <QApplication>
+#include <QPushButton>
+#include <QLabel>
+#include <QComboBox>
+
 #include "laser_geometry/laser_geometry.h"
 #include "tf/message_filter.h"
 #include <ros/package.h>
@@ -20,6 +25,7 @@
 #include "rqt_bag/Pause.h"
 
 #include "common.cpp"
+
 
 using namespace std;
 using namespace cv;
@@ -149,6 +155,21 @@ unsigned int first_frame_id;
 
 ros::ServiceClient client;
 rqt_bag::Pause srv;
+
+// GUI
+
+QPushButton *button1;
+QPushButton *button2;
+QPushButton *button3;
+QPushButton *button4;
+QPushButton *button5;
+QPushButton *button6;
+
+QPushButton *button21;
+QPushButton *button22;
+QComboBox * cb1;
+
+bool window2visible = false;
 
 
 Mat MatchingMethod(int, void *, Mat patch_frame, Mat previous_frame) {
@@ -722,11 +743,11 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 		char c = (char) waitKey(10);
 
-		if (c == 'q') {
+		if (c == 'q' || button6->isDown()) {
 			exit(0);
 		}
 
-		if (c == 'p') {
+		if (c == 'p' || button5->isDown() ) {
 			int last_frame_id = -1;
 			int actual_frame_id;
 			string path =
@@ -780,7 +801,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 			ROS_INFO("Saved frames dataset to %s", filename.c_str());
 		}
 
-		if (c == 's') {
+		if (c == 's' || button2->isDown()) {
 			int gotframes = nframes;
 			if (gotframes > 100)
 				gotframes = 100;
@@ -851,7 +872,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		}
 
 		string label = "";
-		if (c == 'c') {
+		if (c == 'c' || button3->isDown()) {
 			patch = Mat();
 			ROS_INFO("Image cleared.");
 			label = "DontCare";
@@ -870,61 +891,96 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 
 		prevFoundSug = foundSug;
 
-		if (c == 'm') {
+		if (c == 'm' || button4->isDown()) {
 			full_manual = !full_manual;
 			if(full_manual){
-				ROS_INFO("Full Manual Mode.");
+				button4->setText("Semi-automatic Mode");
+				ROS_INFO("Manual Mode.");
 			}
 			else{
+				button4->setText("Manual Mode");
 				ROS_INFO("Semi-Automatic Mode");
 			}
 		}
 
-		if (c == 'l') {
-			srv.request.control = "Pause";
-			client.call(srv);
+		if (c == 'l' || button1->isDown()) {
+
 			manual = false;
 			patch = Mat();
-			if (label == "") {
-				bool success = false;
-				while (!success) {
-					ROS_INFO("Object Label (enter '-' to pass): ");
-					cin >> label;
 
-					if (label == "-") {
-						label = "DontCare";
-					}
-
-					if (label.find(' ') != std::string::npos) {
-						ROS_INFO("Invalid label name. Labels must be a single word.");
-						success = false;
-					} else {
-						success = true;
-					}
-				}
-			}
-			unsigned int actual_frame_id = cv_ptr->header.seq;
-
-			if (actual_frame_id < first_frame_id) {
-				actual_frame_id = first_frame_id + 99999;
-			}
-
-			ROS_INFO("Label: %s",label.c_str());
-
-			int count = 0;
-			for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin();
-				 it != file_map.end(); ++it) {
-				if (it->first >= first_frame_id && it->first <= actual_frame_id)
-					for (int i = 0; i < (it->second).size(); i++) {
-						(it->second)[i].label = label;
-						count ++;
-					}
-			}
-			ROS_INFO("count: %d",count);
-
-			srv.request.control = "Resume";
+			srv.request.control = "Pause";
 			client.call(srv);
+
+			QWidget window2;
+			window2.setWindowTitle("Tracking Complete");
+			window2.setFixedSize(200, 100);
+
+			cb1 = new QComboBox(&window2);
+			QLabel *qlabel = new QLabel("Label: ", &window2);
+
+
+			button21 = new QPushButton("Discard", &window2);
+			button22 = new QPushButton("Save", &window2);
+
+			button21->setGeometry(10, 60, 80, 30);
+			button22->setGeometry(110, 60, 80, 30);
+
+			cb1->addItem("car");
+			cb1->addItem("van");
+			cb1->addItem("people");
+			cb1->addItem("bicycle");
+			cb1->addItem("sign");
+			cb1->addItem("misc");
+
+			qlabel->setGeometry(50, 10, 80, 30);
+			cb1->setGeometry(110, 10, 80, 30);
+
+			window2.setVisible(true);
+
+			QEventLoop loop;
+			QObject::connect(button21, SIGNAL(clicked()), &loop, SLOT(quit()));
+			QObject::connect(button22, SIGNAL(clicked()), &loop, SLOT(quit()));
+			loop.exec();
+
+			bool btn21check;
+			bool btn22check;
+			button21->clicked(btn21check);
+			button22->clicked(btn22check);
+
+			if(btn21check || btn22check){
+
+				if(btn21check){
+					label = "DontCare";
+				}
+				if(btn22check){
+					label = cb1->currentText().toStdString();
+				}
+
+				unsigned int actual_frame_id = cv_ptr->header.seq;
+
+				if (actual_frame_id < first_frame_id) {
+					actual_frame_id = first_frame_id + 99999;
+				}
+
+				ROS_INFO("Label: %s",label.c_str());
+
+				int count = 0;
+				for (std::map<unsigned int, std::vector<BBox> >::iterator it = file_map.begin();
+					 it != file_map.end(); ++it) {
+					if (it->first >= first_frame_id && it->first <= actual_frame_id)
+						for (int i = 0; i < (it->second).size(); i++) {
+							(it->second)[i].label = label;
+							count ++;
+						}
+				}
+				ROS_INFO("Frame count: %d",count);
+
+				srv.request.control = "Resume";
+				client.call(srv);
+			}
 		}
+
+
 
 		// Show image_input
 		image_input = cv_ptr->image;
@@ -1064,71 +1120,6 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		MatchingMethod(0, 0);
 	}
 
-
-	// segmentation part
-	bool pointsToDelete[sub.rows / 2 * sub.cols] = {false};
-	int meanX = 0;
-	int meanY = 0;
-	int boundX = 0;
-	int boundY = 0;
-	int cntBallPoint = 0;
-
-	Mat segment = sub.clone();
-	uchar Hthreshold = 8;
-	uchar Vthreshold = 5;
-	uchar hmax = hue + Hthreshold;
-	uchar hmin = hue - Hthreshold;
-	uchar vmax = value + Vthreshold;
-	uchar vmin = value - Vthreshold;
-
-	bool more_is_less = false;
-	if (hmax < hmin) {
-		more_is_less = true;
-	}
-
-
-	double alpha = 10.6; /*< Simple contrast control */
-	int beta = 10.6;       /*< Simple brightness control */
-
-	for (int y = segment.rows / 3; y < segment.rows; y++) {
-		for (int x = 0; x < segment.cols; x++) {
-			segment.at<Vec3b>(Point(x, y))[0] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[0]) + beta);
-			segment.at<Vec3b>(Point(x, y))[1] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[1]) + beta);
-			segment.at<Vec3b>(Point(x, y))[2] = saturate_cast<uchar>(alpha * (segment.at<Vec3b>(y, x)[2]) + beta);
-		}
-	}
-
-	// TODO: posterize and then filter by color
-
-
-/*
-	for (int y = segment.rows / 3; y < segment.rows; y++) {
-		for (int x = 0; x < segment.cols; x++) {
-			unsigned char b = segment.at<Vec3b>(Point(x, y))[0];
-			unsigned char g = segment.at<Vec3b>(Point(x, y))[1];
-			unsigned char r = segment.at<Vec3b>(Point(x, y))[2];
-
-			int h = getH(r, g, b);
-			int v = getV(r, g, b);
-
-			if(v > vmax || v < vmin)
-			{
-				segment.at<Vec3b>(Point(x, y))[0] = 0;
-				segment.at<Vec3b>(Point(x, y))[1] = 0;
-				segment.at<Vec3b>(Point(x, y))[2] = 0;
-			}
-			else{
-				segment.at<Vec3b>(Point(x, y))[0] = 255;
-				segment.at<Vec3b>(Point(x, y))[1] = 255;
-				segment.at<Vec3b>(Point(x, y))[2] = 255;
-			}
-		}
-	}*/
-
-
-	// TODO: uncomment this
-	//imshow("segmentation",segment);
-
 	// 3D Box reprojection part
 	image_input.copyTo(projection);
 
@@ -1259,11 +1250,6 @@ void laserToPC2(const sensor_msgs::LaserScan::ConstPtr &input) {
 
 int main(int argc, char **argv) {
 
-	// Initialize ROS
-	ros::init(argc, argv, "labelling_node");
-	ros::NodeHandle nh;
-	image_transport::ImageTransport it(nh);
-
 	// Create Camera Windows
 	cv::namedWindow("camera", CV_WINDOW_NORMAL);
 	cv::resizeWindow("camera", 800, 666);
@@ -1280,6 +1266,33 @@ int main(int argc, char **argv) {
 
 	cv::namedWindow("crop", CV_WINDOW_NORMAL);
 	cv::startWindowThread();*/
+
+	QWidget window;
+	window.setWindowTitle("Labelling Tool");
+	window.setFixedSize(800, 50);
+
+	button1 = new QPushButton("Label Object", &window);
+	button2 = new QPushButton("Save Templates", &window);
+	button3 = new QPushButton("Clear Image", &window);
+	button4 = new QPushButton("Semi-automatic Mode", &window);
+	button5 = new QPushButton("Print Dataset", &window);
+	button6 = new QPushButton("Quit", &window);
+
+	button1->setGeometry(10, 10, 100, 30);
+	button2->setGeometry(130, 10, 130, 30);
+	button3->setGeometry(280, 10, 100, 30);
+	button4->setGeometry(400, 10, 160, 30);
+	button5->setGeometry(580, 10, 100, 30);
+	button6->setGeometry(700, 10, 80, 30);
+
+	window.show();
+
+
+
+	// Initialize ROS
+	ros::init(argc, argv, "labelling_node");
+	ros::NodeHandle nh;
+	image_transport::ImageTransport it(nh);
 
 	client = nh.serviceClient<rqt_bag::Pause>("pause");
 

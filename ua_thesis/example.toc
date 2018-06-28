@@ -8,7 +8,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{List of Tables}{vii}{section.0.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Acronyms}{viii}{section.0.4}
+\contentsline {chapter}{Listings}{ix}{section.0.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{Acronyms}{x}{section.0.5}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \defcounter {refsection}{0}\relax 
@@ -44,9 +46,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3.4}Other relevant datasets}{15}{subsection.2.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{ETHZ dataset}{15}{section*.24}
+\contentsline {subsubsection}{ETHZ dataset}{15}{section*.25}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{EPFL dataset}{19}{section*.27}
+\contentsline {subsubsection}{EPFL dataset}{19}{section*.28}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Experimental Infrastructure}{22}{chapter.3}
 \defcounter {refsection}{0}\relax 
@@ -130,9 +132,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {6.2.2}Dataset 2 - Aveiro City Urban Area}{52}{subsection.6.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Dataset 2.1 - Semi-Automatic Method}{52}{section*.70}
+\contentsline {subsubsection}{Dataset 2.1 - Semi-Automatic Method}{52}{section*.71}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{Dataset 2.2 - Manual Method}{53}{section*.73}
+\contentsline {subsubsection}{Dataset 2.2 - Manual Method}{53}{section*.74}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {7}Conclusions and Future Work}{55}{chapter.7}
 \defcounter {refsection}{0}\relax 
@@ -142,7 +144,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{Bibliography}{57}{section.7.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{Appendices}{60}{section*.77}
+\contentsline {chapter}{Appendices}{60}{section*.78}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {A}Appendices}{61}{Appendix.a.A}
 \defcounter {refsection}{0}\relax 
