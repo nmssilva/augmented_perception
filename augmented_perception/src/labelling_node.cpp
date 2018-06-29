@@ -51,7 +51,7 @@ image_transport::Publisher box2d_image_proj;
 
 // Images
 cv_bridge::CvImagePtr cv_ptr;
-Mat image_input, imToShow, sub, projection, projectionPC;
+Mat image_input, imToShow, sub, projection, projectionPC, allMTT;
 
 // Template-Matching related variables
 Mat patch, first_patch, result;
@@ -77,7 +77,7 @@ std::queue<Mat> first_previous_frames;
 std::queue<Mat> previous_patches;
 
 // Scanner MTT related variables
-pcl::PointCloud<pcl::PointXYZ> pointDatapclSug, pointDatapcl, pointData0pcl, pointData1pcl,
+pcl::PointCloud<pcl::PointXYZ> pointDatapclSug, pointDatapcl, pointDatapclFiltered, pointData0pcl, pointData1pcl,
 		pointData2pcl, pointData3pcl, pointDataEpcl, pointDataDpcl;
 sensor_msgs::PointCloud2 pointDataSug, pointData, pointData0, pointData1, pointData2,
 		pointData3, pointDataE, pointDataD;
@@ -394,18 +394,15 @@ void filter_pc() {
 		}
 
 		for (int i = 0; i < pointDatapcl.points.size(); i++) {
-			if (pointDatapcl.points[i].y >
+			if (!(pointDatapcl.points[i].y >
 				pointDatapcl.points[i].x * (proportion + 0.05) ||
 				pointDatapcl.points[i].y <
 				pointDatapcl.points[i].x * (proportion - 0.05) ||
-				pointDatapcl.points[i].x < back_limit) {
-				pointDatapcl.points[i].x = 9999;
-				pointDatapcl.points[i].y = 9999;
-				pointDatapcl.points[i].z = 9999;
+				pointDatapcl.points[i].x < back_limit)) {
+				pointDatapclFiltered.push_back(pointDatapcl.points[i]);
 			}
 		}
 
-		//cerr << "box_id: " << box_id << endl;
 		tracking_bbox_id = box_id;
 	}
 }
@@ -574,7 +571,7 @@ void initMTT() {
 
 	checkIfIDexist();
 
-	pcl::toROSMsg(pointDatapcl, pointData);
+	pcl::toROSMsg(pointDatapclFiltered, pointData);
 
 	pub_scans_filtered.publish(pointData);
 
@@ -973,7 +970,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 							count ++;
 						}
 				}
-				ROS_INFO("Frame count: %d",count);
+				ROS_INFO("Frame count: %d", count);
 
 				srv.request.control = "Resume";
 				client.call(srv);
@@ -985,6 +982,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 		// Show image_input
 		image_input = cv_ptr->image;
 		imToShow = image_input.clone();
+		allMTT = image_input.clone();
 		sub = image_input.clone();
 
 		// previous 5 frames
@@ -1032,9 +1030,7 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 	pcl::toROSMsg(pointDatapcl, pointData);
 	pub_scans.publish(pointData);
 
-	if (!lost) {
-		initMTT();
-	}
+	initMTT();
 
 	// Draw red rectangle (tracker) positions
 	float max_x, min_x, max_y, min_y;
@@ -1065,6 +1061,20 @@ void image_cb_TemplateMatching(const sensor_msgs::ImageConstPtr &msg) {
 			imshow("camera", imToShow);
 		}
 	}
+
+	//draw all MTT objects
+	if(mtt_count > 0){
+		for(int i = 0; i < mtt_count; i++){
+			float angleSug = atan(vectorMTTposSug.at(i*2+1)/vectorMTTposSug.at(i*2)) * 0.9;
+			int xSug = -(angleSug / 0.01745329252 * 27.0) + 812;
+
+			float size = 500 - 12.5 * (sqrt(pow(vectorMTTposSug.at(i*2), 2) + pow(vectorMTTposSug.at(i*2+1), 2)));
+			rectangle(allMTT, Point(xSug - size / 2, 693 - size / 2), Point(xSug + size / 2, 693 + size / 2),
+					  Scalar(0, 255, 0), 3);
+		}
+	}
+
+	imshow("allMTT", allMTT);
 
 	// get first patch and previous frames
 	if(foundSug && changeID && !manual && !full_manual){
@@ -1255,12 +1265,12 @@ int main(int argc, char **argv) {
 	cv::resizeWindow("camera", 800, 666);
 	cv::startWindowThread();
 
-	/*cv::namedWindow("projection", CV_WINDOW_NORMAL);
-	cv::resizeWindow("projection", 800, 666);
+	cv::namedWindow("allMTT", CV_WINDOW_NORMAL);
+	cv::resizeWindow("allMTT", 800, 666);
 	cv::startWindowThread();
 
 
-	cv::namedWindow("Full Pointcloud Data", CV_WINDOW_NORMAL);
+	/*cv::namedWindow("Full Pointcloud Data", CV_WINDOW_NORMAL);
 	cv::resizeWindow("Full Pointcloud Data", 800, 666);
 	cv::startWindowThread();
 

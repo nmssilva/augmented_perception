@@ -1530,17 +1530,24 @@ bool changeID = false;
 unsigned int prevID = 0;
 bool firstID = true;
 
+unsigned int mtt_count = 0;
+vector<double> vectorMTTposSug;
+
 void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::TargetListPC &target_msg,
 				   vector<t_listPtr> &list) {
 	static map<pair<string, int>, pair<visualization_msgs::Marker, int> > marker_map;
 	map<pair<string, int>, pair<visualization_msgs::Marker, int> >::iterator
 			it;
 
+
 	// limpar o vector todo
 	marker_vector.clear();
 	// colocar todos os elementos em processo de elemincação
 	for (it = marker_map.begin(); it != marker_map.end(); it++)
 		it->second.second--;
+
+	vectorMTTposSug.clear();
+	mtt_count = 0;
 
 	std_msgs::ColorRGBA color;
 	class_colormap colormap("hsv", 10, 1, false);
@@ -1570,10 +1577,14 @@ void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::Ta
 	marker.id = 0;
 
 	distanceSug = 3000;
+
 	if (list.size() > 0) {
 		foundSug = true;
 		for (uint i = 0; i < list.size(); i++) {
 			if (list[i]->shape.lines.size() != 0) {
+				vectorMTTposSug.push_back(list[i]->position.estimated_x);
+				vectorMTTposSug.push_back(list[i]->position.estimated_y);
+				mtt_count++;
 				if (sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2)) < distanceSug) {
 					distanceSug = sqrt(pow(list[i]->position.estimated_x, 2) + pow(list[i]->position.estimated_y, 2));
 					box_idSug = list[i]->id;
@@ -1698,7 +1709,7 @@ void CreateMarkersSug(vector<visualization_msgs::Marker> &marker_vector, mtt::Ta
 	}
 
 	// para o map todo envio tudo, e meto tudo a false
-	// envio todo e tudo o que ainda estiver a false vai com operaração de delete
+	// envio todo e tudo o que ainda estiver a false vai com operação de delete
 	for (it = marker_map.begin(); it != marker_map.end(); it++) {
 		if (it->second.second == 0)  // se for falso é para apagar
 			it->second.first.action = visualization_msgs::Marker::DELETE;
