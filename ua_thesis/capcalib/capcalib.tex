@@ -36,11 +36,11 @@ To acquire the images, the node creates a subscriber to get messages from the ca
 
 \subsection{Background Subtraction}
 
-The first thing to do with the frames is to apply background subtraction. It is supposed that the vehicle is stopped when the calibration is being done, so the background subtraction is a good method to apply.
+The first thing to do with the frames is to apply background subtraction. The vehicle is supposed to be still when the calibration process is being done, so the background subtraction is a good method to apply.
 
-When the capture starts, the first received frame will be default background (see figure \ref{fig:background}). The background removal is a process used in many vision based applications with static cameras, in which a frame is captured and defined as the background of a sequence of images. Therefore, when an objects enters the scene, by subtracting the background with the actual frame it is possible to detect easily where the object is (\cite{OpenCV}).
+When the capture starts, the first received frame will be the default background (see figure \ref{fig:background}). The background removal is a process used in many vision based applications with static cameras, in which a frame is captured and defined as the background of a sequence of images. Therefore, when an objects enters the scene, by subtracting the background with the actual frame it is possible to detect easily where the object is (\cite{OpenCV}).
 
-Technically, background subtraction extracts the foreground from the static background. Most times, the background is worked out and a Gaussian blur is often applied to it. When subtracting the foreground with the background it is obtained a value for each pixel that is evaluated with a threshold. The result is a binary image as seen in figure \ref{fig:ballnoise}.
+In simple words, background subtraction extracts the foreground from the static background. Most times, the background is improved by applying Gaussian blur to it. When subtracting the foreground with the background it is obtained a value for each pixel that is evaluated with a threshold. The result is a binary image as seen in figure \ref{fig:ballnoise}.
 
 \begin{figure}[htp]
 	
@@ -52,7 +52,7 @@ Technically, background subtraction extracts the foreground from the static back
 	
 \end{figure}
 
-The background removal process in the calibration package for the ball detection is done after applying blur to the background frame and then subtracting the background with the actual frame. This will result in a frame with very low values in the pixels where no new objects are shown. In most cases the values will not get to zero because of minor changes to the background which need to be ignored. A value is then used to apply a threshold in the resulting subtracted frame. If a pixel presents a value under the threshold, then it is set to zero (black), otherwise it is set to one (white). In the end, it is obtained a binary image containing some noise due to shadows or other lightning changes, and potentially an area with more concentrated white values where new objects appear. 
+In most cases the pixel values will not get to zero because of minor changes to the background (caused by shadows) which need to be ignored. In the resulting image a threshold is applied. If a pixel presents a value under the threshold, then it is set to zero (black), otherwise it is set to one (white). In the end, it is obtained a binary image containing some noise due to shadows or other lightning changes, and potentially an area with more concentrated white values where new objects appear. 
 
 
 \begin{figure}[htp]
@@ -92,13 +92,16 @@ An erosion algorithm is implemented where for each pixel the neighbor pixels are
 	
 \end{figure}
 
-Erosion is a morphological operations that consists in a set of operations that process images based on shapes applying a structuring element to an input image and generate an output image. In erosion, the algorithm computes a local minimum over the area of a kernel. In figure \ref{fig:neigh_cnt} the kernel is composed by the gray pixels. As the kernel is scanned over the image, the algorithm computes the minimal pixel value overlapped by the kernel and replaces the image pixel under the anchor point with that minimal value (\cite{OpenCV2.4.13.6documentation}). The result is the image in figure 
+Erosion is a morphological operations that consists in a set of operations that process images based on shapes applying a structuring element to an input image and generate an output image. In erosion, the algorithm computes a local minimum over the area of a kernel. In figure \ref{fig:neigh_cnt} the kernel is composed by the gray pixels. As the kernel is scanned over the image, the algorithm computes the minimal pixel value overlapped by the kernel and replaces the image pixel under the anchor point with that minimal value (\cite{OpenCV2.4.13.6documentation}). The result is the image in figure \ref{fig:balldetect}.
 
 \subsection{Color Filtering}
 
-After the noise filtering, the ball stands out in the image. The next step is to separate the ball using color filtering. To set the ball color the user needs to click in the ball to capture its hue. A mouse event is triggered and an handler function is called. The handler localizes the mouse click and retrieves the RGB values of the pixel in those coordinates. These values are converted to a hue value of the \gls{hsv} color space. The selected hue is the color used to filter the ball from the rest of the image. By applying certain thresholds it is possible to define an interval of color. The image will then be filtered by an interval centered in that hue value and the ball is now filtered from the rest of the image. 
+After the noise filtering, the ball stands out in the image. The next step is to separate the ball using color filtering. The ball color by default is red. To set the ball color the user needs to click in the ball to capture its hue. A mouse event is triggered and an handler function is called. The handler localizes the mouse click and retrieves the RGB values of the pixel in those coordinates. These values are converted to a hue value of the \gls{hsv} color space. The selected hue is the color used to filter the ball from the rest of the image. By applying certain thresholds it is possible to define an interval of color. The image will then be filtered by an interval centered in that hue value and the ball is now filtered from the rest of the image. 
 
-A bounding box is drawn around the ball if there is a number of white pixels bigger than a predefined threshold. To do this, the image is iterated like in this erosion phase, left-to-right and top-to-bottom. The algorithm saves the coordinates of all white pixels. An average $x$ and $y$ are calculated, finding the ball center. The size of the bounding box is given by how much white is in an specific area. Supposing there is a possibility of a white pixel to appear as noise, that pixel will have low weight in the algorithm considering that the pixels around it are black. Therefore, white pixels gathered in a larger area have high weight. Hence, the width and height of the bounding box are given by the maximum distance between the pixels with higher weight.
+
+\subsection{Bounding Box}
+
+A bounding box is drawn around the ball if there is a number of white pixels bigger than a predefined threshold. To do this, the image is iterated like in this erosion phase, left-to-right and top-to-bottom. The algorithm saves the coordinates of all white pixels. An average $x$ and $y$ are calculated, finding the ball center. The size of the bounding box is given by how much white is in an specific area. Supposing there is a possibility of a white pixel to appear as noise, that pixel will have low weight in the algorithm considering that the pixels around it are black. Therefore, white pixels gathered in a larger area have greater weight. Hence, the width and height of the bounding box are given by the maximum distance between the pixels with higher weight.
 
 
 \begin{figure}[htp]

@@ -41,7 +41,7 @@ The ATLASCAR 2 is based in the platform of the 2015 Mitsubishi i-MiEV, a full el
 	\end{tabular}
 \end{table}
 
-\section{\gls{lidar} Sensors}
+\section{LIDAR Sensors}
 
 The sensors equipped in the ATLASCAR 2 are two SICK LMS151 \gls{lidar}, a SICK LD-MRS \gls{lidar} and a PointGrey Zebra 2 Camera. The sensors have been mounted in the front of the car in an aluminum infrastructure designed by \cite{Correia2017}. These devices are connected to a network switch installed in the car to which a computed can be plugged to receive the data from the sensors.
 
@@ -201,9 +201,23 @@ In this project, roslaunch files are used to set up calibration values before la
 
 The roslaunch files are also advantageous to set up the multiple drivers needed to bring up the several devices equipped in the ATLASCAR 2. Since the sensors are connected to a network switch, the parameters given in the driver's roslaunch file are the IP addresses of each of the devices. The drivers will then receive packets from the sensors and remap them into the \gls{ros} format.
 
+\subsection{rqt\_bag}
+
+The rqt\_bag is a \gls{gui} to replay and display \gls{ros} bag files. In this program it is possible to show bag message contents, view image messages, plot message from selected topics, publish messages from selected topics and export messages to a new bag. The rqt\_bag is useful for the labelling process as it presents a timeline in which the user can select the time by clicking on it.
+
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.99\textwidth]{capexp/imgs/rqt_bag.png}
+	\caption{rqt\_bag \gls{gui} with the several topics present in the bag, an image viewer and a plot with readings of the ranges.}
+	\label{fig:rqtbag}
+\end{figure}
+
+
 \section{LAR Toolkit}
 
-The \gls{lartk} is a software suite developed by members of the \gls{lar}. The projects involved in the \gls{lartk} are based in the development of robotic solutions namely for the ATLAS project. The toolkit is constituted by a set of packages. Two packages in particular will be used for this dissertation: the multi-sensor calibration package and the \gls{mtt} package.
+The \gls{lartk} is a software suite developed by members of \gls{lar}. The projects involved in the \gls{lartk} are based in the development of robotic solutions namely for the ATLAS project. The toolkit is constituted by a set of packages. Two packages in particular will be used for this dissertation: the multi-sensor calibration package and the \gls{mtt} package.
 
 \subsection{Multi-sensor calibration package}
 
@@ -243,7 +257,7 @@ Some objects may be occluded during the sequence (for example when a car passes 
 
 The \gls{mtt} defines targets that keep information about the object and its velocity plus their position and obstacle lines.
 
-\section{\gls{pcl}}
+\section{PCL}
 
 The \gls{pcl} is a library that implements methods to process pointcloud data. The \gls{pcl} framework contains numerous state of the art algorithms including filtering, feature estimation, surface reconstruction, registration, model fitting and segmentation (\cite{PointCloudLibrary2018}). Some of these algorithms are used throughout this thesis an were also used by the \gls{mtt} library.
 

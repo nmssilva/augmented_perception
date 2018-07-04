@@ -1,6 +1,6 @@
 \chapter{Literature Review}
 
-This chapter presents some milestones in the history of autonomous driving and also some of the most relevant projects made previously in the ATLASCAR2.
+This chapter presents some milestones in the history of autonomous driving and also some of the most relevant projects made previously in the ATLASCAR2. It also presents examples of \gls{adas} datasets for labelled data.
 
 
 \section{Milestones on the History of autonomous driving}
@@ -21,7 +21,7 @@ In the 1950s promising trials in \gls{ad} took place. General Motors conducted e
 
 In the 1980s, pioneer Ernst Dickmanns designed a vision-guided Mercedes Benz along with the Bundeswehr University Munich engineering team, achieving a speed of 63 km/h on streets with no traffic. In the late 80s, projects with both \gls{lidar} scanners and computer vision were carried out. In 1989 the first experiments with vehicles making use of neural networks were conducted (\cite{Pomerleau1989}).
 
-Various autonomous vehicles competitions have been held. The first long distance competition for driverless cars was the \gls{darpa} Grand Challenge (\cite{DARPA}). The event was open to teams and organizations from around the world. Teams have participated from high schools, universities, businesses and other organizations, bringing a wide variety of technological skills to the race. The challenge offered high value money prizes to the winners. Because the reward was so high, the contest brought various state-of-the-art autonomous vehicles that showcased the solutions implemented in the platforms featuring new ideas that used the most recent technologies.
+Various autonomous vehicles competitions have been held. The first long distance competition for driverless cars was the \gls{darpa} Grand Challenge (\cite{DARPA}). The event was open to teams and organizations from around the world. Teams have participated from high schools, universities, businesses and other organizations, bringing a wide variety of technological skills to the race. The challenge offered high value money prizes to the winners. Because the reward was so high, the contest brought various state-of-the-art autonomous vehicles that showcased the solutions implemented in the platforms featuring new ideas that used the most recent technologies (\cite{Montemerlo2006} and \cite{Thrun2007}).
 
 Since then, many companies and research organizations have been developing various prototype cars. In the past decade, electric motored cars have emerged and new opportunities for \gls{ad} and \gls{adas} research have appeared. 
 
@@ -34,7 +34,7 @@ Waymo, the Google self-driving car project, begun testing driverless cars withou
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/waymo}
 	
 	\caption{Waymo's Jaguar I-PACE}
-	\label{fig:waymo}
+		\label{fig:waymo}
 	
 \end{figure}
 
@@ -50,7 +50,7 @@ Another example of an autonomous vehicle project is the Uber \gls{atc} car based
 	
 \end{figure}
 
-Audi released its A8 (figure \ref{fig:audi}) and the company stated that they would be the first manufacturer to use laser scanners in addition to cameras and others sensors in autonomous vehicles. The vehicle was designed to a level 3 autonomous driving: it is capable of self-driving with the expectation that the human driver will respond appropriately to a request to intervene. The Audi AI traffic jam pilot takes over the driving task in slow-moving traffic up to 60 km/h (\cite{AudiMediaCenter}).
+Audi released its A8 (figure \ref{fig:audi}) and the company stated that they would be the first manufacturer to use laser scanners in addition to cameras and others sensors in autonomous vehicles. The vehicle was designed to a level 3 autonomous driving: it is capable of self-driving with the expectation that the human driver will respond appropriately to a request to intervene. The Audi AI traffic jam pilot takes over the driving task in slow-moving traffic up to 60 km/h (\cite{AudiMediaCenter} and \cite{AndreasHerrmannWalterBrenner2018}).
 
 \begin{figure}[htp]
 	
@@ -64,7 +64,7 @@ Audi released its A8 (figure \ref{fig:audi}) and the company stated that they wo
 
 Like the University of Aveiro, many other universities and research institutes study the \gls{ad} and \gls{adas} paradigms.
 
-Another interesting autonomous vehicle project is the \gls{scot} vehicle (figure \ref{fig:scot}), conducted by the \gls{smart} (\cite{Singapore-MITAllianceforResearchandTechnology}). Like the ATLASCAR 2, \gls{scot} is also a Mitsubishi i-MiEV used to research \gls{adas} and \gls{ad} at \gls{smart} and it is designed for operations on public roads. The \gls{scot} vehicle also relies on \gls{lidar} sensors similar to ATLASCAR 2 (\cite{Teo}). 
+Another interesting autonomous vehicle project is the \gls{scot} vehicle (figure \ref{fig:scot}), conducted by the \gls{smart} (\cite{Singapore-MITAllianceforResearchandTechnology}). Like the ATLASCAR 2, \gls{scot} is also a Mitsubishi i-MiEV used to research \gls{adas} and \gls{ad} at \gls{smart} and it is designed for operations on public roads (\cite{AndreasHerrmannWalterBrenner2018}). The \gls{scot} vehicle also relies on \gls{lidar} sensors similar to ATLASCAR 2 (\cite{Teo}). 
 
 \begin{figure}[htp]
 	
@@ -135,7 +135,7 @@ This thesis proposes techniques to improve motion prediction to achieve the deve
 This sections presents some relevant work and its results in public labelled datasets for \gls{adas} projects.
 
 \subsection{KITTI Dataset}
-One of them and probably the most well-known in the fields of \gls{ad} is the \gls{kitti} dataset (\cite{KarlsruheInstituteofTechnology}). The \gls{kitti} Dataset was captured with a Volkswagen station wagon (figure \ref{fig:kitticar}) for use in mobile robotics and \gls{ad} research. The \gls{kitti} benchmark suite is born in 2012 at Karlsruhe Institute of Technology by the need to have a dataset to classify objects on the streets. 
+Probably the most well-known dataset in the fields of \gls{ad} is the \gls{kitti} (\cite{KarlsruheInstituteofTechnology}). The \gls{kitti} dataset was captured with a Volkswagen station wagon (figure \ref{fig:kitticar}) used in mobile robotics and \gls{ad} research. The \gls{kitti} benchmark suite started in 2012 at Karlsruhe Institute of Technology with the need to have a dataset to classify objects on the streets. 
 
 This project has grown by increasingly adding more results with more sensors. The \gls{kitti} benchmark started with the stereo, flow and odometry benchmarks and today it includes standards for object tracking and more. 
 
@@ -151,9 +151,9 @@ This project has grown by increasingly adding more results with more sensors. Th
 
 Just like ATLASCAR 2, the car used in the \gls{kitti} dataset is equipped with \gls{lidar} sensors and Point Grey Video Cameras. The dataset is used for automatic recognition and tracking of vehicles and pedestrians. 
 
-It consists in image sequences (see figure \ref{fig:kittiresult}) and a text file in which, for each frame the various objects in the field of view are depicted with and identification number, a label, and coordinates about their position regarding the car and in the image ( \cite{Geiger}). 
+It consists in image sequences (see figure \ref{fig:kittiresult}) and a text file in which, for each frame the various objects in the field of view are depicted with and identification number, a label, and coordinates about their position in the 2D and 3D space ( \cite{Geiger}). 
 
-The development kit used for the KITTI database contains C++ and MATLAB code to read the sensor data and write dataset results. The data development kit used is provided on the KITTI Website (\cite{KarlsruheInstituteofTechnology}). It contains MATLAB demonstration code with C++ wrappers. 
+The development kit used for the KITTI database contains C++ and MATLAB code to read the sensor data and write dataset results. The data development kit used is provided on the KITTI Website (\cite{KarlsruheInstituteofTechnology}). It contains a MATLAB demonstration code with C++ wrappers. 
 
 The data is processed and inserted into MATLAB structures and arrays. The demonstration shows how 3D boxes can be read from the dataset files and projected into the image plane of the cameras (see figure \ref{fig:kittidk}). The KITTI database also uses the \gls{pcl} to process and gather the pointclouds obtained from the LIDAR sensors.
 
@@ -201,7 +201,7 @@ Analyzing the snippet, it is possible to locate a cyclist and a pedestrian in fr
 
 The DeepDrive Dataset is a recent \gls{adas} labelled dataset from the University of California, Berkeley.
 
-The Dataset consists of box annotations, region annotations and detection of objects, lanes and drivable areas (\cite{Yu2018}). Their labelling system is a web-based tool (see figure \ref{fig:berkeletool}). 
+The Dataset consists of box annotations, region annotations and detection of objects, lanes and drivable areas (\cite{Yu2018}). The only source data for each dataset is a video captured with a camera on a vehicle. Their labelling system is a web-based tool (see figure \ref{fig:berkeletool}). 
 
 \begin{figure}[htp]
 	
@@ -286,7 +286,7 @@ By looking at listing \ref{lst:humaneva_snip}, in this dataset snippet is easy t
 \subsection{Other relevant datasets}
 Other datasets included in the research for this dissertation are found in \gls{ethz} and in \gls{epfl} projects. 
 \subsubsection{ETHZ dataset}
-\gls{ethz} conducted studies for detection and tracking of people on the street. Just like the previous datasets, its creation is based in MATLAB scripts and the data is gathered and stored in MATLAB structures. The dataset is simple: for each frame there are several bounding boxes in the image.
+\gls{ethz} conducted studies for detection and tracking of people on the street (\cite{Ess2009}). Just like the previous datasets, its creation is based in MATLAB scripts and the data is gathered and stored in MATLAB structures. The dataset is simple: for each frame there are several bounding boxes in the image.
 \begin{figure}
 \begin{center}
 	\begin{lstlisting}[label={lst:ETHZ}, caption={ETHZ dataset dataset file snippet.},language=c++]
@@ -311,7 +311,7 @@ Other datasets included in the research for this dissertation are found in \gls{
 This dataset is focused just in the detection and tracking of pedestrians in the image (\cite{ETHZEidgenossischeTechnischeHochschuleZurich}). In listing \ref{lst:ETHZ} each line is composed with a string defining a path to the image representing the actual frame, followed by tuples of four elements $(x1,y1,x2,y2)$ representing the bounding boxes where pedestrians are found in the respective frame. 
 
 \subsubsection{EPFL dataset}
-The \gls{epfl} designed a dataset for multiple people in a camera environment, independent of the scenario. This dataset used various synced video cameras filming the same area in different angles. The data from the cameras is captured and processed with MATLAB scripts and some algorithms in C++.
+The \gls{epfl} designed a dataset for multiple people in a camera environment, independent of the scenario. This dataset used various synced video cameras filming the same area in different angles (\cite{Biliotti}). The data from the cameras is captured and processed with MATLAB scripts and some algorithms in C++.
 
 \begin{figure}
 \begin{center}
@@ -342,7 +342,7 @@ The \gls{epfl} designed a dataset for multiple people in a camera environment, i
 \end{figure}
 
 
-In listing \ref{lst:basket} there is a snippet of the dataset. The dataset includes, for each frame, various objects identified with a number, a label, bounding box coordinates, and flags to point out if the person is occluded, lost, or if the detection was automatically interpolated from the other camera's information ( \cite{EPFLEcolepolytechniquefederaledeLausanne}). The particularity of the structure of this dataset is that, for each object, it is tracked in the image sequences individually, and only then another object is tracked and labeled. In listing \ref{lst:basket_leg} a legend of this dataset can be found.
+In listing \ref{lst:basket} there is a snippet of the dataset. The dataset includes, for each frame, various objects identified with a number, a label, bounding box coordinates, and flags to point out if the person is occluded, lost, or if the detection was automatically interpolated from the other camera's information (\cite{EPFLEcolepolytechniquefederaledeLausanne}). The particularity of the structure of this dataset is that, for each object, it is tracked in the image sequences individually, and only then another object is tracked and labeled. In listing \ref{lst:basket_leg} a legend of this dataset can be found.
 
 \begin{figure}[htp]
 

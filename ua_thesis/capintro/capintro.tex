@@ -28,26 +28,26 @@ The ATLAS Project was created in 2003 and began with robots developed to partici
 	
 \end{figure}
 
-As the project grew, it has evolved into full-sized prototypes: the ATLASCARs. ATLASCAR 1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR 1 is well equipped with several \gls{lidar} sensors and a camera. Data about its environment is gathered by the scanners which is then processed building perception into the car. With perception is possible for the vehicle to actuate allowing the car to move autonomously. 
+As the project grew, it has evolved into full-sized prototypes: the ATLASCARs. ATLASCAR1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR1 was equipped with several \gls{lidar} sensors and a camera. Data about its environment is gathered by the scanners which is then processed building perception into the car allowing the car actuate to move autonomously. 
 
 \begin{figure}[htp]
 	
 	\centering
 	\includegraphics[width=0.9\textwidth]{capintro/imgs/atlascar1}
 	
-	\caption{ATLASCAR 1 based on the Ford Escort platform}
+	\caption{ATLASCAR1 based on the Ford Escort platform}
 	\label{fig:atlascar1}
 	
 \end{figure}
 
-The ATLASCAR 1 brought successful results. In the end, the vehicle was able to move and execute maneuvers autonomously in small and controlled places. The ATLASCAR 1 was then replaced by a more recent vehicle. The ATLASCAR 2 (figure \ref{fig:atlascar1}) is the new full-sized platform of the ATLAS project and it is based on a Mitsubishi i-MiEV. This is the vehicle used for research in this dissertation. The ATLASCAR 2 is well equipped with various \gls{lidar} sensors and a camera. It is also a full electric vehicle which will be easier to modify, test and control. 
+The ATLASCAR1 brought successful results. In the end, the vehicle was able to move and execute maneuvers autonomously in small and controlled places. The ATLASCAR1 was then replaced by a more recent vehicle. The ATLASCAR2 (figure \ref{fig:atlascar1}) is the new full-sized platform of the ATLAS project and it is based on a Mitsubishi i-MiEV. This is the vehicle used for research in this dissertation. The ATLASCAR2 is equipped with various \gls{lidar} sensors and a camera. It is also a full electric vehicle which will be easier to modify, test and control. 
 
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=0.9\textwidth]{capintro/imgs/imiev}
+	\includegraphics[width=0.9\textwidth]{capintro/imgs/atlas2.png}
 	
-	\caption{Mitsubishi i-MiEV platform where ATLASCAR 2 is based}
+	\caption{ATLASCAR 2 based on the Mitsubishi i-MiEV platform}
 	\label{fig:atlascar2}
 	
 \end{figure}
@@ -56,7 +56,7 @@ The ATLASCAR 1 brought successful results. In the end, the vehicle was able to m
 \section{Motivation}
 To use multiple sensors at the same time in a system, it is fundamental that these devices are properly calibrated. The LIDAR sensors and the camera relative positions and orientation must be aligned with a reference frame so that a full pointcloud of all sensors can be created for visualization purposes or for any end.
 
-\gls{ad} and \gls{adas} often make use of machine learning. Deep learning algorithms utilize neural and convolutional networks for images and range-based sensor data. In the fields of machine learning, images are often used as input templates to create object models. In an image sequence it is possible to track an object and obtain samples of the \gls{roi} where the target is. This way it is possible for an algorithm to automatically recognize an object.
+\gls{ad} and \gls{adas} often make use of machine learning. Deep learning algorithms utilize neural and convolutional networks for images and range-based sensor data. In the fields of machine learning, images are often used as input templates to create object models. In an image sequence it is possible to track an object and obtain samples of the target's location. This way it is possible for an algorithm to automatically recognize an object.
 
 While registering the position of the objects in an image sequence, it is important to tell what those objects are. Labelling is the act to classify objects in a certain group. As the annotation is done, when selecting an object, the user should enter a label that identifies the target making it easy for the learning algorithm to recognize to object afterwards.
 

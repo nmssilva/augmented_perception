@@ -32,45 +32,69 @@ In listing \ref{lst:calib_result} an example output file of the calibration can 
 
 \section{Detection, Tracking and Labelling}
 
-This section will present the detection, tracking and labelling results with two rosbags recorded and used for the testing of the detection, tracking and labelling algorithms. Two rosbags were recorded:
+This section will present the detection, tracking and labelling results with two rosbags recorded and used for the testing of the detection, tracking and labelling algorithms. Two rosbags were recorded in October 17, 2017, in the afternoon:
 
 \begin{itemize}
-	\item The first rosbag was recorded while leaving Departamento de Engenharia Mec\^anica at Universidade de Aveiro. The car travelled around the campus and visited the Alboi neighbourhood.
+	\item The first rosbag was recorded while leaving Universidade de Aveiro. The car traveled around the campus and visited the Alboi neighborhood.
 	\begin{itemize}
 	\item In this bag there are cars, vans, cyclists and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
 	\end{itemize} 
 	\item The second rosbag starts at Alboi where the first rosbag stopped. The car follows a path into the A25 highway until the first exit.
 	\begin{itemize}
-	\item There are mostly cars in this one and it was a good rosbag to start with some tests in tracking objects.
+	\item There are mostly cars in this rosbag and it was better to start with some tests in tracking objects.
 	\end{itemize} 
 \end{itemize} 
 
 
-Each rosbag produced a dataset where the objects found were registered. Looking into the datasets can show how the algorithm behaves.
+Each rosbag produced a dataset where the objects found were registered. Looking into the datasets can show how the algorithm behaves. Several objects were found in the sequences. The discarded objects or the objects wrongly suggested by the semi-automatic methods are still saved but labelled as \texttt{DontCare}. The main labels used are \texttt{car}, \texttt{van}, \texttt{people}, \texttt{bicycle}, \texttt{sign} (street signs) and \texttt{misc} (miscellaneous objects in the streets like dumpsters, bushes and trees).
 
 \subsection{Dataset 1 - Highway / A25}
 
 The first dataset was produced from the highway rosbag. The rosbag duration is 3:37s (217s), has a size of 8.6 GB and includes 62352 messages.
 
-The labelling was done using semi-automatic methods using sensor fusion and also manually by pointing and clicking on an object when the sensors don't find it. The semi-automatic methods suggest the user an object of interest and asks for a label from the user.
+The labelling was done with semi-automatic methods using sensor fusion and also manually by pointing and clicking on an object when the sensors don't find it. The semi-automatic methods suggest the user an object of interest and asks for a label from the user.
 
-\begin{table}[]
+\begin{table}[htp]
 	\centering
 	\caption{Highway dataset annotation metrics}
 	\label{tab: highwaymetrics}
 	\begin{tabular}{c|c}
 		\textbf{Metric}      & \textbf{Count} \\ \hline
-		\textbf{\begin{tabular}[c]{@{}c@{}}Right\\ Suggestions\end{tabular}}            & 12             \\ \hline
-		\textbf{\begin{tabular}[c]{@{}c@{}}Wrong\\ Suggestions\end{tabular}}            & 6              \\ \hline
-		\textbf{\begin{tabular}[c]{@{}c@{}}Manual\\ Entries Saved\end{tabular}}         & 1              \\ \hline
-		\textbf{\begin{tabular}[c]{@{}c@{}}Manual Entries\\ Discarded\end{tabular}}     & 0              \\ \hline
-		\textbf{\begin{tabular}[c]{@{}c@{}}Maximum Objects\\ in One Frame\end{tabular}} & 1             
+		\begin{tabular}[c]{@{}c@{}}Right Suggestions\end{tabular}            & 12             \\ \hline
+		\begin{tabular}[c]{@{}c@{}}Wrong Suggestions\end{tabular}           & 6              \\ \hline
+		\begin{tabular}[c]{@{}c@{}}Manual Entries Saved\end{tabular}         & 1              \\ \hline
+		\begin{tabular}[c]{@{}c@{}}Manual Entries Discarded\end{tabular}     & 0              \\ \hline
+		\begin{tabular}[c]{@{}c@{}}Maximum Objects in One Frame\end{tabular} & 1             
 	\end{tabular}
 \end{table}
 
-Several objects were found in this sequence. The discarded objects or the objects wrongly suggested by the semi-automatic system are still saved but labelled as \texttt{DontCare}. Other labels used are \texttt{car}, \texttt{van}, \texttt{people}, \texttt{bicycle}, \texttt{sign} (street signs) and \texttt{misc} (miscellaneous objects in the streets like dumpsters, bushes and trees). The amount of objects found in this rosbag is listed in table \ref{tab: highwaystats}.
+\begin{figure}[htp]
+	
+	\centering
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/car1.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/sign1.png}
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/misc1.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/dontcare1.png}
+	
+	\caption{Example of suggestions given by the MTT:  \texttt{car} (top-left), \texttt{sign} (top-right), \texttt{misc} (bottom-left) and \texttt{DontCare} (bottom-right)}
+	\label{fig:dataset1results1}
+	
+\end{figure}
 
-\begin{table}[]
+\begin{figure}[htp]
+	
+	\centering
+	
+	\includegraphics[width=.8\textwidth]{capresults/imgs/manual1.png}
+	
+	\caption{Example of \texttt{car} with manual entry.}
+	\label{fig:dataset1results2}
+	
+\end{figure}
+
+\begin{table}[htp]
 	\centering
 	\caption{Highway dataset object amounts}
 	\label{tab: highwaystats}
@@ -80,6 +104,8 @@ Several objects were found in this sequence. The discarded objects or the object
 		 
 	\end{tabular}
 \end{table}
+
+Only one manual entry was saved because the target was too far and the semi-automatic methods in that place suggested the roadsides.
 
 As this sequence presents few objects at a time, most semi-automatic suggestions were accepted. The semi-automatic system works better in areas with reduced movement so the readings of the sensors are more accurate.
 
@@ -93,7 +119,7 @@ The labelling in this rosbag was done using the semi-automatic methods and the m
 
 The dataset produced with the semi-automatic method the labelling metric listed in table \ref{tab: urban1metrics}.
 
-\begin{table}[]
+\begin{table}[htp]
 	\centering
 	\caption{Urban area dataset with semi-automatic methods annotation metrics}
 	\label{tab: urban1metrics}
@@ -105,11 +131,11 @@ The dataset produced with the semi-automatic method the labelling metric listed 
 	\end{tabular}
 \end{table}
 
-The Urban area is a zone with high-traffic and because there are more objects (sidewalks, road boundaries, walls, etc...), the semi-automatic method is more likely to mistake an object of interest with something with no significance in the dataset scope. 
+The Urban area is a zone with high-traffic and because there are more objects (sidewalks, roadsides, walls, etc...), the semi-automatic method is more likely to mistake an object of interest with something with no significance in the dataset scope. 
 
-The metrics show that nearly 2 out of 3 suggestions are something that has no interest for the dataset. In table \ref{tab: urban1stats} the amount of objects found is presented.
+The metrics show that nearly 2 out of 3 suggestions are something that has no interest for the dataset. In table \ref{tab: urban1stats} the amount of objects found is presented and in figure \ref{fig:dataset2results1} example of each label are shown.
 
-\begin{table}[]
+\begin{table}[htp]
 	\centering
 	\caption{Urban area dataset  with semi-automatic methods object amounts}
 	\label{tab: urban1stats}
@@ -119,12 +145,29 @@ The metrics show that nearly 2 out of 3 suggestions are something that has no in
 	\end{tabular}
 \end{table}
 
+\begin{figure}[htp]
+	
+	\centering
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/car2.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/van2.png}
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/people2.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/sign2.png}
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/dontcare2.png}
+	
+	\caption{Example of suggestions given by the semi-automatic methods in dataset 2:  \texttt{car} (top-left), \texttt{van} (top-right), \texttt{people} (middle-left), \texttt{sign} (middle-right) and  \texttt{DontCare} (bottom)}
+	\label{fig:dataset2results1}
+	
+\end{figure}
+
 
 \subsubsection{Dataset 2.2 - Manual Method}
 
-To test the manual method, one must click on the object and control the rosbag (pause it, go back and forward, etc...) to obtain maximum precision on the detection and tracking. 
+To test the manual method, one must click on the object and control the rosbag (pause, resume, go back and forward, etc...) to obtain maximum precision on the detection and tracking. 
 
-\begin{table}[]
+\begin{table}[htp]
 	\centering
 	\caption{Urban area dataset with manual methods annotation metrics}
 	\label{tab: urban2metrics}
@@ -140,7 +183,7 @@ In table \ref{tab: urban2metrics} some annotation metrics are shown. Despite the
 
 Because the annotation was done manually, it is possible to enter more than one object at the same time whereas in the semi-automatic that is not possible because when the sensors suggest an object in sight, the algorithm always outputs the object that is closer to the vehicle. In table \ref{tab: urban2stats} it is possible to see the amount of each object in this dataset.
 
-\begin{table}[]
+\begin{table}[htp]
 	\centering
 	\caption{Urban area dataset with manual methods object amounts}
 	\label{tab: urban2stats}
@@ -151,6 +194,24 @@ Because the annotation was done manually, it is possible to enter more than one 
 \end{table}
 
 Analyzing table \ref{tab: urban2stats} it is possible to conclude that with manual methods one can freely enter with more detail the detected objects. In comparison to the semi-automatic methods, with the manual strategy it is easier to enter objects like people and bicycles as it seems to be difficult to cluster such small objects in the given sensor data.
+
+\begin{figure}[htp]
+	
+	\centering
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/car3.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/van3.png}
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/people3.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/bicycle3.png}
+	
+	\includegraphics[width=.49\textwidth]{capresults/imgs/sign3.png}
+	\includegraphics[width=.49\textwidth]{capresults/imgs/misc2.png}
+	
+	\caption{Example of templates with the manual methods in dataset 2:  \texttt{car} (top-left), \texttt{van} (top-right), \texttt{people} (middle-left), \texttt{bicycle} (middle-right), \texttt{sign} (bottom-left) and \texttt{misc} (bottom-right)}
+	\label{fig:dataset2results2}
+	
+\end{figure}
 
 
 

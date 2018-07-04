@@ -19,6 +19,28 @@
 
 \refsection{0}
   \sortlist[entry]{nyt/global}
+    \entry{AndreasHerrmannWalterBrenner2018}{article}{}
+      \name{author}{1}{}{%
+        {{uniquename=0,hash=1fe0bdefe3c39bf16d57f40d3cb1872e}{%
+           family={{Andreas\bibnamedelimb Herrmann,\bibnamedelimb Walter\bibnamedelimb Brenner}},
+           family_i={A\bibinitperiod},
+           given={Rupert\bibnamedelima Stadler},
+           given_i={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1fe0bdefe3c39bf16d57f40d3cb1872e}
+      \strng{fullhash}{1fe0bdefe3c39bf16d57f40d3cb1872e}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelyear}{2018}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Autonomous Driving: How the Driverless Revolution will Change the World}}
+      \field{year}{2018}
+      \verb{url}
+      \verb https://books.google.pt/books/about/Autonomous%7B%5C_%7DDriving.html?id=JfxQDwAAQBAJ
+      \endverb
+    \endentry
     \entry{AudiMediaCenter}{misc}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=38fcf0804b04d6622bdd3070e400ab06}{%
@@ -40,6 +62,42 @@
       \field{year}{2018}
       \verb{url}
       \verb https://www.audi-mediacenter.com/en/press-releases/audi-at-the-iaa-2017-autonomous-driving-in-three-steps-9311
+      \endverb
+    \endentry
+    \entry{Biliotti}{article}{}
+      \name{author}{3}{}{%
+        {{uniquename=0,hash=db8730eea34b6d01e4e51e05c9292441}{%
+           family={Biliotti},
+           family_i={B\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{uniquename=0,hash=ecef9584749bd3f7cedff45ce9c87531}{%
+           family={Antonini},
+           family_i={A\bibinitperiod},
+           given={Gianluca},
+           given_i={G\bibinitperiod}}}%
+        {{uniquename=0,hash=9ca2812d3c55db8047f30370ef158ec0}{%
+           family={Thiran},
+           family_i={T\bibinitperiod},
+           given={Jean\bibnamedelima Philippe},
+           given_i={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \strng{namehash}{80fdc2e8a5f7027b42d2258166ab43f2}
+      \strng{fullhash}{80fdc2e8a5f7027b42d2258166ab43f2}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelyear}{2015}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper we propose an approach to count the num-ber of pedestrians, given a trajectory data set provided by a tracking system. The tracking process itself is treated as a black box providing us the input data. The idea is to apply a hierarchical clustering algorithm, using different data rep-resentations and distance measures, as a post-processing step. The final goal is to reduce the difference between the number of tracked pedestrians and the real number of indi-viduals present in the scene.}
+      \field{title}{{Multi-layer hierarchical clustering of pedestrian trajectories for automatic counting of people in video sequences}}
+      \field{year}{2015}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Biliotti, Antonini, Thiran - Unknown - Multi-layer hierarchical clustering of pedestrian trajectories for automatic counting of people i.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb https://infoscience.epfl.ch/record/87317/files/Biliotti2005%7B%5C_%7D1412.pdf
       \endverb
     \endentry
     \entry{Team}{misc}{}
@@ -135,6 +193,57 @@
       \verb https://cvlab.epfl.ch/data/pom
       \endverb
     \endentry
+    \entry{Ess2009}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{uniquename=0,hash=0b435bb0ef8c58c705b59eb13602fb7d}{%
+           family={Ess},
+           family_i={E\bibinitperiod},
+           given={A.},
+           given_i={A\bibinitperiod}}}%
+        {{uniquename=0,hash=b5ddbf2c6ee3508670fdd3593fc72e3e}{%
+           family={Leibe},
+           family_i={L\bibinitperiod},
+           given={B.},
+           given_i={B\bibinitperiod}}}%
+        {{uniquename=0,hash=f33688021bc7f064cddea445951b458a}{%
+           family={Schindler},
+           family_i={S\bibinitperiod},
+           given={K.},
+           given_i={K\bibinitperiod}}}%
+        {{uniquename=0,hash=d012844ea38b483e88d46a84db322636}{%
+           prefix={van},
+           prefix_i={v\bibinitperiod},
+           family={Gool},
+           family_i={G\bibinitperiod},
+           given={L.},
+           given_i={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{f09e153d1fba67960256197a50523df6}
+      \strng{fullhash}{6936a3d40e79952b691c6f42faa0687d}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelyear}{2009}
+      \field{labelmonth}{05}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2009 IEEE International Conference on Robotics and Automation}
+      \field{isbn}{978-1-4244-2788-8}
+      \field{month}{05}
+      \field{title}{{Moving obstacle detection in highly dynamic scenes}}
+      \field{year}{2009}
+      \field{pages}{56\bibrangedash 63}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1109/ROBOT.2009.5152884
+      \endverb
+      \verb{url}
+      \verb http://ieeexplore.ieee.org/document/5152884/
+      \endverb
+    \endentry
     \entry{ETHZEidgenossischeTechnischeHochschuleZurich}{misc}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=a8291a18da6898ca2f5c5e4050ce72cf}{%
@@ -223,7 +332,7 @@
       \verb http://www.cvlibs.net/datasets/kitti/
       \endverb
     \endentry
-    \entry{Kroger2016}{incollection}{}
+    \entry{Kroger2016}{article}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=3ef4e90811274b0d642ebddf4f90bae9}{%
            family={Kr\"{o}ger},
@@ -245,7 +354,7 @@
       \field{datelabelsource}{}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{Autonomous Driving}
+      \field{journaltitle}{Autonomous Driving}
       \field{title}{{Automated Driving in Its Social, Historical and Cultural Contexts}}
       \field{year}{2016}
       \field{pages}{41\bibrangedash 68}
@@ -341,6 +450,60 @@
       \verb https://www.mitsubishi-motors.com/en/showroom/i-miev/specifications/
       \endverb
     \endentry
+    \entry{Montemerlo2006}{article}{}
+      \name{author}{5}{}{%
+        {{uniquename=0,hash=67d13fe110c028d272a9291dff505b23}{%
+           family={Montemerlo},
+           family_i={M\bibinitperiod},
+           given={Michael},
+           given_i={M\bibinitperiod}}}%
+        {{uniquename=0,hash=5112ea130eadef0764fce0145b8b9f91}{%
+           family={Thrun},
+           family_i={T\bibinitperiod},
+           given={Sebastian},
+           given_i={S\bibinitperiod}}}%
+        {{uniquename=0,hash=6a635409df22c204b68d994c1929762b}{%
+           family={Dahlkamp},
+           family_i={D\bibinitperiod},
+           given={Hendrik},
+           given_i={H\bibinitperiod}}}%
+        {{uniquename=0,hash=01630f34351c5fa7ba1dbc0ef043bbd2}{%
+           family={Stavens},
+           family_i={S\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{uniquename=0,hash=341a61122f6eda6b7f526da6bb86bfde}{%
+           family={Strohband},
+           family_i={S\bibinitperiod},
+           given={Sven},
+           given_i={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{32904a01ce0b153c1a44c969ee5fa6bd}
+      \strng{fullhash}{f0f59d87d894d044fc2c5ed934c660bf}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelyear}{2006}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper describes the software architecture of Stanley, an autonomous land vehicle developed for high-speed desert driving without human intervention. The vehi- cle recently won the DARPA Grand Challenge, a major robotics competition. The article describes the software architecture of the robot, which relied pervasively on state-of-the-art AI technologies, such as machine learn- ing and probabilistic reasoning.}
+      \field{isbn}{1577352815}
+      \field{issn}{03029743}
+      \field{journaltitle}{Artificial Intelligence}
+      \field{number}{Gat 1998}
+      \field{title}{{Winning the DARPA Grand Challenge with an AI Robot}}
+      \field{volume}{21}
+      \field{year}{2006}
+      \field{pages}{982\bibrangedash 987}
+      \range{pages}{6}
+      \verb{file}
+      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/10.0000@www.aaai.org@generic-C1A2703C0C75.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://scholar.google.com/scholar?hl=en%7B%5C&%7DbtnG=Search%7B%5C&%7Dq=intitle:Winning+the+DARPA+Grand+Challenge+with+an+AI+Robot%7B%5C#%7D0
+      \endverb
+      \keyw{computer vision,robotics}
+    \endentry
     \entry{OpenCV}{misc}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=5bd4c87976f48e6a53919d53e14025e9}{%
@@ -389,30 +552,6 @@
       \verb https://docs.opencv.org/2.4/modules/calib3d/doc/camera%7B%5C_%7Dcalibration%7B%5C_%7Dand%7B%5C_%7D3d%7B%5C_%7Dreconstruction.html
       \endverb
     \endentry
-    \entry{OpenCV2.4.13.6documentationa}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
-           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
-           family_i={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \field{sortinit}{O}
-      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{1}
-      \field{labelyear}{2018}
-      \field{datelabelsource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Canny Edge Detector}}
-      \field{urlday}{30}
-      \field{urlmonth}{04}
-      \field{urlyear}{2018}
-      \field{year}{2018}
-      \verb{url}
-      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/canny%7B%5C_%7Ddetector/canny%7B%5C_%7Ddetector.html
-      \endverb
-    \endentry
     \entry{OpenCV2.4.13.6documentation}{misc}{}
       \name{author}{1}{}{%
         {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
@@ -423,7 +562,6 @@
       \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
       \field{sortinit}{O}
       \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{2}
       \field{labelyear}{2018}
       \field{datelabelsource}{}
       \field{labelnamesource}{author}
@@ -435,30 +573,6 @@
       \field{year}{2018}
       \verb{url}
       \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/erosion%7B%5C_%7Ddilatation/erosion%7B%5C_%7Ddilatation.html
-      \endverb
-    \endentry
-    \entry{OpenCV2.4.13.6documentationb}{misc}{}
-      \name{author}{1}{}{%
-        {{uniquename=0,hash=34a2cc8e4d9ca17ee66a0912c6eed33c}{%
-           family={{OpenCV\bibnamedelimb 2.4.13.6\bibnamedelimb documentation}},
-           family_i={O\bibinitperiod}}}%
-      }
-      \strng{namehash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \strng{fullhash}{34a2cc8e4d9ca17ee66a0912c6eed33c}
-      \field{sortinit}{O}
-      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
-      \field{extrayear}{3}
-      \field{labelyear}{2018}
-      \field{datelabelsource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{{Sobel Derivatives}}
-      \field{urlday}{30}
-      \field{urlmonth}{04}
-      \field{urlyear}{2018}
-      \field{year}{2018}
-      \verb{url}
-      \verb https://docs.opencv.org/2.4/doc/tutorials/imgproc/imgtrans/sobel%7B%5C_%7Dderivatives/sobel%7B%5C_%7Dderivatives.html
       \endverb
     \endentry
     \entry{PointCloudLibrary2018}{misc}{}
@@ -728,7 +842,7 @@
       \verb http://lars.mec.ua.pt/public/LAR%20Projects/Perception/2016%7B%5C_%7DJorgeAlmeida/Thesis/PhDThesis.pdf
       \endverb
     \endentry
-    \entry{Spinello2010}{incollection}{}
+    \entry{Spinello2010}{article}{}
       \name{author}{3}{}{%
         {{uniquename=0,hash=c105a088674c03ad755da447c51fc3cc}{%
            family={Spinello},
@@ -769,44 +883,6 @@
       \endverb
       \verb{url}
       \verb http://link.springer.com/10.1007/978-3-642-13408-1%7B%5C_%7D12
-      \endverb
-    \endentry
-    \entry{Suzuki1985}{article}{}
-      \name{author}{2}{}{%
-        {{uniquename=0,hash=88ba338dc1dd2ed26aeecccad763e4d2}{%
-           family={Suzuki},
-           family_i={S\bibinitperiod},
-           given={Satoshi},
-           given_i={S\bibinitperiod}}}%
-        {{uniquename=0,hash=f007b141bc6d2b3909bc5b1572652721}{%
-           family={Abe},
-           family_i={A\bibinitperiod},
-           given={Keiichi\bibnamedelima A.},
-           given_i={K\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-      }
-      \strng{namehash}{b988b4679f3fcef2adeff97aa136f6ac}
-      \strng{fullhash}{b988b4679f3fcef2adeff97aa136f6ac}
-      \field{sortinit}{S}
-      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
-      \field{labelyear}{1985}
-      \field{datelabelsource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Two border following algorithms are proposed for the topological analysis of digitized binary images. The first one determines the surroundness relations among the borders of a binary image. Since the outer borders and the hole borders have a one-to-one correspondence to the connected components of 1-pixels and to the holes, respectively, the proposed algorithm yields a representation of a binary image, from which one can extract some sort of features without reconstructing the image. The second algorithm, which is a modified version of the first, follows only the outermost borders (i.e., the outer borders which are not surrounded by holes). These algorithms can be effectively used in component counting, shrinking, and topological structural analysis of binary images, when a sequential digital computer is used. {{$\copyright$}} 1985.}
-      \field{isbn}{0734-189X}
-      \field{issn}{0734189X}
-      \field{journaltitle}{Computer Vision, Graphics and Image Processing}
-      \field{number}{1}
-      \field{title}{{Topological structural analysis of digitized binary images by border following}}
-      \field{volume}{30}
-      \field{year}{1985}
-      \field{pages}{32\bibrangedash 46}
-      \range{pages}{15}
-      \verb{doi}
-      \verb 10.1016/0734-189X(85)90016-7
-      \endverb
-      \verb{file}
-      \verb :home/mikael/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/suzuki1985.pdf:pdf
       \endverb
     \endentry
     \entry{Teo}{article}{}
@@ -852,6 +928,180 @@
       \field{year}{1926}
       \verb{url}
       \verb https://news.google.com/newspapers?id=unBQAAAAIBAJ%7B%5C&%7Dsjid=QQ8EAAAAIBAJ%7B%5C&%7Dpg=7304,3766749
+      \endverb
+    \endentry
+    \entry{Thrun2007}{article}{}
+      \name{author}{30}{}{%
+        {{uniquename=0,hash=5112ea130eadef0764fce0145b8b9f91}{%
+           family={Thrun},
+           family_i={T\bibinitperiod},
+           given={Sebastian},
+           given_i={S\bibinitperiod}}}%
+        {{uniquename=0,hash=7020138a2fcb11ace2410ecda6ad0e96}{%
+           family={Montemerlo},
+           family_i={M\bibinitperiod},
+           given={Mike},
+           given_i={M\bibinitperiod}}}%
+        {{uniquename=0,hash=6a635409df22c204b68d994c1929762b}{%
+           family={Dahlkamp},
+           family_i={D\bibinitperiod},
+           given={Hendrik},
+           given_i={H\bibinitperiod}}}%
+        {{uniquename=0,hash=01630f34351c5fa7ba1dbc0ef043bbd2}{%
+           family={Stavens},
+           family_i={S\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{uniquename=0,hash=d89569771a7fe1e3fdd978f5e96887c6}{%
+           family={Aron},
+           family_i={A\bibinitperiod},
+           given={Andrei},
+           given_i={A\bibinitperiod}}}%
+        {{uniquename=0,hash=4d20f0c0cb583117558cdb16b3faa730}{%
+           family={Diebel},
+           family_i={D\bibinitperiod},
+           given={James},
+           given_i={J\bibinitperiod}}}%
+        {{uniquename=0,hash=4fce981dbddcfdfcd40dfb9510082ecf}{%
+           family={Fong},
+           family_i={F\bibinitperiod},
+           given={Philip},
+           given_i={P\bibinitperiod}}}%
+        {{uniquename=0,hash=04f906960382d3a7316a3505cae085b9}{%
+           family={Gale},
+           family_i={G\bibinitperiod},
+           given={John},
+           given_i={J\bibinitperiod}}}%
+        {{uniquename=0,hash=007a3c12994b93445b2eeea9f8afa2f0}{%
+           family={Halpenny},
+           family_i={H\bibinitperiod},
+           given={Morgan},
+           given_i={M\bibinitperiod}}}%
+        {{uniquename=0,hash=b5b430028362babc9b6aa2916d1344b7}{%
+           family={Hoffmann},
+           family_i={H\bibinitperiod},
+           given={Gabriel},
+           given_i={G\bibinitperiod}}}%
+        {{uniquename=0,hash=1376b286448b7d699cbec84653c9d427}{%
+           family={Lau},
+           family_i={L\bibinitperiod},
+           given={Kenny},
+           given_i={K\bibinitperiod}}}%
+        {{uniquename=0,hash=c71d637c74c08476fc83ede355127ecb}{%
+           family={Oakley},
+           family_i={O\bibinitperiod},
+           given={Celia},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=136955f783ed2315f45927a0f2abca24}{%
+           family={Palatucci},
+           family_i={P\bibinitperiod},
+           given={Mark},
+           given_i={M\bibinitperiod}}}%
+        {{uniquename=0,hash=c4c811ec90866da6350f251f46860f82}{%
+           family={Pratt},
+           family_i={P\bibinitperiod},
+           given={Vaughan},
+           given_i={V\bibinitperiod}}}%
+        {{uniquename=0,hash=daf7ae255d7151b48e03106a4a570ab1}{%
+           family={Stang},
+           family_i={S\bibinitperiod},
+           given={Pascal},
+           given_i={P\bibinitperiod}}}%
+        {{uniquename=0,hash=341a61122f6eda6b7f526da6bb86bfde}{%
+           family={Strohband},
+           family_i={S\bibinitperiod},
+           given={Sven},
+           given_i={S\bibinitperiod}}}%
+        {{uniquename=0,hash=0e596092cf7ab03b6dc0ba76a8d24bd1}{%
+           family={Dupont},
+           family_i={D\bibinitperiod},
+           given={Cedric},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=8bd3beee9870ec4ec0b5e2111d19e406}{%
+           family={Jendrossek},
+           family_i={J\bibinitperiod},
+           given={Lars-Erik},
+           given_i={L\bibinithyphendelim E\bibinitperiod}}}%
+        {{uniquename=0,hash=6be0106428ce1acd08516d687e7f43bc}{%
+           family={Koelen},
+           family_i={K\bibinitperiod},
+           given={Christian},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=9b4c83b2d224f3d67f2c844b0b242a5d}{%
+           family={Markey},
+           family_i={M\bibinitperiod},
+           given={Charles},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=21756168842b34cf416e5c44012486bf}{%
+           family={Rummel},
+           family_i={R\bibinitperiod},
+           given={Carlo},
+           given_i={C\bibinitperiod}}}%
+        {{uniquename=0,hash=9f1f690311ebdb3f9aff0ba2107a2cbe}{%
+           prefix={van},
+           prefix_i={v\bibinitperiod},
+           family={Niekerk},
+           family_i={N\bibinitperiod},
+           given={Joe},
+           given_i={J\bibinitperiod}}}%
+        {{uniquename=0,hash=b961ea529a9f73d820902f1615cca9cd}{%
+           family={Jensen},
+           family_i={J\bibinitperiod},
+           given={Eric},
+           given_i={E\bibinitperiod}}}%
+        {{uniquename=0,hash=2637e29972173e32e2062b0481d9184e}{%
+           family={Alessandrini},
+           family_i={A\bibinitperiod},
+           given={Philippe},
+           given_i={P\bibinitperiod}}}%
+        {{uniquename=0,hash=a780b2fbd99e4f7ce78d33324e39d4c2}{%
+           family={Bradski},
+           family_i={B\bibinitperiod},
+           given={Gary},
+           given_i={G\bibinitperiod}}}%
+        {{uniquename=0,hash=37f1ee798f2faaf1955f6dc069c24f5e}{%
+           family={Davies},
+           family_i={D\bibinitperiod},
+           given={Bob},
+           given_i={B\bibinitperiod}}}%
+        {{uniquename=0,hash=fb49a26b4e90cfcad2b8f4f5d780fce3}{%
+           family={Ettinger},
+           family_i={E\bibinitperiod},
+           given={Scott},
+           given_i={S\bibinitperiod}}}%
+        {{uniquename=0,hash=656736e2b93f260c9619384b02d7cdf4}{%
+           family={Kaehler},
+           family_i={K\bibinitperiod},
+           given={Adrian},
+           given_i={A\bibinitperiod}}}%
+        {{uniquename=0,hash=10aebe569a37d45e9413f369255fba77}{%
+           family={Nefian},
+           family_i={N\bibinitperiod},
+           given={Ara},
+           given_i={A\bibinitperiod}}}%
+        {{uniquename=0,hash=11a3e39338ccf3d556315b962edbb267}{%
+           family={Mahoney},
+           family_i={M\bibinitperiod},
+           given={Pamela},
+           given_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{a8138eeb00bc94a8497816e6b86343b3}
+      \strng{fullhash}{a79bcb799037f60f3e2bb0e12a9b374e}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
+      \field{labelyear}{2007}
+      \field{datelabelsource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{Stanley: The Robot That Won the DARPA Grand Challenge}}
+      \field{year}{2007}
+      \field{pages}{1\bibrangedash 43}
+      \range{pages}{43}
+      \verb{doi}
+      \verb 10.1007/978-3-540-73429-1_1
+      \endverb
+      \verb{url}
+      \verb http://link.springer.com/10.1007/978-3-540-73429-1%7B%5C_%7D1
       \endverb
     \endentry
     \entry{VieiradaSilva2016}{article}{}

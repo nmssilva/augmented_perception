@@ -1,10 +1,10 @@
 \chapter{Object Detection, Tracking and Labelling}
 
-This chapter explains how this application was implemented. First, it will be described how the detection, tracking and labelling in the 2D image is performed. 
+This chapter explains how the object detection, tracking and labelling application was implemented. First, it will be described how this is performed in the 2D image. 
 
 Secondly, the implementation of the tracking of targets using \gls{lidar} sensors will be explained. Lastly, the combination of the 2D image and the \gls{lidar} data is explained.
 
-The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has. The rosbags were recorded in October 17, 2017, in the afternoon. 
+The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has.
 
 \section{Image Tracking}
 
@@ -149,7 +149,7 @@ The information in figure \ref{fig:rviz1} was visualized using the Rviz tool. Th
 
 \section{Sensor Data Fusion}
 
-To accomplish this, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors.
+To accomplish sensor data fusion, a multi-modal approach was utilized, combining data retrieved from several ranged based and visual sensors.
 
 Since the detection, tracking and labelling can be done independently with the 2D image and with the \gls{lidar} data, this section will explain how the combination of both can be done.
 
@@ -158,7 +158,7 @@ Since the detection, tracking and labelling can be done independently with the 2
 	\centering
 	\includegraphics[width=0.99\textwidth]{caplabel/imgs/multimodal}
 	
-	\caption{ Overview of the multi-modal approach. }
+	\caption{Overview of the multi-modal approach. }
 	\label{fig:multimodal}
 	
 \end{figure}
@@ -166,7 +166,9 @@ Since the detection, tracking and labelling can be done independently with the 2
 The process of the multi-modal approach is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
 
 \subsection{Dynamic 2D Bounding Box Size}
-% desenvolver esta section
+
+Previously, the bounding box size was static but using the 3D position given by the \gls{mtt} it is possible to implement dynamic bounding box size.
+
 The 2D bounding box size is given by the distance to the object. If the distance is greater, the bounding box will be smaller and vice-versa. The distance to the object is given by the tri-dimensional spacial coordinates given by the \gls{mtt} algorithm.
 
 \begin{figure}[htp]
@@ -210,9 +212,9 @@ By combining the sensor data with the image it is possible to check where the po
 	\end{center}
 \end{figure}
 
-In this file it is possible to see the image dimensions, the intrinsic values and distortions coefficients of the camera as well as the rectification and projection matrix. These values are used to reproject the points of the pointcloud into the camera's image. To do so, \gls{opencv} implements a method called \texttt{cv::projectPoints} (\cite{OpenCVa}) that is used in the labelling node. 
+In this file it is possible to see the image dimensions, the intrinsic values and distortions coefficients of the camera as well as the rectification and projection matrix. These values are used to reproject the points of the pointcloud into the camera's image. To do so, \gls{opencv} implements a method called \texttt{projectPoints} (\cite{OpenCVa}) that is used in the labelling node. 
 
-Firstly, the labelling node reads the file in listing \ref{lst: intcalib} to calibrate the camera. Then, the full pointcloud is taken and a vector of the points is retrieved. The \texttt{cv::projectPoints} method takes the calibration file parameters and the points vector and generates another vector with the $(x,y)$ coordinates of the points in the image.
+Firstly, the labelling node reads the file in listing \ref{lst: intcalib} to calibrate the camera. Then, the full pointcloud is taken and a vector of the points is retrieved. The \texttt{projectPoints} method takes the calibration file parameters and the points vector and generates another vector with the $(x,y)$ coordinates of the points in the image.
 
 The next step is simply to draw those points in the image using the function \texttt{circle} implemented by \gls{opencv}. The final result is as seen on the left in figure \ref{fig:projectpoints}.
 
@@ -230,7 +232,7 @@ The next step is simply to draw those points in the image using the function \te
 With the pointclouds points projected in the image it is possible to associate the 3D clusters to the 2D image templates.
 
 
-\subsection{3D Bounding Box Representation}
+\subsection{Suggestion of Objects of Interest}
 
 Using the algorithms previously developed it is possible to track objects in the 2D image using the position of the 3D clusters by picking up their points and following them.
 
@@ -252,7 +254,7 @@ A function polls the \gls{mtt} algorithm and raises a flag when an object is fou
 
 Having the coordinates of the tracked object, a cube is drawn centered in the point given by the \gls{mtt} algorithm by setting the cube vertices and using the \texttt{line} function implemented by \gls{opencv} to join them.
 
-Then, the cube is projected to the image using \gls{opencv}'s \texttt{cv:projectPoints}. In figure \ref{fig:cube} it can be seen a 3D bounding box being projected around the detected car.
+Then, the cube is projected to the image using \gls{opencv}'s \texttt{projectPoints}. In figure \ref{fig:cube} it can be seen a 3D bounding box being projected around the detected car.
 
 \begin{figure}[htp]
 	
@@ -261,6 +263,20 @@ Then, the cube is projected to the image using \gls{opencv}'s \texttt{cv:project
 	
 	\caption{Example of 3D bounding box tracking a car}
 	\label{fig:cube}
+	
+\end{figure}
+
+\subsection{Improvement of the Manual Labelling}
+
+When the manual mode is active, the user selects the target to follow by clicking the image. In that location, the labelling node checks for an object found by the \gls{mtt} algorithm. All targets found by the \gls{mtt} are exposed in the image (see figure \ref{fig:mtt_proj}) and if the click is inside of one of the target's areas, the tracking is done using the \gls{mtt}. Otherwise, the tracking is done using template matching.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=.7\textwidth]{caplabel/imgs/mtt_proj.png}
+	
+	\caption{MTT exposing all found targets in the image}
+	\label{fig:mtt_proj}
 	
 \end{figure}
 
@@ -275,12 +291,12 @@ While tracking objects, the user is prompted to insert a label to the object. Th
 		\begin{lstlisting}[label={lst:BBox2d}, caption={BBox struct definition used for 2D datasets.},language=c++]
 		struct BBox
 		{
-		int x;
-		int y;
-		int width;
-		int height;
-		int id;
-		string label;
+			int x;
+			int y;
+			int width;
+			int height;
+			int id;
+			string label;
 		};\end{lstlisting}
 	\end{center}
 \end{figure}
@@ -319,14 +335,14 @@ To develop datasets and include the 3D information of the tracked targets, some 
 		\begin{lstlisting}[label={lst:bbox3d}, caption={BBox struct definition with 3D capabilities},language=c++]
 		struct BBox
 		{
-		int x;
-		int y;
-		int width;
-		int height;
-		int id;
-		string label;
-		// 3D position
-		double x3d, y3d, z3d;
+			int x;
+			int y;
+			int width;
+			int height;
+			int id;
+			string label;
+			// 3D position
+			double x3d, y3d, z3d;
 		};		\end{lstlisting}
 	\end{center}
 \end{figure}
@@ -355,9 +371,56 @@ The dataset header was updated to contain the 3D information and the contents no
 
 \section{UI Tools for Labelling}
 
-In this section it will be described some extra features that were implemented in addition to the detection, tracking and labelling of objects. Most features presented here are used to aid and complement what has been previously done.
+In this section it will be described some extra tools and features implemented in addition to the detection, tracking and labelling of objects. Most features presented in this section are used to aid and complement what has been previously done.
 
 \subsection{Labelling Interface}
+
+The labelling node features a simplified \gls{gui} where the user can do several operations.
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.99\textwidth]{caplabel/imgs/labellinggui.png}
+	\caption{Labelling Node \gls{gui}}
+	\label{fig:labellinggui}	
+\end{figure}
+
+The \gls{gui} features an interactive window where the image sequences appear and the user may select targets. There is also a window with six buttons where multiple actions can be performed.
+
+\begin{itemize}
+\item \textbf{Label Object} - Pauses the rosbag and asks the user for a label of the target. Ends the tracking.
+\item \textbf{Save Templates} - Pauses the rosbag and asks the user for a label of the target. Saves the image templates in all frames where the target appeared.
+\item \textbf{Clear Image} - End the tracking and clears the bounding box from the image.
+\item \textbf{Semi-Automatic/Manual Mode} - Switches between manual mode and semi automatic mode.
+\item \textbf{Print Dataset} - Saves the dataset created during the whole labelling process.
+\item \textbf{Quit} - Exits the program.
+\end{itemize}
+
+After successfully completing a full tracking, the user will be prompted with a window to enter a label for the target. The user may also discard the target instead of saving it.
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=.4\textwidth]{caplabel/imgs/labellinggui2.png}
+	\caption{Prompt window to select a label and save or discard.}
+	\label{fig:labellinggui2}
+\end{figure}
+
+\subsection{Automatic Pause for the rqt\_bag}
+
+A problem encountered during the labelling process was that the execution of the ROS bag file continued when the tracking was complete. The user needed to insert a label to the followed target and after the object is labelled the ROS bag continued creating a gap (see figure \ref{fig:problem}). 
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=0.7\textwidth]{caplabel/imgs/diagramtracking.pdf}
+	
+	\caption{A gap is created while the user is prompted to input a label because the ROS bag execution does not pause}
+	\label{fig:problem}
+	
+\end{figure}
+
+To solve this problem, the rqt\_bag package was improved. A \gls{ros} service was implemented in the rqt\_bag node to receive messages from the outside. The labelling node sends a request to pause the rqt\_bag when the tracking ends. After the user inserts a label the labelling node sends a message to the rqt\_bag node to resume the bag execution.
+
 
 \subsection{Playback}
 
@@ -380,3 +443,10 @@ In other words, objects with the same label will have the same box color, making
 	\label{fig:playback}
 	
 \end{figure}
+
+
+
+
+
+
+
