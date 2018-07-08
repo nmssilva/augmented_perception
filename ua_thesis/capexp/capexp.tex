@@ -22,6 +22,7 @@ The ATLASCAR 2 is based in the platform of the 2015 Mitsubishi i-MiEV, a full el
 	\label{tab: MiEV technical}
 	\begin{tabular}{lcc}
 		Characteristic & Unit & Value\\
+		\hline
 		Wheelbase & mm & 2550\\
 		Track (Front/Rear) & mm & 1310/1270 \\
 		Vehicle weight & kg  & 1450 \\
@@ -43,11 +44,11 @@ The ATLASCAR 2 is based in the platform of the 2015 Mitsubishi i-MiEV, a full el
 
 \section{LIDAR Sensors}
 
-The sensors equipped in the ATLASCAR 2 are two SICK LMS151 \gls{lidar}, a SICK LD-MRS \gls{lidar} and a PointGrey Zebra 2 Camera. The sensors have been mounted in the front of the car in an aluminum infrastructure designed by \cite{Correia2017}. These devices are connected to a network switch installed in the car to which a computed can be plugged to receive the data from the sensors.
+The sensors equipped in the ATLASCAR 2 are two SICK LMS151 \gls{lidar}, a SICK LD-MRS \gls{lidar} and a PointGrey Zebra 2 Camera. The sensors have been mounted in the front of the car in an aluminum infrastructure designed by \cite{Correia2017}. These devices are connected to a network switch installed in the car to which a computer can be plugged to receive the data from the sensors.
 
 \subsection{SICK LMS151}
 
-The SICK LMS151 (figure \ref{fig:sicklms}) is a \gls{lidar} sensor designed to be used in outdoors. It is a planar infrared scanner with a large planar aperture angle often used in robotics and in \gls{ad} fields for its high scanning frequency and operating range. This scanner is also able to scan distances through fog, glass and dust (multi-echo technology). This scanner is provided with an Ethernet TCP/IP interface with high data transmission rate. \cite{SICK}
+The SICK LMS151 (figure \ref{fig:sicklms}) is a \gls{lidar} sensor designed to be used in outdoors. It is a planar infrared scanner with a large planar aperture angle often used in robotics and in \gls{ad} fields for its high scanning frequency and operating range. This scanner is also able to scan distances through fog, glass and dust (multi-echo technology). This scanner is provided with an Ethernet TCP/IP interface with high data transmission rate (\cite{SICK}).
 
 \begin{figure}[htp]
 	
@@ -162,14 +163,14 @@ Working at maximum resolution and frame rate would increase the network bandwidt
 This section discusses the software used in this dissertation. The base architecture of this dissertation is centered in the \gls{ros} framework. Many \gls{ros} tools and features are used such as Rviz, rosbags, roslaunch and rosrun. Two main nodes are to be developed in this work: the camera calibration package node (previously developed by \cite{VieiradaSilva2016}) and the labelling node. The handling of data from the sensors was done using \gls{pcl}, \gls{mtt}, 
 and the image processing was performed with \gls{opencv} libs. All software was programmed with C++.
 
-\section{ROS}
+\subsection{ROS}
 The central framework in the ATLASCAR 2 is based on \gls{ros} Kinect on Ubuntu 16.04.
 
 The Robot Operative System, although not an operating system, operates as a robotics middleware. \gls{ros} offers open-source services designed for developers that need hardware abstraction and low-level device control. Architectures in \gls{ros} are centered in applications called rosnodes which communicate with each other creating a graph of  message-passing processes. 
 
 With \gls{ros} it is possible to receive data packets and transform them in messages that contain data from the sensors. It is possible to manipulate this data using \gls{ros} nodes and other tools. 
 
-\subsection{Rviz}
+\subsubsection{Rviz}
 Rviz is the standard \gls{ros} tool for 3D visualization. The Rviz is one of the most important tools as it will be used to visualize data from the ATLASCAR 2 either directly in real-time by connecting a computer to the car or in rosbags. It will also serve as a debugging tool in which pointcloud values can be analyzed (\cite{ROSWiki}).
 
 \begin{figure}[htp]
@@ -182,7 +183,7 @@ Rviz is the standard \gls{ros} tool for 3D visualization. The Rviz is one of the
 	
 \end{figure}
 
-\subsection{Rosbag}
+\subsubsection{Rosbag}
 
 A rosbag is a file in \gls{ros} which contains messages saved from past events. While connected directly to a device, or several devices, multiple topics can be subscribed at once to be recorded into a rosbag. 
 
@@ -190,7 +191,7 @@ The advantage of rosbags is to replicate the working environment of the ATLASCAR
 
 In \gls{ros}, the rosbag package contains a set of tools for recording from and playing back to \gls{ros} topics. It is intended to be high performance and avoid deserialization and reserialization of the messages. It also features command line tools for working with bags as well as code APIs to read/write and manipulate bags (\cite{ROSWikia}).
 
-\subsection{Roslaunch}
+\subsubsection{Roslaunch}
 The roslaunch files are used as a tool for easily launching multiple \gls{ros} nodes. A roslaunch file sets up a roscore (os \gls{ros} master), sets parameters on the Parameter Server, and can also execute other roslaunch files. 
 
 It includes options to automatically re-spawn processes that have already died. The roslaunch takes in one or more XML configuration files (with the .launch extension) that specify the parameters to set and nodes to launch.
@@ -201,7 +202,7 @@ In this project, roslaunch files are used to set up calibration values before la
 
 The roslaunch files are also advantageous to set up the multiple drivers needed to bring up the several devices equipped in the ATLASCAR 2. Since the sensors are connected to a network switch, the parameters given in the driver's roslaunch file are the IP addresses of each of the devices. The drivers will then receive packets from the sensors and remap them into the \gls{ros} format.
 
-\subsection{rqt\_bag}
+\subsubsection{Rqt\_bag}
 
 The rqt\_bag is a \gls{gui} to replay and display \gls{ros} bag files. In this program it is possible to show bag message contents, view image messages, plot message from selected topics, publish messages from selected topics and export messages to a new bag. The rqt\_bag is useful for the labelling process as it presents a timeline in which the user can select the time by clicking on it.
 
@@ -215,11 +216,11 @@ The rqt\_bag is a \gls{gui} to replay and display \gls{ros} bag files. In this p
 \end{figure}
 
 
-\section{LAR Toolkit}
+\subsection{LAR Toolkit}
 
 The \gls{lartk} is a software suite developed by members of \gls{lar}. The projects involved in the \gls{lartk} are based in the development of robotic solutions namely for the ATLAS project. The toolkit is constituted by a set of packages. Two packages in particular will be used for this dissertation: the multi-sensor calibration package and the \gls{mtt} package.
 
-\subsection{Multi-sensor calibration package}
+\subsubsection{Multi-sensor calibration package}
 
 The multi-sensor calibration package is a package developed by \cite{VieiradaSilva2016}. The package contains a \gls{gui} used to calibrate the several sensors in the ATLASCAR 2. The package was initially developed for the ATLASCAR 1, and it was further used into the ATLASCAR 2 since the sensors were almost the same.
 
@@ -243,7 +244,7 @@ In the automatic mode, while the ball rolls in front of the sensors the calibrat
 
 In the end a file with the transformation matrices with the relative position of the sensors relatively to the reference sensor will be written.
 
-\subsection{Multi Target Tracking (MTT)}
+\subsubsection{Multi Target Tracking (MTT)}
 
 The \gls{mtt} library is a set of methods and strategies developed by \cite{SoaresDeAlmeida2016a} specially designed for the ATLASCAR project with the goal to send perception parameters about objects captured in the \gls{lidar}s. 
 
@@ -257,7 +258,7 @@ Some objects may be occluded during the sequence (for example when a car passes 
 
 The \gls{mtt} defines targets that keep information about the object and its velocity plus their position and obstacle lines.
 
-\section{PCL}
+\subsection{PCL}
 
 The \gls{pcl} is a library that implements methods to process pointcloud data. The \gls{pcl} framework contains numerous state of the art algorithms including filtering, feature estimation, surface reconstruction, registration, model fitting and segmentation (\cite{PointCloudLibrary2018}). Some of these algorithms are used throughout this thesis an were also used by the \gls{mtt} library.
 

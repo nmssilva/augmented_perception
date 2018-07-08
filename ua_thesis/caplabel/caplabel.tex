@@ -4,7 +4,7 @@ This chapter explains how the object detection, tracking and labelling applicati
 
 Secondly, the implementation of the tracking of targets using \gls{lidar} sensors will be explained. Lastly, the combination of the 2D image and the \gls{lidar} data is explained.
 
-The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 using the sensors it has.
+The image sequences and laser scan data obtained for the development of this stage of the dissertation were recorded into rosbags using the ATLASCAR 2 sensors.
 
 \section{Image Tracking}
 
@@ -16,15 +16,13 @@ The development of object detection, tracking and labelling starts by processing
 	\includegraphics[width=0.7\textwidth]{caplabel/imgs/templatediagram.pdf}
 	
 	\caption{Image tracking algorithm diagram}
-	\label{fig:view}
+	\label{fig:imagediagram}
 	
 \end{figure}
 
-To obtain the image frames, this node subscribes the camera images through its rostopic. The frame is processed and analyzed in the callback function.
+Figure \ref{fig:imagediagram} presents an overview of the image tracking algorithm. It starts by receiving frames and by selecting a target on the images. Finally, template matching is applied to follow the object.
 
-\subsection{Template Matching}
-
-The image is converted from the \gls{ros} message format into an \gls{opencv} format so it can be easily manipulated. \gls{opencv} treats images as matrices of pixel with $(x,y)$ coordinates and RGB values. As the image sequences arrive, they are stored into a queue. This queue will be used later to look back to the previous frames and back-track the object. 
+To obtain the image frames, this node subscribes the camera images through its rostopic. The image is converted from the \gls{ros} message format into an \gls{opencv} format so it can be easily manipulated. \gls{opencv} treats images as matrices of pixel with $(x,y)$ coordinates and RGB values. As the image sequences arrive, they are stored into a queue. This queue will be used later to look back to the previous frames and back-track the object. 
 
 When the node starts, a window opens (see figure \ref{fig:view}) for the user to view the video stream recorded in the bag. The node also functions in real-time. In other words, the node can be executed by connecting the computer directly to the car, obtaining the images in immediately. In this window, the user can click on objects that may appear. 
 
@@ -47,7 +45,7 @@ The bounding box follows the selected target. To accomplish this, template match
 
 The template matching strategy is used to track the selected target in the next frames. It begins by copying the source image to display to another \gls{opencv} matrix and also creates a result matrix. The matching is now performed using a method implemented by \gls{opencv} called \texttt{matchTemplate} which takes the source image, the patch (which is the \gls{roi} inside the bounding box), the result matrix and a matching method. 
 
-Template matching is a technique for finding areas of an image that match (are similar) to a template image (patch). A resulting image is calculated by iterating the source image and comparing the template with the area in that position. For each position a score is assigned representing how good the match is in that position.
+Template matching is a technique for finding areas of an image that match (are similar) to a template image (patch). A resulting image is calculated by iterating the source image and comparing the template with the area in that position (see figure \ref{fig:resultmat}). For each position a score is assigned representing how good the match is in that position.
 
 \begin{figure}[htp]
 	
@@ -66,46 +64,45 @@ This step concludes the front tracking. It is important to notice that this appl
 
 After the whole tracking is done, the back tracking is now performed. The reason why the back tracking is done after the front tracking is mainly because of processing times. If the back tracking began when a target is selected in the image before the front tracking, some time would be wasted to process the previous frames, losing some of the next frames used for the front tracking. 
 
-With a queue, the last frames are saved and at the moment of object selection those frames are copied and saved to be processed posteriorly. After the front tracking, the node gets the frames stored before the target selection and applies template matching. With this, the tracking is done in both directions.
+With a queue, the last frames are saved and at the moment of object selection those frames are copied and saved to be processed posteriorly. After the front tracking, the node gets the frames stored before the target selection and applies template matching. With this, the tracking is done in both directions. In figure \ref{fig:tracking} an example of the tracking is presented.
 
 
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=.34\textwidth]{caplabel/imgs/f1}
-	\includegraphics[width=.34\textwidth]{caplabel/imgs/f2}
+	\includegraphics[width=.44\textwidth]{caplabel/imgs/f1}
+	\includegraphics[width=.44\textwidth]{caplabel/imgs/f2}
 	
 	
-	\includegraphics[width=.34\textwidth]{caplabel/imgs/f3}
+	\includegraphics[width=.44\textwidth]{caplabel/imgs/f3}
 	
 	
-	\includegraphics[width=.34\textwidth]{caplabel/imgs/f4}
-	\includegraphics[width=.34\textwidth]{caplabel/imgs/f5}
+	\includegraphics[width=.44\textwidth]{caplabel/imgs/f4}
+	\includegraphics[width=.44\textwidth]{caplabel/imgs/f5}
 	
-	\caption{Example of back tracking and front tracking: the picture in the middle is the starting frame, the two upper frames show the back tracking and the two lower frames show to front tracking.}
+	\caption{Example of back tracking and front tracking: the picture in the middle is the selected frame, the two upper frames show the back tracking and the two lower frames show to front tracking.}
 	\label{fig:tracking}
 	
 \end{figure}
 
 \section{Range Based Tracking}
 
-To improve the tracking, the image process is combined using the \gls{lidar} scanners in the ATLASCAR 2. To develop this part, a continuation to the previous labelling node is added where the capabilities of the laser scans will be explored. The range based object tracking is performed with the \gls{mtt} library developed by \cite{SoaresDeAlmeida2016a}. 
+To improve the tracking, the image process is combined using the \gls{lidar} scanners in the ATLASCAR 2. To develop this part, a continuation to the previous labelling node is added where the capabilities of the laser scans will be explored. 
 
 
-\begin{figure}[htp]
+\begin{figure}
 	
 	\centering
-	\includegraphics[width=0.6\textwidth]{caplabel/imgs/mttdiagram.pdf}
+	\includegraphics[width=0.9\textwidth]{caplabel/imgs/mttdiagram.pdf}
 	
 	\caption{Range Based Detector Algorithm Diagram}
 	\label{fig:mttdiagram}
 	
 \end{figure}
 
+In figure \ref{fig:mttdiagram} an overview of the range based detector algorithm is presented. It starts by receiving data from the LIDAR sensors and converting it to a pointcloud object. Finally, the detection is done by clustering the pointcloud where each cluster will represent a detected object. The clustering is performed with the \gls{mtt} library developed by \cite{SoaresDeAlmeida2016a}. 
 
 The \gls{mtt} works with planar scanners to obtain perception although it receives a pointcloud as input. The \gls{mtt} library supposes that the objects are all at the same height so the pointclouds are flattened. For the scope of this project this is no problem as most of the scanners used are planar except for the SICK LD-MRS. Assuming that the readings of this \gls{lidar} are at the same height does not influence the results as the difference of the measures are minimal. 
-
-\subsection{Multi Target Tracking}
 
 The node starts by subscribing to all topics where \texttt{laserScans} can be found. There are two SICK LMS151, one on each side of the ATLASCAR 2, giving two planar scans with a 270 degree aperture. The SICK LD-MRS features four planar scans. Each scan is submitted into a ROS topic totaling six topics, one for each SICK LMS151 and four topics for the SICK LD-MRS. The six topics are subscribed and the sensor messages are given to a callback function in the \gls{ros} format.
 
@@ -125,11 +122,9 @@ In figure \ref{fig:rviz0} the \texttt{laserScans} can be observed individually. 
 
 In the image callback function, when an image frame arrives it creates a full pointcloud by merging the pointclouds of all \texttt{laserScans}. To do this, a transform listener is created to calculate the transforms at that given time between the two SICK LMS151 and the SICK LD-MRS. The \gls{pcl} library is used here to blend the different \texttt{laserScans}. The \gls{pcl} can concatenate pointclouds making it easy to merge them all together.
 
-Finally, the pointcloud is filtered to an area in front of the car. This process avoids unwanted objects to appear such as roadsides on the highway. The pointclouds are converted from the \gls{ros} format to \gls{pcl} format, concatenated, and ready to be processed by the \gls{mtt} library. 
+Finally, the pointcloud is filtered to a squared area in front of the car in order to avoid unwanted objects to appear such as roadsides on the highway. The pointclouds are converted from the \gls{ros} format to \gls{pcl} format, concatenated, and ready to be processed by the \gls{mtt} library. 
 
-The next step is to cluster the different objects found in the pointcloud. The clustering strategy is implemented by the \gls{mtt} library and it is based on the Nearest Neighbor Clustering algorithm (\cite{Yu2018}). The \gls{mtt} takes the full data and initializes a vector of clusters. Clusters are formed by points and its structure contains an id of the cluster, start and end points, total number of points, length of the cluster, among other variables and flags used for occlusion detection.
-
-A distance threshold is defined depending on the size of the pointcloud data and the distance between the points is calculated. If the distance between points is larger than the given threshold, then an object is most likely to be there.
+The next step is to cluster the different objects found in the pointcloud. The clustering strategy is implemented by the \gls{mtt} library and it is based on the Nearest Neighbor Clustering algorithm (\cite{Yu2018}). The \gls{mtt} takes the full data and initializes a vector of clusters. Clusters are formed by points and its structure contains an id of the cluster, start and end points, total number of points, length of the cluster, among other variables and flags used for occlusion detection. If the distance between points is larger than a given threshold, then a cluster is formed and an object is most likely to be there.
 
 To make it easier to visualize, markers are created and placed in the location of the objects. For each object in the target list, a marker is created with the ID of the object. The ID increments by one as a new object is found. 
 
@@ -145,7 +140,7 @@ To make it easier to visualize, markers are created and placed in the location o
 
 In the position of the object, a visual marker is placed. There are also markers in the form of line strips in order to visualize the connection between the points of the pointcloud. An addition to the marker creation method was made, where 3D bounding boxes with a predefined static size are created in the location of the objects.
 
-The information in figure \ref{fig:rviz1} was visualized using the Rviz tool. The \gls{mtt} creates by default a marker at the origin where usually the front of the ATLASCAR 2 is (depending on the transformations). The processed pointcloud can be seen, where the \gls{lidar} \texttt{laserScans} messages are all merged and a green 3D bounding box with the ID 103 is shown meaning that an object was found at that location. The object was in fact a car traveling in front of the ATLASCAR 2. 
+The information in figure \ref{fig:rviz1} was visualized using the Rviz tool. The \gls{mtt} creates by default a marker at the origin where usually the front of the ATLASCAR 2 is (depending on the transformations). The processed pointcloud can be seen, where the \gls{lidar} \texttt{laserScans} messages are all merged and a green 3D bounding box with the ID 103 is shown meaning that an object was found at that location. The object was in fact a car traveling in front of the ATLASCAR 2. The roadsides are not detected since the pointcloud was filtered to a squared area in front of the car in order to avoid objects with no interest. Only part of the pointcloud in figure \ref{fig:rviz1} is processed by the \gls{mtt}.
 
 \section{Sensor Data Fusion}
 
@@ -163,7 +158,7 @@ Since the detection, tracking and labelling can be done independently with the 2
 	
 \end{figure}
 
-The process of the multi-modal approach is called sensor fusion. By incorporating ranged based information in image data it is possible to have augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
+Figure \ref{fig:multimodal} depicts the process of the multi-modal approach. In sensor fusion, ranged based information is combined with the image data allowing augmented perception of the surroundings. With the ability to have basic cognition of the environment, it is possible to detect and track objects in motion (\cite{Spinello2010}).
 
 \subsection{Dynamic 2D Bounding Box Size}
 
@@ -178,13 +173,15 @@ The 2D bounding box size is given by the distance to the object. If the distance
 	\includegraphics[width=0.45\textwidth]{caplabel/imgs/boxds2.png}
 	
 	\caption{Example of near (left) and far (right) car with dynamic bounding box size}
-	\label{fig:basket}
+	\label{fig:dsize}
 	
 \end{figure}
 
+Figure \ref{fig:dsize} depicts an example of the dynamic bounding box as the target moves away.
+
 \subsection{Pointcloud Projection}
 
-By combining the sensor data with the image it is possible to check where the pointcloud is relatively to the camera position. To accomplish this it is needed to firstly make the intrinsic calibration of the camera, and then proceed to the implementation of the pointcloud projection. Using a \gls{ros} node in the package \texttt{camera\_calibration} it is possible to obtain the intrinsic values of the camera and the distortion coefficients (see listing \ref{lst: intcalib}).
+By combining the sensor data with the image it is possible to check where the pointcloud is relatively to the camera position. To accomplish this it is needed to firstly make the intrinsic calibration of the camera, and then proceed to the implementation of the pointcloud projection. By using a \gls{ros} node in the package \texttt{camera\_calibration}, the intrinsic values of the camera and the distortion coefficients are obtained (see listing \ref{lst: intcalib}).
 
 \begin{figure}
 	\begin{center}
@@ -252,14 +249,14 @@ To begin, the full pointcloud data is gathered and passed into the \gls{mtt} alg
 
 A function polls the \gls{mtt} algorithm and raises a flag when an object is found. If more than an object is found, the nearest object is tracked. The coordinates of the objects relatively to the vehicle are found so the distances can be calculated. The object with shortest distance is chosen to track.
 
-Having the coordinates of the tracked object, a cube is drawn centered in the point given by the \gls{mtt} algorithm by setting the cube vertices and using the \texttt{line} function implemented by \gls{opencv} to join them.
+Having the coordinates of the tracked object, a cube with a fixed size is drawn centered in the point given by the \gls{mtt} algorithm by setting the cube vertices and using the \texttt{line} function implemented by \gls{opencv} to join them.
 
-Then, the cube is projected to the image using \gls{opencv}'s \texttt{projectPoints}. In figure \ref{fig:cube} it can be seen a 3D bounding box being projected around the detected car.
+Then, the cube is projected to the image using \gls{opencv}'s \texttt{projectPoints}. Figure \ref{fig:cube} shows a 3D bounding box being projected around the detected car.
 
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=.7\textwidth]{caplabel/imgs/3dcube.png}
+	\includegraphics[width=.6\textwidth]{caplabel/imgs/3dcube.png}
 	
 	\caption{Example of 3D bounding box tracking a car}
 	\label{fig:cube}
@@ -268,17 +265,19 @@ Then, the cube is projected to the image using \gls{opencv}'s \texttt{projectPoi
 
 \subsection{Improvement of the Manual Labelling}
 
-When the manual mode is active, the user selects the target to follow by clicking the image. In that location, the labelling node checks for an object found by the \gls{mtt} algorithm. All targets found by the \gls{mtt} are exposed in the image (see figure \ref{fig:mtt_proj}) and if the click is inside of one of the target's areas, the tracking is done using the \gls{mtt}. Otherwise, the tracking is done using template matching.
+When the manual mode is active, the user selects the target to follow by clicking the image. In that location, the labelling node checks for an object found by the \gls{mtt} algorithm. 
 
-\begin{figure}[htp]
+\begin{figure}[h]
 	
 	\centering
-	\includegraphics[width=.7\textwidth]{caplabel/imgs/mtt_proj.png}
+	\includegraphics[width=.6\textwidth]{caplabel/imgs/mtt_proj.png}
 	
 	\caption{MTT exposing all found targets in the image}
 	\label{fig:mtt_proj}
 	
 \end{figure}
+
+All targets found by the \gls{mtt} are exposed in the image (see figure \ref{fig:mtt_proj}) and if the click is inside of one of the target's areas, the tracking is done using the \gls{mtt}. Otherwise, the tracking is done using template matching.
 
 \section{Output Datasets}
 
@@ -288,7 +287,7 @@ While tracking objects, the user is prompted to insert a label to the object. Th
 
 \begin{figure}
 	\begin{center}
-		\begin{lstlisting}[label={lst:BBox2d}, caption={BBox struct definition used for 2D datasets.},language=c++]
+		\begin{lstlisting}[label={lst:BBox2ddef}, caption={BBox struct definition used for 2D datasets.},language=c++]
 		struct BBox
 		{
 			int x;
@@ -301,7 +300,7 @@ While tracking objects, the user is prompted to insert a label to the object. Th
 	\end{center}
 \end{figure}
 
-The \texttt{BBox} struct definition is presented in listing \ref{lst:BBox2d}. The \texttt{BBox} presents its $x$ and $y$ coordinates, its width and height, an id, and a label. While the tracking is performed, several instances of \texttt{BBox} are created and stored in a map that relates the frame with the \texttt{BBox}. 
+The \texttt{BBox} struct definition is presented in listing \ref{lst:BBox2ddef}. The \texttt{BBox} presents its $x$ and $y$ coordinates, its width and height, an id, and a label. While the tracking is performed, several instances of \texttt{BBox} are created and stored in a map that relates the frame with the \texttt{BBox}. 
 
 When the tracking is complete, the user can opt to save the results or to discard them. If the frames are to be saved, the users enters the object label and a folder will be created with patches of the frames where the object appears. The user can also choose to label the objects without saving the templates. In the end, a set of \texttt{BBox} instances are created and a dataset file can be created.
 
@@ -328,7 +327,7 @@ The dataset contains, for each frame, a set of bounding boxes that are defined b
 
 \subsection{3D Datasets}
 
-To develop datasets and include the 3D information of the tracked targets, some changes have been made to the structure of the \texttt{BBox} in which the 3D coordinates of the objects have been added.
+To develop datasets and include the 3D information of the tracked targets, some changes have been made to the structure of the \texttt{BBox} (see listing \ref{lst:bbox3d}) in which the 3D coordinates of the objects have been added.
 
 \begin{figure}
 	\begin{center}
@@ -419,7 +418,7 @@ A problem encountered during the labelling process was that the execution of the
 	
 \end{figure}
 
-To solve this problem, the rqt\_bag package was improved. A \gls{ros} service was implemented in the rqt\_bag node to receive messages from the outside. The labelling node sends a request to pause the rqt\_bag when the tracking ends. After the user inserts a label the labelling node sends a message to the rqt\_bag node to resume the bag execution.
+To solve this problem, the rqt\_bag package was adapted. A \gls{ros} service was implemented in the rqt\_bag node to receive messages from the outside. The labelling node sends a request to pause the rqt\_bag when the tracking ends. After the user inserts a label the labelling node sends a message to the rqt\_bag node to resume the bag execution.
 
 
 \subsection{Playback}

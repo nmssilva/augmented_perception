@@ -1,7 +1,7 @@
 \chapter{Introduction}
-Technological studies in the fields of \gls{adas} and \gls{ad} have been growing in the past decades in the auto-mobile industry and in the academic environment. 
+Technological studies in the fields of \gls{adas} and \gls{ad} have been growing in the past decades in the automobile industry and in the academic environment. 
 
-It is important in \gls{ad} and \gls{adas} to implement machine learning methods so that the vehicles recognize what objects are in their surroundings. Therefore, a necessity to have labelled data to train machine learning algorithms. Data labelling is the solution to create datasets that will serve as input to learning algorithms.
+It is important in \gls{ad} and \gls{adas} to implement machine learning methods so that the vehicles recognize what objects are in their surroundings. Therefore, labelled data is necessary to train machine learning algorithms. Data labelling is the solution to create datasets that will serve as input to learning algorithms.
 
 This thesis is focused on the research of methods to register data into labels using a camera and \gls{lidar} sensors in ATLASCAR 2, so that the vehicle can later create a model of the objects it will detect and follow.
 
@@ -9,9 +9,9 @@ This dissertation will also improve some previous work, namely the calibration p
 
 \section{ATLAS Project}
 
-ATLAS is a project developed by the Group of Automation and Robotics at the Department of Mechanical Engineering of the University of Aveiro, Portugal. The mission of the ATLAS project is to develop and enable the proliferation of advanced sensing and active systems designed for implementation in automobiles and affine platforms. Advanced active systems being improved, or newly developed, use data from vision, laser and other sensors. The ATLAS project has vast experience with autonomous navigation in controlled environments and is now evolving to deal with real road scenarios. To ensure that the developments are meeting the ATLAS project mission statement, a full sized prototype, the ATLASCAR 1, has been equipped with several state of the art sensors (\cite{LARlabs}). Currently, ATLASCAR 2 is the new full sized prototype being used for research equipped with \gls{lidar} sensors and a camera.
+ATLAS is a project developed by the Group of Automation and Robotics at the Department of Mechanical Engineering of the University of Aveiro, Portugal. The mission of the ATLAS project is to develop and enable the proliferation of advanced sensing and active systems designed for implementation in automobiles and affine platforms. Advanced active systems being improved, or newly developed, use data from vision, laser and other sensors. 
 
-\subsection{History}
+The ATLAS project has vast experience with autonomous navigation in controlled environments and is now evolving to deal with real road scenarios. To ensure that the developments are meeting the ATLAS project mission statement, a full sized prototype, the ATLASCAR 1, has been equipped with several state of the art sensors (\cite{LARlabs}). Currently, ATLASCAR 2 is the new full sized prototype being used for research equipped with \gls{lidar} sensors and a camera.
 
 The ATLAS Project was created in 2003 and began with robots developed to participate at \gls{ad} competitions taking place at Portuguese National Robotics Festival. From this project, three small-sized platform robots were built (figure \ref{fig:atlasproto}). These robots were very successful having won prizes in some of the robotics competitions. 
 
@@ -23,38 +23,37 @@ The ATLAS Project was created in 2003 and began with robots developed to partici
 	\includegraphics[width=.3\textwidth]{capintro/imgs/atlas2000}\hfill
 	\includegraphics[width=.3\textwidth]{capintro/imgs/atlasmv}
 	
-	\caption{ATLAS project small-sized prototypes}
+	\caption{ATLAS project small-sized prototypes \cite{LARlabs}}
 	\label{fig:atlasproto}
 	
 \end{figure}
 
-As the project grew, it has evolved into full-sized prototypes: the ATLASCARs. ATLASCAR1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR1 was equipped with several \gls{lidar} sensors and a camera. Data about its environment is gathered by the scanners which is then processed building perception into the car allowing the car actuate to move autonomously. 
+As the project grew, it evolved into full-sized prototypes: the ATLASCARs. ATLASCAR1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR1 was equipped with several \gls{lidar} sensors and cameras. Data about its environment is gathered by the scanners which is then processed building perception into the car allowing the car to actuate and move autonomously. 
 
 \begin{figure}[htp]
 	
 	\centering
 	\includegraphics[width=0.9\textwidth]{capintro/imgs/atlascar1}
 	
-	\caption{ATLASCAR1 based on the Ford Escort platform}
+	\caption{ATLASCAR1 based on the Ford Escort platform \cite{LARlabs}}
 	\label{fig:atlascar1}
 	
 \end{figure}
 
-The ATLASCAR1 brought successful results. In the end, the vehicle was able to move and execute maneuvers autonomously in small and controlled places. The ATLASCAR1 was then replaced by a more recent vehicle. The ATLASCAR2 (figure \ref{fig:atlascar1}) is the new full-sized platform of the ATLAS project and it is based on a Mitsubishi i-MiEV. This is the vehicle used for research in this dissertation. The ATLASCAR2 is equipped with various \gls{lidar} sensors and a camera. It is also a full electric vehicle which will be easier to modify, test and control. 
+The ATLASCAR1 brought successful results. In the end, the vehicle was able to move and execute maneuvers autonomously in small and controlled places. The ATLASCAR1 was then replaced by a more recent vehicle. The ATLASCAR2 (figure \ref{fig:atlascar2}) is the new full-sized platform of the ATLAS project and it is based on a Mitsubishi i-MiEV. This is the vehicle used for research in this dissertation. The ATLASCAR2 is equipped with various \gls{lidar} sensors and a camera. It is also a full electric vehicle which will be easier to modify, test and control. 
 
 \begin{figure}[htp]
 	
 	\centering
 	\includegraphics[width=0.9\textwidth]{capintro/imgs/atlas2.png}
 	
-	\caption{ATLASCAR 2 based on the Mitsubishi i-MiEV platform}
+	\caption{ATLASCAR 2 based on the Mitsubishi i-MiEV platform \cite{LARlabs}}
 	\label{fig:atlascar2}
 	
 \end{figure}
 
 
 \section{Motivation}
-To use multiple sensors at the same time in a system, it is fundamental that these devices are properly calibrated. The LIDAR sensors and the camera relative positions and orientation must be aligned with a reference frame so that a full pointcloud of all sensors can be created for visualization purposes or for any end.
 
 \gls{ad} and \gls{adas} often make use of machine learning. Deep learning algorithms utilize neural and convolutional networks for images and range-based sensor data. In the fields of machine learning, images are often used as input templates to create object models. In an image sequence it is possible to track an object and obtain samples of the target's location. This way it is possible for an algorithm to automatically recognize an object.
 
@@ -69,7 +68,7 @@ The objectives for this dissertation are, firstly, to improve the calibration of
 
 The calibration package was already developed by \cite{VieiradaSilva2016}. The methods used to detect the ball in the camera image were basically filtering values from the \gls{hsv} color space. There are methods that can make this detection more robust that will be explained in this thesis. 
 
-In the end of this dissertation, the ATLASCAR2 will have a labelling system that fuses images retrieved from the camera with the laser data, creating a semi automatic object tracking system that offers the possibility to detect relevant objects and associate metadata on them.
+The detection, tracking and labelling system will combine the image data and the laser data from the sensors to create a semi-automatic tracking system that allows the user to associate an object category to the target and create datasets with metadata from the labelling.
 
 
 \section{Document Structure}

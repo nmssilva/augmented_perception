@@ -5,15 +5,15 @@ This chapter presents some milestones in the history of autonomous driving and a
 
 \section{Milestones on the History of autonomous driving}
 
-Overall, motorized road transport led to the accidental deaths of around 200,000 US citizens in the 1920s; by far the greatest number of these were pedestrians (\cite{Kroger2016}). The idea of substituting error-prone humans with technology thus practically suggested itself. The first registered experiments for \gls{ad} have been conducted circa the 1920's (\cite{TheMilwaukeeSentinel}) in Milwaukee. A 1926 Chandler was equipped with a transmitting antennae and was radio-controlled by a second car that followed it.
+Overall, motorized road transport led to the accidental deaths of around 200,000 US citizens in the 1920s; by far the greatest number of these were pedestrians (\cite{Kroger2016}). The idea of substituting error-prone humans with technology thus practically suggested itself. The first registered experiments for \gls{ad} have been conducted circa the 1920's (\cite{TheMilwaukeeSentinel}) in Milwaukee (see figure \ref{fig:phantomauto}). A 1926 Chandler was equipped with a transmitting antennae and was radio-controlled by a second car that followed it.
 
 \begin{figure}[htp]
 	
 	\centering
 	\includegraphics[width=0.25\textwidth]{capstate/imgs/jornal.png}
 	
-	\caption{The Milwaukee Sentinel - 8 Dez 1926 - 'Phantom Auto' Will Tour City}
-	\label{fig:waymo}
+	\caption{\cite{TheMilwaukeeSentinel}, 8 December - 'Phantom Auto' Will Tour City}
+	\label{fig:phantomauto}
 	
 \end{figure}
 
@@ -33,7 +33,7 @@ Waymo, the Google self-driving car project, begun testing driverless cars withou
 	\centering
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/waymo}
 	
-	\caption{Waymo's Jaguar I-PACE}
+	\caption{Waymo's Jaguar I-PACE \cite{Waymo}}
 		\label{fig:waymo}
 	
 \end{figure}
@@ -45,7 +45,7 @@ Another example of an autonomous vehicle project is the Uber \gls{atc} car based
 	\centering
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/uber}
 	
-	\caption{Ford Fusion Uber ATC car}
+	\caption{Ford Fusion Uber ATC car (\cite{UberAdvancedTechnologiesGroup})}
 	\label{fig:uber}
 	
 \end{figure}
@@ -57,7 +57,7 @@ Audi released its A8 (figure \ref{fig:audi}) and the company stated that they wo
 	\centering
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/audi}
 	
-	\caption{The new Audi A8}
+	\caption{The new Audi A8 (\cite{AudiMediaCenter})}
 	\label{fig:audi}
 	
 \end{figure}
@@ -71,10 +71,12 @@ Another interesting autonomous vehicle project is the \gls{scot} vehicle (figure
 	\centering
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/scot}
 	
-	\caption{SCOT - Shared Computer-Operated Transit vehicle}
-	\label{fig:scot}
+	\caption{SCOT - Shared Computer-Operated Transit vehicle (\cite{Singapore-MITAllianceforResearchandTechnology})}
+	\label{fig:sot}
 	
 \end{figure}
+
+To resume this chapter, in figure \ref{fig:timeline} a timeline with the referred milestones is presented.
 
 \begin{figure}[htp]
 	
@@ -94,7 +96,7 @@ In this section it is referenced previous work done at \gls{lar} relevant for th
 
 The calibration procedure for data fusion of ATLASCAR was developed by \cite{VieiradaSilva2016}. The work presents an expansion to an existing extrinsic calibration package to vision-based sensors where a ball is used as calibration target. 
 
-The calibration consists in a appearance-based algorithm to detect the ball in the image and a range-based algorithm to detect the ball in the surroundings. 
+The calibration consists of a appearance-based algorithm to detect the ball in the image and a range-based algorithm to detect the ball in the surroundings. 
 
 The calibration package consists in a graphical interface (see figure \ref{fig:david}) that allows the user to configure the various sensors to be calibrated. The estimated positions between sensors are achieved with sensor data fusion.
 
@@ -103,7 +105,7 @@ The calibration package consists in a graphical interface (see figure \ref{fig:d
 	\centering
 	\includegraphics[width=1\textwidth]{capstate/imgs/david.png}
 	
-	\caption{Calibration package result visualization}
+	\caption{Calibration package result visualization (\cite{VieiradaSilva2016})}
 	\label{fig:david}
 	
 \end{figure}
@@ -119,7 +121,7 @@ In addition, sensor calibration was done using the calibration graphical interfa
 	\centering
 	\includegraphics[width=1\textwidth]{capstate/imgs/diogo.png}
 	
-	\caption{Free space represented by a polygon (left) and an occupancy grid (right)}
+	\caption{Free space represented by a polygon (left) and an occupancy grid (right) (\cite{Correia2017})}
 	\label{fig:diogo}
 	
 \end{figure}
@@ -139,37 +141,40 @@ Probably the most well-known dataset in the fields of \gls{ad} is the \gls{kitti
 
 This project has grown by increasingly adding more results with more sensors. The \gls{kitti} benchmark started with the stereo, flow and odometry benchmarks and today it includes standards for object tracking and more. 
 
-\begin{figure}[htp]
+\begin{figure}
 	
 	\centering
-	\includegraphics[width=0.7\textwidth]{capstate/imgs/kitticar}
+	\includegraphics[width=0.6\textwidth]{capstate/imgs/kitticar}
 	
-	\caption{Volkswagen Station Wagon used in the KITTI Dataset}
+	\caption{Volkswagen Station Wagon used in the KITTI Dataset (\cite{KarlsruheInstituteofTechnology})}
 	\label{fig:kitticar}
 	
 \end{figure}
 
 Just like ATLASCAR 2, the car used in the \gls{kitti} dataset is equipped with \gls{lidar} sensors and Point Grey Video Cameras. The dataset is used for automatic recognition and tracking of vehicles and pedestrians. 
 
-It consists in image sequences (see figure \ref{fig:kittiresult}) and a text file in which, for each frame the various objects in the field of view are depicted with and identification number, a label, and coordinates about their position in the 2D and 3D space ( \cite{Geiger}). 
+It consists in image sequences (see figure \ref{fig:kittiresult}) and a text file in which, for each frame the various objects in the field of view are depicted with and identification number, a label, and coordinates about their position in the 2D and 3D space (\cite{Geiger}). 
 
 The development kit used for the KITTI database contains C++ and MATLAB code to read the sensor data and write dataset results. The data development kit used is provided on the KITTI Website (\cite{KarlsruheInstituteofTechnology}). It contains a MATLAB demonstration code with C++ wrappers. 
 
-The data is processed and inserted into MATLAB structures and arrays. The demonstration shows how 3D boxes can be read from the dataset files and projected into the image plane of the cameras (see figure \ref{fig:kittidk}). The KITTI database also uses the \gls{pcl} to process and gather the pointclouds obtained from the LIDAR sensors.
+The demonstration script of the KITTI development kit shows how 3D boxes can be read from the dataset files and projected into the image plane of the cameras (see figure \ref{fig:kittidk}). 
 
-\begin{figure}[htp]
+\begin{figure}[!hb]
 	
 	\centering
 	\includegraphics[width=0.85\textwidth]{capstate/imgs/kittidk.png}
 	
-	\caption{KITTI development kit showing 2D and 3D bounding boxes around several cars}
+	\caption{KITTI development kit showing 2D and 3D bounding boxes around several cars (\cite{KarlsruheInstituteofTechnology})}
 	\label{fig:kittidk}
 	
 \end{figure}
 
+The data is processed and inserted into MATLAB structures and arrays. The KITTI database also uses the \gls{pcl} to process and gather the pointclouds obtained from the LIDAR sensors.
+
+
 \begin{figure}
 \begin{center}
-	\begin{lstlisting}[caption={KITTI dataset file snippet presenting frame\_id, object\_id, label, truncated and occluded flags, alpha, left top and right bottom coordinates, height, width and length, 3D coordinates (x,y,z) and rotation}, language=c++, label={lst: pop_grid}]
+	\begin{lstlisting}[caption={KITTI dataset file snippet presenting frame\_id, object\_id, label, truncated and occluded flags, alpha, left top and right bottom coordinates, height, width and length, 3D coordinates (x,y,z) and rotation}, language=xml, label={lst: pop_grid}]
 	...
 	3 1 Cyclist 0 0 -1.931469 759.786603 146.098339 954.280160 374.000000 1.739063 0.824591 1.785241 1.821119 1.569936 5.783265 -1.642450
 	3 2 Pedestrian 0 0 -2.547728 1154.836779 148.360923 1241.000000 321.627088 1.714062 0.767881 0.972283 6.463579 1.474131 7.560739 -1.860031
@@ -187,12 +192,14 @@ The following numbers consist in the alpha (observation angle of object), the le
 
 Analyzing the snippet, it is possible to locate a cyclist and a pedestrian in frame 3 and the same cyclist and pedestrian (because they have the same object\_id) in the next frame with also a van. The \texttt{DontCare} label is often shown representing an object detected that is not related to the scope of the \gls{kitti} dataset. Other information indicate where these objects are found relatively to the car.
 
-\begin{figure}[htp]
+Figure \ref{fig:kittiresult} depicts a result from an image sequence using the KITTI dataset. 
+
+\begin{figure}[h]
 	
 	\centering
 	\includegraphics[width=0.99\textwidth]{capstate/imgs/kittiresult}
 	
-	\caption{Sequence example of tracking by detection using the \gls{kitti} dataset}
+	\caption{Sequence example of tracking by detection using the \gls{kitti} dataset (\cite{KarlsruheInstituteofTechnology})}
 	\label{fig:kittiresult}
 	
 \end{figure}
@@ -208,7 +215,7 @@ The Dataset consists of box annotations, region annotations and detection of obj
 	\centering
 	\includegraphics[width=0.99\textwidth]{capstate/imgs/berveleytool.png}
 	
-	\caption{DeepDrive Dataset Annotation Tool}
+	\caption{DeepDrive Dataset Annotation Tool (\cite{Yu2018})}
 	\label{fig:berkeletool}
 	
 \end{figure}
@@ -217,7 +224,7 @@ The labelling has a semi-automatic and a manual mode. In this annotation applica
 
 \begin{figure}
 	\begin{center}
-		\begin{lstlisting}[label={lst:berkelydata}, caption={DeepDrive dataset file snippet.},language=c++]
+		\begin{lstlisting}[label={lst:berkelydata}, caption={DeepDrive dataset file snippet.},language=C++]
 		...
 		    "frames": [
 		    {
@@ -276,7 +283,7 @@ The HumanEva dataset has information about the bounding boxes position used to t
 	\centering
 	\includegraphics[width=0.5\textwidth]{capstate/imgs/00050.png}
 	
-	\caption{Example image of the HumanEva dataset that generated the snippet in listing \ref{lst:humaneva_snip} }
+	\caption{Example image of the HumanEva dataset that generated the snippet in listing \ref{lst:humaneva_snip} (\cite{Max-Planck-Gesellschaft}) }
 	\label{fig:00050}
 	
 \end{figure}
@@ -289,7 +296,7 @@ Other datasets included in the research for this dissertation are found in \gls{
 \gls{ethz} conducted studies for detection and tracking of people on the street (\cite{Ess2009}). Just like the previous datasets, its creation is based in MATLAB scripts and the data is gathered and stored in MATLAB structures. The dataset is simple: for each frame there are several bounding boxes in the image.
 \begin{figure}
 \begin{center}
-	\begin{lstlisting}[label={lst:ETHZ}, caption={ETHZ dataset dataset file snippet.},language=c++]
+	\begin{lstlisting}[label={lst:ETHZ}, caption={ETHZ dataset dataset file snippet (\cite{ETHZEidgenossischeTechnischeHochschuleZurich})},language=c++]
 	...
 	"left/image_00000015_0.png": (222, 177, 268, 312), (373, 105, 463, 393), (458, 220, 487, 285), (310, 225, 327, 265), (335, 228, 352, 264), (267, 228, 281, 261);
 	"left/image_00000016_0.png": (220, 172, 266, 313), (378, 407, 476, 102), (462, 219, 486, 285), (312, 223, 327, 264), (337, 226, 352, 262), (267, 231, 279, 260);
@@ -303,7 +310,7 @@ Other datasets included in the research for this dissertation are found in \gls{
 	\centering
 	\includegraphics[width=0.7\textwidth]{capstate/imgs/image_00000016_0.png}
 	
-	\caption{One of the images of the \gls{ethz} dataset that generated part of the snippet in listing \ref{lst:ETHZ} }
+	\caption{One of the images of the \gls{ethz} dataset that generated part of the snippet in listing \ref{lst:ETHZ} (\cite{ETHZEidgenossischeTechnischeHochschuleZurich})}
 	\label{fig:ETHZ}
 	
 \end{figure}
@@ -315,7 +322,7 @@ The \gls{epfl} designed a dataset for multiple people in a camera environment, i
 
 \begin{figure}
 \begin{center}
-	\begin{lstlisting}[label={lst:basket}, caption={EPFL dataset file snippet.},language=c++]
+	\begin{lstlisting}[label={lst:basket}, caption={EPFL dataset file snippet (\cite{EPFLEcolepolytechniquefederaledeLausanne})},language=c++]
 									...
 									1 80 45 99 98 9363 0 0 1 "PERSON"
 									1 80 45 99 98 9364 0 0 0 "PERSON"
@@ -336,7 +343,7 @@ The \gls{epfl} designed a dataset for multiple people in a camera environment, i
 	\centering
 	\includegraphics[width=0.7\textwidth]{capstate/imgs/basket.png}
 	
-	\caption{One of the images of the \gls{epfl} dataset that generated part of the snippet in listing \ref{lst:basket} }
+	\caption{One of the images of the \gls{epfl} dataset that generated part of the snippet in listing \ref{lst:basket} (\cite{EPFLEcolepolytechniquefederaledeLausanne})}
 	\label{fig:basketimg}
 	
 \end{figure}
@@ -348,20 +355,27 @@ In listing \ref{lst:basket} there is a snippet of the dataset. The dataset inclu
 
 \begin{center}
 	\begin{lstlisting}[label={lst:basket_leg}, caption={EPFL dataset legend.}]
-	track_id. All rows with the same ID belong to the same path.
-	xmin. The top left x-coordinate of the bounding box.
-	ymin. The top left y-coordinate of the bounding box.
-	xmax. The bottom right x-coordinate of the bounding box.
-	ymax. The bottom right y-coordinate of the bounding box.
-	frame_number. The frame that this annotation represents.
-	lost. If 1, the annotation is outside of the view screen.
-	occluded. If 1, the annotation is occluded.
-	generated. If 1, the annotation was automatically interpolated.
+	track_id. All rows with the same ID belong to the same path
+	xmin. The top left x-coordinate of the bounding box
+	ymin. The top left y-coordinate of the bounding box
+	xmax. The bottom right x-coordinate of the bounding box
+	ymax. The bottom right y-coordinate of the bounding box
+	frame_number. The frame that the annotation represents
+	lost. If 1, the annotation is outside of the view screen
+	occluded. If 1, the annotation is occluded
+	generated. If 1, the annotation was automatically interpolated
 	label. (human, car/vehicle, bicycle...)	\end{lstlisting}
 \end{center}
 
 \end{figure}
  
+\subsection{Resume}
+
+To summarize this section, after analyzing these datasets are how they are created, it is important to look at what is stored in the data structures. Some datasets use well known data structures such as XML (HumanEva) or JSON (DeepDrive), and some datasets use their own set of data where each line corresponds to an entry. 
+
+To design a dataset for the ATLASCAR it is necessary to decide which construction to use. To simplify the complexity of the files, an adapted approach used in the KITTI dataset will be used, where each line is an entry for a different object.
+
+Analyzing the datasets, the most common and relevant information in all files is the position of the targets, their classification and identification. So it is fundamental for the ATLASCAR dataset to contain, for each frame, 2D and 3D coordinates of the target, a label, and an identification number.
 
 
 

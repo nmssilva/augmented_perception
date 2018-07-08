@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.17)  4 JUL 2018 18:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.4.17)  8 JUL 2018 01:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -818,15 +818,27 @@ Package biblatex Info: ... file 'biblatex.cfg' found.
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
 )))
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+)
 \glswrite=\write7
 \glo@main@file=\write8
 \openout8 = `example.glo'.
 
-Package glossaries Info: Writing glossary file example.glo on input line 106.
+Package glossaries Info: Writing glossary file example.glo on input line 145.
 \glo@acronym@file=\write9
 \openout9 = `example.acn'.
 
-Package glossaries Info: Writing glossary file example.acn on input line 106.
+Package glossaries Info: Writing glossary file example.acn on input line 145.
 Package biblatex Info: Trying to load language 'UKenglish'...
 Package biblatex Info: ... file 'UKenglish.lbx' found.
 
@@ -850,18 +862,9 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 \@quotelevel=\count356
 \@quotereset=\count357
 (./example.aux (./glossary.aux) (./capintro/capintro.aux)
-(./capstate/capstate.aux
-
-LaTeX Warning: Label `fig:waymo' multiply defined.
-
-) (./capexp/capexp.aux) (./capcalib/capcalib.aux) (./caplabel/caplabel.aux
-
-LaTeX Warning: Label `fig:view' multiply defined.
-
-) (./capresults/capresults.aux) (./capxconcl/capxconcl.aux)
-
-LaTeX Warning: Label `lst:BBox2d' multiply defined.
-
+(./capstate/capstate.aux) (./capexp/capexp.aux) (./capcalib/capcalib.aux)
+(./caplabel/caplabel.aux) (./capresults/capresults.aux)
+(./capxconcl/capxconcl.aux)
 
 LaTeX Warning: Label `lst:BBox2d' multiply defined.
 
@@ -874,20 +877,20 @@ LaTeX Warning: Label `lst:BBox2d' multiply defined.
 )
 \openout1 = `example.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 161.
-LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 200.
+LaTeX Font Info:    ... okay on input line 200.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count358
@@ -918,7 +921,7 @@ e
 ))
 (./example.glsdefs)
 \AtBeginShipoutBox=\box63
-Package hyperref Info: Link coloring OFF on input line 161.
+Package hyperref Info: Link coloring OFF on input line 200.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -928,9 +931,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count364
 )
-LaTeX Info: Redefining \ref on input line 161.
-LaTeX Info: Redefining \pageref on input line 161.
-LaTeX Info: Redefining \nameref on input line 161.
+LaTeX Info: Redefining \ref on input line 200.
+LaTeX Info: Redefining \pageref on input line 200.
+LaTeX Info: Redefining \nameref on input line 200.
 
 (./example.out) (./example.out)
 \@outlinefile=\write10
@@ -950,22 +953,22 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'example.bbl' found.
  (./example.bbl)
-Package biblatex Info: Reference section=0 on input line 161.
-Package biblatex Info: Reference segment=0 on input line 161.
-LaTeX Font Info:    Try loading font information for U+msa on input line 171.
+Package biblatex Info: Reference section=0 on input line 200.
+Package biblatex Info: Reference segment=0 on input line 200.
+LaTeX Font Info:    Try loading font information for U+msa on input line 210.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 171.
+LaTeX Font Info:    Try loading font information for U+msb on input line 210.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<uaLogoNew.pdf, id=337, 60.225pt x 75.28125pt>
+<uaLogoNew.pdf, id=325, 60.225pt x 75.28125pt>
 File: uaLogoNew.pdf Graphic file (type pdf)
  <use uaLogoNew.pdf>
-Package pdftex.def Info: uaLogoNew.pdf used on input line 171.
+Package pdftex.def Info: uaLogoNew.pdf used on input line 210.
 (pdftex.def)             Requested size: 20.48633pt x 25.60747pt.
  [1
 
@@ -976,66 +979,66 @@ rning (ext4): destination with the same identifier (name{page.1}) has been alre
 ady used, duplicate ignored
 <to be read again> 
                    \relax 
-l.175 \titlepage\ \endtitlepage
+l.214 \titlepage\ \endtitlepage
                                 % empty page [1]
 File: uaLogoNew.pdf Graphic file (type pdf)
  <use uaLogoNew.pdf>
-Package pdftex.def Info: uaLogoNew.pdf used on input line 182.
+Package pdftex.def Info: uaLogoNew.pdf used on input line 221.
 (pdftex.def)             Requested size: 20.48633pt x 25.60747pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.190 \EndTitlePage
+l.229 \EndTitlePage
                     [1]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.191 \titlepage\ \endtitlepage
+l.230 \titlepage\ \endtitlepage
                                 % empty page [1]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{page.1}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.208 \EndTitlePage
+l.247 \EndTitlePage
                     [1]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.209 \titlepage\ \endtitlepage
+l.248 \titlepage\ \endtitlepage
                                 % empty page [1]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{page.1}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.217 \EndTitlePage
+l.256 \EndTitlePage
                     [1]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.218 \titlepage\ \endtitlepage
+l.257 \titlepage\ \endtitlepage
                                 % empty page [1]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{page.1}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.227 \EndTitlePage
+l.266 \EndTitlePage
                     [1]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.228 \titlepage\ \endtitlepage
+l.267 \titlepage\ \endtitlepage
                                 % empty page [1]pdfTeX warning (ext4): destinat
 ion with the same identifier (name{page.1}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.237 \EndTitlePage
+l.276 \EndTitlePage
                     [1]pdfTeX warning (ext4): destination with the same identif
 ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.238 \titlepage\ \endtitlepage
+l.277 \titlepage\ \endtitlepage
                                 % empty page [1] (./example.toc [1
 
 ] [2])
@@ -1065,12 +1068,17 @@ Missing character: There is no ¼ in font cmr10!
 
 ] [8
 
-] (./example.lol)
+] (./example.lol
+Overfull \hbox (8.63768pt too wide) in paragraph at lines 8--8
+ [][] [][]\OT1/cmr/m/n/10.95 ETHZ dataset dataset file snip-pet ([]ETHZ (Ei-d-g
+en^^?ossis-che Tech-nis-che Hochschule |
+ []
+
+)
 \tf@lol=\write14
 \openout14 = `example.lol'.
 
-
-[9
+ [9
 
 ] [10
 
@@ -1089,7 +1097,7 @@ Missing character: There is no ¼ in font cmr10!
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.264 \titlepage\ \endtitlepage
+l.303 \titlepage\ \endtitlepage
                                      % PÃ¡gina de verso em branco [1
 
 ]
@@ -1098,48 +1106,50 @@ l.264 \titlepage\ \endtitlepage
 
 (./capintro/capintro.tex
 Chapter 1.
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.17 
-      [1
-
-
-] <capintro/imgs/atlas1.png, id=729, 475.7775pt x 394.47375pt>
+<capintro/imgs/atlas1.png, id=753, 475.7775pt x 394.47375pt>
 File: capintro/imgs/atlas1.png Graphic file (type png)
 
 <use capintro/imgs/atlas1.png>
 Package pdftex.def Info: capintro/imgs/atlas1.png used on input line 22.
 (pdftex.def)             Requested size: 132.79747pt x 110.10278pt.
 
-<capintro/imgs/atlas2000.png, id=730, 423.5825pt x 436.63126pt>
+<capintro/imgs/atlas2000.png, id=754, 423.5825pt x 436.63126pt>
 File: capintro/imgs/atlas2000.png Graphic file (type png)
 
 <use capintro/imgs/atlas2000.png>
 Package pdftex.def Info: capintro/imgs/atlas2000.png used on input line 23.
 (pdftex.def)             Requested size: 132.79747pt x 136.88664pt.
 
-<capintro/imgs/atlasmv.png, id=731, 472.76625pt x 498.86375pt>
+<capintro/imgs/atlasmv.png, id=755, 472.76625pt x 498.86375pt>
 File: capintro/imgs/atlasmv.png Graphic file (type png)
 
 <use capintro/imgs/atlasmv.png>
 Package pdftex.def Info: capintro/imgs/atlasmv.png used on input line 24.
 (pdftex.def)             Requested size: 132.79747pt x 140.13pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.32 
+      [1
 
-<capintro/imgs/atlascar1.png, id=733, 1379.1525pt x 812.03375pt>
+
+] <capintro/imgs/atlascar1.png, id=763, 1379.1525pt x 812.03375pt>
 File: capintro/imgs/atlascar1.png Graphic file (type png)
 
 <use capintro/imgs/atlascar1.png>
 Package pdftex.def Info: capintro/imgs/atlascar1.png used on input line 36.
 (pdftex.def)             Requested size: 398.38567pt x 234.56685pt.
 
-<capintro/imgs/atlas2.png, id=735, 1648.1575pt x 861.2175pt>
+<capintro/imgs/atlas2.png, id=767, 1648.1575pt x 861.2175pt>
 File: capintro/imgs/atlas2.png Graphic file (type png)
 
 <use capintro/imgs/atlas2.png>
 Package pdftex.def Info: capintro/imgs/atlas2.png used on input line 48.
 (pdftex.def)             Requested size: 398.38567pt x 208.16823pt.
+
+Underfull \vbox (badness 6157) has occurred while \output is active []
+
 
 
 Package Fancyhdr Warning: \headheight is too small (12.5pt): 
@@ -1154,7 +1164,7 @@ s/atlasmv.png> <./capintro/imgs/atlascar1.png>] [3 <./capintro/imgs/atlas2.png>
 
  (./capstate/capstate.tex
 Chapter 2.
-<capstate/imgs/jornal.png, id=753, 305.14pt x 700.6175pt>
+<capstate/imgs/jornal.png, id=787, 305.14pt x 700.6175pt>
 File: capstate/imgs/jornal.png Graphic file (type png)
 
 <use capstate/imgs/jornal.png>
@@ -1165,153 +1175,142 @@ Package pdftex.def Info: capstate/imgs/jornal.png used on input line 13.
 
 
  <./capstate/imgs/jornal.png>]
-<capstate/imgs/waymo.jpg, id=767, 1023.825pt x 612.2875pt>
+<capstate/imgs/waymo.jpg, id=802, 1023.825pt x 612.2875pt>
 File: capstate/imgs/waymo.jpg Graphic file (type jpg)
 
 <use capstate/imgs/waymo.jpg>
 Package pdftex.def Info: capstate/imgs/waymo.jpg used on input line 34.
 (pdftex.def)             Requested size: 398.38567pt x 238.24928pt.
  [6 <./capstate/imgs/waymo.jpg>]
-<capstate/imgs/uber.png, id=778, 1401.235pt x 767.86874pt>
+<capstate/imgs/uber.png, id=815, 1401.235pt x 767.86874pt>
 File: capstate/imgs/uber.png Graphic file (type png)
 
 <use capstate/imgs/uber.png>
 Package pdftex.def Info: capstate/imgs/uber.png used on input line 46.
 (pdftex.def)             Requested size: 398.38567pt x 218.3059pt.
 
-<capstate/imgs/audi.png, id=782, 1732.4725pt x 767.86874pt>
+<capstate/imgs/audi.png, id=821, 1732.4725pt x 767.86874pt>
 File: capstate/imgs/audi.png Graphic file (type png)
 
 <use capstate/imgs/audi.png>
 Package pdftex.def Info: capstate/imgs/audi.png used on input line 58.
 (pdftex.def)             Requested size: 398.38567pt x 176.57094pt.
- [7 <./capstate/imgs/uber.png (PNG copy)> <./capstate/imgs/audi.png>] <capstate
-/imgs/scot.jpg, id=794, 1003.75pt x 664.4825pt>
+
+
+LaTeX Warning: Reference `fig:scot' on page 7 undefined on input line 67.
+
+[7 <./capstate/imgs/uber.png (PNG copy)> <./capstate/imgs/audi.png>]
+<capstate/imgs/scot.jpg, id=833, 1003.75pt x 664.4825pt>
 File: capstate/imgs/scot.jpg Graphic file (type jpg)
 
 <use capstate/imgs/scot.jpg>
 Package pdftex.def Info: capstate/imgs/scot.jpg used on input line 72.
 (pdftex.def)             Requested size: 398.38567pt x 263.73003pt.
 
-<capstate/imgs/timeline.pdf, id=795, 614.295pt x 794.97pt>
+<capstate/imgs/timeline.pdf, id=837, 614.295pt x 794.97pt>
 File: capstate/imgs/timeline.pdf Graphic file (type pdf)
 
 <use capstate/imgs/timeline.pdf>
-Package pdftex.def Info: capstate/imgs/timeline.pdf used on input line 82.
+Package pdftex.def Info: capstate/imgs/timeline.pdf used on input line 84.
 (pdftex.def)             Requested size: 442.65375pt x 572.85104pt.
 
-<capstate/imgs/david.png, id=798, 1095.09125pt x 642.4pt>
+<capstate/imgs/david.png, id=840, 1095.09125pt x 642.4pt>
 File: capstate/imgs/david.png Graphic file (type png)
 
 <use capstate/imgs/david.png>
-Package pdftex.def Info: capstate/imgs/david.png used on input line 104.
+Package pdftex.def Info: capstate/imgs/david.png used on input line 106.
 (pdftex.def)             Requested size: 442.65375pt x 259.67067pt.
  [8 <./capstate/imgs/scot.jpg>] [9 <./capstate/imgs/timeline.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./capstate/imgs/timeline.pdf): PDF incl
 usion: invalid other resource which is no dict (key 'ProcSets', type <array>); 
 ignored.
->] <capstate/imgs/diogo.png, id=827, 1514.65875pt x 808.01875pt>
+>] <capstate/imgs/diogo.png, id=869, 1514.65875pt x 808.01875pt>
 File: capstate/imgs/diogo.png Graphic file (type png)
 
 <use capstate/imgs/diogo.png>
-Package pdftex.def Info: capstate/imgs/diogo.png used on input line 120.
+Package pdftex.def Info: capstate/imgs/diogo.png used on input line 122.
 (pdftex.def)             Requested size: 442.65375pt x 236.14418pt.
 
 Underfull \vbox (badness 4291) has occurred while \output is active []
 
  [10 <./capstate/imgs/david.png>]
-<capstate/imgs/kitticar.png, id=837, 852.41539pt x 734.745pt>
+<capstate/imgs/kitticar.png, id=880, 852.41539pt x 734.745pt>
 File: capstate/imgs/kitticar.png Graphic file (type png)
 
 <use capstate/imgs/kitticar.png>
-Package pdftex.def Info: capstate/imgs/kitticar.png used on input line 145.
-(pdftex.def)             Requested size: 309.85626pt x 267.07538pt.
- [11 <./capstate/imgs/diogo.png>]
-<capstate/imgs/kittidk.png, id=849, 1007.765pt x 681.54625pt>
+Package pdftex.def Info: capstate/imgs/kitticar.png used on input line 147.
+(pdftex.def)             Requested size: 265.59494pt x 228.92336pt.
+
+<capstate/imgs/kittidk.png, id=888, 1007.765pt x 681.54625pt>
 File: capstate/imgs/kittidk.png Graphic file (type png)
 
 <use capstate/imgs/kittidk.png>
-Package pdftex.def Info: capstate/imgs/kittidk.png used on input line 163.
+Package pdftex.def Info: capstate/imgs/kittidk.png used on input line 165.
 (pdftex.def)             Requested size: 376.25838pt x 254.45605pt.
-
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2015/06/04 1.6 listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-)
+ [11 <./capstate/imgs/diogo.png>] [12 <./capstate/imgs/kitticar.png> <./capstat
+e/imgs/kittidk.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 172.
-LaTeX Font Info:    Try loading font information for OT1+sbc on input line 172.
+nput line 177.
 
-LaTeX Font Info:    No file OT1sbc.fd. on input line 172.
-
-
-LaTeX Font Warning: Font shape `OT1/sbc/m/n' undefined
-(Font)              using `OT1/cmr/m/n' instead on input line 172.
-
-<capstate/imgs/kittiresult.jpg, id=852, 1198.4775pt x 361.35pt>
+<capstate/imgs/kittiresult.jpg, id=904, 1198.4775pt x 361.35pt>
 File: capstate/imgs/kittiresult.jpg Graphic file (type jpg)
 
 <use capstate/imgs/kittiresult.jpg>
-Package pdftex.def Info: capstate/imgs/kittiresult.jpg used on input line 193.
+Package pdftex.def Info: capstate/imgs/kittiresult.jpg used on input line 200.
 (pdftex.def)             Requested size: 438.22963pt x 132.12598pt.
 
-<capstate/imgs/berveleytool.png, id=855, 1195.46625pt x 628.3475pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+<capstate/imgs/berveleytool.png, id=925, 1195.46625pt x 628.3475pt>
 File: capstate/imgs/berveleytool.png Graphic file (type png)
 
 <use capstate/imgs/berveleytool.png>
-Package pdftex.def Info: capstate/imgs/berveleytool.png used on input line 209.
+Package pdftex.def Info: capstate/imgs/berveleytool.png used on input line 216.
 
 (pdftex.def)             Requested size: 438.22963pt x 230.33727pt.
- [12 <./capstate/imgs/kitticar.png>]
-[13 <./capstate/imgs/kittidk.png>] [14 <./capstate/imgs/kittiresult.jpg> <./cap
-state/imgs/berveleytool.png>]
-LaTeX Font Info:    Try loading font information for OMS+sbc on input line 223.
-
-LaTeX Font Info:    No file OMSsbc.fd. on input line 223.
-
-
-LaTeX Font Warning: Font shape `OMS/sbc/m/n' undefined
-(Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 223.
-
-(./capstate/files/humaneva_snip.xml)
-<capstate/imgs/00050.png, id=885, 184.69pt x 259.97125pt>
+ [14 <./capstate/imgs/kittiresult.jpg> <./capstate/imgs/berveleytool.png>] [15]
+ (./capstate/files/humaneva_snip.xml)
+<capstate/imgs/00050.png, id=976, 184.69pt x 259.97125pt>
 File: capstate/imgs/00050.png Graphic file (type png)
 
 <use capstate/imgs/00050.png>
-Package pdftex.def Info: capstate/imgs/00050.png used on input line 277.
+Package pdftex.def Info: capstate/imgs/00050.png used on input line 284.
 (pdftex.def)             Requested size: 221.32687pt x 311.54344pt.
 
-<capstate/imgs/image_00000016_0.png, id=890, 642.4pt x 481.8pt>
+<capstate/imgs/image_00000016_0.png, id=985, 642.4pt x 481.8pt>
 File: capstate/imgs/image_00000016_0.png Graphic file (type png)
 
 <use capstate/imgs/image_00000016_0.png>
 Package pdftex.def Info: capstate/imgs/image_00000016_0.png used on input line 
-304.
+311.
 (pdftex.def)             Requested size: 309.85626pt x 232.39352pt.
- [15] [16] [17] [18 <./capstate/imgs/00050.png (PNG copy)>]
-<capstate/imgs/basket.png, id=1000, 1264.725pt x 1013.7875pt>
+
+<capstate/imgs/basket.png, id=995, 1264.725pt x 1013.7875pt>
 File: capstate/imgs/basket.png Graphic file (type png)
 
 <use capstate/imgs/basket.png>
-Package pdftex.def Info: capstate/imgs/basket.png used on input line 337.
+Package pdftex.def Info: capstate/imgs/basket.png used on input line 344.
 (pdftex.def)             Requested size: 309.85626pt x 248.37238pt.
-) [19 <./capstate/imgs/image_00000016_0.png (PNG copy)>] [20 <./capstate/imgs/b
-asket.png>] [21]
+ [16] [17] [18 <./capstate/imgs/00050.png (PNG copy)>] [19 <./capstate/imgs/ima
+ge_00000016_0.png (PNG copy)>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20 <./capstate/imgs/basket.png>]) [21]
 \openout2 = `capexp/capexp.aux'.
 
- (./capexp/capexp.tex
+ (./capexp/capexp.tex [22
+
+
+
+]
 Chapter 3.
-<capexp/imgs/atlascar2.png, id=1047, 1109.14375pt x 626.34pt>
+<capexp/imgs/atlascar2.png, id=1108, 1109.14375pt x 626.34pt>
 File: capexp/imgs/atlascar2.png Graphic file (type png)
 
 <use capexp/imgs/atlascar2.png>
@@ -1321,84 +1320,90 @@ Package pdftex.def Info: capexp/imgs/atlascar2.png used on input line 12.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22
-
-
-
- <./capexp/imgs/atlascar2.png>]
-<capexp/imgs/sicklms.png, id=1058, 660.4675pt x 1204.5pt>
+[23 <./capexp/imgs/atlascar2.png>]
+<capexp/imgs/sicklms.png, id=1119, 660.4675pt x 1204.5pt>
 File: capexp/imgs/sicklms.png Graphic file (type png)
 
 <use capexp/imgs/sicklms.png>
-Package pdftex.def Info: capexp/imgs/sicklms.png used on input line 56.
+Package pdftex.def Info: capexp/imgs/sicklms.png used on input line 57.
 (pdftex.def)             Requested size: 132.79747pt x 242.18227pt.
 
-<capexp/imgs/sicklms2.png, id=1059, 37.41537pt x 44.57599pt>
+<capexp/imgs/sicklms2.png, id=1120, 37.41537pt x 44.57599pt>
 File: capexp/imgs/sicklms2.png Graphic file (type png)
 
 <use capexp/imgs/sicklms2.png>
-Package pdftex.def Info: capexp/imgs/sicklms2.png used on input line 57.
+Package pdftex.def Info: capexp/imgs/sicklms2.png used on input line 58.
 (pdftex.def)             Requested size: 221.32687pt x 263.74825pt.
- [23]
-<capexp/imgs/sickldmrs.png, id=1069, 943.525pt x 1204.5pt>
+ [24]
+<capexp/imgs/sickldmrs.png, id=1130, 943.525pt x 1204.5pt>
 File: capexp/imgs/sickldmrs.png Graphic file (type png)
 
 <use capexp/imgs/sickldmrs.png>
-Package pdftex.def Info: capexp/imgs/sickldmrs.png used on input line 93.
+Package pdftex.def Info: capexp/imgs/sickldmrs.png used on input line 94.
 (pdftex.def)             Requested size: 177.05879pt x 226.02698pt.
 
-<capexp/imgs/sickldmrs2.png, id=1070, 32.48357pt x 44.57599pt>
+<capexp/imgs/sickldmrs2.png, id=1131, 32.48357pt x 44.57599pt>
 File: capexp/imgs/sickldmrs2.png Graphic file (type png)
 
 <use capexp/imgs/sickldmrs2.png>
-Package pdftex.def Info: capexp/imgs/sickldmrs2.png used on input line 94.
+Package pdftex.def Info: capexp/imgs/sickldmrs2.png used on input line 95.
 (pdftex.def)             Requested size: 221.32687pt x 303.85605pt.
- [24 <./capexp/imgs/sicklms.png> <./capexp/imgs/sicklms2.png>] [25 <./capexp/im
+ [25 <./capexp/imgs/sicklms.png> <./capexp/imgs/sicklms2.png>] [26 <./capexp/im
 gs/sickldmrs.png> <./capexp/imgs/sickldmrs2.png>] <capexp/imgs/pointgrey.jpg, i
-d=1090, 1606.0pt x 993.7125pt>
+d=1152, 1606.0pt x 993.7125pt>
 File: capexp/imgs/pointgrey.jpg Graphic file (type jpg)
 
 <use capexp/imgs/pointgrey.jpg>
-Package pdftex.def Info: capexp/imgs/pointgrey.jpg used on input line 131.
+Package pdftex.def Info: capexp/imgs/pointgrey.jpg used on input line 132.
 (pdftex.def)             Requested size: 265.59494pt x 164.33455pt.
- [26 <./capexp/imgs/pointgrey.jpg>]
-<capexp/imgs/rviz.png, id=1098, 1233.60875pt x 671.50874pt>
+ [27 <./capexp/imgs/pointgrey.jpg>]
+<capexp/imgs/rviz.png, id=1160, 1233.60875pt x 671.50874pt>
 File: capexp/imgs/rviz.png Graphic file (type png)
 
 <use capexp/imgs/rviz.png>
-Package pdftex.def Info: capexp/imgs/rviz.png used on input line 178.
+Package pdftex.def Info: capexp/imgs/rviz.png used on input line 179.
 (pdftex.def)             Requested size: 438.22963pt x 238.5461pt.
- [27 <./capexp/imgs/rviz.png>]
-<capexp/imgs/rqt_bag.png, id=1106, 1337.99875pt x 758.835pt>
+
+Underfull \vbox (badness 1215) has occurred while \output is active []
+
+ [28 <./capexp/imgs/rviz.png>]
+<capexp/imgs/rqt_bag.png, id=1168, 1337.99875pt x 758.835pt>
 File: capexp/imgs/rqt_bag.png Graphic file (type png)
 
 <use capexp/imgs/rqt_bag.png>
-Package pdftex.def Info: capexp/imgs/rqt_bag.png used on input line 212.
+Package pdftex.def Info: capexp/imgs/rqt_bag.png used on input line 213.
 (pdftex.def)             Requested size: 438.22963pt x 248.54054pt.
- [28]
-<capcalib/imgs/calibgui.png, id=1114, 1827.82875pt x 943.525pt>
+ [29]
+<capcalib/imgs/calibgui.png, id=1176, 1827.82875pt x 943.525pt>
 File: capcalib/imgs/calibgui.png Graphic file (type png)
 
 <use capcalib/imgs/calibgui.png>
-Package pdftex.def Info: capcalib/imgs/calibgui.png used on input line 233.
+Package pdftex.def Info: capcalib/imgs/calibgui.png used on input line 234.
 (pdftex.def)             Requested size: 438.22963pt x 226.20587pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [29 <./capexp/imgs/rqt_bag.png>] [30 <./capcalib/imgs/calibgui.png>]) [31]
+ [30 <./capexp/imgs/rqt_bag.png>] [31 <./capcalib/imgs/calibgui.png>]) [32]
 \openout2 = `capcalib/capcalib.aux'.
 
 
 (./capcalib/capcalib.tex
 Chapter 4.
-<capcalib/imgs/calib_implementation.pdf, id=1137, 320.19624pt x 198.7425pt>
+<capcalib/imgs/calib_implementation.pdf, id=1198, 527.9725pt x 216.81pt>
 File: capcalib/imgs/calib_implementation.pdf Graphic file (type pdf)
 
 <use capcalib/imgs/calib_implementation.pdf>
 Package pdftex.def Info: capcalib/imgs/calib_implementation.pdf used on input l
 ine 16.
-(pdftex.def)             Requested size: 265.59494pt x 164.85312pt.
- [32
+(pdftex.def)             Requested size: 354.12434pt x 145.41742pt.
+
+<capcalib/imgs/ball.png, id=1200, 999.735pt x 920.43875pt>
+File: capcalib/imgs/ball.png Graphic file (type png)
+
+<use capcalib/imgs/ball.png>
+Package pdftex.def Info: capcalib/imgs/ball.png used on input line 28.
+(pdftex.def)             Requested size: 177.05879pt x 163.00333pt.
+ [33
 
 
 
@@ -1407,403 +1412,404 @@ ine 16.
 pdfTeX warning: /usr/bin/pdflatex (file ./capcalib/imgs/calib_implementation.pd
 f): PDF inclusion: invalid other resource which is no dict (key 'ProcSets', typ
 e <array>); ignored.
->] <capcalib/imgs/ball.png, id=1152, 999.735pt x 920.43875pt>
-File: capcalib/imgs/ball.png Graphic file (type png)
-
-<use capcalib/imgs/ball.png>
-Package pdftex.def Info: capcalib/imgs/ball.png used on input line 28.
-(pdftex.def)             Requested size: 177.05879pt x 163.00333pt.
-
-<capcalib/imgs/background.png, id=1156, 1233.60875pt x 928.46875pt>
+>] <capcalib/imgs/background.png, id=1219, 1233.60875pt x 928.46875pt>
 File: capcalib/imgs/background.png Graphic file (type png)
 
 <use capcalib/imgs/background.png>
-Package pdftex.def Info: capcalib/imgs/background.png used on input line 48.
-(pdftex.def)             Requested size: 309.85626pt x 233.20749pt.
-
-<capcalib/imgs/ball_test.png, id=1157, 1232.605pt x 924.45375pt>
+Package pdftex.def Info: capcalib/imgs/background.png used on input line 44.
+(pdftex.def)             Requested size: 287.72223pt x 216.54678pt.
+ [34 <./capcalib/imgs/ball.png> <./capcalib/imgs/background.png>]
+<capcalib/imgs/ball_test.png, id=1227, 1232.605pt x 924.45375pt>
 File: capcalib/imgs/ball_test.png Graphic file (type png)
 
 <use capcalib/imgs/ball_test.png>
-Package pdftex.def Info: capcalib/imgs/ball_test.png used on input line 61.
-(pdftex.def)             Requested size: 309.85626pt x 232.3824pt.
+Package pdftex.def Info: capcalib/imgs/ball_test.png used on input line 56.
+(pdftex.def)             Requested size: 221.32687pt x 165.98541pt.
 
-<capcalib/imgs/noise.png, id=1158, 931.48pt x 696.6025pt>
+<capcalib/imgs/noise.png, id=1229, 931.48pt x 696.6025pt>
 File: capcalib/imgs/noise.png Graphic file (type png)
 
 <use capcalib/imgs/noise.png>
-Package pdftex.def Info: capcalib/imgs/noise.png used on input line 72.
-(pdftex.def)             Requested size: 309.85626pt x 231.7184pt.
+Package pdftex.def Info: capcalib/imgs/noise.png used on input line 71.
+(pdftex.def)             Requested size: 221.32687pt x 165.51921pt.
 
-Underfull \vbox (badness 4505) has occurred while \output is active []
+Underfull \vbox (badness 1552) has occurred while \output is active []
 
- [33 <./capcalib/imgs/ball.png>] [34 <./capcalib/imgs/background.png> <./capcal
-ib/imgs/ball_test.png>] <capcalib/imgs/neighpixel.pdf, id=1168, 348.30125pt x 2
-32.87pt>
+ [35 <./capcalib/imgs/ball_test.png> <./capcalib/imgs/noise.png>]
+<capcalib/imgs/neighpixel.pdf, id=1235, 348.30125pt x 232.87pt>
 File: capcalib/imgs/neighpixel.pdf Graphic file (type pdf)
 
 <use capcalib/imgs/neighpixel.pdf>
-Package pdftex.def Info: capcalib/imgs/neighpixel.pdf used on input line 88.
+Package pdftex.def Info: capcalib/imgs/neighpixel.pdf used on input line 87.
 (pdftex.def)             Requested size: 221.32687pt x 147.97739pt.
- [35 <./capcalib/imgs/noise.png> <./capcalib/imgs/neighpixel.pdf
+ [36 <./capcalib/imgs/neighpixel.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./capcalib/imgs/neighpixel.pdf): PDF in
 clusion: invalid other resource which is no dict (key 'ProcSets', type <array>)
 ; ignored.
->] <capcalib/imgs/ball_detect.png, id=1184, 981.6675pt x 736.7525pt>
+>] <capcalib/imgs/ball_detect.png, id=1251, 981.6675pt x 736.7525pt>
 File: capcalib/imgs/ball_detect.png Graphic file (type png)
 
 <use capcalib/imgs/ball_detect.png>
-Package pdftex.def Info: capcalib/imgs/ball_detect.png used on input line 110.
+Package pdftex.def Info: capcalib/imgs/ball_detect.png used on input line 111.
 (pdftex.def)             Requested size: 309.85626pt x 232.55043pt.
- [36 <./capcalib/imgs/ball_detect.png>])
-[37]
+) [37 <./capcalib/imgs/ball_detect.png>]
 \openout2 = `caplabel/caplabel.aux'.
 
- (./caplabel/caplabel.tex
+
+(./caplabel/caplabel.tex [38
+
+
+
+]
 Chapter 5.
-<caplabel/imgs/templatediagram.pdf, id=1195, 385.44pt x 146.5475pt>
+<caplabel/imgs/templatediagram.pdf, id=1262, 378.41376pt x 153.57375pt>
 File: caplabel/imgs/templatediagram.pdf Graphic file (type pdf)
 
 <use caplabel/imgs/templatediagram.pdf>
 Package pdftex.def Info: caplabel/imgs/templatediagram.pdf used on input line 1
 6.
-(pdftex.def)             Requested size: 309.85626pt x 117.80835pt.
- [38
-
-
-
- <./caplabel/imgs/templatediagram.pdf
+(pdftex.def)             Requested size: 309.85626pt x 125.75084pt.
+ [39 <./caplabel/imgs/templatediagram.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./caplabel/imgs/templatediagram.pdf): P
 DF inclusion: invalid other resource which is no dict (key 'ProcSets', type <ar
 ray>); ignored.
->] <caplabel/imgs/view.png, id=1210, 904.37875pt x 732.7375pt>
+>] <caplabel/imgs/view.png, id=1283, 904.37875pt x 732.7375pt>
 File: caplabel/imgs/view.png Graphic file (type png)
 
 <use caplabel/imgs/view.png>
-Package pdftex.def Info: caplabel/imgs/view.png used on input line 35.
+Package pdftex.def Info: caplabel/imgs/view.png used on input line 33.
 (pdftex.def)             Requested size: 354.12434pt x 286.9069pt.
 
-<caplabel/imgs/resultmat.png, id=1211, 647.41875pt x 357.335pt>
+<caplabel/imgs/resultmat.png, id=1285, 647.41875pt x 357.335pt>
 File: caplabel/imgs/resultmat.png Graphic file (type png)
 
 <use caplabel/imgs/resultmat.png>
-Package pdftex.def Info: caplabel/imgs/resultmat.png used on input line 55.
+Package pdftex.def Info: caplabel/imgs/resultmat.png used on input line 53.
 (pdftex.def)             Requested size: 216.90276pt x 119.71477pt.
 
-<caplabel/imgs/resultmat2.png, id=1212, 647.41875pt x 357.335pt>
+<caplabel/imgs/resultmat2.png, id=1286, 647.41875pt x 357.335pt>
 File: caplabel/imgs/resultmat2.png Graphic file (type png)
 
 <use caplabel/imgs/resultmat2.png>
-Package pdftex.def Info: caplabel/imgs/resultmat2.png used on input line 56.
+Package pdftex.def Info: caplabel/imgs/resultmat2.png used on input line 54.
 (pdftex.def)             Requested size: 216.90276pt x 119.71477pt.
- [39 <./caplabel/imgs/view.png>]
-<caplabel/imgs/f1.png, id=1218, 797.98125pt x 602.25pt>
+ [40 <./caplabel/imgs/view.png>]
+<caplabel/imgs/f1.png, id=1293, 797.98125pt x 602.25pt>
 File: caplabel/imgs/f1.png Graphic file (type png)
 
 <use caplabel/imgs/f1.png>
-Package pdftex.def Info: caplabel/imgs/f1.png used on input line 75.
-(pdftex.def)             Requested size: 150.50064pt x 113.58324pt.
+Package pdftex.def Info: caplabel/imgs/f1.png used on input line 73.
+(pdftex.def)             Requested size: 194.76872pt x 146.99657pt.
 
-<caplabel/imgs/f2.png, id=1219, 794.97pt x 601.24625pt>
+<caplabel/imgs/f2.png, id=1294, 794.97pt x 601.24625pt>
 File: caplabel/imgs/f2.png Graphic file (type png)
 
 <use caplabel/imgs/f2.png>
-Package pdftex.def Info: caplabel/imgs/f2.png used on input line 76.
-(pdftex.def)             Requested size: 150.50064pt x 113.82512pt.
+Package pdftex.def Info: caplabel/imgs/f2.png used on input line 74.
+(pdftex.def)             Requested size: 194.76872pt x 147.30202pt.
 
-<caplabel/imgs/f3.png, id=1220, 795.97375pt x 599.23875pt>
+<caplabel/imgs/f3.png, id=1295, 795.97375pt x 599.23875pt>
 File: caplabel/imgs/f3.png Graphic file (type png)
 
 <use caplabel/imgs/f3.png>
-Package pdftex.def Info: caplabel/imgs/f3.png used on input line 79.
-(pdftex.def)             Requested size: 150.50064pt x 113.29878pt.
+Package pdftex.def Info: caplabel/imgs/f3.png used on input line 77.
+(pdftex.def)             Requested size: 194.76872pt x 146.62733pt.
 
-<caplabel/imgs/f4.png, id=1221, 795.97375pt x 596.2275pt>
+<caplabel/imgs/f4.png, id=1296, 795.97375pt x 596.2275pt>
 File: caplabel/imgs/f4.png Graphic file (type png)
 
 <use caplabel/imgs/f4.png>
-Package pdftex.def Info: caplabel/imgs/f4.png used on input line 82.
-(pdftex.def)             Requested size: 150.50064pt x 112.72943pt.
+Package pdftex.def Info: caplabel/imgs/f4.png used on input line 80.
+(pdftex.def)             Requested size: 194.76872pt x 145.8905pt.
 
-<caplabel/imgs/f5.png, id=1222, 797.98125pt x 596.2275pt>
+<caplabel/imgs/f5.png, id=1297, 797.98125pt x 596.2275pt>
 File: caplabel/imgs/f5.png Graphic file (type png)
 
 <use caplabel/imgs/f5.png>
-Package pdftex.def Info: caplabel/imgs/f5.png used on input line 83.
-(pdftex.def)             Requested size: 150.50064pt x 112.4474pt.
+Package pdftex.def Info: caplabel/imgs/f5.png used on input line 81.
+(pdftex.def)             Requested size: 194.76872pt x 145.5266pt.
 
-<caplabel/imgs/mttdiagram.pdf, id=1224, 319.1925pt x 117.43875pt>
+<caplabel/imgs/mttdiagram.pdf, id=1298, 478.78876pt x 60.225pt>
 File: caplabel/imgs/mttdiagram.pdf Graphic file (type pdf)
 
 <use caplabel/imgs/mttdiagram.pdf>
-Package pdftex.def Info: caplabel/imgs/mttdiagram.pdf used on input line 98.
-(pdftex.def)             Requested size: 265.59494pt x 97.71962pt.
- [40 <./caplabel/imgs/resultmat.png> <./caplabel/imgs/resultmat2.png>] [41 <./c
+Package pdftex.def Info: caplabel/imgs/mttdiagram.pdf used on input line 96.
+(pdftex.def)             Requested size: 398.38567pt x 50.1117pt.
+ [41 <./caplabel/imgs/resultmat.png> <./caplabel/imgs/resultmat2.png>] [42 <./c
 aplabel/imgs/f1.png> <./caplabel/imgs/f2.png> <./caplabel/imgs/f3.png> <./capla
 bel/imgs/f4.png> <./caplabel/imgs/f5.png> <./caplabel/imgs/mttdiagram.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./caplabel/imgs/mttdiagram.pdf): PDF in
 clusion: invalid other resource which is no dict (key 'ProcSets', type <array>)
 ; ignored.
->] <caplabel/imgs/rviz0.png, id=1244, 876.27374pt x 801.99625pt>
+>] <caplabel/imgs/rviz0.png, id=1325, 876.27374pt x 801.99625pt>
 File: caplabel/imgs/rviz0.png Graphic file (type png)
 
 <use caplabel/imgs/rviz0.png>
-Package pdftex.def Info: caplabel/imgs/rviz0.png used on input line 117.
+Package pdftex.def Info: caplabel/imgs/rviz0.png used on input line 114.
 (pdftex.def)             Requested size: 265.59494pt x 243.08493pt.
- [42 <./caplabel/imgs/rviz0.png>]
-<caplabel/imgs/rviz1.png, id=1251, 804.00375pt x 715.67375pt>
+ [43 <./caplabel/imgs/rviz0.png>]
+<caplabel/imgs/rviz1.png, id=1333, 804.00375pt x 715.67375pt>
 File: caplabel/imgs/rviz1.png Graphic file (type png)
 
 <use caplabel/imgs/rviz1.png>
-Package pdftex.def Info: caplabel/imgs/rviz1.png used on input line 139.
+Package pdftex.def Info: caplabel/imgs/rviz1.png used on input line 134.
 (pdftex.def)             Requested size: 287.72223pt x 256.10258pt.
-
-<caplabel/imgs/multimodal.pdf, id=1253, 492.84125pt x 161.60374pt>
+ [44 <./caplabel/imgs/rviz1.png>]
+<caplabel/imgs/multimodal.pdf, id=1340, 580.1675pt x 161.60374pt>
 File: caplabel/imgs/multimodal.pdf Graphic file (type pdf)
 
 <use caplabel/imgs/multimodal.pdf>
-Package pdftex.def Info: caplabel/imgs/multimodal.pdf used on input line 159.
-(pdftex.def)             Requested size: 438.22963pt x 143.70358pt.
- [43 <./caplabel/imgs/rviz1.png>]
-<caplabel/imgs/boxds1.png, id=1261, 1222.5675pt x 921.4425pt>
+Package pdftex.def Info: caplabel/imgs/multimodal.pdf used on input line 154.
+(pdftex.def)             Requested size: 438.22963pt x 122.06802pt.
+
+<caplabel/imgs/boxds1.png, id=1343, 1222.5675pt x 921.4425pt>
 File: caplabel/imgs/boxds1.png Graphic file (type png)
 
 <use caplabel/imgs/boxds1.png>
-Package pdftex.def Info: caplabel/imgs/boxds1.png used on input line 177.
+Package pdftex.def Info: caplabel/imgs/boxds1.png used on input line 172.
 (pdftex.def)             Requested size: 199.19283pt x 150.11928pt.
 
-<caplabel/imgs/boxds2.png, id=1262, 1222.5675pt x 921.4425pt>
+<caplabel/imgs/boxds2.png, id=1344, 1222.5675pt x 921.4425pt>
 File: caplabel/imgs/boxds2.png Graphic file (type png)
 
 <use caplabel/imgs/boxds2.png>
-Package pdftex.def Info: caplabel/imgs/boxds2.png used on input line 178.
+Package pdftex.def Info: caplabel/imgs/boxds2.png used on input line 173.
 (pdftex.def)             Requested size: 199.19283pt x 150.11928pt.
- [44 <./caplabel/imgs/multimodal.pdf
+ [45 <./caplabel/imgs/multimodal.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./caplabel/imgs/multimodal.pdf): PDF in
 clusion: invalid other resource which is no dict (key 'ProcSets', type <array>)
 ; ignored.
 > <./caplabel/imgs/boxds1.png> <./caplabel/imgs/boxds2.png>]
-<caplabel/imgs/projectpc.png, id=1281, 1200.485pt x 884.30376pt>
+<caplabel/imgs/projectpc.png, id=1369, 1200.485pt x 884.30376pt>
 File: caplabel/imgs/projectpc.png Graphic file (type png)
 
 <use caplabel/imgs/projectpc.png>
-Package pdftex.def Info: caplabel/imgs/projectpc.png used on input line 224.
+Package pdftex.def Info: caplabel/imgs/projectpc.png used on input line 221.
 (pdftex.def)             Requested size: 208.04779pt x 153.24422pt.
 
-<caplabel/imgs/rvizpc.png, id=1282, 998.73125pt x 775.89874pt>
+<caplabel/imgs/rvizpc.png, id=1370, 998.73125pt x 775.89874pt>
 File: caplabel/imgs/rvizpc.png Graphic file (type png)
 
 <use caplabel/imgs/rvizpc.png>
-Package pdftex.def Info: caplabel/imgs/rvizpc.png used on input line 225.
+Package pdftex.def Info: caplabel/imgs/rvizpc.png used on input line 222.
 (pdftex.def)             Requested size: 199.19283pt x 154.75078pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [45]
-<caplabel/imgs/bbdiagram.pdf, id=1310, 340.27126pt x 189.70876pt>
+ [46]
+<caplabel/imgs/bbdiagram.pdf, id=1399, 327.2225pt x 203.76125pt>
 File: caplabel/imgs/bbdiagram.pdf Graphic file (type pdf)
 
 <use caplabel/imgs/bbdiagram.pdf>
-Package pdftex.def Info: caplabel/imgs/bbdiagram.pdf used on input line 244.
-(pdftex.def)             Requested size: 265.59494pt x 148.08221pt.
- [46 <./caplabel/imgs/projectpc.png> <./caplabel/imgs/rvizpc.png> <./caplabel/i
+Package pdftex.def Info: caplabel/imgs/bbdiagram.pdf used on input line 241.
+(pdftex.def)             Requested size: 265.59494pt x 165.3846pt.
+ [47 <./caplabel/imgs/projectpc.png> <./caplabel/imgs/rvizpc.png> <./caplabel/i
 mgs/bbdiagram.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./caplabel/imgs/bbdiagram.pdf): PDF inc
 lusion: invalid other resource which is no dict (key 'ProcSets', type <array>);
  ignored.
->] <caplabel/imgs/3dcube.png, id=1325, 1171.37625pt x 889.3225pt>
+>] <caplabel/imgs/3dcube.png, id=1425, 1171.37625pt x 889.3225pt>
 File: caplabel/imgs/3dcube.png Graphic file (type png)
 
 <use caplabel/imgs/3dcube.png>
-Package pdftex.def Info: caplabel/imgs/3dcube.png used on input line 262.
-(pdftex.def)             Requested size: 309.85626pt x 235.24866pt.
+Package pdftex.def Info: caplabel/imgs/3dcube.png used on input line 259.
+(pdftex.def)             Requested size: 265.59494pt x 201.6359pt.
 
-<caplabel/imgs/mtt_proj.png, id=1327, 1222.5675pt x 921.4425pt>
+<caplabel/imgs/mtt_proj.png, id=1426, 1222.5675pt x 921.4425pt>
 File: caplabel/imgs/mtt_proj.png Graphic file (type png)
 
 <use caplabel/imgs/mtt_proj.png>
-Package pdftex.def Info: caplabel/imgs/mtt_proj.png used on input line 276.
-(pdftex.def)             Requested size: 309.85626pt x 233.52357pt.
- [47 <./caplabel/imgs/3dcube.png>] [48 <./caplabel/imgs/mtt_proj.png>] [49]
-<caplabel/imgs/labellinggui.png, id=1382, 831.105pt x 803.0pt>
+Package pdftex.def Info: caplabel/imgs/mtt_proj.png used on input line 273.
+(pdftex.def)             Requested size: 265.59494pt x 200.17311pt.
+ [48 <./caplabel/imgs/3dcube.png> <./caplabel/imgs/mtt_proj.png>] [49] [50]
+<caplabel/imgs/labellinggui.png, id=1495, 831.105pt x 803.0pt>
 File: caplabel/imgs/labellinggui.png Graphic file (type png)
 
 <use caplabel/imgs/labellinggui.png>
-Package pdftex.def Info: caplabel/imgs/labellinggui.png used on input line 382.
+Package pdftex.def Info: caplabel/imgs/labellinggui.png used on input line 381.
 
 (pdftex.def)             Requested size: 438.22963pt x 423.40698pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 390.
+ [51 <./caplabel/imgs/labellinggui.png>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 389.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 390.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 389.
 
-<caplabel/imgs/labellinggui2.png, id=1383, 227.85126pt x 157.58875pt>
+<caplabel/imgs/labellinggui2.png, id=1501, 227.85126pt x 157.58875pt>
 File: caplabel/imgs/labellinggui2.png Graphic file (type png)
 
 <use caplabel/imgs/labellinggui2.png>
-Package pdftex.def Info: caplabel/imgs/labellinggui2.png used on input line 403
+Package pdftex.def Info: caplabel/imgs/labellinggui2.png used on input line 402
 .
 (pdftex.def)             Requested size: 177.05879pt x 122.46184pt.
- [50] [51 <./caplabel/imgs/labellinggui.png>] <caplabel/imgs/diagramtracking.pd
-f, id=1407, 349.305pt x 63.23625pt>
+
+<caplabel/imgs/diagramtracking.pdf, id=1503, 349.305pt x 63.23625pt>
 File: caplabel/imgs/diagramtracking.pdf Graphic file (type pdf)
 
 <use caplabel/imgs/diagramtracking.pdf>
 Package pdftex.def Info: caplabel/imgs/diagramtracking.pdf used on input line 4
-15.
+14.
 (pdftex.def)             Requested size: 309.85626pt x 56.0977pt.
  [52 <./caplabel/imgs/labellinggui2.png> <./caplabel/imgs/diagramtracking.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./caplabel/imgs/diagramtracking.pdf): P
 DF inclusion: invalid other resource which is no dict (key 'ProcSets', type <ar
 ray>); ignored.
->] <caplabel/imgs/playback.png, id=1428, 1075.01625pt x 808.01875pt>
+>] <caplabel/imgs/playback.png, id=1525, 1075.01625pt x 808.01875pt>
 File: caplabel/imgs/playback.png Graphic file (type png)
 
 <use caplabel/imgs/playback.png>
-Package pdftex.def Info: caplabel/imgs/playback.png used on input line 440.
+Package pdftex.def Info: caplabel/imgs/playback.png used on input line 439.
 (pdftex.def)             Requested size: 309.85626pt x 232.88924pt.
 ) [53 <./caplabel/imgs/playback.png (PNG copy)>]
 \openout2 = `capresults/capresults.aux'.
 
- (./capresults/capresults.tex
+ (./capresults/capresults.tex [54
+
+
+
+]
 Chapter 6.
-<capresults/imgs/gui.png, id=1434, 953.5625pt x 567.11874pt>
+<capresults/imgs/gui.png, id=1535, 953.5625pt x 567.11874pt>
 File: capresults/imgs/gui.png Graphic file (type png)
 
 <use capresults/imgs/gui.png>
 Package pdftex.def Info: capresults/imgs/gui.png used on input line 12.
 (pdftex.def)             Requested size: 398.38567pt x 236.93349pt.
- [54
+ [55 <./capresults/imgs/gui.png>]
+<capresults/imgs/modelframes.png, id=1543, 868.24374pt x 599.23875pt>
+File: capresults/imgs/modelframes.png Graphic file (type png)
 
+<use capresults/imgs/modelframes.png>
+Package pdftex.def Info: capresults/imgs/modelframes.png used on input line 36.
 
-
- <./capresults/imgs/gui.png>]
-<capresults/imgs/car1.png, id=1441, 1222.5675pt x 921.4425pt>
+(pdftex.def)             Requested size: 354.12434pt x 244.40936pt.
+ [56 <./capresults/imgs/modelframes.png>]
+<capresults/imgs/car1.png, id=1554, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/car1.png Graphic file (type png)
 
 <use capresults/imgs/car1.png>
-Package pdftex.def Info: capresults/imgs/car1.png used on input line 75.
+Package pdftex.def Info: capresults/imgs/car1.png used on input line 87.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/sign1.png, id=1442, 1222.5675pt x 921.4425pt>
+<capresults/imgs/sign1.png, id=1555, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/sign1.png Graphic file (type png)
 
 <use capresults/imgs/sign1.png>
-Package pdftex.def Info: capresults/imgs/sign1.png used on input line 76.
+Package pdftex.def Info: capresults/imgs/sign1.png used on input line 88.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/misc1.png, id=1443, 1222.5675pt x 921.4425pt>
+<capresults/imgs/misc1.png, id=1556, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/misc1.png Graphic file (type png)
 
 <use capresults/imgs/misc1.png>
-Package pdftex.def Info: capresults/imgs/misc1.png used on input line 78.
+Package pdftex.def Info: capresults/imgs/misc1.png used on input line 90.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/dontcare1.png, id=1444, 1222.5675pt x 921.4425pt>
+<capresults/imgs/dontcare1.png, id=1557, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/dontcare1.png Graphic file (type png)
 
 <use capresults/imgs/dontcare1.png>
-Package pdftex.def Info: capresults/imgs/dontcare1.png used on input line 79.
+Package pdftex.def Info: capresults/imgs/dontcare1.png used on input line 91.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/manual1.png, id=1445, 1222.5675pt x 921.4425pt>
+<capresults/imgs/manual1.png, id=1558, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/manual1.png Graphic file (type png)
 
 <use capresults/imgs/manual1.png>
-Package pdftex.def Info: capresults/imgs/manual1.png used on input line 90.
+Package pdftex.def Info: capresults/imgs/manual1.png used on input line 102.
 (pdftex.def)             Requested size: 354.12434pt x 266.8881pt.
- [55] [56 <./capresults/imgs/car1.png> <./capresults/imgs/sign1.png> <./capresu
-lts/imgs/misc1.png> <./capresults/imgs/dontcare1.png>] [57 <./capresults/imgs/m
+ [57] [58 <./capresults/imgs/car1.png> <./capresults/imgs/sign1.png> <./capresu
+lts/imgs/misc1.png> <./capresults/imgs/dontcare1.png>] [59 <./capresults/imgs/m
 anual1.png>]
-<capresults/imgs/car2.png, id=1468, 1222.5675pt x 921.4425pt>
+<capresults/imgs/car2.png, id=1578, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/car2.png Graphic file (type png)
 
 <use capresults/imgs/car2.png>
-Package pdftex.def Info: capresults/imgs/car2.png used on input line 152.
+Package pdftex.def Info: capresults/imgs/car2.png used on input line 164.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/van2.png, id=1469, 1222.5675pt x 921.4425pt>
+<capresults/imgs/van2.png, id=1579, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/van2.png Graphic file (type png)
 
 <use capresults/imgs/van2.png>
-Package pdftex.def Info: capresults/imgs/van2.png used on input line 153.
+Package pdftex.def Info: capresults/imgs/van2.png used on input line 165.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/people2.png, id=1470, 1222.5675pt x 921.4425pt>
+<capresults/imgs/people2.png, id=1580, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/people2.png Graphic file (type png)
 
 <use capresults/imgs/people2.png>
-Package pdftex.def Info: capresults/imgs/people2.png used on input line 155.
+Package pdftex.def Info: capresults/imgs/people2.png used on input line 167.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/sign2.png, id=1471, 1222.5675pt x 921.4425pt>
+<capresults/imgs/sign2.png, id=1581, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/sign2.png Graphic file (type png)
 
 <use capresults/imgs/sign2.png>
-Package pdftex.def Info: capresults/imgs/sign2.png used on input line 156.
+Package pdftex.def Info: capresults/imgs/sign2.png used on input line 168.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/dontcare2.png, id=1472, 1222.5675pt x 921.4425pt>
+<capresults/imgs/dontcare2.png, id=1582, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/dontcare2.png Graphic file (type png)
 
 <use capresults/imgs/dontcare2.png>
-Package pdftex.def Info: capresults/imgs/dontcare2.png used on input line 158.
+Package pdftex.def Info: capresults/imgs/dontcare2.png used on input line 170.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/car3.png, id=1476, 1222.5675pt x 921.4425pt>
+<capresults/imgs/car3.png, id=1586, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/car3.png Graphic file (type png)
 
 <use capresults/imgs/car3.png>
-Package pdftex.def Info: capresults/imgs/car3.png used on input line 202.
+Package pdftex.def Info: capresults/imgs/car3.png used on input line 214.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/van3.png, id=1477, 1222.5675pt x 921.4425pt>
+<capresults/imgs/van3.png, id=1587, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/van3.png Graphic file (type png)
 
 <use capresults/imgs/van3.png>
-Package pdftex.def Info: capresults/imgs/van3.png used on input line 203.
+Package pdftex.def Info: capresults/imgs/van3.png used on input line 215.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/people3.png, id=1478, 1222.5675pt x 921.4425pt>
+<capresults/imgs/people3.png, id=1588, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/people3.png Graphic file (type png)
 
 <use capresults/imgs/people3.png>
-Package pdftex.def Info: capresults/imgs/people3.png used on input line 205.
+Package pdftex.def Info: capresults/imgs/people3.png used on input line 217.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/bicycle3.png, id=1479, 1222.5675pt x 921.4425pt>
+<capresults/imgs/bicycle3.png, id=1589, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/bicycle3.png Graphic file (type png)
 
 <use capresults/imgs/bicycle3.png>
-Package pdftex.def Info: capresults/imgs/bicycle3.png used on input line 206.
+Package pdftex.def Info: capresults/imgs/bicycle3.png used on input line 218.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/sign3.png, id=1480, 1222.5675pt x 921.4425pt>
+<capresults/imgs/sign3.png, id=1590, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/sign3.png Graphic file (type png)
 
 <use capresults/imgs/sign3.png>
-Package pdftex.def Info: capresults/imgs/sign3.png used on input line 208.
+Package pdftex.def Info: capresults/imgs/sign3.png used on input line 220.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
 
-<capresults/imgs/misc2.png, id=1481, 1222.5675pt x 921.4425pt>
+<capresults/imgs/misc2.png, id=1591, 1222.5675pt x 921.4425pt>
 File: capresults/imgs/misc2.png Graphic file (type png)
 
 <use capresults/imgs/misc2.png>
-Package pdftex.def Info: capresults/imgs/misc2.png used on input line 209.
+Package pdftex.def Info: capresults/imgs/misc2.png used on input line 221.
 (pdftex.def)             Requested size: 216.90276pt x 163.47633pt.
-) [58] [59 <./capresults/imgs/car2.png> <./capresults/imgs/van2.png> <./capresu
+) [60] [61 <./capresults/imgs/car2.png> <./capresults/imgs/van2.png> <./capresu
 lts/imgs/people2.png> <./capresults/imgs/sign2.png> <./capresults/imgs/dontcare
-2.png>] [60 <./capresults/imgs/car3.png> <./capresults/imgs/van3.png> <./capres
+2.png>] [62 <./capresults/imgs/car3.png> <./capresults/imgs/van3.png> <./capres
 ults/imgs/people3.png> <./capresults/imgs/bicycle3.png> <./capresults/imgs/sign
 3.png> <./capresults/imgs/misc2.png>]
 \openout2 = `capxconcl/capxconcl.aux'.
@@ -1811,107 +1817,64 @@ ults/imgs/people3.png> <./capresults/imgs/bicycle3.png> <./capresults/imgs/sign
 
 (./capxconcl/capxconcl.tex
 Chapter 7.
-[61
+[63
 
 
 
 
-]) [62] [63
+]) [64] [65
 
 
 
 ]
-Overfull \hbox (22.7439pt too wide) in paragraph at lines 302--302
+Overfull \hbox (22.7439pt too wide) in paragraph at lines 341--341
 []$\OT1/cmtt/m/n/10.95 https : / / news . google . com / newspapers ? id = unBQ
 AAAAIBAJ % 7B % 5C & %7Dsjid = QQ8EAAAAIBAJ %|
  []
 
-[64]
-Overfull \hbox (30.94229pt too wide) in paragraph at lines 303--303
-[][]\OT1/sbc/m/n/10.95 Boston Didi Team (2018). \OT1/cmr/m/it/10.95 KITTI Githu
-b Re-spos-i-tory\OT1/sbc/m/n/10.95 . \OT1/cmr/m/sc/10.95 url\OT1/sbc/m/n/10.95 
+[66]
+Overfull \hbox (30.94229pt too wide) in paragraph at lines 342--342
+[][]\OT1/cmr/m/n/10.95 Boston Didi Team (2018). \OT1/cmr/m/it/10.95 KITTI Githu
+b Re-spos-i-tory\OT1/cmr/m/n/10.95 . \OT1/cmr/m/sc/10.95 url\OT1/cmr/m/n/10.95 
 : []$\OT1/cmtt/m/n/10.95 https : / / github . com / bostondiditeam /|
  []
 
 
-Overfull \hbox (15.37462pt too wide) in paragraph at lines 303--303
-[][]\OT1/sbc/m/n/10.95 DARPA (2018). \OT1/cmr/m/it/10.95 DARPA Grand Chal-lenge
-\OT1/sbc/m/n/10.95 . \OT1/cmr/m/sc/10.95 url\OT1/sbc/m/n/10.95 : []$\OT1/cmtt/m
+Overfull \hbox (15.37462pt too wide) in paragraph at lines 342--342
+[][]\OT1/cmr/m/n/10.95 DARPA (2018). \OT1/cmr/m/it/10.95 DARPA Grand Chal-lenge
+\OT1/cmr/m/n/10.95 . \OT1/cmr/m/sc/10.95 url\OT1/cmr/m/n/10.95 : []$\OT1/cmtt/m
 /n/10.95 http : / / archive . darpa . mil / grandchallenge/$[]|
  []
 
-! Undefined control sequence.
-<argument> ...alibration and 3D Reconstruction \x 
-                                                  {fffd}\x {fffd}\x {fffd} O...
-l.303 ...ype=misc,title={Electronic Bibliography}]
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...n and 3D Reconstruction \x {fffd}\x 
-                                                  {fffd}\x {fffd} OpenCV 2.4...
-l.303 ...ype=misc,title={Electronic Bibliography}]
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-<argument> ...Reconstruction \x {fffd}\x {fffd}\x 
-                                                  {fffd} OpenCV 2.4.13.6 doc...
-l.303 ...ype=misc,title={Electronic Bibliography}]
-                                                  
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-[65
+[67
 
 ]
-Overfull \hbox (10.56247pt too wide) in paragraph at lines 303--303
-\OT1/cmr/m/it/10.95 liance for Re-search and Tech-nol-ogy\OT1/sbc/m/n/10.95 . \
-OT1/cmr/m/sc/10.95 url\OT1/sbc/m/n/10.95 : []$\OT1/cmtt/m/n/10.95 https : / / s
-mart . mit . edu/$[] \OT1/sbc/m/n/10.95 (vis-ited on 17/04/2018). |
+Overfull \hbox (10.56247pt too wide) in paragraph at lines 342--342
+\OT1/cmr/m/it/10.95 liance for Re-search and Tech-nol-ogy\OT1/cmr/m/n/10.95 . \
+OT1/cmr/m/sc/10.95 url\OT1/cmr/m/n/10.95 : []$\OT1/cmtt/m/n/10.95 https : / / s
+mart . mit . edu/$[] \OT1/cmr/m/n/10.95 (vis-ited on 17/04/2018). |
  []
 
-[66] [67
+[68] [69
 
 
-] (./capappendices/capappendices.tex
+] [70] (./capappendices/capappendices.tex
 Appendix A.
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
-[68
+[71
 
-] [69]
-LaTeX Font Info:    Try loading font information for OML+sbc on input line 118.
-
-LaTeX Font Info:    No file OMLsbc.fd. on input line 118.
-
-
-LaTeX Font Warning: Font shape `OML/sbc/m/n' undefined
-(Font)              using `OML/cmm/m/it' instead
-(Font)              for symbol `textless' on input line 118.
-
-)
+] [72])
 
 Package glossaries Warning: No \printglossary or \printglossaries found.
 (Remove \makeglossaries if you don't want any glossaries.)
 This document will not have a glossary.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 317.
-[70
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 356.
+[73
 runsystem(makeindex -s example.ist -t example.glg -o example.gls example.glo)..
 .executed safely (allowed).
 
@@ -1919,18 +1882,18 @@ runsystem(makeindex -s example.ist -t example.alg -o example.acr example.acn)..
 .executed safely (allowed).
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 317.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 356.
  (./example.aux (./glossary.aux) (./capintro/capintro.aux)
 (./capstate/capstate.aux) (./capexp/capexp.aux) (./capcalib/capcalib.aux)
 (./caplabel/caplabel.aux) (./capresults/capresults.aux)
 (./capxconcl/capxconcl.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 317.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 317.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 356.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 356.
 Package rerunfilecheck Info: File `example.out' has not changed.
-(rerunfilecheck)             Checksum: DB232593A328D0912636A5BF994CD7C7;5675.
+(rerunfilecheck)             Checksum: 1DEC04B0A687FFD2C05539CF48148C7A;5480.
 
 
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+LaTeX Warning: There were undefined references.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1940,32 +1903,29 @@ Package logreq Info: Writing requests to 'example.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 22047 strings out of 494929
- 353264 string characters out of 6180142
- 1155673 words of memory out of 5000000
- 24310 multiletter control sequences out of 15000+600000
+ 22050 strings out of 494929
+ 353595 string characters out of 6180142
+ 1126057 words of memory out of 5000000
+ 24314 multiletter control sequences out of 15000+600000
  13938 words of font info for 51 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 61i,14n,101p,2312b,2182s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{cite.0@Ess2009} has been referenced but does not 
-exist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
-0.pfb>
-Output written on example.pdf (94 pages, 102186505 bytes).
+ 61i,14n,97p,2312b,2294s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+t10.pfb>
+Output written on example.pdf (97 pages, 103405686 bytes).
 PDF statistics:
- 1780 PDF objects out of 2073 (max. 8388607)
- 1539 compressed objects within 16 object streams
- 511 named destinations out of 1000 (max. 500000)
- 1055 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1901 PDF objects out of 2073 (max. 8388607)
+ 1622 compressed objects within 17 object streams
+ 514 named destinations out of 1000 (max. 500000)
+ 1036 words of extra memory for PDF output out of 10000 (max. 10000000)
 

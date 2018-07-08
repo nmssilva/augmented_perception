@@ -28,21 +28,33 @@ During the calibration procedure, the ball rolls in front of the camera and sens
 	\end{center}
 \end{figure}
 
-In listing \ref{lst:calib_result} an example output file of the calibration can be observed. The file contains a 4x4 matrix that indicates the transforms for the given sensor. Each sensor in the calibration will output its own file containing its transformation matrix relatively to the reference sensor. The reference sensor does not create a transform because it is assumed that this sensor is in the origin, unrotated. 
+In listing \ref{lst:calib_result} an example output file of the calibration can be observed. The file contains a 4x4 matrix that indicates the transforms for the given sensor. Each sensor in the calibration will output its own file containing its transformation matrix relatively to the reference sensor. The reference sensor does not create a transform because it is assumed that this sensor is in the origin, unrotated. This file is stored in a folder with the calibration results inside the calibration package directory.
+
+\begin{figure}[htp]
+	
+	\centering
+	\includegraphics[width=0.8\textwidth]{capresults/imgs/modelframes.png}
+	
+	\caption{ATLASCAR2 model with sensors transformation frames}
+	\label{fig:modelframes}
+	
+\end{figure}
+
+Figure \ref{fig:modelframes} presents an ATLASCAR2 3D model with the several sensors and their respective transformation frames after applying the output file to a frame publisher.
 
 \section{Detection, Tracking and Labelling}
 
 This section will present the detection, tracking and labelling results with two rosbags recorded and used for the testing of the detection, tracking and labelling algorithms. Two rosbags were recorded in October 17, 2017, in the afternoon:
 
 \begin{itemize}
-	\item The first rosbag was recorded while leaving Universidade de Aveiro. The car traveled around the campus and visited the Alboi neighborhood.
-	\begin{itemize}
-	\item In this bag there are cars, vans, cyclists and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
-	\end{itemize} 
-	\item The second rosbag starts at Alboi where the first rosbag stopped. The car follows a path into the A25 highway until the first exit.
-	\begin{itemize}
-	\item There are mostly cars in this rosbag and it was better to start with some tests in tracking objects.
-	\end{itemize} 
+	\item The first rosbag starts at Alboi. The car follows a path into the A25 highway until the first exit.
+		\begin{itemize}
+			\item There are mostly cars in this rosbag and it was better to start with some tests in tracking objects.
+		\end{itemize} 
+	\item The second rosbag was recorded while leaving Universidade de Aveiro. The car traveled around the campus and visited the Alboi neighborhood.
+		\begin{itemize}
+		\item In this bag there are cars, vans, cyclists and pedestrians. It is a bag where the car also runs into slopes. It is a rosbag with more detail which was used later in the project.
+		\end{itemize} 
 \end{itemize} 
 
 
@@ -78,7 +90,7 @@ The labelling was done with semi-automatic methods using sensor fusion and also 
 	\includegraphics[width=.49\textwidth]{capresults/imgs/misc1.png}
 	\includegraphics[width=.49\textwidth]{capresults/imgs/dontcare1.png}
 	
-	\caption{Example of suggestions given by the MTT:  \texttt{car} (top-left), \texttt{sign} (top-right), \texttt{misc} (bottom-left) and \texttt{DontCare} (bottom-right)}
+	\caption{Targets acquired using the MTT labelled as \texttt{car} (top-left), \texttt{sign} (top-right), \texttt{misc} (bottom-left) and \texttt{DontCare} (bottom-right)}
 	\label{fig:dataset1results1}
 	
 \end{figure}
@@ -105,9 +117,9 @@ The labelling was done with semi-automatic methods using sensor fusion and also 
 	\end{tabular}
 \end{table}
 
-Only one manual entry was saved because the target was too far and the semi-automatic methods in that place suggested the roadsides.
+In table \ref{tab: highwaymetrics} some statistics about the dataset are presented. Only one manual entry (figure \ref{fig:dataset1results2}) was saved because the target was too far and the semi-automatic methods in that place suggested the roadsides. As this sequence presents few objects at a time, most semi-automatic suggestions were accepted. The semi-automatic system works better in areas with reduced movement so the readings of the sensors are more accurate.
 
-As this sequence presents few objects at a time, most semi-automatic suggestions were accepted. The semi-automatic system works better in areas with reduced movement so the readings of the sensors are more accurate.
+Figure \ref{fig:dataset1results1} shows four examples in which three were right suggestions (\texttt{car}, \texttt{sign} and \texttt{misc}) and one was wrong (\texttt{DontCare}). Table \ref{tab: highwaystats} shows how many objects of each category appear in the sequence.
 
 \subsection{Dataset 2 - Aveiro City Urban Area}
 
@@ -133,7 +145,7 @@ The dataset produced with the semi-automatic method the labelling metric listed 
 
 The Urban area is a zone with high-traffic and because there are more objects (sidewalks, roadsides, walls, etc...), the semi-automatic method is more likely to mistake an object of interest with something with no significance in the dataset scope. 
 
-The metrics show that nearly 2 out of 3 suggestions are something that has no interest for the dataset. In table \ref{tab: urban1stats} the amount of objects found is presented and in figure \ref{fig:dataset2results1} example of each label are shown.
+The metrics show that nearly 2 out of 3 suggestions are something that has no interest for the dataset. In table \ref{tab: urban1stats} the amount of objects found is presented and figure \ref{fig:dataset2results1} shows five examples of suggestions given by the tracking system where four are correct (\texttt{car}, \texttt{van}, \texttt{people} and \texttt{sign}). One of the example is a wrong suggestion (\texttt{DontCare}).
 
 \begin{table}[htp]
 	\centering
@@ -193,7 +205,7 @@ Because the annotation was done manually, it is possible to enter more than one 
 	\end{tabular}
 \end{table}
 
-Analyzing table \ref{tab: urban2stats} it is possible to conclude that with manual methods one can freely enter with more detail the detected objects. In comparison to the semi-automatic methods, with the manual strategy it is easier to enter objects like people and bicycles as it seems to be difficult to cluster such small objects in the given sensor data.
+By analyzing table \ref{tab: urban2stats} it is possible to conclude that with manual methods one can freely enter with more detail the detected objects. In comparison to the semi-automatic methods, with the manual strategy it is easier to enter objects like people and bicycles as it seems to be difficult to cluster such small objects in the given sensor data.
 
 \begin{figure}[htp]
 	
@@ -212,6 +224,8 @@ Analyzing table \ref{tab: urban2stats} it is possible to conclude that with manu
 	\label{fig:dataset2results2}
 	
 \end{figure}
+
+Figure \ref{fig:dataset2results2} shows six examples of manual entries (\texttt{car}, \texttt{van}, \texttt{people}, \texttt{bicycle}, \texttt{sign} and \texttt{misc}).
 
 
 

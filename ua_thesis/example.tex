@@ -9,7 +9,7 @@
 %
 %
 
-\documentclass[11pt,twoside,a4paper]{report}
+\documentclass[11pt,twoside,a4paper,openright]{report}
 \usepackage[DETI,newLogo]{uaThesis}
 
 \def\ThesisYear{2018}
@@ -98,10 +98,49 @@ citestyle=authoryear
 	morecomment=[s]{!--}{--},
 	commentstyle=\color{darkgreen},
 	moredelim=[s][\color{black}]{>}{<},
-	moredelim=[s][\color{red}]{\ }{=},
+	moredelim=[s][\color{black}]{\ }{=},
 	stringstyle=\color{blue},
 	identifierstyle=\color{maroon}
 }
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{dred}{rgb}{0.545,0,0}
+\definecolor{dblue}{rgb}{0,0,0.545}
+\definecolor{lgrey}{rgb}{0.9,0.9,0.9}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\lstdefinelanguage{cpp}{
+	basicstyle=\footnotesize \ttfamily \color{black} \bfseries,   
+	breakatwhitespace=false,       
+	breaklines=true,     
+	belowcaptionskip=1\baselineskip,  
+	captionpos=b,           
+	commentstyle=\color{dkgreen},   
+	deletekeywords={...},          
+	escapeinside={\%*}{*)},            
+	language=C++,                
+	keywordstyle=\color{purple},  
+	morekeywords={BRIEFDescriptorConfig,string,TiXmlNode,DetectorDescriptorConfigContainer,istringstream,cerr,exit}, 
+	identifierstyle=\color{black},
+	stringstyle=\color{blue},      
+	numbers=left,                   
+	numberstyle=\tiny\color{mygray}, 
+	rulecolor=\color{black},        
+	showspaces=false,               
+	showstringspaces=false,        
+	showtabs=false,                
+	stepnumber=1,                   
+	tabsize=4,                     
+	title=\lstname,                 
+}
+\lstset{language=C++,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{maroon}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+
 
 \makeglossaries
 \glstoctrue
@@ -186,7 +225,7 @@ citestyle=authoryear
   \TEXT{}
        {Disserta\c c\~ao apresentada \`a Universidade de Aveiro para cumprimento dos requesitos
         necess\'arios \`a obten\c c\~ao do grau de Mestre em Engenharia de Computadores e Telem\'atica , realizada sob a orienta\c c\~ao
-        cient\'\i fica de Paulo Miguel de Jesus Dias, Professor Auxiliar do Departamento de Electr\'onica, Telecomunica\c c\~oes e Inform\'atica da Universidade de Aveiro, de Vitor Manuel Ferreira dos Santos, Professor Associado do Departamento de Engenharia Mec\^ anica e de Miguel Armando Riem de Oliveira, Professor Auxiliar do Departamento de Engenharia Mec\^ anica.}
+        cient\'\i fica de Paulo Miguel de Jesus Dias, Professor Auxiliar do Departamento de Electr\'onica, Telecomunica\c c\~oes e Inform\'atica da Universidade de Aveiro e de Vitor Manuel Ferreira dos Santos, Professor Associado do Departamento de Engenharia Mec\^ anica.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
@@ -223,7 +262,7 @@ citestyle=authoryear
   {Navega{\c c}\~ao aut\'onoma; Ve\'iculos aut\'onomos; ATLASCAR; Agrupamento de dados; Calibra{\c c}\~ao; Anota\c c\~ao de dados; Dete\c c\~ao de Objetos; Fus\~ao de Dados; ADAS; LIDAR; Processamento de Imagem.}
   \vspace*{5mm}
   \TEXT{\textbf{Resumo}}
-       {No \^ambito do projeto do ATLASCAR2, esta disserta\c c\~ao baseia-se no desenvolvimento (usando \gls{ros}) de um sistema de assist\^encia \`a condu\c c\~ao que implementa uma interface de dete\c c\~ao, seguimento e anota\c c\~ao de alvos na estrada. A dete\c c\~ao e o seguimento s\~ao feitos a partir de dados de sensores \gls{lidar} e de uma c\^amera. Numa primeira fase \'e implementado um algoritmo para ser usado na c\^amera baseado na apar\^encia do alvo a ser seguido. Seguidamente, \'e desenvolvido um algoritmo baseado no alcance usando dados adquiridos nos sensores para seguir objetos num espa\c co tridimensional. Finalmente, como \'e poss\'ivel detetar e seguir objetos usando a imagem e os lasers, a combina\c c\~ao dos algoritmos \'e feita  projetando o que \'e capturado pelos sensores na imagem da c\^amera, sendo poss\'ivel obter um seguimento mais preciso e robusto dos alvos na estrada. Para avaliar o algoritmo alguns datasets foram usados com a anota\c c\~ao dos v\'arios alvos detetados e seguidos. Para efetuar este trabalho \'e necess\'ario que os sensores e a c\^amera estejam devidamente calibrados. Para este efeito, a calibra\c c\~ao entre os v\'arios dispositivos \'e feita atrav\'es de uma aplica\c c\~ao que, ao passar uma bola em frente dos sensores, \'e poss\'ivel descobrir os valores das posi\c c\~oes de cada sensor relativamente a um dispositivo dado como refer\^encia. Ao n\'ivel da calibra\c c\~ao, esta disserta\c c\~ao inclui tamb\'em uma melhoria do algoritmo de dete\c c\~ao da bola na imagem obtida pela c\^amera.}
+       {No \^ambito do projeto do ATLASCAR2, esta disserta\c c\~ao baseia-se no desenvolvimento (usando \gls{ros}) de um sistema de assist\^encia \`a condu\c c\~ao que implementa uma interface para dete\c c\~ao, seguimento e anota\c c\~ao de alvos na estrada. A dete\c c\~ao e o seguimento s\~ao feitos a partir de dados de sensores \gls{lidar} e de uma c\^amara. Numa primeira fase \'e implementado um algoritmo para ser usado na c\^amara baseado na apar\^encia do alvo a ser seguido. Seguidamente, \'e desenvolvido um algoritmo baseado no alcance usando dados adquiridos nos sensores para seguir objetos num espa\c co tridimensional. Finalmente, como \'e poss\'ivel detetar e seguir objetos usando a imagem e os lasers, a combina\c c\~ao dos algoritmos \'e feita  projetando o que \'e capturado pelos sensores na imagem da c\^amara, sendo poss\'ivel obter um seguimento mais preciso e robusto dos alvos na estrada. Para avaliar o algoritmo alguns "datasets" foram usados com a anota\c c\~ao dos v\'arios alvos detetados e seguidos. Para efetuar este trabalho \'e necess\'ario que os sensores e a c\^amara estejam devidamente calibrados. Para este efeito, a calibra\c c\~ao entre os v\'arios dispositivos \'e feita atrav\'es de uma aplica\c c\~ao que, ao passar uma bola em frente dos sensores, \'e poss\'ivel descobrir os valores das posi\c c\~oes de cada sensor relativamente a um dispositivo dado como refer\^encia. Ao n\'ivel da calibra\c c\~ao, esta disserta\c c\~ao inclui tamb\'em uma melhoria do algoritmo de dete\c c\~ao da bola na imagem obtida pela c\^amara.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
@@ -233,7 +272,7 @@ citestyle=authoryear
   {Autonomous driving; Autonomous vehicles; ATLASCAR; Data Clustering; Calibration; Data Labelling; Object Detection; Data Fusion; ADAS; LIDAR; Image Processing.}
   \vspace*{5mm}
   \TEXT{\textbf{Abstract}}
-       {In the scope of the ATLASCAR2 project, this dissertation is based on the development (using \gls{ros}) of a driving assistance system that implements a detection, tracking and labelling interface of targets on the road. The detection and tracking are done from \gls{lidar} sensor data and a camera. Firstly, it is implemented an algorithm to be used in the camera based on the appearance of the target to be tracked. Next, it is developed a range based algorithm using the data acquired from the sensors to follow objects in a tridimensional space. Finally, because it is possible to detect and track objects using the image and the lasers, the combination of the algorithms is done by projecting what is captured from the sensors in the camera image, being possible to obtain a more accurate and robust tracking. To evaluate the algorithm some datasets were used with the labelled data from the several detected and followed objects. To perform this work the sensors and the camera need to be properly calibrated. To do this, the calibration between the several devices was done using an application that, by passing a ball in front of the sensors, it is possible to find the position values of each sensor relatively to a given reference device. Within the calibration, this dissertation also includes an improvement of the ball detection algorithm in the image obtained by the camera.}
+       {In the scope of the ATLASCAR2 project, this dissertation is based on the development (using \gls{ros}) of a driving assistance system that implements an interface to detect, track and label targets on the road. The detection and tracking are done using \gls{lidar} sensor data and a camera. Firstly, an algorithm is implemented to be used in the camera based on the appearance of the target to be tracked. Next, a range based algorithm is developed using the data acquired from the sensors to follow objects in a tridimensional space. Finally, because it is possible to detect and track objects using the image and the lasers, the combination of the algorithms is done by projecting what is captured from the sensors in the camera image, being possible to obtain a more accurate and robust tracking. To evaluate the algorithm some datasets were used with the labelled data from the several detected and followed objects. To perform this work the sensors and the camera need to be properly calibrated. To do this, the calibration between the several devices was done using an application that, by passing a ball in front of the sensors, the position values of each sensor relatively to a given reference device are found. Within the calibration, this dissertation also includes an improvement of the ball detection algorithm in the image obtained by the camera.}
 \EndTitlePage
 \titlepage\ \endtitlepage % empty page
 
@@ -299,8 +338,8 @@ citestyle=authoryear
 %
 \cleardoublepage
 
-\printbibliography[type=article,title={Bibliography}]
-\printbibliography[type=misc,title={Electronic Bibliography}]
+\printbibliography[nottype=misc,title={References}]
+\printbibliography[type=misc,title={On-line References}]
   % Use this is the final version
   %  unsrt produces numbered entries, sorted by order of citation
   %  plain produces numbered entries, sorted alphabetically
