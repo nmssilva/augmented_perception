@@ -20,6 +20,8 @@ This section describes the progress introduced in the development of the ball de
 	
 \end{figure}
 
+In figure \ref{fig:ball_diagram} a diagram showing the detection procedure is presented. As the frames are received, a background is selected to apply a background subtraction method. The noise from the resultant binary image is filtered and a color filtering method using the image color is applied to locate the ball by its color.
+
 The ball detection upgrade begins by retrieving the video stream frames from the PointGrey camera. The image obtained was worked in a rosbag used for testing in order for the development to be made outside the ATLASCAR 2. The ball used in the tests is shown in figure \ref{fig:ball}. 
 
 \begin{figure}[htp]
@@ -53,7 +55,7 @@ When the capture starts, the first received frame will be the default background
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=0.5\textwidth]{capcalib/imgs/ball_test.png}
+	\includegraphics[width=0.8\textwidth]{capcalib/imgs/ball_test.png}
 	
 	\caption{Frame with ball rolling in front of the camera}
 	\label{fig:balltest}
@@ -68,7 +70,7 @@ In most cases the pixel values will not get to zero because of minor changes to 
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=0.5\textwidth]{capcalib/imgs/noise.png}
+	\includegraphics[width=0.8\textwidth]{capcalib/imgs/noise.png}
 	
 	\caption{Background subtraction result with noise}
 	\label{fig:ballnoise}
@@ -80,16 +82,6 @@ In most cases the pixel values will not get to zero because of minor changes to 
 After the background removal technique is applied, the resulting image may possibly contain some noise. Some pixels may be left white in the background due to lightning changes when the ball passes in front of the camera. These white pixels are noise and must be removed.
 
 An erosion algorithm is implemented where for each pixel the neighbor pixels are counted. The image is processed left-to-right, top-to-bottom, so the matrix corresponding to the frame is iterated throughout its lines. A counter is added to check if the previous pixels contained white pixels (with value of 1). 
-
-\begin{figure}[htp]
-	
-	\centering
-	\includegraphics[width=0.5\textwidth]{capcalib/imgs/neighpixel.pdf}
-	
-	\caption{Neighbor pixels used in the algorithm where grey pixels represent the kernel and the pixel P represents the pixel being processed}
-	\label{fig:neigh_cnt}
-	
-\end{figure}
 
 As the kernel is scanned over the image, the algorithm computes the minimal pixel value overlapped by the kernel and replaces the image pixel under the anchor point with that minimal value (\cite{OpenCV2.4.13.6documentation}). The result is the image in figure \ref{fig:balldetect}.
 
@@ -108,7 +100,7 @@ A bounding box is drawn around the ball if there is a number of white pixels big
 \begin{figure}[htp]
 	
 	\centering
-	\includegraphics[width=0.7\textwidth]{capcalib/imgs/ball_detect.png}
+	\includegraphics[width=0.5\textwidth]{capcalib/imgs/ball_detect.png}
 	
 	\caption{Ball detected with bounding box}
 	\label{fig:balldetect}

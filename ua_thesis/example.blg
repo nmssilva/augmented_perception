@@ -1,32 +1,32 @@
 [0] Config.pm:340> INFO - This is Biber 2.4
 [0] Config.pm:343> INFO - Logfile is 'example.blg'
-[51] biber:287> INFO - === Dom Jul  8, 2018, 01:45:14
-[132] Biber.pm:348> INFO - Reading 'example.bcf'
-[261] Biber.pm:742> INFO - Found 38 citekeys in bib section 0
-[265] Biber.pm:3151> INFO - Processing section 0
-[290] Biber.pm:3308> INFO - Looking for bibtex format file 'library.bib' for section 0
-[404] bibtex.pm:1113> INFO - Decoding LaTeX character macros into UTF-8
-[507] bibtex.pm:974> INFO - Found BibTeX data source 'library.bib'
-[509] Utils.pm:147> WARN - Duplicate entry key: 'Pomerleau1989' in file 'library.bib', skipping ...
-[510] Utils.pm:147> WARN - Duplicate entry key: 'Waymo' in file 'library.bib', skipping ...
-[510] Utils.pm:147> WARN - Duplicate entry key: 'ROSWiki' in file 'library.bib', skipping ...
-[510] Utils.pm:147> WARN - Duplicate entry key: 'ROSWikia' in file 'library.bib', skipping ...
-[511] Utils.pm:147> WARN - Duplicate entry key: 'Teo' in file 'library.bib', skipping ...
-[511] Utils.pm:147> WARN - Duplicate entry key: 'Kroger2016' in file 'library.bib', skipping ...
-[786] Utils.pm:147> WARN - BibTeX subsystem: /tmp/0P9u9r9PHs/library.bib_30360.utf8, line 6, warning: 172 characters of junk seen at toplevel
-[1080] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1080] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1080] Biber.pm:3028> INFO - Sorting list 'nyt/global' of type 'entry' with scheme 'nyt' and locale 'en-UK'
-[1080] Biber.pm:3032> INFO - No sort tailoring available for locale 'en-UK'
-[1141] bbl.pm:519> INFO - Writing 'example.bbl' with encoding 'ascii'
-[1170] Utils.pm:147> WARN - The entry 'Correia2017' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1180] Utils.pm:147> WARN - The entry 'EPFLEcolepolytechniquefederaledeLausanne' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1193] Utils.pm:147> WARN - The entry 'ETHZEidgenossischeTechnischeHochschuleZurich' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1203] Utils.pm:147> WARN - The entry 'Geiger' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1219] Utils.pm:147> WARN - The entry 'Kroger2016' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1238] Utils.pm:147> WARN - The entry 'Luo' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1328] Utils.pm:147> WARN - The entry 'Sigal' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1348] Utils.pm:147> WARN - The entry 'SoaresDeAlmeida2016a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1356] Utils.pm:147> WARN - The entry 'Spinello2010' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
-[1439] bbl.pm:615> INFO - Output to example.bbl
-[1440] Biber.pm:109> INFO - WARNINGS: 16
+[59] biber:287> INFO - === Seg Jul  9, 2018, 11:24:03
+[172] Biber.pm:348> INFO - Reading 'example.bcf'
+[337] Biber.pm:742> INFO - Found 38 citekeys in bib section 0
+[393] Biber.pm:3151> INFO - Processing section 0
+[507] Biber.pm:3308> INFO - Looking for bibtex format file 'library.bib' for section 0
+[698] bibtex.pm:1113> INFO - Decoding LaTeX character macros into UTF-8
+[839] bibtex.pm:974> INFO - Found BibTeX data source 'library.bib'
+[841] Utils.pm:147> WARN - Duplicate entry key: 'Pomerleau1989' in file 'library.bib', skipping ...
+[842] Utils.pm:147> WARN - Duplicate entry key: 'Waymo' in file 'library.bib', skipping ...
+[842] Utils.pm:147> WARN - Duplicate entry key: 'ROSWiki' in file 'library.bib', skipping ...
+[843] Utils.pm:147> WARN - Duplicate entry key: 'ROSWikia' in file 'library.bib', skipping ...
+[844] Utils.pm:147> WARN - Duplicate entry key: 'Teo' in file 'library.bib', skipping ...
+[844] Utils.pm:147> WARN - Duplicate entry key: 'Kroger2016' in file 'library.bib', skipping ...
+[1311] Utils.pm:147> WARN - BibTeX subsystem: /tmp/WNd5YXOPde/library.bib_18703.utf8, line 6, warning: 172 characters of junk seen at toplevel
+[1763] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1763] UCollate.pm:65> INFO - Overriding locale 'en-UK' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1763] Biber.pm:3028> INFO - Sorting list 'nyt/global' of type 'entry' with scheme 'nyt' and locale 'en-UK'
+[1764] Biber.pm:3032> INFO - No sort tailoring available for locale 'en-UK'
+[1851] bbl.pm:519> INFO - Writing 'example.bbl' with encoding 'ascii'
+[1893] Utils.pm:147> WARN - The entry 'Correia2017' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1905] Utils.pm:147> WARN - The entry 'EPFLEcolepolytechniquefederaledeLausanne' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1925] Utils.pm:147> WARN - The entry 'ETHZEidgenossischeTechnischeHochschuleZurich' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1939] Utils.pm:147> WARN - The entry 'Geiger' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1962] Utils.pm:147> WARN - The entry 'Kroger2016' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[1988] Utils.pm:147> WARN - The entry 'Luo' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[2109] Utils.pm:147> WARN - The entry 'Sigal' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[2137] Utils.pm:147> WARN - The entry 'SoaresDeAlmeida2016a' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[2148] Utils.pm:147> WARN - The entry 'Spinello2010' has characters which cannot be encoded in 'ascii'. Recoding problematic characters into macros.
+[2262] bbl.pm:615> INFO - Output to example.bbl
+[2262] Biber.pm:109> INFO - WARNINGS: 16

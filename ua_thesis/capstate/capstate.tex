@@ -72,7 +72,7 @@ Another interesting autonomous vehicle project is the \gls{scot} vehicle (figure
 	\includegraphics[width=0.9\textwidth]{capstate/imgs/scot}
 	
 	\caption{SCOT - Shared Computer-Operated Transit vehicle (\cite{Singapore-MITAllianceforResearchandTechnology})}
-	\label{fig:sot}
+	\label{fig:scot}
 	
 \end{figure}
 
@@ -128,7 +128,7 @@ In addition, sensor calibration was done using the calibration graphical interfa
 
 \subsection{Active Tracking of Dynamic Multivariate Agents} 
 
-Methods to detect and follow targets using the \gls{lidar} on the ATLASCAR was developed by  \cite{SoaresDeAlmeida2016a}. The thesis is based in the tracking of multiple targets in the fields of advanced safety systems. The focus lies in the prediction of the movement and actions of external agents. Two main targets are studied: vehicles and pedestrians. 
+Methods to detect and follow targets using the \gls{lidar} on the ATLASCAR were developed by  \cite{SoaresDeAlmeida2016a}. The thesis is based in the tracking of multiple targets in the fields of advanced safety systems. The focus lies in the prediction of the movement and actions of external agents. Two main targets are studied: vehicles and pedestrians. 
 
 This thesis proposes techniques to improve motion prediction to achieve the development of algorithms capable of target tracking. These algorithms make use of the 3D point clouds of the environment and vision-based sensors. 
 
@@ -186,11 +186,11 @@ The data is processed and inserted into MATLAB structures and arrays. The KITTI 
 \end{center}
 \end{figure}
 
-Listing \ref{lst: pop_grid} shows an example snippet in which there are two lines of what the \gls{kitti} dataset looks like. Each line starts with the frame ID and the ID of the object being tracked. Then it is added a label to classify this object. There are also flags to indicate if the object is either truncated or occluded in the image sequence. 
+Listing \ref{lst: pop_grid} shows an example snippet of what the \gls{kitti} dataset looks like. Each line starts with the frame ID and the ID of the object being tracked. Then it is added a label to classify this object. There are also flags to indicate if the object is either truncated or occluded in the image sequence. 
 
 The following numbers consist in the alpha (observation angle of object), the left, top, right and bottom of the 2D bounding box, the height, width and length of the 3D bounding box and its XYZ coordinates. The last number consists in the 3D rotation angle in the Y axis (\cite{Team}).
 
-Analyzing the snippet, it is possible to locate a cyclist and a pedestrian in frame 3 and the same cyclist and pedestrian (because they have the same object\_id) in the next frame with also a van. The \texttt{DontCare} label is often shown representing an object detected that is not related to the scope of the \gls{kitti} dataset. Other information indicate where these objects are found relatively to the car.
+Analyzing the snippet, a cyclist and a pedestrian can be located in frame 3 and the same cyclist and pedestrian (because they have the same object\_id) in the next frame with also a van. The \texttt{DontCare} label is often shown representing an object detected that is not related to the scope of the \gls{kitti} dataset. Other information indicate where these objects are found relatively to the car.
 
 Figure \ref{fig:kittiresult} depicts a result from an image sequence using the KITTI dataset. 
 
@@ -264,7 +264,7 @@ The labelling has a semi-automatic and a manual mode. In this annotation applica
 	\end{center}
 \end{figure}
 
-In listing \ref{lst:berkelydata} a snippet from a file of the DeepDrive dataset is depicted. The dataset is presented in the JSON format. For each frame there is a timestamp and a set of objects. Each object is identifies with a category, an ID, attributes that indicate if the object is occluded, truncated, and if the object is a traffic light which light color is on. The position is represented by the 2D bounding box position $(x1,y1,x2,y2)$.
+In listing \ref{lst:berkelydata} a snippet from a file of the DeepDrive dataset is depicted. The dataset is presented in the JSON format. For each frame there is a timestamp and a set of objects. Each object is identified with a category, an ID, attributes that indicate if the object is occluded, truncated, and if the object is a traffic light which light color is on. The position is represented by the 2D bounding box position $(x1,y1,x2,y2)$.
 
 	
 \subsection{HumanEva II Dataset}
@@ -315,7 +315,7 @@ Other datasets included in the research for this dissertation are found in \gls{
 	
 \end{figure}
 
-This dataset is focused just in the detection and tracking of pedestrians in the image (\cite{ETHZEidgenossischeTechnischeHochschuleZurich}). In listing \ref{lst:ETHZ} each line is composed with a string defining a path to the image representing the actual frame, followed by tuples of four elements $(x1,y1,x2,y2)$ representing the bounding boxes where pedestrians are found in the respective frame. 
+This dataset is focused only in the detection and tracking of pedestrians in the image (\cite{ETHZEidgenossischeTechnischeHochschuleZurich}). In listing \ref{lst:ETHZ} each line is composed with a string defining a path to the image representing the actual frame, followed by tuples of four elements $(x1,y1,x2,y2)$ representing the bounding boxes where pedestrians are found in the respective frame. 
 
 \subsubsection{EPFL dataset}
 The \gls{epfl} designed a dataset for multiple people in a camera environment, independent of the scenario. This dataset used various synced video cameras filming the same area in different angles (\cite{Biliotti}). The data from the cameras is captured and processed with MATLAB scripts and some algorithms in C++.
@@ -371,11 +371,13 @@ In listing \ref{lst:basket} there is a snippet of the dataset. The dataset inclu
  
 \subsection{Resume}
 
-To summarize this section, after analyzing these datasets are how they are created, it is important to look at what is stored in the data structures. Some datasets use well known data structures such as XML (HumanEva) or JSON (DeepDrive), and some datasets use their own set of data where each line corresponds to an entry. 
+To summarize this section, after analyzing these datasets and how they are created, it is important to look at what is stored in the data structures	. Some datasets use well known data structures such as XML (HumanEva) or JSON (DeepDrive), and some datasets use their own set of data where each line corresponds to an entry. 
 
 To design a dataset for the ATLASCAR it is necessary to decide which construction to use. To simplify the complexity of the files, an adapted approach used in the KITTI dataset will be used, where each line is an entry for a different object.
 
 Analyzing the datasets, the most common and relevant information in all files is the position of the targets, their classification and identification. So it is fundamental for the ATLASCAR dataset to contain, for each frame, 2D and 3D coordinates of the target, a label, and an identification number.
+
+Regarding the labelling system, it would be interesting to implement an interface that suggests the user objects of interest similar to the DeepDrive annotation tool.
 
 
 

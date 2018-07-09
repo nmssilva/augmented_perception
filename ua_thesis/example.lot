@@ -20,9 +20,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {3.1}{\ignorespaces Mitsubishi i-MiEV technical specifications (\cite {MITSUBISHIMOTORS})\relax }}{24}{table.caption.33}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.2}{\ignorespaces SICK LMS151 specifications\relax }}{24}{table.caption.35}
+\contentsline {table}{\numberline {3.2}{\ignorespaces SICK LMS151 specifications (\cite {SICK}\relax }}{24}{table.caption.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {3.3}{\ignorespaces SICK LMS151 specifications\relax }}{25}{table.caption.37}
+\contentsline {table}{\numberline {3.3}{\ignorespaces SICK LMS151 specifications (\cite {SICKa}\relax }}{25}{table.caption.37}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {3.4}{\ignorespaces PointGrey Zebra 2 Camera specifications\relax }}{27}{table.caption.39}
 \defcounter {refsection}{0}\relax 
@@ -32,17 +32,17 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.1}{\ignorespaces Highway dataset annotation metrics\relax }}{57}{table.caption.81}
+\contentsline {table}{\numberline {6.1}{\ignorespaces Highway dataset annotation metrics\relax }}{57}{table.caption.80}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.2}{\ignorespaces Highway dataset object amounts\relax }}{57}{table.caption.84}
+\contentsline {table}{\numberline {6.2}{\ignorespaces Highway dataset object amounts\relax }}{57}{table.caption.83}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.3}{\ignorespaces Urban area dataset with semi-automatic methods annotation metrics\relax }}{59}{table.caption.86}
+\contentsline {table}{\numberline {6.3}{\ignorespaces Urban area dataset with semi-automatic methods annotation metrics\relax }}{59}{table.caption.85}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.4}{\ignorespaces Urban area dataset with semi-automatic methods object amounts\relax }}{60}{table.caption.87}
+\contentsline {table}{\numberline {6.4}{\ignorespaces Urban area dataset with semi-automatic methods object amounts\relax }}{60}{table.caption.86}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.5}{\ignorespaces Urban area dataset with manual methods annotation metrics\relax }}{60}{table.caption.90}
+\contentsline {table}{\numberline {6.5}{\ignorespaces Urban area dataset with manual methods annotation metrics\relax }}{60}{table.caption.89}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {6.6}{\ignorespaces Urban area dataset with manual methods object amounts\relax }}{60}{table.caption.91}
+\contentsline {table}{\numberline {6.6}{\ignorespaces Urban area dataset with manual methods object amounts\relax }}{60}{table.caption.90}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

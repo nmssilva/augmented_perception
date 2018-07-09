@@ -37,7 +37,7 @@ When the node starts, a window opens (see figure \ref{fig:view}) for the user to
 	
 \end{figure}
 
-When the user clicks on an object, a callback function is triggered to process the mouse event and a bounding box with a predefined size appears in the click position.
+When the user clicks on an object, a callback function is triggered to process the mouse event and a bounding box with a predefined size appears around the click position.
 
 During this process, when the image is iterated the upper third-part of the image is ignored as it is considered to be irrelevant content as most of it will be tall objects like trees or objects in the sky, like clouds.
 
@@ -58,7 +58,7 @@ Template matching is a technique for finding areas of an image that match (are s
 	
 \end{figure}
 
-It is important to note that after each frame is received, the patch used for the next template matching cycle will be the \gls{roi} acquired in the previous frame. This means that the patch is update when a new frame is received to obtain better accuracy of the object's pose. 
+It is important to note that after each frame is received, the patch used for the next template matching cycle will be the \gls{roi} acquired in the previous frame. This means that the patch is updated when a new frame is received to obtain better accuracy of the object's next pose. 
 
 This step concludes the front tracking. It is important to notice that this application features tracking of the objects not only for the next frames but also for the previous. The tracking for the next and previous frames is respectively the front and back tracking.
 

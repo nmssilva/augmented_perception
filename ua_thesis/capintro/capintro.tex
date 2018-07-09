@@ -5,7 +5,7 @@ It is important in \gls{ad} and \gls{adas} to implement machine learning methods
 
 This thesis is focused on the research of methods to register data into labels using a camera and \gls{lidar} sensors in ATLASCAR 2, so that the vehicle can later create a model of the objects it will detect and follow.
 
-This dissertation will also improve some previous work, namely the calibration process in ATLASCAR 2. In addition to the calibration, a tool for image labeling and tracking of objects will be developed. This tool will be used to gather image templates while tracking objects in the camera video. 
+A tool for image labeling and tracking of objects will be developed. This tool will be used to gather image templates while tracking objects in the camera video. This dissertation will also improve some previous work, namely the calibration process in ATLASCAR 2.
 
 \section{ATLAS Project}
 
@@ -28,7 +28,7 @@ The ATLAS Project was created in 2003 and began with robots developed to partici
 	
 \end{figure}
 
-As the project grew, it evolved into full-sized prototypes: the ATLASCARs. ATLASCAR1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR1 was equipped with several \gls{lidar} sensors and cameras. Data about its environment is gathered by the scanners which is then processed building perception into the car allowing the car to actuate and move autonomously. 
+As the project grew, it evolved into full-sized prototypes: the ATLASCARs. ATLASCAR1 (figure \ref{fig:atlascar1}) is the first full-sized platform and it is based on a Ford Escort Station Wagon. The ATLASCAR1 was equipped with several \gls{lidar} sensors and cameras. Data about its environment is gathered by the scanners which is then processed building perception into the car allowing it to actuate and move autonomously. 
 
 \begin{figure}[htp]
 	
@@ -55,9 +55,9 @@ The ATLASCAR1 brought successful results. In the end, the vehicle was able to mo
 
 \section{Motivation}
 
-\gls{ad} and \gls{adas} often make use of machine learning. Deep learning algorithms utilize neural and convolutional networks for images and range-based sensor data. In the fields of machine learning, images are often used as input templates to create object models. In an image sequence it is possible to track an object and obtain samples of the target's location. This way it is possible for an algorithm to automatically recognize an object.
+\gls{ad} and \gls{adas} often make use of machine learning. Deep learning algorithms utilize neural and convolutional networks for images and range-based sensor data. In the fields of machine learning, images are often used as input templates to create object models. In an image sequence it is possible to track an object and obtain samples of the target's location. This way an algorithm can automatically recognize targets.
 
-While registering the position of the objects in an image sequence, it is important to tell what those objects are. Labelling is the act to classify objects in a certain group. As the annotation is done, when selecting an object, the user should enter a label that identifies the target making it easy for the learning algorithm to recognize to object afterwards.
+While registering the position of the objects in an image sequence, it is important to tell what those objects are. Labelling is the act to classify objects in a certain category. As the annotation is done, when selecting an object, the user should enter a label that identifies the target making it easy for the learning algorithm to recognize to object afterwards.
 
 The objective and importance of tagging samples of images with a label is to assign metadata in the form of a keyword to later allow an application to retrieve this information and easily construct a database. However, most labelling for images is currently done with non optimized manual procedures.
 
