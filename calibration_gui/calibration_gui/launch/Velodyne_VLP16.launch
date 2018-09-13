@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="host" default="192.168.0.244"/>
+    <arg name="frame_id" default="velodyne"/>
+    <arg name="node_name" default="vlp16_1"/>
+    <arg name="ball_diameter" default="0.8"/>
+
+    <group ns="$(arg node_name)">
+        <!--<include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">-->
+            <!--<param name="device_ip" value="$(arg host)"/>-->
+            <!--<param name="frame_id" value="$(arg frame_id)"/>-->
+        <!--</include>-->
+        <node name="bag_play" pkg="rosbag" type="play"  args="--l $(find free_space_detection)/laserData/velodyne_calib.bag">
+            <remap from="/velodyne_points" to="/vlp16_1/velodyne_points"/>
+            <remap from="/lms151_E_scan" to="/lms151_1/scan"/>
+            <remap from="/ld_rms/scan0" to="/ldmrs_1/scan0"/>
+            <remap from="/ld_rms/scan1" to="/ldmrs_1/scan1"/>
+            <remap from="/ld_rms/scan2" to="/ldmrs_1/scan2"/>
+            <remap from="/ld_rms/scan3" to="/ldmrs_1/scan3"/>
+        </node>
+        
+        <node name="BD_$(arg node_name)" pkg="calibration_gui" type="velodyne_vlp16_node" required="true" output="screen">
+            <param name="ballDiameter" type="double" value="$(arg ball_diameter)"/>
+        </node>
+    </group>
+</launch>
