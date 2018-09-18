@@ -49,7 +49,7 @@ Acquire data on the car
 - Set Manual IP address to 192.168.0.1
 - Launch the drivers
 ```bash
-roslaunch image_labeling drivers.launch
+roslaunch augmented_perception drivers.launch
 ```
 - Camera IP mut be set manually using the ```flycap``` command 
 - Devices are ready to be used. Use Rviz or any tool to visualize laser and camera data.
